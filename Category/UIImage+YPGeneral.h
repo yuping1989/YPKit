@@ -10,4 +10,7 @@
 
 @interface UIImage (YPGeneral)
 + (UIImage *)imageWithColor:(UIColor *)color;
+
+- (UIImage *)scaleByWidth:(CGFloat)width;
+- (UIImage *)scaleByHeight:(CGFloat)height;
 @end

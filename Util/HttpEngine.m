@@ -7,7 +7,6 @@
 //
 
 #import "HttpEngine.h"
-#import "Constant.h"
 @implementation HttpEngine
 - (id)init
 {
@@ -196,7 +195,7 @@
 
 - (NSString *)requestUrlWithPath:(NSString *)path
 {
-    return [NSString stringWithFormat:@"%@/%@", HOST_NAME, path];
+    return [NSString stringWithFormat:@"%@/%@", _hostName, path];
 }
 
 - (NSString *)getErrorMessage:(NSDictionary *)responseData

@@ -21,4 +21,21 @@
     UIGraphicsEndImageContext();
     return theImage;
 }
+
+- (UIImage *)scaleByWidth:(CGFloat)width;
+{
+    UIGraphicsBeginImageContext(CGSizeMake(width, self.size.height * width / self.size.width));
+    [self drawInRect:CGRectMake(0, 0, width, self.size.height * width / self.size.width)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
+- (UIImage *)scaleByHeight:(CGFloat)height;
+{
+    UIGraphicsBeginImageContext(CGSizeMake(self.size.width * height / self.size.height, height));
+    [self drawInRect:CGRectMake(0, 0, self.size.width * height / self.size.height, height)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
 @end

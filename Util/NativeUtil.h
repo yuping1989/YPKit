@@ -9,7 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "AppDelegate.h"
 #define IOS7_AND_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f ? YES : NO)
+
+#define IPHONE5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+
 #define rgb(RED,GREEN,BLUE) [UIColor colorWithRed:RED/255.0f green:GREEN/255.0f blue:BLUE/255.0f alpha:1.0f]
+
 #define userDefaults [NSUserDefaults standardUserDefaults]
 
 @interface NativeUtil : NSObject

@@ -23,3 +23,5 @@
 
 #import "UIView+YPGeneral.h"
 #import "UIAlertView+YPGeneral.h"
+
+#import "UIViewController+YPGeneral.h"

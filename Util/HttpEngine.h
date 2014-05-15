@@ -22,6 +22,7 @@ typedef void (^DownloadFinishedBlock)(MKNetworkOperation *operation);
 @interface HttpEngine : NSObject
 @property (nonatomic, strong) MKNetworkEngine *mkNetworkEngine;
 @property (nonatomic, strong) Reachability *reachability;
+@property (nonatomic, strong) NSString *hostName;
 + (HttpEngine *)shared;
 - (BOOL)isReachable;
 - (void)startWithPath:(NSString *)path

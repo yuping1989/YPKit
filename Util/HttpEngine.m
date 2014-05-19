@@ -174,13 +174,15 @@
     }
     int status = operation.HTTPStatusCode;
     NSLog(@"request code--->%d", status);
-    NSLog(@"response string--->%@", operation.responseString);
+//    NSLog(@"response string--->%@", operation.responseString);
     NSError *error;
     NSDictionary *responseDict;
     if (operation.responseData) {
         responseDict = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:&error];
     }
-    
+    if (responseDict == nil) {
+        responseDict = @{@"responseString": operation.responseString};
+    }
     NSLog(@"result dict--->%@", responseDict.description);
     
     if (status == 200) {

@@ -25,4 +25,6 @@
 - (void)removeKeyboardNotification;
 - (void)keyboardWillShowWithRect:(CGRect)keyboardRect animationDuration:(float)duration;
 - (void)keyboardWillHideWithRect:(CGRect)keyboardRect animationDuration:(float)duration;
+//点击背景view的时候，关闭键盘
+- (void)hideKeyboardWhenTapBackground;
 @end

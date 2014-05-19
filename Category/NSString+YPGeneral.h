@@ -20,4 +20,6 @@
 
 - (NSString *)stringByAppendSpaceToLength:(int)length;
 - (NSString *)stringByInsertSpaceToLength:(int)length;
+
+- (NSString *)md5;
 @end

@@ -14,8 +14,8 @@
 #define HttpMethodGet      @"GET"
 #define HttpMethodPut      @"PUT"
 #define HttpMethodDelete   @"DELETE"
-typedef void (^ApiRequestSuccessedBlock)(NSDictionary *successedData);
-typedef BOOL (^ApiRequestFailedBlock)(NSDictionary *failedData);
+typedef void (^ApiRequestSuccessedBlock)(id successedData);
+typedef BOOL (^ApiRequestFailedBlock)(id failedData);
 typedef void (^DownloadFinishedBlock)(MKNetworkOperation *operation);
 
 @class ApiRequest;

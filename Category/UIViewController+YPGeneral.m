@@ -93,4 +93,15 @@
 {
     
 }
+
+- (void)hideKeyboardWhenTapBackground
+{
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+    [self.view addGestureRecognizer:tapGesture];
+}
+
+- (void)viewTapped:(UITapGestureRecognizer *)recognizer
+{
+    [NativeUtil hideKeyboard];
+}
 @end

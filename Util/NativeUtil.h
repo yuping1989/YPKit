@@ -16,6 +16,8 @@
 
 #define userDefaults [NSUserDefaults standardUserDefaults]
 
+#define YPLog(tag, text) NSLog(@"%@-->%@", tag, text)
+
 @interface NativeUtil : NSObject
 + (AppDelegate *)appDelegate;
 + (void)showToast:(NSString *)text;

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AppDelegate.h"
+
 #define IOS7_AND_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f ? YES : NO)
 
 #define IPHONE5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
@@ -16,7 +17,9 @@
 
 #define userDefaults [NSUserDefaults standardUserDefaults]
 
-#define YPLog(tag, text) NSLog(@"%@-->%@", tag, text)
+#define NSLogYP(tag, text) NSLog(@"%@-->%@", tag, text)
+
+typedef void(^CompletionBlock)(void);
 
 @interface NativeUtil : NSObject
 + (AppDelegate *)appDelegate;

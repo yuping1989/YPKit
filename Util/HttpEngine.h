@@ -16,7 +16,7 @@
 #define HttpMethodDelete   @"DELETE"
 typedef void (^ApiRequestSuccessedBlock)(id successedData);
 typedef BOOL (^ApiRequestFailedBlock)(id failedData);
-typedef void (^DownloadFinishedBlock)(MKNetworkOperation *operation);
+typedef void (^UploadDownloadFinishedBlock)(MKNetworkOperation *operation);
 
 @class ApiRequest;
 @interface HttpEngine : NSObject
@@ -54,8 +54,16 @@ typedef void (^DownloadFinishedBlock)(MKNetworkOperation *operation);
                      toFileAtPath:(NSString *)filePath
                   progressChanged:(MKNKProgressBlock)progressChanged
                        controller:(YPBaseViewController *)controller
-                        successed:(DownloadFinishedBlock)successed
-                           failed:(DownloadFinishedBlock)failed;
+                        successed:(UploadDownloadFinishedBlock)successed
+                           failed:(UploadDownloadFinishedBlock)failed;
+
+- (void)uploadFileWithUrlString:(NSString *)urlString
+                         params:(NSMutableDictionary *)params
+                     uploadData:(NSData *)data
+                progressChanged:(MKNKProgressBlock)progressChanged
+                     controller:(YPBaseViewController *)controller
+                      successed:(ApiRequestSuccessedBlock)successed
+                         failed:(ApiRequestFailedBlock)failed;
 
 // 显示提示信息
 - (void)hideProgressAndShowErrorMsg:(NSString *)message controller:(YPBaseViewController *)controller;

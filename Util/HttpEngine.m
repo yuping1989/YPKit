@@ -142,8 +142,8 @@
                      toFileAtPath:(NSString *)filePath
                   progressChanged:(MKNKProgressBlock)progressChanged
                        controller:(YPBaseViewController *)controller
-                        successed:(DownloadFinishedBlock)successed
-                           failed:(DownloadFinishedBlock)failed
+                        successed:(UploadDownloadFinishedBlock)successed
+                           failed:(UploadDownloadFinishedBlock)failed
 {
     NSLog(@"urlString-->%@", urlString);
     NSLog(@"filrPath-->%@", filePath);
@@ -160,6 +160,35 @@
         if (failed) {
             failed(completedOperation);
         }
+    }];
+    [self.mkNetworkEngine enqueueOperation:op forceReload:YES];
+}
+
+- (void)uploadFileWithUrlString:(NSString *)urlString
+                         params:(NSMutableDictionary *)params
+                     uploadData:(NSData *)data
+                progressChanged:(MKNKProgressBlock)progressChanged
+                     controller:(YPBaseViewController *)controller
+                      successed:(ApiRequestSuccessedBlock)successed
+                         failed:(ApiRequestFailedBlock)failed
+{
+    NSLog(@"urlString-->%@", urlString);
+    NSLog(@"data length-->%d", data.length);
+    MKNetworkOperation *op = [self.mkNetworkEngine operationWithURLString:urlString params:params httpMethod:HttpMethodPost];
+    [op setUploadStream:[NSInputStream inputStreamWithData:data]];
+    if (progressChanged) {
+        [op onUploadProgressChanged:progressChanged];
+    }
+    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+        [self processRequestOperation:completedOperation
+                           controller:controller
+                     successedHandler:successed
+                        failedHandler:failed];
+    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+        [self processRequestOperation:completedOperation
+                           controller:controller
+                     successedHandler:successed
+                        failedHandler:failed];
     }];
     [self.mkNetworkEngine enqueueOperation:op forceReload:YES];
 }
@@ -236,13 +265,13 @@
                 [UIAlertView showAlertWithTitle:message];
             }
         } else {
-            [NativeUtil showToast:@"发现未知错误，请重试"];
+            [NativeUtil showToast:@"网络连接失败，请重试"];
         }
     } else {
         if (message) {
             [UIAlertView showAlertWithTitle:message];
         } else {
-            [UIAlertView showAlertWithTitle:@"发现未知错误，请重试"];
+            [UIAlertView showAlertWithTitle:@"网络连接失败，请重试"];
         }
     }
 }

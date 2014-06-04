@@ -22,4 +22,7 @@
 - (CGFloat)y;
 - (void)centerInHorizontal:(UIView *)parentView;
 - (void)centerInVertical:(UIView *)parentView;
+
+- (void)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef;
+- (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef;
 @end

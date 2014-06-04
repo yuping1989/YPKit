@@ -22,4 +22,6 @@
 - (NSString *)stringByInsertSpaceToLength:(int)length;
 
 - (NSString *)md5;
+
++ (NSString *)stringWithArray:(NSArray *)array separator:(NSString *)separator;
 @end

@@ -42,4 +42,19 @@
     UIGraphicsEndImageContext();
     return scaledImage;
 }
+
++ (UIImage *)stretchableImageNamed:(NSString *)name
+{
+    UIImage *image = [UIImage imageNamed:name];
+    return [image stretchableImageWithLeftCapWidth:(int)(image.size.width / 2)
+                                      topCapHeight:(int)(image.size.height / 2)];
+}
+
++ (UIImage *)stretchableImageNamed:(NSString *)name
+                      leftCapWidth:(NSInteger)leftCapWidth
+                      topCapHeight:(NSInteger)topCapHeight
+{
+    UIImage *image = [UIImage imageNamed:name];
+    return [image stretchableImageWithLeftCapWidth:leftCapWidth topCapHeight:topCapHeight];
+}
 @end

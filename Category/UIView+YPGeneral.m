@@ -66,4 +66,19 @@
 {
     [self setY:(parentView.height - self.height) / 2];
 }
+
+
+- (void)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef
+{
+    CALayer *layer = [CALayer layer];
+    layer.frame = frame;
+    layer.backgroundColor = colorRef;
+    [self.layer addSublayer:layer];
+}
+
+- (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef
+{
+    [self addSubLayerWithFrame:CGRectMake(0, 0, self.width, height) color:colorRef];
+    [self addSubLayerWithFrame:CGRectMake(0, self.height - height, self.width, 0.5f) color:colorRef];
+}
 @end

@@ -12,6 +12,11 @@
 + (UIImage *)imageWithColor:(UIColor *)color;
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 
++ (UIImage *)stretchableImageNamed:(NSString *)name;
++ (UIImage *)stretchableImageNamed:(NSString *)name
+                      leftCapWidth:(NSInteger)leftCapWidth
+                      topCapHeight:(NSInteger)topCapHeight;
+
 - (UIImage *)scaleByWidth:(CGFloat)width;
 - (UIImage *)scaleByHeight:(CGFloat)height;
 @end

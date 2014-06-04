@@ -88,4 +88,16 @@
              result[12], result[13], result[14], result[15]
              ] lowercaseString];
 }
+
++ (NSString *)stringWithArray:(NSArray *)array separator:(NSString *)separator
+{
+    NSMutableString *string = [NSMutableString string];
+    for (int i = 0; i < array.count; i++) {
+        [string appendString:array[i]];
+        if (i != array.count - 1) {
+            [string appendString:separator];
+        }
+    }
+    return string;
+}
 @end

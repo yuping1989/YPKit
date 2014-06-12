@@ -7,7 +7,7 @@
 //
 
 #import "UIView+YPGeneral.h"
-
+#define LINE_COLOR rgb(220, 220, 220).CGColor
 @implementation UIView (YPGeneral)
 - (void)setWidth:(CGFloat)width
 {
@@ -75,7 +75,10 @@
     layer.backgroundColor = colorRef;
     [self.layer addSublayer:layer];
 }
-
+- (void)addTopAndBottomLine
+{
+    [self addTopAndBottomLineWithHeight:0.5f color:LINE_COLOR];
+}
 - (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef
 {
     [self addSubLayerWithFrame:CGRectMake(0, 0, self.width, height) color:colorRef];

@@ -20,6 +20,7 @@
 #define NSLogYP(tag, text) NSLog(@"%@-->%@", tag, text)
 
 typedef void(^CompletionBlock)(void);
+typedef void(^CompletionBlockWithData)(id data);
 
 @interface NativeUtil : NSObject
 + (AppDelegate *)appDelegate;

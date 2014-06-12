@@ -19,10 +19,13 @@
 #import "NSSet+YPGeneral.h"
 #import "NSArray+YPGeneral.h"
 #import "NSString+YPGeneral.h"
-
+#import "NSMutableAttributedString+YPGeneral.h"
 
 #import "UIView+YPGeneral.h"
 #import "UIAlertView+YPGeneral.h"
 #import "UITableView+YPGenaral.h"
+#import "UIButton+YPGeneral.h"
+#import "UITextField+YPGeneral.h"
+#import "UILabel+YPGeneral.h"
 
 #import "UIViewController+YPGeneral.h"

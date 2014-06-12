@@ -24,5 +24,6 @@
 - (void)centerInVertical:(UIView *)parentView;
 
 - (void)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef;
+- (void)addTopAndBottomLine;
 - (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef;
 @end

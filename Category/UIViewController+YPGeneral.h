@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
+@interface UIViewController (YPGeneral) <MBProgressHUDDelegate>
 
-@interface UIViewController (YPGeneral)
 + (instancetype)instance;
+
+- (void)showProgressWithText:(NSString *)text;
+- (void)showProgressOnWindowWithText:(NSString *)text;
+- (void)showProgressOnView:(UIView *)view text:(NSString *)text userInteractionEnabled:(BOOL)enabled;
+- (void)hideProgress;
 
 - (void)initLeftBarButtonItemWithTitle:(NSString *)title;
 - (void)initLeftBarButtonItemWithTitle:(NSString *)title target:(id)target;
@@ -27,4 +33,7 @@
 - (void)keyboardWillHideWithRect:(CGRect)keyboardRect animationDuration:(float)duration;
 //点击背景view的时候，关闭键盘
 - (void)hideKeyboardWhenTapBackground;
+
+- (void)setProgressHUD:(MBProgressHUD *)progressHUD;
+- (MBProgressHUD *)progressHUD;
 @end

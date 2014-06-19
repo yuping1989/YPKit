@@ -84,4 +84,24 @@
     [self addSubLayerWithFrame:CGRectMake(0, 0, self.width, height) color:colorRef];
     [self addSubLayerWithFrame:CGRectMake(0, self.height - height, self.width, 0.5f) color:colorRef];
 }
+
+- (void)addTopFillLine
+{
+    [self addSubLayerWithFrame:CGRectMake(0, 0, self.width, 0.5f) color:LINE_COLOR];
+}
+
+- (void)addBottomFillLine
+{
+    [self addSubLayerWithFrame:CGRectMake(0,
+                                          self.height - 0.5f,
+                                          self.width,
+                                          0.5f)
+                         color:LINE_COLOR];
+}
+
+- (void)setTarget:(id)target action:(SEL)action
+{
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:target action:action];
+    [self addGestureRecognizer:recognizer];
+}
 @end

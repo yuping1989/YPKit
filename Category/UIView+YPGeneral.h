@@ -26,4 +26,8 @@
 - (void)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef;
 - (void)addTopAndBottomLine;
 - (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef;
+- (void)addTopFillLine;
+- (void)addBottomFillLine;
+
+- (void)setTarget:(id)target action:(SEL)action;
 @end

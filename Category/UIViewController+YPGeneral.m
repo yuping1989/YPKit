@@ -7,11 +7,60 @@
 //
 
 #import "UIViewController+YPGeneral.h"
-
-@implementation UIViewController (YPGeneral)
+#define kProgressHUD @"kProgressHUD"
+@implementation UIViewController (YPGeneral) 
 + (instancetype)instance;
 {
     return [[self alloc] initWithNibName:[[self class] description] bundle:nil];
+}
+
+- (MBProgressHUD *)progressHUD {
+    return objc_getAssociatedObject(self, kProgressHUD);
+}
+
+- (void)setProgressHUD:(UIImage *)progressHUD {
+    objc_setAssociatedObject(self, kProgressHUD, progressHUD, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (void)showProgressWithText:(NSString *)text
+{
+    [self showProgressOnView:self.view text:text userInteractionEnabled:YES];
+}
+
+- (void)showProgressOnWindowWithText:(NSString *)text
+{
+    [self showProgressOnView:[NativeUtil appDelegate].window text:text userInteractionEnabled:YES];
+}
+
+- (void)showProgressOnView:(UIView *)view text:(NSString *)text userInteractionEnabled:(BOOL)enabled
+{
+    if (self.progressHUD == nil) {
+        self.progressHUD = [[MBProgressHUD alloc] initWithView:view];
+        [view addSubview:self.progressHUD];
+        self.progressHUD.delegate = self;
+        [self.progressHUD show:YES];
+    }
+    self.progressHUD.labelText = text;
+    NSLog(@"show");
+    self.progressHUD.userInteractionEnabled = enabled;
+}
+
+- (void)hudWasHidden:(MBProgressHUD *)hud
+{
+    if (self.progressHUD == nil) {
+        return;
+    }
+    [self.progressHUD removeFromSuperview];
+    self.progressHUD = nil;
+    NSLog(@"hide");
+}
+
+- (void)hideProgress
+{
+    if (self.progressHUD == nil) {
+        return;
+    }
+    [self.progressHUD hide:YES];
 }
 
 - (void)initRightBarButtonItemWithTitle:(NSString *)title
@@ -53,12 +102,14 @@
 
 - (void)removeKeyboardNotification
 {
-    NSLog(@"removeKeyboardNotification");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 - (void)keyboardWillShow:(NSNotification *)notification
 {
+    if (self.view.window == nil) {
+        return;
+    }
     NSDictionary *userInfo = [notification userInfo];
     NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardRect = [aValue CGRectValue];
@@ -72,6 +123,9 @@
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
+    if (self.view.window == nil) {
+        return;
+    }
     NSDictionary *userInfo = [notification userInfo];
     NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardRect = [aValue CGRectValue];

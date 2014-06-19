@@ -6,17 +6,11 @@
 //  Copyright (c) 2013年 喻平. All rights reserved.
 //
 #import <UIKit/UIKit.h>
-#import "MBProgressHUD.h"
 
-@interface YPBaseViewController : UIViewController <MBProgressHUDDelegate>
+@interface YPBaseViewController : UIViewController
 {
-    MBProgressHUD *_progressHUD;
+    
 }
 
 - (BOOL)isViewInBackground;
-
-- (void)showProgressWithText:(NSString *)text;
-- (void)showProgressOnWindowWithText:(NSString *)text;
-- (void)showProgressOnView:(UIView *)view text:(NSString *)text userInteractionEnabled:(BOOL)enabled;
-- (void)hideProgress;
 @end

@@ -19,4 +19,6 @@
 
 - (UIImage *)scaleByWidth:(CGFloat)width;
 - (UIImage *)scaleByHeight:(CGFloat)height;
+
+- (UIImage *)fixOrientation;
 @end

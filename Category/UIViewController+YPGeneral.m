@@ -73,6 +73,12 @@
     self.navigationItem.rightBarButtonItem = item;
 }
 
+- (void)initRightBarButtonItemWithImage:(UIImage *)image target:(id)target
+{
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStyleBordered target:target action:@selector(rightBarButtonClicked:)];
+    self.navigationItem.rightBarButtonItem = item;
+}
+
 - (void)initLeftBarButtonItemWithTitle:(NSString *)title
 {
     [self initLeftBarButtonItemWithTitle:title target:self];
@@ -80,6 +86,11 @@
 - (void)initLeftBarButtonItemWithTitle:(NSString *)title target:(id)target
 {
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:target action:@selector(leftBarButtonClicked:)];
+    self.navigationItem.leftBarButtonItem = item;
+}
+- (void)initLeftBarButtonItemWithImage:(UIImage *)image target:(id)target
+{
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStyleBordered target:target action:@selector(leftBarButtonClicked:)];
     self.navigationItem.leftBarButtonItem = item;
 }
 - (void)leftBarButtonClicked:(id)sender

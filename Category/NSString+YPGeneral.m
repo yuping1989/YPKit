@@ -93,7 +93,7 @@
 {
     NSMutableString *string = [NSMutableString string];
     for (int i = 0; i < array.count; i++) {
-        [string appendString:array[i]];
+        [string appendFormat:@"%@", array[i]];
         if (i != array.count - 1) {
             [string appendString:separator];
         }

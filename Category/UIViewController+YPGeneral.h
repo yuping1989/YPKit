@@ -19,10 +19,12 @@
 
 - (void)initLeftBarButtonItemWithTitle:(NSString *)title;
 - (void)initLeftBarButtonItemWithTitle:(NSString *)title target:(id)target;
+- (void)initLeftBarButtonItemWithImage:(UIImage *)image target:(id)target;
 - (void)leftBarButtonClicked:(id)sender;
 
 - (void)initRightBarButtonItemWithTitle:(NSString *)title;
 - (void)initRightBarButtonItemWithTitle:(NSString *)title target:(id)target;
+- (void)initRightBarButtonItemWithImage:(UIImage *)image target:(id)target;
 - (void)rightBarButtonClicked:(id)sender;
 
 

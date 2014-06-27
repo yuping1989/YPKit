@@ -198,6 +198,7 @@
                successedHandler:(ApiRequestSuccessedBlock)successed
                   failedHandler:(ApiRequestFailedBlock)failed;
 {
+    
     if (controller && [controller isViewInBackground]) {
         return;
     }
@@ -212,6 +213,7 @@
     if (responseDict == nil) {
         responseDict = @{@"responseString": operation.responseString};
     }
+    NSLog(@"controller--->%@", controller.class.description);
     NSLog(@"result dict--->%@", responseDict.description);
     
     if (status == 200) {

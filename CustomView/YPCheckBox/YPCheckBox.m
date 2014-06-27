@@ -31,8 +31,13 @@
 
 - (void)setup
 {
-    [self setImage:[UIImage imageNamed:@"checkbox_unchecked.png"] forState:UIControlStateNormal];
-    [self setImage:[UIImage imageNamed:@"checkbox_checked.png"] forState:UIControlStateSelected];
+    if ([self imageForState:UIControlStateNormal] == nil) {
+        [self setImage:[UIImage imageNamed:@"checkbox_unchecked.png"] forState:UIControlStateNormal];
+    }
+    if ([self imageForState:UIControlStateSelected] == nil) {
+        [self setImage:[UIImage imageNamed:@"checkbox_checked.png"] forState:UIControlStateSelected];
+    }
+    
     [self addTarget:self action:@selector(checkboxBtnChecked) forControlEvents:UIControlEventTouchUpInside];
 }
 

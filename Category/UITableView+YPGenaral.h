@@ -10,4 +10,5 @@
 
 @interface UITableView (YPGenaral)
 - (void)registerNibName:(NSString *)name;
+- (void)reloadRow:(NSInteger)row inSection:(NSInteger)section;
 @end

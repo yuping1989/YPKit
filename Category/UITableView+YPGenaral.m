@@ -13,4 +13,9 @@
 {
     [self registerNib:[UINib nibWithNibName:name bundle:nil] forCellReuseIdentifier:name];
 }
+
+- (void)reloadRow:(NSInteger)row inSection:(NSInteger)section
+{
+    [self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
 @end

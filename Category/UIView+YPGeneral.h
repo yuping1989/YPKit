@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#define LINE_COLOR rgb(220, 220, 220).CGColor
 @interface UIView (YPGeneral)
 - (void)setWidth:(CGFloat)width;
 - (void)setHeight:(CGFloat)height;
@@ -23,11 +23,15 @@
 - (void)centerInHorizontal:(UIView *)parentView;
 - (void)centerInVertical:(UIView *)parentView;
 
-- (void)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef;
+- (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef;
+
 - (void)addTopAndBottomLine;
+- (void)addTopAndBottomLineWithColor:(CGColorRef)color;
 - (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef;
 - (void)addTopFillLine;
+- (void)addTopFillLineWithColor:(CGColorRef)color;
 - (void)addBottomFillLine;
+- (void)addBottomFillLineWithColor:(CGColorRef)color;
 
 - (void)setTarget:(id)target action:(SEL)action;
 @end

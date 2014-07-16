@@ -12,5 +12,4 @@
     
 }
 
-- (BOOL)isViewInBackground;
 @end

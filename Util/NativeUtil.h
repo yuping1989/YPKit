@@ -14,13 +14,14 @@
 #define IPHONE5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 
 #define rgb(RED,GREEN,BLUE) [UIColor colorWithRed:RED/255.0f green:GREEN/255.0f blue:BLUE/255.0f alpha:1.0f]
-
+#define rgba(RED,GREEN,BLUE,ALPHA) [UIColor colorWithRed:RED/255.0f green:GREEN/255.0f blue:BLUE/255.0f alpha:ALPHA]
 #define userDefaults [NSUserDefaults standardUserDefaults]
 
 #define NSLogYP(tag, text) NSLog(@"%@-->%@", tag, text)
 
 typedef void(^CompletionBlock)(void);
 typedef void(^CompletionBlockWithData)(id data);
+
 
 @interface NativeUtil : NSObject
 + (AppDelegate *)appDelegate;

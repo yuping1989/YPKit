@@ -7,7 +7,6 @@
 //
 
 #import "UIView+YPGeneral.h"
-#define LINE_COLOR rgb(220, 220, 220).CGColor
 @implementation UIView (YPGeneral)
 - (void)setWidth:(CGFloat)width
 {
@@ -68,16 +67,21 @@
 }
 
 
-- (void)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef
+- (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef
 {
     CALayer *layer = [CALayer layer];
     layer.frame = frame;
     layer.backgroundColor = colorRef;
     [self.layer addSublayer:layer];
+    return layer;
 }
 - (void)addTopAndBottomLine
 {
     [self addTopAndBottomLineWithHeight:0.5f color:LINE_COLOR];
+}
+- (void)addTopAndBottomLineWithColor:(CGColorRef)color
+{
+    [self addTopAndBottomLineWithHeight:0.5f color:color];
 }
 - (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef
 {
@@ -87,18 +91,25 @@
 
 - (void)addTopFillLine
 {
-    [self addSubLayerWithFrame:CGRectMake(0, 0, self.width, 0.5f) color:LINE_COLOR];
+    [self addTopFillLineWithColor:LINE_COLOR];
+}
+- (void)addTopFillLineWithColor:(CGColorRef)color
+{
+    [self addSubLayerWithFrame:CGRectMake(0, 0, self.width, 0.5f) color:color];
 }
 
 - (void)addBottomFillLine
+{
+    [self addBottomFillLineWithColor:LINE_COLOR];
+}
+- (void)addBottomFillLineWithColor:(CGColorRef)color
 {
     [self addSubLayerWithFrame:CGRectMake(0,
                                           self.height - 0.5f,
                                           self.width,
                                           0.5f)
-                         color:LINE_COLOR];
+                         color:color];
 }
-
 - (void)setTarget:(id)target action:(SEL)action
 {
     UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:target action:action];

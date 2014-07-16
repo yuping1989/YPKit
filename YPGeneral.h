@@ -29,3 +29,5 @@
 #import "UILabel+YPGeneral.h"
 
 #import "UIViewController+YPGeneral.h"
+
+#import "BaseTableViewController.h"

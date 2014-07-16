@@ -36,7 +36,7 @@
 - (void)startWithPath:(NSString *)path
                params:(NSMutableDictionary *)params
            httpMethod:(NSString *)method
-           controller:(YPBaseViewController *)controller
+           controller:(UIViewController *)controller
             successed:(ApiRequestSuccessedBlock)successed
 {
     [self startWithPath:path
@@ -50,7 +50,7 @@
 - (void)startWithPath:(NSString *)path
                params:(NSMutableDictionary *)params
            httpMethod:(NSString *)method
-           controller:(YPBaseViewController *)controller
+           controller:(UIViewController *)controller
             successed:(ApiRequestSuccessedBlock)successed
                failed:(ApiRequestFailedBlock)failed
 {
@@ -65,7 +65,7 @@
 - (void)startWithURLString:(NSString *)urlString
                     params:(NSMutableDictionary *)params
                 httpMethod:(NSString *)method
-                controller:(YPBaseViewController *)controller
+                controller:(UIViewController *)controller
                  successed:(ApiRequestSuccessedBlock)successed
                     failed:(ApiRequestFailedBlock)failed
 {
@@ -89,7 +89,7 @@
 }
 
 - (void)startApiRequest:(ApiRequest *)request
-             controller:(YPBaseViewController *)controller
+             controller:(UIViewController *)controller
               successed:(ApiRequestSuccessedBlock)successed
                  failed:(ApiRequestFailedBlock)failed
 {
@@ -141,7 +141,7 @@
 - (void)downloadFileWithUrlString:(NSString *)urlString
                      toFileAtPath:(NSString *)filePath
                   progressChanged:(MKNKProgressBlock)progressChanged
-                       controller:(YPBaseViewController *)controller
+                       controller:(UIViewController *)controller
                         successed:(UploadDownloadFinishedBlock)successed
                            failed:(UploadDownloadFinishedBlock)failed
 {
@@ -168,7 +168,7 @@
                          params:(NSMutableDictionary *)params
                      uploadData:(NSData *)data
                 progressChanged:(MKNKProgressBlock)progressChanged
-                     controller:(YPBaseViewController *)controller
+                     controller:(UIViewController *)controller
                       successed:(ApiRequestSuccessedBlock)successed
                          failed:(ApiRequestFailedBlock)failed
 {
@@ -194,7 +194,7 @@
 }
 
 - (void)processRequestOperation:(MKNetworkOperation *)operation
-                     controller:(YPBaseViewController *)controller
+                     controller:(UIViewController *)controller
                successedHandler:(ApiRequestSuccessedBlock)successed
                   failedHandler:(ApiRequestFailedBlock)failed;
 {
@@ -237,7 +237,7 @@
 }
 
 - (void)operationSuccessed:(NSDictionary *)responseData
-                controller:(YPBaseViewController *)controller
+                controller:(UIViewController *)controller
           successedHandler:(ApiRequestSuccessedBlock)successed
              failedHandler:(ApiRequestFailedBlock)failed
 {
@@ -247,7 +247,7 @@
 }
 
 - (void)operationFailed:(NSDictionary *)responseData
-             controller:(YPBaseViewController *)controller
+             controller:(UIViewController *)controller
           failedHandler:(ApiRequestFailedBlock)failed
 {
     if (failed && failed(responseData)) return;
@@ -255,7 +255,7 @@
     [self hideProgressAndShowErrorMsg:message controller:controller];
 }
 
-- (void)hideProgressAndShowErrorMsg:(NSString *)message controller:(YPBaseViewController *)controller
+- (void)hideProgressAndShowErrorMsg:(NSString *)message controller:(UIViewController *)controller
 {
     if (controller) {
         [controller hideProgress];

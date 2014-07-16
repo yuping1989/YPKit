@@ -169,4 +169,9 @@
 {
     [NativeUtil hideKeyboard];
 }
+
+- (BOOL)isViewInBackground
+{
+    return [self isViewLoaded] && self.view.window == nil;
+}
 @end

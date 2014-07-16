@@ -38,4 +38,6 @@
 
 - (void)setProgressHUD:(MBProgressHUD *)progressHUD;
 - (MBProgressHUD *)progressHUD;
+
+- (BOOL)isViewInBackground;
 @end

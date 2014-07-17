@@ -19,6 +19,8 @@
 
 #define NSLogYP(tag, text) NSLog(@"%@-->%@", tag, text)
 
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
 typedef void(^CompletionBlock)(void);
 typedef void(^CompletionBlockWithData)(id data);
 

@@ -21,4 +21,5 @@
 - (UIImage *)scaleByHeight:(CGFloat)height;
 
 - (UIImage *)fixOrientation;
+
 @end

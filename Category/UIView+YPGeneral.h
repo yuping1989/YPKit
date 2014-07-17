@@ -34,4 +34,6 @@
 - (void)addBottomFillLineWithColor:(CGColorRef)color;
 
 - (void)setTarget:(id)target action:(SEL)action;
+
+- (UIImage *)capture;
 @end

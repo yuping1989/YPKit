@@ -198,10 +198,6 @@
                successedHandler:(ApiRequestSuccessedBlock)successed
                   failedHandler:(ApiRequestFailedBlock)failed;
 {
-    
-    if (controller && [controller isViewInBackground]) {
-        return;
-    }
     int status = operation.HTTPStatusCode;
     NSLog(@"request code--->%d", status);
 //    NSLog(@"response string--->%@", operation.responseString);

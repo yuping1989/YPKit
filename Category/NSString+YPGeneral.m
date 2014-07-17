@@ -100,4 +100,9 @@
     }
     return string;
 }
+
+- (int)heightWithFont:(UIFont *)font width:(float)width
+{
+    return ceilf([self sizeWithFont:font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)].height);
+}
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSMutableAttributedString (YPGeneral)
-- (void)addFont:(UIFont *)font range:(NSRange)rage;
-- (void)addColor:(UIColor *)color range:(NSRange)rage;
+- (void)addFont:(UIFont *)font range:(NSRange)range;
+- (void)addColor:(UIColor *)color range:(NSRange)range;
+- (void)addLineSpace:(float)space range:(NSRange)range;
 @end

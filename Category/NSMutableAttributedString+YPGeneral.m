@@ -9,13 +9,22 @@
 #import "NSMutableAttributedString+YPGeneral.h"
 
 @implementation NSMutableAttributedString (YPGeneral)
-- (void)addFont:(UIFont *)font range:(NSRange)rage
+- (void)addFont:(UIFont *)font range:(NSRange)range
 {
-    [self addAttribute:NSFontAttributeName value:font range:rage];
+    [self addAttribute:NSFontAttributeName value:font range:range];
 }
 
-- (void)addColor:(UIColor *)color range:(NSRange)rage
+- (void)addColor:(UIColor *)color range:(NSRange)range
 {
-    [self addAttribute:NSForegroundColorAttributeName value:color range:rage];
+    [self addAttribute:NSForegroundColorAttributeName value:color range:range];
+}
+
+- (void)addLineSpace:(float)space range:(NSRange)range
+{
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    [style setLineSpacing:space];
+    [self addAttribute:NSParagraphStyleAttributeName
+                 value:style
+                 range:range];
 }
 @end

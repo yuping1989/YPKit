@@ -105,4 +105,8 @@
 {
     return ceilf([self sizeWithFont:font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)].height);
 }
+- (int)widthWithFont:(UIFont *)font
+{
+    return ceilf([self sizeWithFont:font].width);
+}
 @end

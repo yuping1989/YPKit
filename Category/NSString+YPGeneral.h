@@ -25,4 +25,5 @@
 
 + (NSString *)stringWithArray:(NSArray *)array separator:(NSString *)separator;
 - (int)heightWithFont:(UIFont *)font width:(float)width;
+- (int)widthWithFont:(UIFont *)font;
 @end

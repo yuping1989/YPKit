@@ -17,4 +17,10 @@
     }
     self.attributedText = aString;
 }
+
+- (void)resizeToFitHeight
+{
+    self.numberOfLines = 0;
+    self.height = [self.text heightWithFont:self.font width:self.width];
+}
 @end

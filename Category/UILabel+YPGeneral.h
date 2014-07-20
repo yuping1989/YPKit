@@ -10,4 +10,5 @@
 
 @interface UILabel (YPGeneral)
 - (void)setText:(NSString *)text attributeString:(void(^)(NSMutableAttributedString *attrString))block;
+- (void)resizeToFitHeight;
 @end

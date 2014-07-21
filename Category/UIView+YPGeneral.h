@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#define LINE_COLOR rgb(220, 220, 220).CGColor
+#define LINE_COLOR rgb(198, 200, 199).CGColor
 @interface UIView (YPGeneral)
 - (void)setWidth:(CGFloat)width;
 - (void)setHeight:(CGFloat)height;

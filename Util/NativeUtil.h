@@ -32,4 +32,6 @@ typedef void(^CompletionBlockWithData)(id data);
 + (void)showToast:(NSString *)text inCenter:(BOOL)inCenter hideAfterDelay:(NSTimeInterval)delay;
 
 + (void)hideKeyboard;
++ (NSString *)appVersionName;
++ (NSInteger)appVersionCode;
 @end

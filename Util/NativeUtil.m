@@ -48,4 +48,14 @@
 {
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
 }
+
++ (NSString *)appVersionName
+{
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+}
+
++ (NSInteger)appVersionCode
+{
+    return [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] integerValue];
+}
 @end

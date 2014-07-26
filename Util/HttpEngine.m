@@ -146,7 +146,7 @@
                            failed:(UploadDownloadFinishedBlock)failed
 {
     NSLog(@"urlString-->%@", urlString);
-    NSLog(@"filrPath-->%@", filePath);
+    NSLog(@"filePath-->%@", filePath);
     MKNetworkOperation *op = [self.mkNetworkEngine operationWithURLString:urlString];
     [op addDownloadStream:[NSOutputStream outputStreamToFileAtPath:filePath append:NO]];
     if (progressChanged) {
@@ -200,25 +200,24 @@
 {
     int status = operation.HTTPStatusCode;
     NSLog(@"request code--->%d", status);
-//    NSLog(@"response string--->%@", operation.responseString);
     NSError *error;
-    NSDictionary *responseDict;
+    id responseData;
     if (operation.responseData) {
-        responseDict = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:&error];
+        responseData = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:&error];
     }
-    if (responseDict == nil) {
-        responseDict = @{@"responseString": operation.responseString};
+    if (responseData == nil) {
+        responseData = @{@"responseString": operation.responseString};
     }
     NSLog(@"controller--->%@", controller.class.description);
-    NSLog(@"result dict--->%@", responseDict.description);
+    NSLog(@"result dict--->%@", [responseData description]);
     
     if (status == 200) {
-        [self operationSuccessed:responseDict
+        [self operationSuccessed:responseData
                       controller:controller
                 successedHandler:successed
                    failedHandler:failed];
     } else {
-        [self operationFailed:responseDict controller:controller failedHandler:failed];
+        [self operationFailed:responseData controller:controller failedHandler:failed];
     }
 }
 
@@ -232,7 +231,7 @@
     return nil;
 }
 
-- (void)operationSuccessed:(NSDictionary *)responseData
+- (void)operationSuccessed:(id)responseData
                 controller:(UIViewController *)controller
           successedHandler:(ApiRequestSuccessedBlock)successed
              failedHandler:(ApiRequestFailedBlock)failed
@@ -242,7 +241,7 @@
     }
 }
 
-- (void)operationFailed:(NSDictionary *)responseData
+- (void)operationFailed:(id)responseData
              controller:(UIViewController *)controller
           failedHandler:(ApiRequestFailedBlock)failed
 {
@@ -255,22 +254,16 @@
 {
     if (controller) {
         [controller hideProgress];
-        if (message) {
-            NSLog(@"message length-->%d", [message charLength]);
-            if ([message charLength] < 30) {
-                [NativeUtil showToast:message];
-            } else {
-                [UIAlertView showAlertWithTitle:message];
-            }
+    }
+    if (message) {
+        NSLog(@"message length-->%d", [message charLength]);
+        if ([message charLength] < 30) {
+            [NativeUtil showToast:message];
         } else {
-            [NativeUtil showToast:@"网络连接失败，请重试"];
+            [UIAlertView showAlertWithTitle:message];
         }
     } else {
-        if (message) {
-            [UIAlertView showAlertWithTitle:message];
-        } else {
-            [UIAlertView showAlertWithTitle:@"网络连接失败，请重试"];
-        }
+        [NativeUtil showToast:@"网络连接失败，请重试"];
     }
 }
 

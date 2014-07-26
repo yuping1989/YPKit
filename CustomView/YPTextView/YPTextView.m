@@ -80,6 +80,12 @@
             _height = self.contentSize.height;
             return;
         }
+        if (_maxHeight > 0 && self.contentSize.height > _maxHeight) {
+            return;
+        }
+        if (_minHeight > 0 && self.contentSize.height < _minHeight) {
+            return;
+        }
         if (_height != self.contentSize.height) {
             if (self.delegate && [self.delegate respondsToSelector:@selector(ypTextView:didContentHeightChanged:)]) {
                 [self.delegate ypTextView:self didContentHeightChanged:self.contentSize.height - _height];

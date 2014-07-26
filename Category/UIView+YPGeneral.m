@@ -77,11 +77,11 @@
 }
 - (void)addTopAndBottomLine
 {
-    [self addTopAndBottomLineWithHeight:0.5f color:LINE_COLOR];
+    return [self addTopAndBottomLineWithHeight:0.5f color:LINE_COLOR];
 }
 - (void)addTopAndBottomLineWithColor:(CGColorRef)color
 {
-    [self addTopAndBottomLineWithHeight:0.5f color:color];
+    return [self addTopAndBottomLineWithHeight:0.5f color:color];
 }
 - (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef
 {
@@ -89,22 +89,22 @@
     [self addSubLayerWithFrame:CGRectMake(0, self.height - height, self.width, 0.5f) color:colorRef];
 }
 
-- (void)addTopFillLine
+- (CALayer *)addTopFillLine
 {
-    [self addTopFillLineWithColor:LINE_COLOR];
+    return [self addTopFillLineWithColor:LINE_COLOR];
 }
-- (void)addTopFillLineWithColor:(CGColorRef)color
+- (CALayer *)addTopFillLineWithColor:(CGColorRef)color
 {
-    [self addSubLayerWithFrame:CGRectMake(0, 0, self.width, 0.5f) color:color];
+    return [self addSubLayerWithFrame:CGRectMake(0, 0, self.width, 0.5f) color:color];
 }
 
-- (void)addBottomFillLine
+- (CALayer *)addBottomFillLine
 {
-    [self addBottomFillLineWithColor:LINE_COLOR];
+    return [self addBottomFillLineWithColor:LINE_COLOR];
 }
-- (void)addBottomFillLineWithColor:(CGColorRef)color
+- (CALayer *)addBottomFillLineWithColor:(CGColorRef)color
 {
-    [self addSubLayerWithFrame:CGRectMake(0,
+    return [self addSubLayerWithFrame:CGRectMake(0,
                                           self.height - 0.5f,
                                           self.width,
                                           0.5f)

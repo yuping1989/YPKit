@@ -11,7 +11,6 @@
 @protocol YPTextViewDelegate <UITextViewDelegate>
 @optional
 - (void)ypTextView:(YPTextView *)textView didContentHeightChanged:(int)height;
-- (BOOL)ypTextViewShouldReturn:(YPTextView *)textView;
 @end
 
 @interface YPTextView : UITextView
@@ -22,4 +21,6 @@
 @property (strong, nonatomic) UIColor *placeholderColor;
 @property (strong, nonatomic) UIImage *backgroundImage;
 @property (nonatomic, assign) id<YPTextViewDelegate> delegate;
+@property (nonatomic, assign) int maxHeight;
+@property (nonatomic, assign) int minHeight;
 @end

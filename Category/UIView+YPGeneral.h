@@ -28,10 +28,10 @@
 - (void)addTopAndBottomLine;
 - (void)addTopAndBottomLineWithColor:(CGColorRef)color;
 - (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef;
-- (void)addTopFillLine;
-- (void)addTopFillLineWithColor:(CGColorRef)color;
-- (void)addBottomFillLine;
-- (void)addBottomFillLineWithColor:(CGColorRef)color;
+- (CALayer *)addTopFillLine;
+- (CALayer *)addTopFillLineWithColor:(CGColorRef)color;
+- (CALayer *)addBottomFillLine;
+- (CALayer *)addBottomFillLineWithColor:(CGColorRef)color;
 
 - (void)setTarget:(id)target action:(SEL)action;
 

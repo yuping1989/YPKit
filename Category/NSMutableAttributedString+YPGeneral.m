@@ -27,4 +27,10 @@
                  value:style
                  range:range];
 }
+- (void)addDeleteLineWithRange:(NSRange)range
+{
+    [self addAttribute:NSStrikethroughStyleAttributeName
+                 value:@(NSUnderlineStyleSingle)
+                 range:range];
+}
 @end

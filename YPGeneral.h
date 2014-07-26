@@ -27,6 +27,7 @@
 #import "UIButton+YPGeneral.h"
 #import "UITextField+YPGeneral.h"
 #import "UILabel+YPGeneral.h"
+#import "CALayer+YPGeneral.h"
 
 #import "UIViewController+YPGeneral.h"
 

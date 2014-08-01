@@ -92,29 +92,38 @@
     int day = [compInfo day];
     int hour = [compInfo hour];
     int minute = [compInfo minute];
-    int second = [compInfo second];
+//    int second = [compInfo second];
     
-    if (year > 0 || month > 0 || day > 0) {
-        return [[DateUtil shareInstance] stringWithDate:fromDate];
+    if (year > 0 || month > 0) {
+        return [[DateUtil shareInstance] stringWithDate:fromDate format:MMdd];
+    }
+    if (day > 0) {
+        if (day == 1) {
+            return @"昨天";
+        } else if (day == 2) {
+            return @"前天";
+        } else {
+            return [NSString stringWithFormat:@"%d%@", day, @"天前"];
+        }
     } else if (hour > 0) {
         return [NSString stringWithFormat:@"%d%@", hour, @"小时前"];
     } else if (minute> 0) {
         return [NSString stringWithFormat:@"%d%@", minute, @"分钟前"];
-    } else if (second > 0) {
-        return [NSString stringWithFormat:@"%d%@", second, @"秒前"];
     } else {
-        return nil;
+        return @"刚刚";
     }
     return nil;
 }
 
 - (NSDateComponents *)getDateComponentsByFromDate:(NSDate *)fromDate ToDate:(NSDate *)toDate
 {
-    NSCalendar *sysCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    if (_calendar == nil) {
+        _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    }
     unsigned int unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |
     NSDayCalendarUnit | NSHourCalendarUnit |
     NSMinuteCalendarUnit | NSSecondCalendarUnit;
-    NSDateComponents *compInfo = [sysCalendar components:unitFlags
+    NSDateComponents *compInfo = [_calendar components:unitFlags
                                                 fromDate:fromDate
                                                   toDate:toDate
                                                  options:0];

@@ -50,13 +50,16 @@
     return self;
 }
 
-
 - (void)initialize
 {
     _placeholderColor = [UIColor lightGrayColor];
     [self layoutGUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChanged:) name:UITextViewTextDidChangeNotification object:self];
     
+}
+-(void)resetHeight
+{
+    _height = 0;
 }
 - (void)setFont:(UIFont *)font
 {

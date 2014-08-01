@@ -18,4 +18,25 @@
 {
     [self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
+
+- (void)setFooterText:(NSString *)text
+{
+    [self setFooterText:text
+                   font:[UIFont systemFontOfSize:17]
+                  color:[UIColor lightGrayColor]
+                 height:60];
+}
+- (void)setFooterText:(NSString *)text
+                 font:(UIFont *)font
+                color:(UIColor *)color
+               height:(int)height
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, height)];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = font;
+    label.textColor = color;
+    label.text = text;
+    self.tableFooterView = label;
+}
 @end

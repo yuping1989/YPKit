@@ -36,10 +36,12 @@ typedef NSUInteger SVInfiniteScrollingState;
 @property (nonatomic, readwrite) UIActivityIndicatorViewStyle activityIndicatorViewStyle;
 @property (nonatomic, readonly) SVInfiniteScrollingState state;
 @property (nonatomic, readwrite) BOOL enabled;
+@property (nonatomic, strong) UILabel *textLabel;
 
 - (void)setCustomView:(UIView *)view forState:(SVInfiniteScrollingState)state;
 
 - (void)startAnimating;
 - (void)stopAnimating;
-
+// 喻平添加
+- (void)setTextWhenStopped:(NSString *)text;
 @end

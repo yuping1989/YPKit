@@ -14,6 +14,8 @@
     if (self) {
         self.mkNetworkEngine = [[MKNetworkEngine alloc] initWithHostName:nil];
         self.reachability = [Reachability reachabilityWithHostname:@"www.apple.com"];
+        [_reachability startNotifier];
+        
     }
     return self;
 }
@@ -69,12 +71,25 @@
                  successed:(ApiRequestSuccessedBlock)successed
                     failed:(ApiRequestFailedBlock)failed
 {
-    NSLog(@"HttpEngine url-->%@", urlString);
-    NSLog(@"HttpEngine method-->%@", method);
+    
     NSLog(@"HttpEngine params-->%@", [params description]);
-    MKNetworkEngine *engine = [HttpEngine shared].mkNetworkEngine;
-    MKNetworkOperation *op = [engine operationWithURLString:urlString params:params httpMethod:method];
-    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
+    MKNetworkOperation *op = [self.mkNetworkEngine operationWithURLString:urlString
+                                                                   params:params
+                                                               httpMethod:method];
+    [self startWithOperation:op
+                  controller:controller
+                   successed:successed
+                      failed:failed];
+}
+
+- (void)startWithOperation:(MKNetworkOperation *)operation
+                controller:(UIViewController *)controller
+                 successed:(ApiRequestSuccessedBlock)successed
+                    failed:(ApiRequestFailedBlock)failed
+{
+    NSLog(@"HttpEngine url-->%@", operation.url);
+    NSLog(@"HttpEngine method-->%@", operation.HTTPMethod);
+    [operation addCompletionHandler:^(MKNetworkOperation *completedOperation) {
         [self processRequestOperation:completedOperation
                            controller:controller
                      successedHandler:successed
@@ -85,7 +100,7 @@
                      successedHandler:successed
                         failedHandler:failed];
     }];
-    [engine enqueueOperation:op forceReload:YES];
+    [self.mkNetworkEngine enqueueOperation:operation forceReload:YES];
 }
 
 - (void)startApiRequest:(ApiRequest *)request
@@ -263,7 +278,22 @@
             [UIAlertView showAlertWithTitle:message];
         }
     } else {
-        [NativeUtil showToast:@"网络连接失败，请重试"];
+        [NativeUtil showToast:@"网络连接不可用，请重试"];
+    }
+}
+
+- (void)reachabilityChanged:(NSNotification *)note
+{
+    switch ([_reachability currentReachabilityStatus]) {
+        case NotReachable:
+            // 没有网络连接
+            break;
+        case ReachableViaWWAN:
+            // 使用3G网络
+            break;
+        case ReachableViaWiFi:
+            // 使用WiFi网络
+            break;
     }
 }
 

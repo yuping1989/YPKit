@@ -7,13 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#define yyyyMMddHHmmss @"yyyy-MM-dd HH:mm:ss"
 #define yyyyMMddHHmm @"yyyy-MM-dd HH:mm"
 #define yyMMddHHmm @"yy-MM-dd HH:mm"
 #define MMddHHmm @"MM-dd HH:mm"
+#define MMdd @"MM-dd"
 #define yyyyMMdd @"yyyy-MM-dd"
 @interface DateUtil : NSObject
 {
     NSDateFormatter *_dateFormatter;
+    NSCalendar *_calendar;
 }
 + (DateUtil *)shareInstance;
 - (NSString *)stringWithDateTimeInterval:(int)timeInterval;

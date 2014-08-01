@@ -23,4 +23,5 @@
 @property (nonatomic, assign) id<YPTextViewDelegate> delegate;
 @property (nonatomic, assign) int maxHeight;
 @property (nonatomic, assign) int minHeight;
+- (void)resetHeight;
 @end

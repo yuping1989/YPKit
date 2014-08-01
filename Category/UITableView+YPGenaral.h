@@ -11,4 +11,9 @@
 @interface UITableView (YPGenaral)
 - (void)registerNibName:(NSString *)name;
 - (void)reloadRow:(NSInteger)row inSection:(NSInteger)section;
+- (void)setFooterText:(NSString *)text;
+- (void)setFooterText:(NSString *)text
+                 font:(UIFont *)font
+                color:(UIColor *)color
+               height:(int)height;
 @end

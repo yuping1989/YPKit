@@ -109,4 +109,9 @@
 {
     return ceilf([self sizeWithFont:font].width);
 }
+
+- (id)jsonObject
+{
+    return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:nil];
+}
 @end

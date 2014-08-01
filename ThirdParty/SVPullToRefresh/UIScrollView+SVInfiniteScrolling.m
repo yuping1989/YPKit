@@ -297,8 +297,30 @@ UIEdgeInsets scrollViewOriginalContentInsets;
         }
     }
     
+    if (_textLabel) {
+        if (_state == SVInfiniteScrollingStateStopped) {
+            _textLabel.hidden = NO;
+        } else {
+            [_textLabel removeFromSuperview];
+            self.textLabel = nil;
+        }
+    }
+    
     if(previousState == SVInfiniteScrollingStateTriggered && newState == SVInfiniteScrollingStateLoading && self.infiniteScrollingHandler && self.enabled)
         self.infiniteScrollingHandler();
 }
-
+- (void)setTextWhenStopped:(NSString *)text
+{
+    if (_textLabel == nil) {
+        self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
+        _textLabel.textAlignment = NSTextAlignmentCenter;
+        _textLabel.textColor = [UIColor lightGrayColor];
+        _textLabel.backgroundColor = [UIColor clearColor];
+        _textLabel.text = text;
+        [self addSubview:_textLabel];
+    }
+    if (_state != SVInfiniteScrollingStateStopped) {
+        _textLabel.hidden = YES;
+    }
+}
 @end

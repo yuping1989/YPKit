@@ -40,4 +40,5 @@
 - (MBProgressHUD *)progressHUD;
 
 - (BOOL)isViewInBackground;
+- (UIViewController *)topPresentedViewController;
 @end

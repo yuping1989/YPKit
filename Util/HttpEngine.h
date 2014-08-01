@@ -14,6 +14,7 @@
 #define HttpMethodGet      @"GET"
 #define HttpMethodPut      @"PUT"
 #define HttpMethodDelete   @"DELETE"
+
 typedef void (^ApiRequestSuccessedBlock)(id successedData);
 typedef BOOL (^ApiRequestFailedBlock)(id failedData);
 typedef void (^UploadDownloadFinishedBlock)(MKNetworkOperation *operation);
@@ -41,6 +42,11 @@ typedef void (^UploadDownloadFinishedBlock)(MKNetworkOperation *operation);
 - (void)startWithURLString:(NSString *)urlString
                     params:(NSMutableDictionary *)params
                 httpMethod:(NSString *)method
+                controller:(UIViewController *)controller
+                 successed:(ApiRequestSuccessedBlock)successed
+                    failed:(ApiRequestFailedBlock)failed;
+
+- (void)startWithOperation:(MKNetworkOperation *)operation
                 controller:(UIViewController *)controller
                  successed:(ApiRequestSuccessedBlock)successed
                     failed:(ApiRequestFailedBlock)failed;

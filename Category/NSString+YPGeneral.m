@@ -114,4 +114,13 @@
 {
     return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:nil];
 }
+
+- (NSString *)URLEncodedString
+{
+    return (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                        (__bridge CFStringRef)self,
+                                                                        NULL,
+                                                                        CFSTR("!*'();:@&+$,/?%#[]"),
+                                                                        kCFStringEncodingUTF8);
+}
 @end

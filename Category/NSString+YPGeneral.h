@@ -27,4 +27,5 @@
 - (int)heightWithFont:(UIFont *)font width:(float)width;
 - (int)widthWithFont:(UIFont *)font;
 - (id)jsonObject;
+- (NSString *)URLEncodedString;
 @end

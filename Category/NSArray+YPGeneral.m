@@ -14,4 +14,10 @@
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];
     return [self sortedArrayUsingDescriptors:@[descriptor]];
 }
+
+- (NSString *)jsonString
+{
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
 @end

@@ -10,4 +10,5 @@
 
 @interface NSArray (YPGeneral)
 - (NSArray *)sortedArrayUsingKey:(NSString *)key ascending:(BOOL)ascending;
+- (NSString *)jsonString;
 @end

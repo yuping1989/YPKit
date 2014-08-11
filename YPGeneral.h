@@ -18,6 +18,7 @@
 #import "NSNumber+YPGeneral.h"
 #import "NSSet+YPGeneral.h"
 #import "NSArray+YPGeneral.h"
+#import "NSDictionary+YPGeneral.h"
 #import "NSString+YPGeneral.h"
 #import "NSMutableAttributedString+YPGeneral.h"
 

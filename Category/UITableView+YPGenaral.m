@@ -19,7 +19,7 @@
     [self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)reloadRow:(NSInteger)row
+- (void)reloadRowWithNoneAnimation:(NSInteger)row
 {
     [self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }

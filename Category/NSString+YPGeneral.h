@@ -28,4 +28,6 @@
 - (int)widthWithFont:(UIFont *)font;
 - (id)jsonObject;
 - (NSString *)URLEncodedString;
+- (NSInteger)rangesOfString:(NSString *)string
+                 rangeBlock:(void (^)(NSRange range, NSInteger index))block;
 @end

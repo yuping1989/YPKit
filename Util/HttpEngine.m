@@ -220,7 +220,7 @@
     if (operation.responseData) {
         responseData = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:&error];
     }
-    if (responseData == nil) {
+    if (responseData == nil && operation.responseString != nil) {
         responseData = @{@"responseString": operation.responseString};
     }
     NSLog(@"controller--->%@", controller.class.description);

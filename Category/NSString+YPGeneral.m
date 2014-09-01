@@ -123,4 +123,23 @@
                                                                         CFSTR("!*'();:@&+$,/?%#[]"),
                                                                         kCFStringEncodingUTF8);
 }
+
+- (NSInteger)rangesOfString:(NSString *)string rangeBlock:(void (^)(NSRange range, NSInteger index))block
+{
+    NSUInteger index = 0, length = [self length];
+    NSRange range = NSMakeRange(0, length);
+    while(range.location != NSNotFound)
+    {
+        range = [self rangeOfString:string options:0 range:range];
+        if(range.location != NSNotFound)
+        {
+            index++;
+            if (block) {
+                block(range, index);
+            }
+            range = NSMakeRange(range.location + range.length, length - (range.location + range.length));
+        }
+    }
+    return index;
+}
 @end

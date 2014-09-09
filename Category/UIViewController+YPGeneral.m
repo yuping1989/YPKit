@@ -126,7 +126,6 @@
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
         self.navigationItem.leftBarButtonItem = item;
     }
-    
 }
 
 - (void)initLeftBarButtonItemWithImage:(UIImage *)image target:(id)target

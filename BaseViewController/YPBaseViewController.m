@@ -33,7 +33,9 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.navigationController.navigationBar.translucent = NO;
     } else {
-        [self initLeftBarButtonItemWithImage:[UIImage imageNamed:@"icon_back"] target:self];
+#ifdef NAV_BACK_IMAGE_NAME
+        [self initLeftBarButtonItemWithImage:[UIImage imageNamed:NAV_BACK_IMAGE_NAME] target:self];
+#endif
     }
 }
 

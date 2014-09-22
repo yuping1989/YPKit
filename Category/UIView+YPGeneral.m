@@ -49,6 +49,16 @@
     return self.frame.size.width;
 }
 
+- (CGFloat)maxY
+{
+    return CGRectGetMaxY(self.frame);
+}
+
+- (CGFloat)maxX
+{
+    return CGRectGetMaxX(self.frame);
+}
+
 - (void)setSize:(CGSize)size
 {
     CGRect rect = self.frame;
@@ -65,7 +75,15 @@
 {
     [self setY:(parentView.height - self.height) / 2];
 }
-
+- (void)setBoarderWith:(CGFloat)width color:(CGColorRef)color
+{
+    self.layer.borderWidth = width;
+    self.layer.borderColor = color;
+}
+- (void)setCornerRadius:(CGFloat)radius
+{
+    self.layer.cornerRadius = radius;
+}
 
 - (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef
 {
@@ -75,13 +93,14 @@
     [self.layer addSublayer:layer];
     return layer;
 }
+
 - (void)addTopAndBottomLine
 {
-    return [self addTopAndBottomLineWithHeight:0.5f color:LINE_COLOR];
+    [self addTopAndBottomLineWithHeight:0.5f color:LINE_COLOR];
 }
 - (void)addTopAndBottomLineWithColor:(CGColorRef)color
 {
-    return [self addTopAndBottomLineWithHeight:0.5f color:color];
+    [self addTopAndBottomLineWithHeight:0.5f color:color];
 }
 - (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef
 {

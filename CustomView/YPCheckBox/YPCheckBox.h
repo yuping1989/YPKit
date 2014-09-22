@@ -11,7 +11,7 @@
 @protocol YPCheckBoxDelegate <NSObject>
 @optional
 - (void)ypCheckBox:(YPCheckBox *)checkBox stateDidChanged:(BOOL)checked;
-
+- (BOOL)ypCheckBox:(YPCheckBox *)checkBox stateWillChange:(BOOL)checked;
 @end
 
 @interface YPCheckBox : UIButton
@@ -19,4 +19,5 @@
 @property(nonatomic, assign) IBOutlet id<YPCheckBoxDelegate> delegate;
 
 + (id)checkBoxWithFrame:(CGRect)frame;
+- (void)setNomaleImageName:(NSString *)normal checkedImageName:(NSString *)checked;
 @end

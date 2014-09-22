@@ -41,6 +41,12 @@
     [self addTarget:self action:@selector(checkboxBtnChecked) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void)setNomaleImageName:(NSString *)normal checkedImageName:(NSString *)checked
+{
+    [self setImage:[UIImage imageNamed:normal] forState:UIControlStateNormal];
+    [self setImage:[UIImage imageNamed:checked] forState:UIControlStateSelected];
+}
+
 - (void)setChecked:(BOOL)checked {
     if (_checked == checked) {
         return;
@@ -50,10 +56,14 @@
 }
 
 - (void)checkboxBtnChecked {
-    self.selected = !self.selected;
-    _checked = self.selected;
+    if (_delegate && [_delegate respondsToSelector:@selector(ypCheckBox:stateWillChange:)]) {
+        if (![_delegate ypCheckBox:self stateWillChange:self.checked]) {
+            return;
+        }
+    }
+    self.checked = !self.checked;
     if (_delegate && [_delegate respondsToSelector:@selector(ypCheckBox:stateDidChanged:)]) {
-        [_delegate ypCheckBox:self stateDidChanged:self.selected];
+        [_delegate ypCheckBox:self stateDidChanged:self.checked];
     }
 }
 

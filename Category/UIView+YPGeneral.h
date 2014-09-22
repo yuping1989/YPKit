@@ -20,11 +20,15 @@
 - (CGFloat)width;
 - (CGFloat)x;
 - (CGFloat)y;
+- (CGFloat)maxY;
+- (CGFloat)maxX;
 - (void)centerInHorizontal:(UIView *)parentView;
 - (void)centerInVertical:(UIView *)parentView;
 
-- (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef;
+- (void)setBoarderWith:(CGFloat)width color:(CGColorRef)color;
+- (void)setCornerRadius:(CGFloat)radius;
 
+- (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef;
 - (void)addTopAndBottomLine;
 - (void)addTopAndBottomLineWithColor:(CGColorRef)color;
 - (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef;

@@ -10,7 +10,7 @@
 @class YPTextView;
 @protocol YPTextViewDelegate <UITextViewDelegate>
 @optional
-- (void)ypTextView:(YPTextView *)textView didContentHeightChanged:(int)height;
+- (void)ypTextView:(YPTextView *)textView didContentHeightChanged:(int)height byInput:(BOOL)yesOrNo;
 @end
 
 @interface YPTextView : UITextView

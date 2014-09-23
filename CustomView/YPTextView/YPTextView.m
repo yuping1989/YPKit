@@ -53,6 +53,7 @@
 - (void)initialize
 {
     _placeholderColor = [UIColor lightGrayColor];
+    _height = 37;
     [self layoutGUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChanged:) name:UITextViewTextDidChangeNotification object:self];
     
@@ -73,12 +74,11 @@
 
 #pragma mark - Notification center
 
-
 - (void)textChanged:(NSNotification *)notification
 {
     if (notification.object == self) {
         [self layoutGUI];
-        NSLog(@"content size-->%@", NSStringFromCGSize(self.contentSize));
+        NSLog(@"content ssize-->%@", NSStringFromCGSize(self.contentSize));
         if (_height == 0) {
             _height = self.contentSize.height;
             return;
@@ -90,8 +90,10 @@
             return;
         }
         if (_height != self.contentSize.height) {
-            if (self.delegate && [self.delegate respondsToSelector:@selector(ypTextView:didContentHeightChanged:)]) {
-                [self.delegate ypTextView:self didContentHeightChanged:self.contentSize.height - _height];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(ypTextView:didContentHeightChanged:byInput:)]) {
+                [self.delegate ypTextView:self
+                  didContentHeightChanged:self.contentSize.height - _height
+                                  byInput:[notification.name isEqualToString:UITextViewTextDidChangeNotification]];
             }
             _height = self.contentSize.height;
         }
@@ -115,6 +117,11 @@
 {
     [super setText:text];
     [self layoutGUI];
+    if (IOS7_AND_LATER) {
+        CGSize size = [self sizeThatFits:CGSizeMake(self.frame.size.width, FLT_MAX)];
+        self.contentSize = CGSizeMake(self.contentSize.width, ceilf(size.height));
+    }
+    [self textChanged:[[NSNotification alloc] initWithName:@"" object:self userInfo:nil]];
 }
 
 

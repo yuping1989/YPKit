@@ -106,7 +106,6 @@
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
         self.navigationItem.rightBarButtonItem = item;
     }
-    
 }
 
 - (void)initLeftBarButtonItemWithTitle:(NSString *)title

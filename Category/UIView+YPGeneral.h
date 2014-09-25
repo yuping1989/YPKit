@@ -24,6 +24,8 @@
 - (CGFloat)maxX;
 - (void)centerInHorizontal:(UIView *)parentView;
 - (void)centerInVertical:(UIView *)parentView;
+- (void)verticalCenterInSuperView;
+- (void)horizontalCenterInSuperView;
 
 - (void)setBoarderWith:(CGFloat)width color:(CGColorRef)color;
 - (void)setCornerRadius:(CGFloat)radius;

@@ -75,6 +75,15 @@
 {
     [self setY:(parentView.height - self.height) / 2];
 }
+- (void)verticalCenterInSuperView
+{
+    [self setY:(self.superview.width - self.width) / 2];
+}
+- (void)horizontalCenterInSuperView
+{
+    [self setX:(self.superview.height - self.height) / 2];
+}
+
 - (void)setBoarderWith:(CGFloat)width color:(CGColorRef)color
 {
     self.layer.borderWidth = width;

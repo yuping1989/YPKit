@@ -30,6 +30,8 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.navigationController.navigationBar.translucent = NO;
     }
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning

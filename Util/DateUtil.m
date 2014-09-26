@@ -130,7 +130,7 @@
     return compInfo;
 }
 
-- (NSString *)getWeek:(NSDate *)date
+- (NSString *)weekStringWithDate:(NSDate *)date
 {
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |

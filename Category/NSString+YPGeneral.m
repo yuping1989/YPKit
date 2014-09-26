@@ -50,6 +50,15 @@
     return NO;
 }
 
+- (BOOL)isMatchRegex:(NSString *)regex
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    if ([predicate evaluateWithObject:self]) {
+        return YES;
+    }
+    return NO;
+}
+
 - (NSString *)stringByAppendSpaceToLength:(int)length
 {
     int balance = length - self.charLength;

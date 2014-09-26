@@ -17,7 +17,7 @@
 + (BOOL)isPositiveNumber:(NSString *)string;
 + (BOOL)isPositiveIntNumber:(NSString *)string;
 + (BOOL)isMatchRegex:(NSString *)regex string:(NSString *)string;
-
+- (BOOL)isMatchRegex:(NSString *)regex;
 - (NSString *)stringByAppendSpaceToLength:(int)length;
 - (NSString *)stringByInsertSpaceToLength:(int)length;
 

@@ -15,8 +15,8 @@
 #define HttpMethodPut      @"PUT"
 #define HttpMethodDelete   @"DELETE"
 
-typedef void (^ApiRequestSuccessedBlock)(id successedData);
-typedef BOOL (^ApiRequestFailedBlock)(id failedData);
+typedef void (^ApiRequestSuccessedBlock)(id successedData, MKNetworkOperation *operation);
+typedef BOOL (^ApiRequestFailedBlock)(id failedData, MKNetworkOperation *operation);
 typedef void (^UploadDownloadFinishedBlock)(MKNetworkOperation *operation);
 
 @class ApiRequest;
@@ -85,13 +85,15 @@ typedef void (^UploadDownloadFinishedBlock)(MKNetworkOperation *operation);
 - (NSString *)getErrorMessage:(NSDictionary *)responseData;
 
 // 请求成功的处理
-- (void)operationSuccessed:(NSDictionary *)responseData
+- (void)operationSuccessed:(MKNetworkOperation *)operation
+              responseData:(id)responseData
                 controller:(UIViewController *)controller
           successedHandler:(ApiRequestSuccessedBlock)successed
              failedHandler:(ApiRequestFailedBlock)failed;
 
 // 请求失败的处理
-- (void)operationFailed:(NSDictionary *)responseData
+- (void)operationFailed:(MKNetworkOperation *)operation
+           responseData:(id)responseData
              controller:(UIViewController *)controller
           failedHandler:(ApiRequestFailedBlock)failed;
 

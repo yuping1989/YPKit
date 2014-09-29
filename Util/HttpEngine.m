@@ -213,8 +213,8 @@
                successedHandler:(ApiRequestSuccessedBlock)successed
                   failedHandler:(ApiRequestFailedBlock)failed;
 {
-    int status = operation.HTTPStatusCode;
-    NSLog(@"request code--->%d", status);
+    NSInteger status = operation.HTTPStatusCode;
+    NSLog(@"request code--->%ld", status);
     NSError *error;
     id responseData;
     if (operation.responseData) {
@@ -227,12 +227,16 @@
     NSLog(@"result dict--->%@", [responseData description]);
     
     if (status == 200) {
-        [self operationSuccessed:responseData
+        [self operationSuccessed:operation
+                    responseData:responseData
                       controller:controller
                 successedHandler:successed
                    failedHandler:failed];
     } else {
-        [self operationFailed:responseData controller:controller failedHandler:failed];
+        [self operationFailed:operation
+                 responseData:responseData
+                   controller:controller
+                failedHandler:failed];
     }
 }
 
@@ -246,21 +250,23 @@
     return nil;
 }
 
-- (void)operationSuccessed:(id)responseData
+- (void)operationSuccessed:(MKNetworkOperation *)operation
+              responseData:(id)responseData
                 controller:(UIViewController *)controller
           successedHandler:(ApiRequestSuccessedBlock)successed
              failedHandler:(ApiRequestFailedBlock)failed
 {
     if (successed) {
-        successed(responseData);
+        successed(responseData, operation);
     }
 }
 
-- (void)operationFailed:(id)responseData
+- (void)operationFailed:(MKNetworkOperation *)operation
+           responseData:(id)responseData
              controller:(UIViewController *)controller
           failedHandler:(ApiRequestFailedBlock)failed
 {
-    if (failed && failed(responseData)) return;
+    if (failed && failed(responseData, operation)) return;
     NSString *message = [self getErrorMessage:responseData];
     [self hideProgressAndShowErrorMsg:message controller:controller];
 }

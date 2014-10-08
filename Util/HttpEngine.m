@@ -214,7 +214,7 @@
                   failedHandler:(ApiRequestFailedBlock)failed;
 {
     NSInteger status = operation.HTTPStatusCode;
-    NSLog(@"request code--->%ld", status);
+    NSLog(@"request code--->%d", status);
     NSError *error;
     id responseData;
     if (operation.responseData) {

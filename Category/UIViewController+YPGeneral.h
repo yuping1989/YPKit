@@ -24,7 +24,11 @@
 
 - (void)initRightBarButtonItemWithTitle:(NSString *)title;
 - (void)initRightBarButtonItemWithTitle:(NSString *)title target:(id)target;
+- (void)initRightBarButtonItemWithTitle:(NSString *)title
+                        backgroundImage:(UIImage *)bgImage
+                                 target:(id)target;
 - (void)initRightBarButtonItemWithImage:(UIImage *)image target:(id)target;
+
 - (void)rightBarButtonClicked:(id)sender;
 
 

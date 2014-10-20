@@ -73,7 +73,7 @@
     if (IOS7_AND_LATER) {
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:target action:@selector(rightBarButtonClicked:)];
         self.navigationItem.rightBarButtonItem = item;
-    }  else {
+    } else {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setTitleColor:NAV_ITEM_TITLE_COLOR forState:UIControlStateNormal];
         [button setTitleColor:[NAV_ITEM_TITLE_COLOR colorWithAlphaComponent:0.3f]
@@ -106,6 +106,21 @@
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
         self.navigationItem.rightBarButtonItem = item;
     }
+}
+
+- (void)initRightBarButtonItemWithTitle:(NSString *)title
+                        backgroundImage:(UIImage *)bgImage
+                                 target:(id)target
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:title forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:15];
+    [button setTarget:target action:@selector(rightBarButtonClicked:)];
+    [button setBackgroundImage:bgImage forState:UIControlStateNormal];
+//    button.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, -10);
+    button.frame = CGRectMake(0, 0, MAX(50, [title widthWithFont:button.titleLabel.font] + 10), 28);
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.rightBarButtonItem = item;
 }
 
 - (void)initLeftBarButtonItemWithTitle:(NSString *)title

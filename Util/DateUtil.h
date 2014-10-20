@@ -30,7 +30,7 @@
 
 
 - (NSString *)formatDateWithCustom:(int)timeInterval;
-- (NSString *)getDateDiffWithFromTime:(int)dateMills;
+- (NSString *)dateDiffStringWithFromTime:(int)dateMills;
 - (NSString *)getDateDiffWithFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
 - (NSString *)weekStringWithDate:(NSDate *)date;
 - (NSDateComponents *)getDateComponentsByFromDate:(NSDate *)fromDate ToDate:(NSDate *)toDate;

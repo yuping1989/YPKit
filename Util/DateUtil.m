@@ -77,7 +77,7 @@
     }
 }
 
-- (NSString *)getDateDiffWithFromTime:(int)dateMills
+- (NSString *)dateDiffStringWithFromTime:(int)dateMills
 {
     NSDate *fromDate = [NSDate dateWithTimeIntervalSince1970:dateMills];
     NSDate *toDate = [NSDate date];

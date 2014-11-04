@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #define LINE_COLOR rgb(198, 200, 199).CGColor
+#define LINE_VIEW_COLOR rgb(198, 200, 199)
 @interface UIView (YPGeneral)
 - (void)setWidth:(CGFloat)width;
 - (void)setHeight:(CGFloat)height;
@@ -42,4 +43,8 @@
 - (void)setTarget:(id)target action:(SEL)action;
 
 - (UIImage *)capture;
+- (UIView *)addTopLineView;
+- (UIView *)addTopLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color;
+- (UIView *)addBottomLineView;
+- (UIView *)addBottomLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color;
 @end

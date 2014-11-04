@@ -156,4 +156,39 @@
     
     return img;
 }
+
+- (UIView *)addTopLineView
+{
+    return [self addTopLineViewPaddingLeft:0 color:LINE_VIEW_COLOR];
+}
+- (UIView *)addTopLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color
+{
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = color;
+    [self addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@(left));
+        make.right.equalTo(self);
+        make.top.equalTo(self);
+        make.height.equalTo(@0.5f);
+    }];
+    return line;
+}
+- (UIView *)addBottomLineView
+{
+    return [self addBottomLineViewPaddingLeft:0 color:LINE_VIEW_COLOR];
+}
+- (UIView *)addBottomLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color
+{
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = color;
+    [self addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@(left));
+        make.right.equalTo(self);
+        make.bottom.equalTo(self);
+        make.height.equalTo(@0.5f);
+    }];
+    return line;
+}
 @end

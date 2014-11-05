@@ -23,8 +23,8 @@
 - (CGFloat)y;
 - (CGFloat)maxY;
 - (CGFloat)maxX;
-- (void)centerInHorizontal:(UIView *)parentView;
-- (void)centerInVertical:(UIView *)parentView;
+- (void)horizontalCenterWithWidth:(CGFloat)width;
+- (void)verticalCenterWithHeight:(CGFloat)height;
 - (void)verticalCenterInSuperView;
 - (void)horizontalCenterInSuperView;
 

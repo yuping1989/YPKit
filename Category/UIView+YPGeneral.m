@@ -66,22 +66,22 @@
     self.frame = rect;
 }
 
-- (void)centerInHorizontal:(UIView *)parentView
+- (void)horizontalCenterWithWidth:(CGFloat)width
 {
-    [self setX:(parentView.width - self.width) / 2];
+    [self setX:ceilf((width - self.width) / 2)];
 }
 
-- (void)centerInVertical:(UIView *)parentView
+- (void)verticalCenterWithHeight:(CGFloat)height
 {
-    [self setY:(parentView.height - self.height) / 2];
+    [self setY:ceilf((height - self.height) / 2)];
 }
 - (void)verticalCenterInSuperView
 {
-    [self setY:(self.superview.width - self.width) / 2];
+    [self verticalCenterWithHeight:self.superview.height];
 }
 - (void)horizontalCenterInSuperView
 {
-    [self setX:(self.superview.height - self.height) / 2];
+    [self horizontalCenterWithWidth:self.superview.width];
 }
 
 - (void)setBoarderWith:(CGFloat)width color:(CGColorRef)color
@@ -113,8 +113,8 @@
 }
 - (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef
 {
-    [self addSubLayerWithFrame:CGRectMake(0, 0, self.width, height) color:colorRef];
-    [self addSubLayerWithFrame:CGRectMake(0, self.height - height, self.width, 0.5f) color:colorRef];
+    [self addSubLayerWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, height) color:colorRef];
+    [self addSubLayerWithFrame:CGRectMake(0, self.height - height, SCREEN_WIDTH, 0.5f) color:colorRef];
 }
 
 - (CALayer *)addTopFillLine
@@ -123,7 +123,7 @@
 }
 - (CALayer *)addTopFillLineWithColor:(CGColorRef)color
 {
-    return [self addSubLayerWithFrame:CGRectMake(0, 0, self.width, 0.5f) color:color];
+    return [self addSubLayerWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5f) color:color];
 }
 
 - (CALayer *)addBottomFillLine
@@ -134,7 +134,7 @@
 {
     return [self addSubLayerWithFrame:CGRectMake(0,
                                           self.height - 0.5f,
-                                          self.width,
+                                          SCREEN_WIDTH,
                                           0.5f)
                          color:color];
 }

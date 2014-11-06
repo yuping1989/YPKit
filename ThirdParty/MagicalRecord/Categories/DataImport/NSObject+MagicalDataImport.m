@@ -11,17 +11,12 @@
 #import "NSManagedObject+MagicalDataImport.h"
 #import "MagicalRecord.h"
 #import "CoreData+MagicalRecord.h"
+#import "MagicalRecordLogging.h"
 
 NSUInteger const kMagicalRecordImportMaximumAttributeFailoverDepth = 10;
 
 
 @implementation NSObject (MagicalRecord_DataImport)
-
-//#warning If you implement valueForUndefinedKey: in any NSObject in your code, this may be the problem if something broke
-- (id) MR_valueForUndefinedKey:(NSString *)key
-{
-    return nil;
-}
 
 - (NSString *) MR_lookupKeyForAttribute:(NSAttributeDescription *)attributeInfo;
 {
@@ -55,13 +50,13 @@ NSUInteger const kMagicalRecordImportMaximumAttributeFailoverDepth = 10;
     NSEntityDescription *destinationEntity = [relationshipInfo destinationEntity];
     if (destinationEntity == nil) 
     {
-        MRLog(@"Unable to find entity for type '%@'", [self valueForKey:kMagicalRecordImportRelationshipTypeKey]);
+        MRLogError(@"Unable to find entity for type '%@'", [self valueForKey:kMagicalRecordImportRelationshipTypeKey]);
         return nil;
     }
     
     NSString               *primaryKeyName      = [relationshipInfo MR_primaryKey];
     NSAttributeDescription *primaryKeyAttribute = [destinationEntity MR_attributeDescriptionForName:primaryKeyName];
-    NSString               *lookupKey           = [[primaryKeyAttribute userInfo] valueForKey:kMagicalRecordImportAttributeKeyMapKey] ? :[primaryKeyAttribute name];
+    NSString               *lookupKey           = [self MR_lookupKeyForAttribute:primaryKeyAttribute] ?: [primaryKeyAttribute name];
 
     return lookupKey;
 }

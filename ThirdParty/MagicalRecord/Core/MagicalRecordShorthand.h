@@ -4,7 +4,7 @@
 
 
 
-
+#import "MagicalRecordDeprecated.h"
 
 @interface NSManagedObject (MagicalAggregationShortHand)
 + (NSNumber *) numberOfEntities;
@@ -75,9 +75,11 @@
 + (NSEntityDescription *) entityDescriptionInContext:(NSManagedObjectContext *)context;
 + (NSArray *) propertiesNamed:(NSArray *)properties;
 + (instancetype) createEntity;
-+ (instancetype) createInContext:(NSManagedObjectContext *)context;
++ (instancetype) createEntityInContext:(NSManagedObjectContext *)context;
++ (instancetype) createInContext:(NSManagedObjectContext *)context MR_DEPRECATED_WILL_BE_REMOVED_IN_PLEASE_USE("4.0", "createEntityInContext:");
 - (BOOL) deleteEntity;
-- (BOOL) deleteInContext:(NSManagedObjectContext *)context;
+- (BOOL) deleteInContext:(NSManagedObjectContext *)context MR_DEPRECATED_WILL_BE_REMOVED_IN_PLEASE_USE("4.0", "deleteEntityInContext:");
+- (BOOL) deleteEntityInContext:(NSManagedObjectContext *)context;
 + (BOOL) deleteAllMatchingPredicate:(NSPredicate *)predicate;
 + (BOOL) deleteAllMatchingPredicate:(NSPredicate *)predicate inContext:(NSManagedObjectContext *)context;
 + (BOOL) truncateAll;
@@ -133,15 +135,15 @@
 - (void) saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion;
 - (void) saveOnlySelfAndWait;
 - (void) saveToPersistentStoreAndWait;
-- (void) saveWithOptions:(MRSaveContextOptions)mask completion:(MRSaveCompletionHandler)completion;
-- (void) save __attribute__((deprecated));
-- (void) saveWithErrorCallback:(void(^)(NSError *error))errorCallback __attribute__((deprecated));
-- (void) saveInBackgroundCompletion:(void (^)(void))completion __attribute__((deprecated));
-- (void) saveInBackgroundErrorHandler:(void (^)(NSError *error))errorCallback __attribute__((deprecated));
-- (void) saveInBackgroundErrorHandler:(void (^)(NSError *error))errorCallback completion:(void (^)(void))completion __attribute__((deprecated));
-- (void) saveNestedContexts __attribute__((deprecated));
-- (void) saveNestedContextsErrorHandler:(void (^)(NSError *error))errorCallback __attribute__((deprecated));
-- (void) saveNestedContextsErrorHandler:(void (^)(NSError *error))errorCallback completion:(void (^)(void))completion __attribute__((deprecated));
+- (void) saveWithOptions:(MRSaveOptions)mask completion:(MRSaveCompletionHandler)completion;
+- (void) save MR_DEPRECATED_WILL_BE_REMOVED_IN("3.0");
+- (void) saveWithErrorCallback:(void(^)(NSError *error))errorCallback MR_DEPRECATED_WILL_BE_REMOVED_IN("3.0");
+- (void) saveInBackgroundCompletion:(void (^)(void))completion MR_DEPRECATED_WILL_BE_REMOVED_IN("3.0");
+- (void) saveInBackgroundErrorHandler:(void (^)(NSError *error))errorCallback MR_DEPRECATED_WILL_BE_REMOVED_IN("3.0");
+- (void) saveInBackgroundErrorHandler:(void (^)(NSError *error))errorCallback completion:(void (^)(void))completion MR_DEPRECATED_WILL_BE_REMOVED_IN("3.0");
+- (void) saveNestedContexts MR_DEPRECATED_WILL_BE_REMOVED_IN("3.0");
+- (void) saveNestedContextsErrorHandler:(void (^)(NSError *error))errorCallback MR_DEPRECATED_WILL_BE_REMOVED_IN("3.0");
+- (void) saveNestedContextsErrorHandler:(void (^)(NSError *error))errorCallback completion:(void (^)(void))completion MR_DEPRECATED_WILL_BE_REMOVED_IN("3.0");
 @end
 @interface NSManagedObjectContext (MagicalThreadingShortHand)
 + (NSManagedObjectContext *) contextForCurrentThread;

@@ -22,4 +22,6 @@
 + (NSString *)readStringFromFile:(NSString *)path;
 
 + (BOOL)removeFile:(NSURL *)url;
+
++ (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL;
 @end

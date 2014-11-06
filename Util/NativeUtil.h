@@ -35,4 +35,5 @@ typedef void(^CompletionBlockWithData)(id data);
 + (void)hideKeyboard;
 + (NSString *)appVersionName;
 + (NSInteger)appVersionCode;
++ (void)call:(NSString *)phone;
 @end

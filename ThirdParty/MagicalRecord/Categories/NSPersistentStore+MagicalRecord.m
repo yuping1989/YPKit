@@ -43,22 +43,25 @@ static NSPersistentStore *defaultPersistentStore_ = nil;
 
 + (NSURL *) MR_urlForStoreName:(NSString *)storeFileName
 {
-#warning 注释此段代码，强制将数据库的存放目录放到Documents文件夹
-//	NSArray *paths = [NSArray arrayWithObjects:[self MR_applicationDocumentsDirectory], [self MR_applicationStorageDirectory], nil];
-//    NSFileManager *fm = [[NSFileManager alloc] init];
-//    
-//    for (NSString *path in paths) 
-//    {
-//        NSString *filepath = [path stringByAppendingPathComponent:storeFileName];
-//        if ([fm fileExistsAtPath:filepath])
-//        {
-//            return [NSURL fileURLWithPath:filepath];
-//        }
-//    }
-
-    //set default url
-//    return [NSURL fileURLWithPath:[[self MR_applicationStorageDirectory] stringByAppendingPathComponent:storeFileName]];
+#warning 是否将数据库的存放目录放到Documents文件夹
+#ifdef SAVE_COREDATA_DOCUMENTS
     return [NSURL fileURLWithPath:[[self MR_applicationDocumentsDirectory] stringByAppendingPathComponent:storeFileName]];
+#else
+    NSArray *paths = [NSArray arrayWithObjects:[self MR_applicationDocumentsDirectory], [self MR_applicationStorageDirectory], nil];
+    NSFileManager *fm = [[NSFileManager alloc] init];
+    
+    for (NSString *path in paths)
+    {
+        NSString *filepath = [path stringByAppendingPathComponent:storeFileName];
+        if ([fm fileExistsAtPath:filepath])
+        {
+            return [NSURL fileURLWithPath:filepath];
+        }
+    }
+    
+    //set default url
+    return [NSURL fileURLWithPath:[[self MR_applicationStorageDirectory] stringByAppendingPathComponent:storeFileName]];
+#endif
 }
 
 + (NSURL *) MR_cloudURLForUbiqutiousContainer:(NSString *)bucketName;

@@ -58,4 +58,9 @@
 {
     return [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] integerValue];
 }
+
++ (void)call:(NSString *)phone
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", phone]]];
+}
 @end

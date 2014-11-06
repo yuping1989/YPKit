@@ -13,7 +13,7 @@
 
 - (NSAttributeDescription *) MR_primaryAttributeToRelateBy;
 {
-    NSString *lookupKey = [[self userInfo] valueForKey:kMagicalRecordImportRelationshipLinkedByKey] ?: primaryKeyNameFromString([self name]);
+    NSString *lookupKey = [[self userInfo] valueForKey:kMagicalRecordImportRelationshipLinkedByKey] ?: MR_primaryKeyNameFromString([self name]);
 
     return [self MR_attributeDescriptionForName:lookupKey];
 }
@@ -21,7 +21,7 @@
 - (NSManagedObject *) MR_createInstanceInContext:(NSManagedObjectContext *)context;
 {
     Class relatedClass = NSClassFromString([self managedObjectClassName]);
-    NSManagedObject *newInstance = [relatedClass MR_createInContext:context];
+    NSManagedObject *newInstance = [relatedClass MR_createEntityInContext:context];
    
     return newInstance;
 }

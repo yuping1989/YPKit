@@ -6,7 +6,6 @@
 //
 
 #import "CoreData+MagicalRecord.h"
-#import "MagicalRecordVersion.h"
 
 NSString * const kMagicalRecordCleanedUpNotification = @"kMagicalRecordCleanedUpNotification";
 
@@ -26,19 +25,9 @@ NSString * const kMagicalRecordCleanedUpNotification = @"kMagicalRecordCleanedUp
 
 @implementation MagicalRecord
 
-+ (NSInteger)version
++ (MagicalRecordVersionNumber) version
 {
-    return MAGICAL_RECORD_VERSION;
-}
-
-+ (NSString *)displayVersion
-{
-    return MAGICAL_RECORD_DISPLAY_VERSION;
-}
-
-+ (NSString *)build
-{
-    return MAGICAL_RECORD_BUILD;
+    return MagicalRecordVersionNumber2_3;
 }
 
 + (void) cleanUp
@@ -78,9 +67,9 @@ NSString * const kMagicalRecordCleanedUpNotification = @"kMagicalRecordCleanedUp
     [NSManagedObjectModel MR_setDefaultManagedObjectModel:model];
 }
 
-+ (void) setDefaultModelFromClass:(Class)klass;
++ (void) setDefaultModelFromClass:(Class)modelClass;
 {
-    NSBundle *bundle = [NSBundle bundleForClass:klass];
+    NSBundle *bundle = [NSBundle bundleForClass:modelClass];
     NSManagedObjectModel *model = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:bundle]];
     [NSManagedObjectModel MR_setDefaultManagedObjectModel:model];
 }

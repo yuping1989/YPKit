@@ -23,4 +23,9 @@
     self.numberOfLines = 0;
     self.height = [self.text heightWithFont:self.font width:self.width];
 }
+- (void)resizeToFitWidth
+{
+    self.numberOfLines = 0;
+    self.width = ceilf([self.text sizeWithFont:self.font].width);
+}
 @end

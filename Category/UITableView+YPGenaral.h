@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UITableView (YPGenaral)
-- (void)registerNibName:(NSString *)name;
+- (void)registerNibWithName:(NSString *)name;
 - (void)reloadRow:(NSInteger)row inSection:(NSInteger)section;
 - (void)reloadRowWithNoneAnimation:(NSInteger)row;
 - (void)setFooterText:(NSString *)text;

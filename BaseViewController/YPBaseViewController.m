@@ -50,7 +50,7 @@
 }
 - (void)leftBarButtonClicked:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

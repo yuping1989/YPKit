@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#define LINE_COLOR rgb(198, 200, 199).CGColor
-#define LINE_VIEW_COLOR rgb(198, 200, 199)
 @interface UIView (YPGeneral)
 - (void)setWidth:(CGFloat)width;
 - (void)setHeight:(CGFloat)height;
@@ -16,6 +14,9 @@
 - (void)setY:(CGFloat)y;
 
 - (void)setSize:(CGSize)size;
+- (CGSize)size;
+- (void)setOrigin:(CGPoint)point;
+- (CGPoint)origin;
 
 - (CGFloat)height;
 - (CGFloat)width;
@@ -32,19 +33,16 @@
 - (void)setCornerRadius:(CGFloat)radius;
 
 - (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef;
-- (void)addTopAndBottomLine;
-- (void)addTopAndBottomLineWithColor:(CGColorRef)color;
-- (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef;
-- (CALayer *)addTopFillLine;
 - (CALayer *)addTopFillLineWithColor:(CGColorRef)color;
-- (CALayer *)addBottomFillLine;
 - (CALayer *)addBottomFillLineWithColor:(CGColorRef)color;
+- (CALayer *)addBottomLineWithColor:(CGColorRef)color paddingLeft:(float)width;
+- (void)addTopAndBottomLineWithColor:(CGColorRef)color;
 
 - (void)setTarget:(id)target action:(SEL)action;
 
 - (UIImage *)capture;
-- (UIView *)addTopLineView;
-- (UIView *)addTopLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color;
-- (UIView *)addBottomLineView;
-- (UIView *)addBottomLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color;
+//- (UIView *)addTopLineView;
+//- (UIView *)addTopLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color;
+//- (UIView *)addBottomLineView;
+//- (UIView *)addBottomLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color;
 @end

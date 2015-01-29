@@ -1,18 +1,19 @@
 //
 //  YPBaseTableViewController.h
-//  HuoQiuJiZhang-buyer
+//  PiFuKeYiSheng
 //
-//  Created by 喻平 on 14-3-24.
-//  Copyright (c) 2014年 com.huoqiu. All rights reserved.
+//  Created by 喻平 on 14-7-15.
+//  Copyright (c) 2014年 com.pifukeyisheng. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "YPBaseViewController.h"
-@interface YPBaseTableViewController : YPBaseViewController<UITableViewDataSource, UITableViewDelegate>
+
+@interface YPBaseTableViewController : UITableViewController
 {
     NSMutableArray *tableViewDataSource;
 }
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
 - (void)initTableViewDataSource;
+- (void)addRefreshControlWithStartedHandler:(CompletionBlock)handler;
+- (void)startRefreshControl;
 @end

@@ -14,8 +14,8 @@
 
 
 #import "YPBaseViewController.h"
+#import "YPTableViewController.h"
 #import "YPBaseTableViewController.h"
-#import "BaseTableViewController.h"
 
 // import Categories
 
@@ -36,8 +36,5 @@
 #import "CALayer+YPGeneral.h"
 
 #import "UIViewController+YPGeneral.h"
-
-#import "Masonry.h"
-#import "PureLayout.h"
 
 

@@ -12,6 +12,7 @@
 #define IOS7_AND_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f ? YES : NO)
 
 #define IPHONE5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? [UIScreen mainScreen].currentMode.size.height > 960 : NO)
+#define IPHONE6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? [UIScreen mainScreen].currentMode.size.height == 1334 : NO)
 
 #define rgb(RED,GREEN,BLUE) [UIColor colorWithRed:RED/255.0f green:GREEN/255.0f blue:BLUE/255.0f alpha:1.0f]
 #define rgba(RED,GREEN,BLUE,ALPHA) [UIColor colorWithRed:RED/255.0f green:GREEN/255.0f blue:BLUE/255.0f alpha:ALPHA]

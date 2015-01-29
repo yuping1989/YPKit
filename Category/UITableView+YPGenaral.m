@@ -9,7 +9,7 @@
 #import "UITableView+YPGenaral.h"
 
 @implementation UITableView (YPGenaral)
-- (void)registerNibName:(NSString *)name
+- (void)registerNibWithName:(NSString *)name
 {
     [self registerNib:[UINib nibWithNibName:name bundle:nil] forCellReuseIdentifier:name];
 }

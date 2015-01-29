@@ -66,6 +66,21 @@
     self.frame = rect;
 }
 
+- (CGSize)size {
+    return self.frame.size;
+}
+
+- (void)setOrigin:(CGPoint)point
+{
+    CGRect rect = self.frame;
+    rect.origin = point;
+    self.frame = rect;
+}
+
+- (CGPoint)origin {
+    return self.frame.origin;
+}
+
 - (void)horizontalCenterWithWidth:(CGFloat)width
 {
     [self setX:ceilf((width - self.width) / 2)];
@@ -103,41 +118,29 @@
     return layer;
 }
 
-- (void)addTopAndBottomLine
-{
-    [self addTopAndBottomLineWithHeight:0.5f color:LINE_COLOR];
-}
-- (void)addTopAndBottomLineWithColor:(CGColorRef)color
-{
-    [self addTopAndBottomLineWithHeight:0.5f color:color];
-}
-- (void)addTopAndBottomLineWithHeight:(float)height color:(CGColorRef)colorRef
-{
-    [self addSubLayerWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, height) color:colorRef];
-    [self addSubLayerWithFrame:CGRectMake(0, self.height - height, SCREEN_WIDTH, 0.5f) color:colorRef];
-}
-
-- (CALayer *)addTopFillLine
-{
-    return [self addTopFillLineWithColor:LINE_COLOR];
-}
 - (CALayer *)addTopFillLineWithColor:(CGColorRef)color
 {
     return [self addSubLayerWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5f) color:color];
 }
 
-- (CALayer *)addBottomFillLine
-{
-    return [self addBottomFillLineWithColor:LINE_COLOR];
-}
 - (CALayer *)addBottomFillLineWithColor:(CGColorRef)color
 {
-    return [self addSubLayerWithFrame:CGRectMake(0,
-                                          self.height - 0.5f,
-                                          SCREEN_WIDTH,
-                                          0.5f)
-                         color:color];
+    return [self addBottomLineWithColor:color paddingLeft:0];
 }
+
+- (CALayer *)addBottomLineWithColor:(CGColorRef)color paddingLeft:(float)width {
+    return [self addSubLayerWithFrame:CGRectMake(width,
+                                                 self.height - 0.5f,
+                                                 SCREEN_WIDTH,
+                                                 0.5f)
+                                color:color];
+}
+
+- (void)addTopAndBottomLineWithColor:(CGColorRef)color {
+    [self addTopFillLineWithColor:color];
+    [self addBottomFillLineWithColor:color];
+}
+
 - (void)setTarget:(id)target action:(SEL)action
 {
     UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:target action:action];
@@ -157,38 +160,38 @@
     return img;
 }
 
-- (UIView *)addTopLineView
-{
-    return [self addTopLineViewPaddingLeft:0 color:LINE_VIEW_COLOR];
-}
-- (UIView *)addTopLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color
-{
-    UIView *line = [[UIView alloc] init];
-    line.backgroundColor = color;
-    [self addSubview:line];
-    [line mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@(left));
-        make.right.equalTo(self);
-        make.top.equalTo(self);
-        make.height.equalTo(@0.5f);
-    }];
-    return line;
-}
-- (UIView *)addBottomLineView
-{
-    return [self addBottomLineViewPaddingLeft:0 color:LINE_VIEW_COLOR];
-}
-- (UIView *)addBottomLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color
-{
-    UIView *line = [[UIView alloc] init];
-    line.backgroundColor = color;
-    [self addSubview:line];
-    [line mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@(left));
-        make.right.equalTo(self);
-        make.bottom.equalTo(self);
-        make.height.equalTo(@0.5f);
-    }];
-    return line;
-}
+//- (UIView *)addTopLineView
+//{
+//    return [self addTopLineViewPaddingLeft:0 color:nil];
+//}
+//- (UIView *)addTopLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color
+//{
+//    UIView *line = [[UIView alloc] init];
+//    line.backgroundColor = color;
+//    [self addSubview:line];
+//    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(@(left));
+//        make.right.equalTo(self);
+//        make.top.equalTo(self);
+//        make.height.equalTo(@0.5f);
+//    }];
+//    return line;
+//}
+//- (UIView *)addBottomLineView
+//{
+//    return [self addBottomLineViewPaddingLeft:0 color:nil];
+//}
+//- (UIView *)addBottomLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color
+//{
+//    UIView *line = [[UIView alloc] init];
+//    line.backgroundColor = color;
+//    [self addSubview:line];
+//    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(@(left));
+//        make.right.equalTo(self);
+//        make.bottom.equalTo(self);
+//        make.height.equalTo(@0.5f);
+//    }];
+//    return line;
+//}
 @end

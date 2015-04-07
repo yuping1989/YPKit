@@ -45,4 +45,5 @@
 
 - (BOOL)isViewInBackground;
 - (UIViewController *)topPresentedViewController;
+- (void)presentNavControllerWithRootController:(UIViewController *)controller;
 @end

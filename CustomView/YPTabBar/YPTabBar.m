@@ -98,7 +98,7 @@
 
 - (void)tabItemClicked:(YPTabItem *)item
 {
-    NSLog(@"_selectedItemIndex-->%d", _selectedItemIndex);
+    NSLog(@"_selectedItemIndex-->%ld", _selectedItemIndex);
     self.selectedItemIndex = item.index;
 }
 - (void)setBackgroundImage:(UIImage *)backgroundImage

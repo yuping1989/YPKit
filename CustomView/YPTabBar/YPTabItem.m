@@ -49,8 +49,7 @@
         _badgeButton.hidden = NO;
     }
     NSString *badgeStr = @(badge).stringValue;
-    CGSize size = [badgeStr sizeWithFont:self.titleLabel.font];
-    _badgeButton.width = MAX(ceilf(size.width) + 9, 16);
+    _badgeButton.width = MAX(ceilf([badgeStr widthWithFont:self.titleLabel.font]) + 9, 16);
     [_badgeButton setTitle:badgeStr forState:UIControlStateNormal];
 }
 

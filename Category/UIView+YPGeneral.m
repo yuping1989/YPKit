@@ -7,7 +7,23 @@
 //
 
 #import "UIView+YPGeneral.h"
+#define kClickedHanlder @"kClickedHanlder"
 @implementation UIView (YPGeneral)
+- (void)setClickedHanlder:(CompletionBlock)clickedHanlder {
+    objc_setAssociatedObject(self, kClickedHanlder, clickedHanlder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (CompletionBlock)clickedHanlder
+{
+    return objc_getAssociatedObject(self, kClickedHanlder);
+}
+
+- (void)setOnClickedHanlder:(CompletionBlock)clickedHanlder {
+    self.clickedHanlder = clickedHanlder;
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    [self addGestureRecognizer:tapRecognizer];
+}
+
 - (void)setWidth:(CGFloat)width
 {
     CGRect rect = self.frame;
@@ -106,6 +122,7 @@
 }
 - (void)setCornerRadius:(CGFloat)radius
 {
+    self.clipsToBounds = YES;
     self.layer.cornerRadius = radius;
 }
 
@@ -158,6 +175,13 @@
     UIGraphicsEndImageContext();
     
     return img;
+}
+
+
+- (void)handleSingleTap {
+    if (self.clickedHanlder) {
+        self.clickedHanlder();
+    }
 }
 
 //- (UIView *)addTopLineView

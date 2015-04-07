@@ -10,4 +10,5 @@
 
 @interface NSDictionary (YPGeneral)
 - (NSString *)jsonString;
++ (NSDictionary *)dictionaryWithPlistFile:(NSString *)name;
 @end

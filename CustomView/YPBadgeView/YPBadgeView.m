@@ -47,7 +47,7 @@
     } else {
         self.hidden = NO;
         _badgeLabel.text = @(badge).stringValue;
-        int width = ceilf([_badgeLabel.text sizeWithFont:_badgeLabel.font].width);
+        int width = [_badgeLabel.text widthWithFont:_badgeLabel.font];
         self.width = MAX(width + 6, self.height);
         _bgImageView.frame = self.bounds;
         _badgeLabel.frame = self.bounds;

@@ -35,7 +35,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"table count-->%d", tableViewDataSource.count);
+    NSLog(@"table count-->%ld", tableViewDataSource.count);
     return [tableViewDataSource count];
 }
 

@@ -20,4 +20,11 @@
     NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil];
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
+
++ (NSArray *)arrayWithPlistFile:(NSString *)name
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];
+    return [NSArray arrayWithContentsOfFile:path];
+}
+
 @end

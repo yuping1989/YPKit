@@ -114,6 +114,7 @@
     MKNetworkOperation *op = [self.mkNetworkEngine operationWithURLString:request.urlString
                                                                    params:request.params
                                                                httpMethod:request.method];
+//    [op addHeader:@"Content-Type" withValue:@"multipart/form-data"];
     [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
         [self processRequestOperation:completedOperation
                            controller:controller
@@ -128,7 +129,7 @@
     
     if (request.uploadFileDatas) {
         for (UploadFile *file in request.uploadFileDatas) {
-            NSLog(@"key-->%@  data length-->%d fileName-->%@  type-->%@", file.key, file.data.length, file.fileName, file.mimeType);
+            NSLog(@"key-->%@  data length-->%u fileName-->%@  type-->%@", file.key, file.data.length, file.fileName, file.mimeType);
             [op addData:file.data
                  forKey:file.key
                mimeType:file.mimeType ? file.mimeType : @"application/octet-stream"
@@ -188,7 +189,7 @@
                          failed:(ApiRequestFailedBlock)failed
 {
     NSLog(@"urlString-->%@", urlString);
-    NSLog(@"data length-->%d", data.length);
+    NSLog(@"data length-->%ld", data.length);
     MKNetworkOperation *op = [self.mkNetworkEngine operationWithURLString:urlString params:params httpMethod:HttpMethodPost];
     [op setUploadStream:[NSInputStream inputStreamWithData:data]];
     if (progressChanged) {
@@ -214,7 +215,7 @@
                   failedHandler:(ApiRequestFailedBlock)failed;
 {
     NSInteger status = operation.HTTPStatusCode;
-    NSLog(@"request code--->%d", status);
+    NSLog(@"request code--->%ld", status);
     NSError *error;
     id responseData;
     if (operation.responseData) {
@@ -277,7 +278,7 @@
         [controller hideProgress];
     }
     if (message) {
-        NSLog(@"message length-->%d", [message charLength]);
+        NSLog(@"message length-->%ld", [message charLength]);
         if ([message charLength] < 30) {
             [NativeUtil showToast:message];
         } else {

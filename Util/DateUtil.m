@@ -87,11 +87,11 @@
 - (NSString *)getDateDiffWithFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
 {
     NSDateComponents *compInfo = [self getDateComponentsByFromDate:fromDate ToDate:toDate];
-    int year = [compInfo year];
-    int month = [compInfo month];
-    int day = [compInfo day];
-    int hour = [compInfo hour];
-    int minute = [compInfo minute];
+    NSInteger year = [compInfo year];
+    NSInteger month = [compInfo month];
+    NSInteger day = [compInfo day];
+    NSInteger hour = [compInfo hour];
+    NSInteger minute = [compInfo minute];
 //    int second = [compInfo second];
     
     if (year > 0 || month > 0) {
@@ -103,12 +103,12 @@
         } else if (day == 2) {
             return @"前天";
         } else {
-            return [NSString stringWithFormat:@"%d%@", day, @"天前"];
+            return [NSString stringWithFormat:@"%lx%@", day, @"天前"];
         }
     } else if (hour > 0) {
-        return [NSString stringWithFormat:@"%d%@", hour, @"小时前"];
+        return [NSString stringWithFormat:@"%lx%@", hour, @"小时前"];
     } else if (minute> 0) {
-        return [NSString stringWithFormat:@"%d%@", minute, @"分钟前"];
+        return [NSString stringWithFormat:@"%lx%@", minute, @"分钟前"];
     } else {
         return @"刚刚";
     }
@@ -137,7 +137,7 @@
     NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
     NSDateComponents *comps = [calendar components:unitFlags fromDate:date];
     
-    int week = [comps weekday];
+    NSInteger week = [comps weekday];
     switch (week) {
         case 1:
             return @"星期天";

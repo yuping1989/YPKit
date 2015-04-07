@@ -26,6 +26,7 @@
 #import "NSDictionary+YPGeneral.h"
 #import "NSString+YPGeneral.h"
 #import "NSMutableAttributedString+YPGeneral.h"
+#import "NSAttributedString+YPGeneral.h"
 
 #import "UIView+YPGeneral.h"
 #import "UIAlertView+YPGeneral.h"

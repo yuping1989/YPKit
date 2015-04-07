@@ -18,14 +18,15 @@
 + (BOOL)isPositiveIntNumber:(NSString *)string;
 + (BOOL)isMatchRegex:(NSString *)regex string:(NSString *)string;
 - (BOOL)isMatchRegex:(NSString *)regex;
-- (NSString *)stringByAppendSpaceToLength:(int)length;
-- (NSString *)stringByInsertSpaceToLength:(int)length;
+- (NSString *)stringByAppendSpaceToLength:(NSUInteger)length;
+- (NSString *)stringByInsertSpaceToLength:(NSUInteger)length;
 
 - (NSString *)md5;
 
 + (NSString *)stringWithArray:(NSArray *)array separator:(NSString *)separator;
-- (int)heightWithFont:(UIFont *)font width:(float)width;
-- (int)widthWithFont:(UIFont *)font;
+- (CGFloat)heightWithFont:(UIFont *)font width:(float)width;
+- (CGFloat)widthWithFont:(UIFont *)font;
+- (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width;
 - (id)jsonObject;
 - (NSString *)URLEncodedString;
 - (NSInteger)rangesOfString:(NSString *)string

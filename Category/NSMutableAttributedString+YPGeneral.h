@@ -13,4 +13,6 @@
 - (void)addColor:(UIColor *)color range:(NSRange)range;
 - (void)addLineSpace:(float)space range:(NSRange)range;
 - (void)addDeleteLineWithRange:(NSRange)range;
+
+
 @end

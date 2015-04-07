@@ -19,10 +19,8 @@
     if (self) {
         self.paddingLeft = 15;
         self.paddingRight = 15;
-        self.titleWidth = 100;
         self.leftImageWidth = 20;
         self.arrowImage = [[YPSettingItem appearance] placeholderArrowImage];
-        
         
         self.titleField = [[UITextField alloc] init];
         _titleField.borderStyle = UITextBorderStyleNone;
@@ -30,7 +28,16 @@
         _titleField.font = [[YPSettingItem appearance] titleFont];
         _titleField.enabled = NO;
         [self addSubview:_titleField];
-        _titleField.rightView
+        
+        self.textField = [[UITextField alloc] init];
+        _textField.borderStyle = UITextBorderStyleNone;
+        _textField.textColor = [[YPSettingItem appearance] textColor];
+        _textField.font = [[YPSettingItem appearance] textFont];
+        _textField.enabled = NO;
+        _textField.textAlignment = NSTextAlignmentRight;
+        [self addSubview:_textField];
+        
+        self.titleWidth = ceilf((SCREEN_WIDTH - 50) / 2);
     }
     return self;
 }
@@ -60,7 +67,7 @@
                                            self.height);
     }
     if (_textField) {
-        float textX = _titleField.maxY + 8;
+        float textX = _titleField.maxX + 8;
         _textField.frame = CGRectMake(textX,
                                       0,
                                       SCREEN_WIDTH - _paddingRight - (_arrowImageView == nil ? 0 : (_arrowImageView.image.size.width + 8)) - textX,
@@ -71,7 +78,6 @@
 
 - (void)setTitle:(NSString *)title {
     _titleField.text = title;
-    [self updateLayouts];
 }
 
 - (NSString *)title {
@@ -84,17 +90,9 @@
 }
 
 - (void)setText:(NSString *)text {
-    if (_textField == nil) {
-        self.textField = [[UITextField alloc] init];
-        _textField.borderStyle = UITextBorderStyleNone;
-        _textField.textColor = [[YPSettingItem appearance] textColor];
-        _textField.font = [[YPSettingItem appearance] textFont];
-        _textField.enabled = NO;
-        _textField.textAlignment = NSTextAlignmentRight;
-        [self addSubview:_textField];
-    }
+    
     _textField.text = text;
-    [self updateLayouts];
+//    [self updateLayouts];
 }
 
 - (NSString *)text {
@@ -144,43 +142,18 @@
     _arrowImageView.image = image;
     
     [self updateLayouts];
-    NSLog(@"image-->%@", NSStringFromCGRect(_arrowImageView.frame));
 }
 
 - (UIImage *)arrowImage {
     return _arrowImageView.image;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if (_clickedHanlder) {
-        self.backgroundColor = rgb(220, 220, 220);
-    }
-    
+- (void)setLeftImageWidth:(float)leftImageWidth {
+    _leftImageWidth = leftImageWidth;
+    [self updateLayouts];
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if (_clickedHanlder) {
-        self.backgroundColor = [UIColor whiteColor];
-    }
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if (_clickedHanlder) {
-        self.backgroundColor = [UIColor whiteColor];
-    }
-}
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if (_clickedHanlder) {
-        self.backgroundColor = [UIColor whiteColor];
-    }
-}
-
-- (void)setClickedHandler:(void (^)(YPSettingItem *item))clickedHanlder
+- (void)setOnClickedHandler:(void (^)(YPSettingItem *item))clickedHanlder
 {
     if (self.tapRecognizer == nil) {
         self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap)];
@@ -194,6 +167,34 @@
 {
     if (_clickedHanlder) {
         _clickedHanlder(self);
+    }
+}
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (self.clickedHanlder) {
+        self.backgroundColor = rgb(220, 220, 220);
+    }
+    
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (self.clickedHanlder) {
+        self.backgroundColor = [UIColor whiteColor];
+    }
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (self.clickedHanlder) {
+        self.backgroundColor = [UIColor whiteColor];
+    }
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (self.clickedHanlder) {
+        self.backgroundColor = [UIColor whiteColor];
     }
 }
 @end

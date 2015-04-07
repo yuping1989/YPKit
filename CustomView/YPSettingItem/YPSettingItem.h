@@ -27,7 +27,7 @@
 @property (nonatomic, strong) UIFont *textFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIImage *placeholderArrowImage UI_APPEARANCE_SELECTOR;
 
-- (void)setClickedHandler:(void (^)(YPSettingItem *item))clickedHanlder;
+- (void)setOnClickedHandler:(void (^)(YPSettingItem *item))clickedHanlder;
 
 - (void)updateLayouts;
 

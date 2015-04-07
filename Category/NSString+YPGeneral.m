@@ -59,9 +59,9 @@
     return NO;
 }
 
-- (NSString *)stringByAppendSpaceToLength:(int)length
+- (NSString *)stringByAppendSpaceToLength:(NSUInteger)length
 {
-    int balance = length - self.charLength;
+    NSUInteger balance = length - self.charLength;
     NSMutableString *tmp = [NSMutableString stringWithString:self];
     if (balance > 0) {
         for (int i = 0; i < balance; i++) {
@@ -71,9 +71,9 @@
     return tmp;
 }
 
-- (NSString *)stringByInsertSpaceToLength:(int)length
+- (NSString *)stringByInsertSpaceToLength:(NSUInteger)length
 {
-    int balance = length - self.charLength;
+    NSUInteger balance = length - self.charLength;
     NSMutableString *tmp = [NSMutableString string];
     if (balance > 0) {
         for (int i = 0; i < balance; i++) {
@@ -110,13 +110,22 @@
     return string;
 }
 
-- (int)heightWithFont:(UIFont *)font width:(float)width
+- (CGFloat)heightWithFont:(UIFont *)font width:(float)width
 {
-    return ceilf([self sizeWithFont:font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)].height);
+    return ceilf([self sizeWithFont:font width:width].height);
+    
 }
-- (int)widthWithFont:(UIFont *)font
+- (CGFloat)widthWithFont:(UIFont *)font
 {
-    return ceilf([self sizeWithFont:font].width);
+    return ceilf([self sizeWithFont:font width:CGFLOAT_MAX].width);
+}
+
+- (CGSize)sizeWithFont:(UIFont *)font width:(CGFloat)width
+{
+    return [self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                    options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                 attributes:@{NSFontAttributeName : font}
+                                    context:nil].size;
 }
 
 - (id)jsonObject

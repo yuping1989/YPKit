@@ -21,11 +21,20 @@
 - (void)resizeToFitHeight
 {
     self.numberOfLines = 0;
-    self.height = [self.text heightWithFont:self.font width:self.width];
+    if (self.attributedText) {
+        self.height = [self.attributedText heightWithWidth:self.width];
+    } else {
+        
+        self.height = [self.text heightWithFont:self.font width:self.width];
+    }
 }
 - (void)resizeToFitWidth
 {
     self.numberOfLines = 0;
-    self.width = ceilf([self.text sizeWithFont:self.font].width);
+    if (self.attributedText) {
+        self.width = self.attributedText.singleLineWidth;
+    } else {
+        self.width = [self.text widthWithFont:self.font];
+    }
 }
 @end

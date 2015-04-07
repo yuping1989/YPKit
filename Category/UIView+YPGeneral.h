@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 @interface UIView (YPGeneral)
+@property (nonatomic, strong) CompletionBlock clickedHanlder;
+- (void)setOnClickedHanlder:(CompletionBlock)clickedHanlder;
+
 - (void)setWidth:(CGFloat)width;
 - (void)setHeight:(CGFloat)height;
 - (void)setX:(CGFloat)x;

@@ -18,7 +18,7 @@
     return objc_getAssociatedObject(self, kProgressHUD);
 }
 
-- (void)setProgressHUD:(UIImage *)progressHUD {
+- (void)setProgressHUD:(MBProgressHUD *)progressHUD {
     objc_setAssociatedObject(self, kProgressHUD, progressHUD, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -171,7 +171,7 @@
 }
 - (void)leftBarButtonClicked:(id)sender
 {
-    
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -258,5 +258,9 @@
     } else {
         return self;
     }
+}
+
+- (void)presentNavControllerWithRootController:(UIViewController *)controller {
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:controller] animated:YES completion:nil];
 }
 @end

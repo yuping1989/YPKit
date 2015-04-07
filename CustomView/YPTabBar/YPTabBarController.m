@@ -95,7 +95,7 @@
 
 - (void)YPTabBar:(YPTabBar *)tabBar didSelectItemAtIndex:(NSInteger)index
 {
-    NSLog(@"index-->%d", index);
+    NSLog(@"index-->%ld", index);
     if ([_viewControllers[index] isEqual:self.selectedController]) {
         NSLog(@"equal");
         return;
@@ -147,7 +147,7 @@
 - (YPTabItem *)ypTabItem
 {
     YPTabBar *tabBar = self.ypTabBarController.tabBar;
-    int index = [self.ypTabBarController.viewControllers indexOfObject:self];
+    NSInteger index = [self.ypTabBarController.viewControllers indexOfObject:self];
     return tabBar.items[index];
 }
 

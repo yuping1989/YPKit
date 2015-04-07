@@ -48,9 +48,5 @@
 //        self.view = nil;
 //    }
 }
-- (void)leftBarButtonClicked:(id)sender
-{
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
 
 @end

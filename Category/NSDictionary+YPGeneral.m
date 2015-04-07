@@ -14,4 +14,9 @@
     NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil];
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
++ (NSDictionary *)dictionaryWithPlistFile:(NSString *)name
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];
+    return [NSDictionary dictionaryWithContentsOfFile:path];
+}
 @end

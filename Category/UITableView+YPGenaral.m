@@ -16,12 +16,16 @@
 
 - (void)reloadRow:(NSInteger)row inSection:(NSInteger)section
 {
-    [self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
-- (void)reloadRowWithNoneAnimation:(NSInteger)row
+- (void)reloadRow:(NSInteger)row
 {
     [self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)deleteRow:(NSInteger )row {
+    [self deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
 }
 
 - (void)setFooterText:(NSString *)text

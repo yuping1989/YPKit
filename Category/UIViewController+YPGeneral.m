@@ -194,7 +194,7 @@
 }
 - (void)keyboardWillShow:(NSNotification *)notification
 {
-    if (self.view.window == nil) {
+    if ([self isViewInBackground]) {
         return;
     }
     NSDictionary *userInfo = [notification userInfo];
@@ -210,7 +210,7 @@
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-    if (self.view.window == nil) {
+    if ([self isViewInBackground]) {
         return;
     }
     NSDictionary *userInfo = [notification userInfo];
@@ -262,5 +262,8 @@
 
 - (void)presentNavControllerWithRootController:(UIViewController *)controller {
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:controller] animated:YES completion:nil];
+}
+- (void)setScrollViewContentHeight:(float)height {
+    [(UIScrollView *)self.view setContentSize:CGSizeMake(SCREEN_WIDTH, height)];
 }
 @end

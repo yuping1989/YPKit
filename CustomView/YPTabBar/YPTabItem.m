@@ -53,10 +53,15 @@
     [_badgeButton setTitle:badgeStr forState:UIControlStateNormal];
 }
 
-- (void)centerImageAndTitle:(float)spacing
+- (void)centerImageAndTitle:(float)spacing {
+    CGSize imageSize = self.imageView.frame.size;
+    [self centerImageAndTitle:spacing withImageSize:CGSizeMake(25, 25)];
+}
+
+- (void)centerImageAndTitle:(float)spacing withImageSize:(CGSize)imageSize
 {
     // get the size of the elements here for readability
-    CGSize imageSize = self.imageView.frame.size;
+    NSLog(@"size-->%@", NSStringFromCGSize(imageSize));
     CGSize titleSize = self.titleLabel.frame.size;
     
     // get the height they will take up as a unit

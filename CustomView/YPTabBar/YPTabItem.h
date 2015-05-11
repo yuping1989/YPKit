@@ -13,4 +13,5 @@
 @property (nonatomic, assign) NSInteger badge;
 + (YPTabItem *)instance;
 - (void)addDoubleTapTarget:(id)target action:(SEL)action;
+- (void)centerImageAndTitle:(float)spacing withImageSize:(CGSize)imageSize;
 @end

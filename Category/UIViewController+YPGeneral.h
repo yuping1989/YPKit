@@ -46,4 +46,5 @@
 - (BOOL)isViewInBackground;
 - (UIViewController *)topPresentedViewController;
 - (void)presentNavControllerWithRootController:(UIViewController *)controller;
+- (void)setScrollViewContentHeight:(float)height;
 @end

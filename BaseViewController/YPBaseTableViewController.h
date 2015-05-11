@@ -11,6 +11,7 @@
 @interface YPBaseTableViewController : UITableViewController
 {
     NSMutableArray *tableViewDataSource;
+    int _page;
 }
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
 - (void)initTableViewDataSource;

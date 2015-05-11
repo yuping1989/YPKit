@@ -37,6 +37,7 @@
 
 - (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef;
 - (CALayer *)addTopFillLineWithColor:(CGColorRef)color;
+- (CALayer *)addTopLineWithColor:(CGColorRef)color paddingLeft:(float)width;
 - (CALayer *)addBottomFillLineWithColor:(CGColorRef)color;
 - (CALayer *)addBottomLineWithColor:(CGColorRef)color paddingLeft:(float)width;
 - (void)addTopAndBottomLineWithColor:(CGColorRef)color;

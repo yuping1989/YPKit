@@ -10,4 +10,5 @@
 
 @interface UITextField (YPGeneral)
 - (void)setContentPaddingLeft:(float)width;
+- (void)setText:(NSString *)text attributeString:(void(^)(NSMutableAttributedString *attrString))block;
 @end

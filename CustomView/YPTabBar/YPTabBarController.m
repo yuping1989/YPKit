@@ -42,7 +42,6 @@
     if (CGRectEqualToRect(_contentViewFrame, CGRectZero)) {
         self.contentViewFrame = CGRectMake(0, 0, self.view.width, _tabBarFrame.origin.y);
     }
-
     self.tabBar = [[YPTabBar alloc] initWithFrame:_tabBarFrame];
     _tabBar.delegate = self;
     [self.view addSubview:_tabBar];
@@ -53,9 +52,8 @@
         [item setImage:controller.ypTabItemImage forState:UIControlStateNormal];
         [item setImage:controller.ypTabItemSelectedImage forState:UIControlStateSelected];
         [item setTitle:controller.title forState:UIControlStateNormal];
-        item.titleLabel.font = [UIFont systemFontOfSize:12];
+        item.titleLabel.font = [UIFont systemFontOfSize:10];
         [items addObject:item];
-        
     }
     
     _tabBar.items = items;
@@ -87,10 +85,10 @@
         _selectedController = nil;
     }
     _selectedController = selectedController;
+    [self.view addSubview:_selectedController.view];
     if (!CGRectEqualToRect(_selectedController.view.frame, _contentViewFrame)) {
         _selectedController.view.frame = _contentViewFrame;
     }
-    [self.view addSubview:_selectedController.view];
 }
 
 - (void)YPTabBar:(YPTabBar *)tabBar didSelectItemAtIndex:(NSInteger)index

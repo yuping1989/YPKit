@@ -77,14 +77,20 @@
     }
 }
 
+- (NSString *)dateDiffStringWithFromDateString:(NSString *)dateString format:(NSString *)format
+{
+    NSDate *date = [[DateUtil shareInstance] dateWithString:dateString format:format];
+    return [self dateDiffStringWithFromDate:date toDate:[NSDate date]];
+}
+
 - (NSString *)dateDiffStringWithFromTime:(int)dateMills
 {
     NSDate *fromDate = [NSDate dateWithTimeIntervalSince1970:dateMills];
     NSDate *toDate = [NSDate date];
-    return [self getDateDiffWithFromDate:fromDate toDate:toDate];
+    return [self dateDiffStringWithFromDate:fromDate toDate:toDate];
 }
 
-- (NSString *)getDateDiffWithFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
+- (NSString *)dateDiffStringWithFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
 {
     NSDateComponents *compInfo = [self getDateComponentsByFromDate:fromDate ToDate:toDate];
     NSInteger year = [compInfo year];

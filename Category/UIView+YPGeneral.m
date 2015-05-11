@@ -145,6 +145,14 @@
     return [self addBottomLineWithColor:color paddingLeft:0];
 }
 
+- (CALayer *)addTopLineWithColor:(CGColorRef)color paddingLeft:(float)width {
+    return [self addSubLayerWithFrame:CGRectMake(width,
+                                                 0,
+                                                 SCREEN_WIDTH,
+                                                 0.5f)
+                                color:color];
+}
+
 - (CALayer *)addBottomLineWithColor:(CGColorRef)color paddingLeft:(float)width {
     return [self addSubLayerWithFrame:CGRectMake(width,
                                                  self.height - 0.5f,

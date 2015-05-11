@@ -11,6 +11,7 @@
 @interface YPTableViewController : YPBaseViewController<UITableViewDataSource, UITableViewDelegate>
 {
     NSMutableArray *tableViewDataSource;
+    int _page;
 }
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;

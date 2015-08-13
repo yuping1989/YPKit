@@ -48,4 +48,8 @@
     label.text = text;
     self.tableFooterView = label;
 }
+
+- (void)scrollToRow:(NSInteger)row animated:(BOOL)animated {
+    [self scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:animated];
+}
 @end

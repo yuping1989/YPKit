@@ -109,12 +109,12 @@
         } else if (day == 2) {
             return @"前天";
         } else {
-            return [NSString stringWithFormat:@"%lx%@", day, @"天前"];
+            return [NSString stringWithFormat:@"%d%@", day, @"天前"];
         }
     } else if (hour > 0) {
-        return [NSString stringWithFormat:@"%lx%@", hour, @"小时前"];
+        return [NSString stringWithFormat:@"%d%@", hour, @"小时前"];
     } else if (minute> 0) {
-        return [NSString stringWithFormat:@"%lx%@", minute, @"分钟前"];
+        return [NSString stringWithFormat:@"%d%@", minute, @"分钟前"];
     } else {
         return @"刚刚";
     }

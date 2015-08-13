@@ -25,7 +25,7 @@
 @property (nonatomic, strong) UIColor *barItemTintColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) NSArray *dataSources;
 @property (nonatomic, strong) NSString *selectedText;
-@property (nonatomic, strong) CompletionBlockWithData completionBlock;
+@property (nonatomic, strong) YPCompletionBlockWithData completionBlock;
 @property (nonatomic, assign) id<YPUpwardsPickerDelegate> delegate;
 + (YPUpwardsPicker *)instance;
 - (void)showInView:(UIView *)view

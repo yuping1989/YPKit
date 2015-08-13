@@ -9,7 +9,7 @@
 #import "YPSettingItem.h"
 @interface YPSettingItem ()
 
-@property (nonatomic, strong) CompletionBlockWithData clickedHanlder;
+@property (nonatomic, strong) YPCompletionBlockWithData clickedHanlder;
 @property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 @end
 @implementation YPSettingItem

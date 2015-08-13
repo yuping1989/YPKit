@@ -316,11 +316,15 @@ UIEdgeInsets scrollViewOriginalContentInsets;
         _textLabel.textAlignment = NSTextAlignmentCenter;
         _textLabel.textColor = [UIColor lightGrayColor];
         _textLabel.backgroundColor = [UIColor clearColor];
-        _textLabel.text = text;
+        _textLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:_textLabel];
     }
-    if (_state != SVInfiniteScrollingStateStopped) {
+    if (_state == SVInfiniteScrollingStateStopped) {
+        _textLabel.hidden = NO;
+    } else {
         _textLabel.hidden = YES;
     }
+    
+    _textLabel.text = text;
 }
 @end

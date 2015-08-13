@@ -65,6 +65,7 @@
 - (void)setFont:(UIFont *)font
 {
     [super setFont:font];
+    _placeholderLabel.font = font;
 }
 
 - (void)dealloc
@@ -159,7 +160,7 @@
         
         _placeholderLabel.text = _placeholderText;
         _placeholderLabel.textColor = _placeholderColor;
-        [_placeholderLabel sizeToFit];
+        [_placeholderLabel resizeToFitHeight];
         [self sendSubviewToBack:_placeholderLabel];
     }
     

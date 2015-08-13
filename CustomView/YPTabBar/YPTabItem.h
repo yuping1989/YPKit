@@ -11,6 +11,7 @@
 @interface YPTabItem : UIButton
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, assign) NSInteger badge;
+@property (nonatomic, assign) BOOL showPoint;
 + (YPTabItem *)instance;
 - (void)addDoubleTapTarget:(id)target action:(SEL)action;
 - (void)centerImageAndTitle:(float)spacing withImageSize:(CGSize)imageSize;

@@ -15,6 +15,6 @@
 }
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
 - (void)initTableViewDataSource;
-- (void)addRefreshControlWithStartedHandler:(CompletionBlock)handler;
+- (void)addRefreshControlWithStartedHandler:(YPCompletionBlock)handler;
 - (void)startRefreshControl;
 @end

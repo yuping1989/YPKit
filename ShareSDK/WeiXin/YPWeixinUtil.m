@@ -48,7 +48,7 @@
         operate = @"操作";
     }
     if ([resp isKindOfClass:[PayResp class]]) {
-        operate = @"充值";
+        operate = @"支付";
     }
     if ([resp isKindOfClass:[SendAuthResp class]]) {
         operate = @"登录";

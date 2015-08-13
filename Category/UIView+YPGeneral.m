@@ -9,15 +9,15 @@
 #import "UIView+YPGeneral.h"
 #define kClickedHanlder @"kClickedHanlder"
 @implementation UIView (YPGeneral)
-- (void)setClickedHanlder:(CompletionBlock)clickedHanlder {
+- (void)setClickedHanlder:(YPCompletionBlock)clickedHanlder {
     objc_setAssociatedObject(self, kClickedHanlder, clickedHanlder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-- (CompletionBlock)clickedHanlder
+- (YPCompletionBlock)clickedHanlder
 {
     return objc_getAssociatedObject(self, kClickedHanlder);
 }
 
-- (void)setOnClickedHanlder:(CompletionBlock)clickedHanlder {
+- (void)setOnClickedHanlder:(YPCompletionBlock)clickedHanlder {
     self.clickedHanlder = clickedHanlder;
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap)];
     tapRecognizer.numberOfTapsRequired = 1;
@@ -148,7 +148,7 @@
 - (CALayer *)addTopLineWithColor:(CGColorRef)color paddingLeft:(float)width {
     return [self addSubLayerWithFrame:CGRectMake(width,
                                                  0,
-                                                 SCREEN_WIDTH,
+                                                 SCREEN_WIDTH - width,
                                                  0.5f)
                                 color:color];
 }
@@ -156,7 +156,7 @@
 - (CALayer *)addBottomLineWithColor:(CGColorRef)color paddingLeft:(float)width {
     return [self addSubLayerWithFrame:CGRectMake(width,
                                                  self.height - 0.5f,
-                                                 SCREEN_WIDTH,
+                                                 SCREEN_WIDTH - width,
                                                  0.5f)
                                 color:color];
 }

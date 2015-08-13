@@ -10,7 +10,7 @@
 @interface YPTabItem ()
 @property (nonatomic, strong) UIButton *badgeButton;
 @property (nonatomic, strong) UIView *doubleTapView;
-
+@property (nonatomic, strong) UIView *pointView;
 @end
 @implementation YPTabItem
 
@@ -24,6 +24,7 @@
     item.badgeButton.contentMode = UIViewContentModeCenter;
     item.badgeButton.userInteractionEnabled = NO;
     item.badgeButton.titleEdgeInsets = UIEdgeInsetsMake(0, 1, 0, 0);
+    
     [item addSubview:item.badgeButton];
     item.adjustsImageWhenHighlighted = NO;
     item.badge = 0;
@@ -43,14 +44,25 @@
 - (void)setBadge:(NSInteger)badge
 {
     _badge = badge;
-    if (_badge == 0) {
+    if (badge == 0) {
         _badgeButton.hidden = YES;
     } else {
         _badgeButton.hidden = NO;
+        NSString *badgeStr = @(badge).stringValue;
+        _badgeButton.width = MAX(ceilf([badgeStr widthWithFont:self.titleLabel.font]) + 9, 16);
+        [_badgeButton setTitle:badgeStr forState:UIControlStateNormal];
     }
-    NSString *badgeStr = @(badge).stringValue;
-    _badgeButton.width = MAX(ceilf([badgeStr widthWithFont:self.titleLabel.font]) + 9, 16);
-    [_badgeButton setTitle:badgeStr forState:UIControlStateNormal];
+}
+
+- (void)setShowPoint:(BOOL)showPoint {
+    if (_pointView == nil) {
+        self.pointView = [[UIView alloc] initWithFrame:CGRectMake(55, 3, 8, 8)];
+        [_pointView setCornerRadius:4];
+        _pointView.backgroundColor = rgb(255, 59, 48);
+        _pointView.clipsToBounds = NO;
+        [self addSubview:_pointView];
+    }
+    _pointView.hidden = !showPoint;
 }
 
 - (void)centerImageAndTitle:(float)spacing {

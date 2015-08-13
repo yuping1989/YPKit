@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @interface UIView (YPGeneral)
-@property (nonatomic, strong) CompletionBlock clickedHanlder;
-- (void)setOnClickedHanlder:(CompletionBlock)clickedHanlder;
+@property (nonatomic, strong) YPCompletionBlock clickedHanlder;
+- (void)setOnClickedHanlder:(YPCompletionBlock)clickedHanlder;
 
 - (void)setWidth:(CGFloat)width;
 - (void)setHeight:(CGFloat)height;

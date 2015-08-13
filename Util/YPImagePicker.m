@@ -10,8 +10,8 @@
 #import "QBImagePickerController.h"
 @interface YPImagePicker ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, QBImagePickerControllerDelegate>
 {
-    CompletionBlockWithData _singleBlock;
-    CompletionBlockWithData _multiBlock;
+    YPCompletionBlockWithData _singleBlock;
+    YPCompletionBlockWithData _multiBlock;
 }
 @end
 @implementation YPImagePicker
@@ -25,7 +25,7 @@
     return imagePicker;
 }
 
-- (void)pickImageWithMaxNumber:(int)maxNumber
+- (void)pickImageWithMaxNumber:(NSInteger)maxNumber
                   inController:(UIViewController *)controller
                completionBlock:(void (^)(NSArray *images))completionBlock
 {

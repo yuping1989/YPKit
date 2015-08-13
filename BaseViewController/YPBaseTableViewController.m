@@ -9,7 +9,7 @@
 #import "YPBaseTableViewController.h"
 
 @interface YPBaseTableViewController ()
-@property (nonatomic, strong) CompletionBlock refreshStartedBlock;
+@property (nonatomic, strong) YPCompletionBlock refreshStartedBlock;
 @end
 
 @implementation YPBaseTableViewController
@@ -45,7 +45,7 @@
     self.tableViewDataSource = [[NSMutableArray alloc] init];
 }
 
-- (void)addRefreshControlWithStartedHandler:(CompletionBlock)handler
+- (void)addRefreshControlWithStartedHandler:(YPCompletionBlock)handler
 {
     if (self.refreshControl == nil) {
         self.refreshControl = [[UIRefreshControl alloc] init];

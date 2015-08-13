@@ -18,4 +18,5 @@
                  font:(UIFont *)font
                 color:(UIColor *)color
                height:(int)height;
+- (void)scrollToRow:(NSInteger)row animated:(BOOL)animated;
 @end

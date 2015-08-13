@@ -10,7 +10,7 @@
 
 @interface YPImagePicker : NSObject
 + (YPImagePicker *)shared;
-- (void)pickImageWithMaxNumber:(int)maxNumber
+- (void)pickImageWithMaxNumber:(NSInteger)maxNumber
                   inController:(UIViewController *)controller
                completionBlock:(void (^)(NSArray *images))completionBlock;
 - (void)pickSingleImageInController:(UIViewController *)controller

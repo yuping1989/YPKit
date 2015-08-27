@@ -3,11 +3,13 @@
 //  Copyright 2010 Magical Panda Software, LLC All rights reserved.
 //
 
-#import "CoreData+MagicalRecord.h"
+#import "NSManagedObject+MagicalRecord.h"
+#import "NSManagedObject+MagicalRequests.h"
+#import "NSManagedObjectContext+MagicalThreading.h"
+#import "MagicalRecord+ErrorHandling.h"
 #import "MagicalRecordLogging.h"
 
-static NSUInteger defaultBatchSize = kMagicalRecordDefaultBatchSize;
-
+static NSUInteger kMagicalRecordDefaultBatchSize = 20;
 
 @implementation NSManagedObject (MagicalRecord)
 
@@ -20,8 +22,10 @@ static NSUInteger defaultBatchSize = kMagicalRecordDefaultBatchSize;
         entityName = [self performSelector:@selector(entityName)];
     }
 
-    if ([entityName length] == 0) {
-        entityName = NSStringFromClass(self);
+    if ([entityName length] == 0)
+    {
+        // Remove module prefix from Swift subclasses
+        entityName = [NSStringFromClass(self) componentsSeparatedByString:@"."].lastObject;
     }
 
     return entityName;
@@ -31,13 +35,13 @@ static NSUInteger defaultBatchSize = kMagicalRecordDefaultBatchSize;
 {
 	@synchronized(self)
 	{
-		defaultBatchSize = newBatchSize;
+		kMagicalRecordDefaultBatchSize = newBatchSize;
 	}
 }
 
 + (NSUInteger) MR_defaultBatchSize
 {
-	return defaultBatchSize;
+	return kMagicalRecordDefaultBatchSize;
 }
 
 + (NSArray *) MR_executeFetchRequest:(NSFetchRequest *)request inContext:(NSManagedObjectContext *)context
@@ -88,13 +92,15 @@ static NSUInteger defaultBatchSize = kMagicalRecordDefaultBatchSize;
 
 #if TARGET_OS_IPHONE
 
-+ (void) MR_performFetch:(NSFetchedResultsController *)controller
++ (BOOL) MR_performFetch:(NSFetchedResultsController *)controller
 {
 	NSError *error = nil;
-	if (![controller performFetch:&error])
+	BOOL success = [controller performFetch:&error];
+	if (!success)
 	{
 		[MagicalRecord handleErrors:error];
 	}
+	return success;
 }
 
 #endif

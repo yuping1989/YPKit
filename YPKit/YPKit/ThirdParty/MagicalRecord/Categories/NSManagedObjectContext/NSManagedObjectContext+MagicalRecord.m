@@ -5,9 +5,13 @@
 //  Copyright 2010 Magical Panda Software, LLC All rights reserved.
 //
 
-#import "CoreData+MagicalRecord.h"
+#import "NSManagedObjectContext+MagicalRecord.h"
+#import "NSManagedObjectContext+MagicalObserving.h"
+#import "NSManagedObjectContext+MagicalThreading.h"
+#import "NSPersistentStoreCoordinator+MagicalRecord.h"
+#import "MagicalRecord+ErrorHandling.h"
+#import "MagicalRecord+iCloud.h"
 #import "MagicalRecordLogging.h"
-#import <objc/runtime.h>
 
 static NSString * const MagicalRecordContextWorkingName = @"MagicalRecordContextWorkingName";
 
@@ -183,7 +187,7 @@ static id MagicalRecordUbiquitySetupNotificationObserver;
     }
 }
 
-+ (void) rootContextDidSave:(NSNotification *)notification
++ (void)rootContextDidSave:(NSNotification *)notification
 {
     if ([notification object] != [self MR_rootSavingContext])
     {
@@ -197,6 +201,11 @@ static id MagicalRecordUbiquitySetupNotificationObserver;
         });
 
         return;
+    }
+
+    for (NSManagedObject *object in [[notification userInfo] objectForKey:NSUpdatedObjectsKey])
+    {
+        [[[self MR_defaultContext] objectWithID:[object objectID]] willAccessValueForKey:nil];
     }
 
     [[self MR_defaultContext] mergeChangesFromContextDidSaveNotification:notification];
@@ -278,8 +287,8 @@ static id MagicalRecordUbiquitySetupNotificationObserver;
 
     MagicalRecordRootSavingContext = context;
     
-    [context performBlock:^{
-        [context MR_obtainPermanentIDsBeforeSaving];
+    [MagicalRecordRootSavingContext performBlock:^{
+        [MagicalRecordRootSavingContext MR_obtainPermanentIDsBeforeSaving];
         [MagicalRecordRootSavingContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
         [MagicalRecordRootSavingContext MR_setWorkingName:@"MagicalRecord Root Saving Context"];
     }];

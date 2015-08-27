@@ -8,7 +8,11 @@
 
 #import "MagicalRecord+Options.h"
 
-static MagicalRecordLoggingLevel kMagicalRecordLoggingLevel = MagicalRecordLoggingLevelVerbose;
+#ifdef DEBUG
+static MagicalRecordLoggingLevel kMagicalRecordLoggingLevel = MagicalRecordLoggingLevelDebug;
+#else
+static MagicalRecordLoggingLevel kMagicalRecordLoggingLevel = MagicalRecordLoggingLevelError;
+#endif
 static BOOL kMagicalRecordShouldAutoCreateManagedObjectModel = NO;
 static BOOL kMagicalRecordShouldAutoCreateDefaultPersistentStoreCoordinator = NO;
 static BOOL kMagicalRecordShouldDeleteStoreOnModelMismatch = NO;

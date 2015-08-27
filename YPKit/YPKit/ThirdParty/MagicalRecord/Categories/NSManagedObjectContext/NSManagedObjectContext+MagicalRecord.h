@@ -5,8 +5,8 @@
 //  Copyright 2010 Magical Panda Software, LLC All rights reserved.
 //
 
-#import "MagicalRecord.h"
-#import "MagicalRecordDeprecated.h"
+#import <CoreData/CoreData.h>
+#import "MagicalRecordDeprecationMacros.h"
 
 @interface NSManagedObjectContext (MagicalRecord)
 

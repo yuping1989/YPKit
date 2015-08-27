@@ -49,7 +49,6 @@
                                           _leftImageView.image.size.height);
     }
     if (_titleField) {
-//        int width = [_titleField.text widthWithFont:_titleField.font];
         _titleField.frame = CGRectMake(_leftImageView == nil ? _paddingLeft : _leftImageView.maxX + 8,
                                        0, _titleWidth, self.height);
     }
@@ -92,7 +91,6 @@
 - (void)setText:(NSString *)text {
     
     _textField.text = text;
-//    [self updateLayouts];
 }
 
 - (NSString *)text {

@@ -1,27 +1,25 @@
 //
 //  YPTextView.h
-//  PiFuKeYiSheng
+//  YPKit
 //
 //  Created by 喻平 on 14-6-17.
-//  Copyright (c) 2014年 com.pifukeyisheng. All rights reserved.
+//  Copyright (c) 2014年 com.yp. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 @class YPTextView;
 @protocol YPTextViewDelegate <UITextViewDelegate>
 @optional
-- (void)ypTextView:(YPTextView *)textView didContentHeightChanged:(int)height byInput:(BOOL)yesOrNo;
+- (void)yp_textView:(YPTextView *)textView didContentHeightChanged:(NSInteger)heightOffset;
 @end
 
-@interface YPTextView : UITextView
-{
-    
+@interface YPTextView : UITextView {
+
 }
-@property (strong, nonatomic) NSString *placeholderText;
-@property (strong, nonatomic) UIColor *placeholderColor;
-@property (strong, nonatomic) UIImage *backgroundImage;
-@property (nonatomic, assign) id<YPTextViewDelegate> delegate;
-@property (nonatomic, assign) int maxHeight;
-@property (nonatomic, assign) int minHeight;
-- (void)resetHeight;
+
+@property(nonatomic, strong) NSString *placeholder;
+@property (nonatomic, strong) UIColor *placeholderColor UI_APPEARANCE_SELECTOR;
+@property(nonatomic, assign) NSInteger maxHeight;
+
+@property(nonatomic, assign) IBOutlet id<YPTextViewDelegate> yp_delegate;
 @end

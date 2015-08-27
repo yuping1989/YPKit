@@ -65,7 +65,7 @@
 
 - (void)showInView:(UIView *)view
          withTitle:(NSString *)title {
-    [NativeUtil hideKeyboard];
+    [YPNativeUtil hideKeyboard];
     _titleLabel.text = title;
     _backgroundView.frame = view.bounds;
     self.width = view.width;

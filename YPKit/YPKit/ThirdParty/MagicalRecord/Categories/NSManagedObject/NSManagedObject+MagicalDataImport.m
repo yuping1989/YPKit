@@ -5,8 +5,16 @@
 //  Copyright 2011 Magical Panda Software LLC. All rights reserved.
 //
 
-#import "CoreData+MagicalRecord.h"
 #import "NSObject+MagicalDataImport.h"
+#import "NSAttributeDescription+MagicalDataImport.h"
+#import "NSEntityDescription+MagicalDataImport.h"
+#import "NSManagedObjectContext+MagicalThreading.h"
+#import "NSManagedObject+MagicalDataImport.h"
+#import "NSManagedObject+MagicalFinders.h"
+#import "NSManagedObject+MagicalRecord.h"
+#import "NSRelationshipDescription+MagicalDataImport.h"
+#import "NSString+MagicalDataImport.h"
+#import "MagicalImportFunctions.h"
 #import "MagicalRecordLogging.h"
 #import <objc/runtime.h>
 
@@ -155,17 +163,15 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
     }
 }
 
-- (void) MR_setRelationships:(NSDictionary *)relationships forKeysWithObject:(id)relationshipData withBlock:(void(^)(NSRelationshipDescription *,id))setRelationshipBlock
+- (void)MR_setRelationships:(NSDictionary *)relationships forKeysWithObject:(id)relationshipData withBlock:(void (^)(NSRelationshipDescription *, id))setRelationshipBlock
 {
-    for (NSString *relationshipName in relationships) 
+    for (NSString *relationshipName in relationships)
     {
-        if ([self MR_importValue:relationshipData forKey:relationshipName]) 
-        {
-            continue;
-        }
-        
+        SEL shouldImportSelector = NSSelectorFromString([NSString stringWithFormat:@"shouldImport%@:", [relationshipName MR_capitalizedFirstCharacterString]]);
+        BOOL implementsShouldImport = (BOOL)[self respondsToSelector:shouldImportSelector];
+
         NSRelationshipDescription *relationshipInfo = [relationships valueForKey:relationshipName];
-        
+
         NSString *lookupKey = [[relationshipInfo userInfo] valueForKey:kMagicalRecordImportRelationshipMapKey] ?: relationshipName;
 
         id relatedObjectData;
@@ -189,30 +195,31 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
                 continue;
             }
         }
-        
-        SEL shouldImportSelector = NSSelectorFromString([NSString stringWithFormat:@"shouldImport%@:", [relationshipName MR_capitalizedFirstCharacterString]]);
-        BOOL implementsShouldImport = (BOOL)[self respondsToSelector:shouldImportSelector];
-        void (^establishRelationship)(NSRelationshipDescription *, id) = ^(NSRelationshipDescription *blockInfo, id blockData)
-        {
+
 #pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            if (!(implementsShouldImport && !(BOOL)[self performSelector:shouldImportSelector withObject:relatedObjectData]))
-            {
-                setRelationshipBlock(blockInfo, blockData);
-            }
+#pragma clang diagnostic ignored \
+    "-Warc-performSelector-leaks"
+        if (implementsShouldImport && !(BOOL)[self performSelector:shouldImportSelector withObject:relatedObjectData])
+        {
+            continue;
+        }
 #pragma clang diagnostic pop
-        };
-        
+        // Different values provided to the -shouldImport and -import methods??
+        if ([self MR_importValue:relationshipData forKey:relationshipName])
+        {
+            continue;
+        }
+
         if ([relationshipInfo isToMany] && [relatedObjectData isKindOfClass:[NSArray class]])
         {
-            for (id singleRelatedObjectData in relatedObjectData) 
+            for (id singleRelatedObjectData in relatedObjectData)
             {
-                establishRelationship(relationshipInfo, singleRelatedObjectData);
+                setRelationshipBlock(relationshipInfo, singleRelatedObjectData);
             }
         }
         else
         {
-            establishRelationship(relationshipInfo, relatedObjectData);
+            setRelationshipBlock(relationshipInfo, relatedObjectData);
         }
     }
 }
@@ -260,57 +267,60 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
     return [self MR_postImport:objectData];  
 }
 
-- (BOOL) MR_importValuesForKeysWithObject:(id)objectData
+- (BOOL)MR_importValuesForKeysWithObject:(id)objectData
 {
-	__weak typeof(self) weakself = self;
+    __weak typeof(self) weakself = self;
     return [self MR_performDataImportFromObject:objectData
                               relationshipBlock:^(NSRelationshipDescription *relationshipInfo, id localObjectData) {
-        
-        NSManagedObject *relatedObject = [weakself MR_findObjectForRelationship:relationshipInfo withData:localObjectData];
-        
-        if (relatedObject == nil)
-        {
-            NSEntityDescription *entityDescription = [relationshipInfo destinationEntity];
-            relatedObject = [entityDescription MR_createInstanceInContext:[weakself managedObjectContext]];
-        }
-        [relatedObject MR_importValuesForKeysWithObject:localObjectData];
-        
-        if ((localObjectData) && (![localObjectData isKindOfClass:[NSDictionary class]]))
-        {
-			NSString * relatedByAttribute = [[relationshipInfo userInfo] objectForKey:kMagicalRecordImportRelationshipLinkedByKey] ?: MR_primaryKeyNameFromString([[relationshipInfo destinationEntity] name]);
-			
-            if (relatedByAttribute)
-            {
-				
-                if (![relatedObject MR_importValue:localObjectData forKey:relatedByAttribute])
-                {
-                    [relatedObject setValue:localObjectData forKey:relatedByAttribute];
-                }
-				
-            }
-        }
-        
-        [weakself MR_addObject:relatedObject forRelationship:relationshipInfo];
-	}];
+
+                                  NSManagedObject *relatedObject = [weakself MR_findObjectForRelationship:relationshipInfo withData:localObjectData];
+
+                                  if (relatedObject == nil)
+                                  {
+                                      NSEntityDescription *entityDescription = [relationshipInfo destinationEntity];
+                                      relatedObject = [entityDescription MR_createInstanceInContext:[weakself managedObjectContext]];
+                                  }
+                                  if ([localObjectData isKindOfClass:[NSDictionary class]])
+                                  {
+                                      [relatedObject MR_importValuesForKeysWithObject:localObjectData];
+                                  }
+                                  else if (localObjectData)
+                                  {
+                                      NSString *relatedByAttribute = [[relationshipInfo userInfo] objectForKey:kMagicalRecordImportRelationshipLinkedByKey] ?: MR_primaryKeyNameFromString([[relationshipInfo destinationEntity] name]);
+
+                                      if (relatedByAttribute)
+                                      {
+                                          if (![relatedObject MR_importValue:localObjectData forKey:relatedByAttribute])
+                                          {
+                                              [relatedObject setValue:localObjectData forKey:relatedByAttribute];
+                                          }
+                                      }
+                                  }
+
+                                  [weakself MR_addObject:relatedObject forRelationship:relationshipInfo];
+                              }];
 }
 
 + (id) MR_importFromObject:(id)objectData inContext:(NSManagedObjectContext *)context;
 {
-    NSAttributeDescription *primaryAttribute = [[self MR_entityDescriptionInContext:context] MR_primaryAttributeToRelateBy];
-    
-    id value = [objectData MR_valueForAttribute:primaryAttribute];
-    
-    NSManagedObject *managedObject = nil;
-    if (primaryAttribute != nil)
-    {
-        managedObject = [self MR_findFirstByAttribute:[primaryAttribute name] withValue:value inContext:context];
-    }
-    if (managedObject == nil)
-    {
-        managedObject = [self MR_createEntityInContext:context];
-    }
+    __block NSManagedObject *managedObject;
 
-    [managedObject MR_importValuesForKeysWithObject:objectData];
+    [context performBlockAndWait:^{
+        NSAttributeDescription *primaryAttribute = [[self MR_entityDescriptionInContext:context] MR_primaryAttributeToRelateBy];
+
+        id value = [objectData MR_valueForAttribute:primaryAttribute];
+
+        if (primaryAttribute != nil)
+        {
+            managedObject = [self MR_findFirstByAttribute:[primaryAttribute name] withValue:value inContext:context];
+        }
+        if (managedObject == nil)
+        {
+            managedObject = [self MR_createEntityInContext:context];
+        }
+
+        [managedObject MR_importValuesForKeysWithObject:objectData];
+    }];
 
     return managedObject;
 }

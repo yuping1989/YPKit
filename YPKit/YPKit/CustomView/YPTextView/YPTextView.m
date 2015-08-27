@@ -1,171 +1,120 @@
 //
 //  YPTextView.m
-//  PiFuKeYiSheng
+//  GCLibrary
 //
-//  Created by 喻平 on 14-6-17.
-//  Copyright (c) 2014年 com.pifukeyisheng. All rights reserved.
+//  Created by Guillaume Campagna on 10-11-16.
+//  Copyright 2010 LittleKiwi. All rights reserved.
 //
 
 #import "YPTextView.h"
+
 @interface YPTextView ()
-{
-    UILabel *_placeholderLabel;
-    UIImageView *_backgroudnImageView;
-    int _height;
-}
+
+@property (nonatomic, strong) UITextView *placeholderTextView;
+- (void)beginEditing:(NSNotification*)notification;
+- (void)endEditing:(NSNotification*)notification;
+
 @end
+
 @implementation YPTextView
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self)
-    {
-        [self initialize];
-    }
-    
-    return self;
-}
+#pragma mark -
+#pragma mark Initialisation
 
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-        [self initialize];
+- (id)initWithFrame:(CGRect)frame {
+    if ((self = [super initWithFrame:frame])) {
+        [self awakeFromNib];
     }
     return self;
 }
 
 
-- (id)init
-{
-    self = [super init];
-    if (self)
-    {
-        [self initialize];
-    }
-    
-    return self;
+
+- (void)awakeFromNib {
+    NSLog(@"awakeFromNib");
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(beginEditing:) name:UITextViewTextDidBeginEditingNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endEditing:) name:UITextViewTextDidEndEditingNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChanged:) name:UITextViewTextDidChangeNotification object:nil];
 }
 
-- (void)initialize
-{
-    _placeholderColor = [UIColor lightGrayColor];
-    _height = 37;
-    [self layoutGUI];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChanged:) name:UITextViewTextDidChangeNotification object:self];
-    
-}
--(void)resetHeight
-{
-    _height = 0;
-}
-- (void)setFont:(UIFont *)font
-{
+- (void)setFont:(UIFont *)font {
     [super setFont:font];
-    _placeholderLabel.font = font;
+    _placeholderTextView.font = font;
 }
 
-- (void)dealloc
-{
+- (void)setTextContainerInset:(UIEdgeInsets)textContainerInset {
+    [super setTextContainerInset:textContainerInset];
+    _placeholderTextView.textContainerInset = textContainerInset;
+}
+
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    _placeholderTextView.frame = self.bounds;
+}
+
+- (void)setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated {
+    if (_yp_delegate && [_yp_delegate respondsToSelector:@selector(yp_textView:didContentHeightChanged:)]) {
+        [super setContentOffset:contentOffset animated:NO];
+    } else {
+        [super setContentOffset:contentOffset animated:animated];
+    }
+}
+
+- (void)setPlaceholder:(NSString *)placeholder {
+    _placeholder = placeholder;
+    if (self.placeholderTextView == nil) {
+        self.placeholderTextView = [[UITextView alloc] initWithFrame:self.bounds];
+        [self addSubview:_placeholderTextView];
+        _placeholderTextView.userInteractionEnabled = NO;
+        _placeholderTextView.backgroundColor = [UIColor clearColor];
+        _placeholderTextView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _placeholderTextView.font = self.font;
+        if (_placeholderColor) {
+            _placeholderTextView.textColor = _placeholderColor;
+        } else {
+            _placeholderTextView.textColor = [UIColor lightGrayColor];
+        }
+    }
+    _placeholderTextView.text = placeholder;
+}
+
+- (void)setPlaceholderColor:(UIColor *)placeholderColor {
+    _placeholderColor = placeholderColor;
+    _placeholderTextView.textColor = placeholderColor;
+}
+
+- (void)beginEditing:(NSNotification*) notification {
+    _placeholderTextView.hidden = YES;
+    self.contentOffset = CGPointMake(self.contentOffset.x, (self.contentSize.height - self.height) / 2);
+}
+
+- (void)endEditing:(NSNotification*) notification {
+    if (self.text.length == 0) {
+        _placeholderTextView.hidden = NO;
+    }
+}
+
+- (void)textChanged:(NSNotification *)notification {
+    NSLog(@"content size-->%@", NSStringFromCGSize(self.contentSize));
+    NSLog(@"content offset--->%@", NSStringFromCGPoint(self.contentOffset));
+    if (_yp_delegate && [_yp_delegate respondsToSelector:@selector(yp_textView:didContentHeightChanged:)]) {
+        NSInteger height;
+        if (_maxHeight > 0 && self.contentSize.height > _maxHeight) {
+            height = ceilf(_maxHeight - self.height);
+        } else {
+            height = ceilf(self.contentSize.height - self.height);
+        }
+        if (height != 0) {
+            [_yp_delegate yp_textView:self didContentHeightChanged:height];
+        }
+    }
+}
+
+#pragma mark -
+#pragma mark Dealloc
+
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - Notification center
-
-- (void)textChanged:(NSNotification *)notification
-{
-    if (notification.object == self) {
-        [self layoutGUI];
-        NSLog(@"content ssize-->%@", NSStringFromCGSize(self.contentSize));
-        if (_height == 0) {
-            _height = self.contentSize.height;
-            return;
-        }
-        if (_maxHeight > 0 && self.contentSize.height > _maxHeight) {
-            return;
-        }
-        if (_minHeight > 0 && self.contentSize.height < _minHeight) {
-            return;
-        }
-        if (_height != self.contentSize.height) {
-            if (self.delegate && [self.delegate respondsToSelector:@selector(ypTextView:didContentHeightChanged:byInput:)]) {
-                [self.delegate ypTextView:self
-                  didContentHeightChanged:self.contentSize.height - _height
-                                  byInput:[notification.name isEqualToString:UITextViewTextDidChangeNotification]];
-            }
-            _height = self.contentSize.height;
-        }
-    }
-}
-
-
-#pragma mark - layoutGUI
-
-
-- (void)layoutGUI
-{
-    _placeholderLabel.alpha = [self.text length] > 0 || [_placeholderText length] == 0 ? 0 : 1;
-}
-
-
-#pragma mark - Setters
-
-
-- (void)setText:(NSString *)text
-{
-    [super setText:text];
-    [self layoutGUI];
-    if (IOS7_AND_LATER) {
-        CGSize size = [self sizeThatFits:CGSizeMake(self.frame.size.width, FLT_MAX)];
-        self.contentSize = CGSizeMake(self.contentSize.width, ceilf(size.height));
-    }
-    [self textChanged:[[NSNotification alloc] initWithName:@"" object:self userInfo:nil]];
-}
-
-
-- (void)setPlaceholderText:(NSString*)placeholderText
-{
-	_placeholderText = placeholderText;
-	[self setNeedsDisplay];
-}
-
-
-- (void)setPlaceholderColor:(UIColor*)color
-{
-	_placeholderColor = color;
-	[self setNeedsDisplay];
-}
-
-
-#pragma mark - drawRect
-
-
-- (void)drawRect:(CGRect)rect
-{
-    if ([_placeholderText length] > 0)
-    {
-        if (!_placeholderLabel)
-        {
-            _placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, self.bounds.size.width - 16, 0)];
-            _placeholderLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            _placeholderLabel.numberOfLines = 0;
-            _placeholderLabel.font = self.font;
-            _placeholderLabel.backgroundColor = [UIColor clearColor];
-            _placeholderLabel.alpha = 0;
-            [self addSubview:_placeholderLabel];
-        }
-        
-        _placeholderLabel.text = _placeholderText;
-        _placeholderLabel.textColor = _placeholderColor;
-        [_placeholderLabel resizeToFitHeight];
-        [self sendSubviewToBack:_placeholderLabel];
-    }
-    
-    [self layoutGUI];
-    
-    [super drawRect:rect];
-}
 @end

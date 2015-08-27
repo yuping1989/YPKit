@@ -38,7 +38,7 @@
               if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                   imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
               } else {
-                  [NativeUtil showToast:@"您的设备不支持相机"];
+                  [YPNativeUtil showToast:@"您的设备不支持相机"];
                   return;
               }
               
@@ -72,7 +72,7 @@
               if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                   imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
               } else {
-                  [NativeUtil showToast:@"您的设备不支持相机"];
+                  [YPNativeUtil showToast:@"您的设备不支持相机"];
                   return;
               }
           } else {

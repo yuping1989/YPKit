@@ -263,7 +263,7 @@
 - (void)presentNavControllerWithRootController:(UIViewController *)controller {
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:controller] animated:YES completion:nil];
 }
-- (void)setScrollViewContentHeight:(float)height {
+- (void)setScrollViewContentHeight:(CGFloat)height {
     [(UIScrollView *)self.view setContentSize:CGSizeMake(SCREEN_WIDTH, height)];
 }
 @end

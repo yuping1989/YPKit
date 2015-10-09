@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSArray (YPKit)
-- (NSArray *)sortedArrayUsingKey:(NSString *)key ascending:(BOOL)ascending;
+- (NSArray *)sortedArrayWithKey:(NSString *)key ascending:(BOOL)ascending;
 - (NSString *)jsonString;
 + (NSArray *)arrayWithPlistFile:(NSString *)name;
 

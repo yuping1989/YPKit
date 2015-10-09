@@ -13,33 +13,33 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 @end
 @implementation YPSettingItem
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
+
+- (instancetype)init {
+    self = [super init];
     if (self) {
-        self.paddingLeft = 15;
-        self.paddingRight = 15;
-        self.leftImageWidth = 20;
-        self.arrowImage = [[YPSettingItem appearance] placeholderArrowImage];
-        
-        self.titleField = [[UITextField alloc] init];
-        _titleField.borderStyle = UITextBorderStyleNone;
-        _titleField.textColor = [[YPSettingItem appearance] titleColor];
-        _titleField.font = [[YPSettingItem appearance] titleFont];
-        _titleField.enabled = NO;
-        [self addSubview:_titleField];
-        
-        self.textField = [[UITextField alloc] init];
-        _textField.borderStyle = UITextBorderStyleNone;
-        _textField.textColor = [[YPSettingItem appearance] textColor];
-        _textField.font = [[YPSettingItem appearance] textFont];
-        _textField.enabled = NO;
-        _textField.textAlignment = NSTextAlignmentRight;
-        [self addSubview:_textField];
-        
-        self.titleWidth = ceilf((SCREEN_WIDTH - 50) / 2);
+        [self awakeFromNib];
     }
     return self;
+}
+
+- (void)awakeFromNib {
+    self.titleField = [[UITextField alloc] init];
+    _titleField.borderStyle = UITextBorderStyleNone;
+    _titleField.enabled = NO;
+    [self addSubview:_titleField];
+    
+    self.textField = [[UITextField alloc] init];
+    _textField.borderStyle = UITextBorderStyleNone;
+    _textField.enabled = NO;
+    _textField.textAlignment = NSTextAlignmentRight;
+    [self addSubview:_textField];
+    
+    self.arrowImageView = [[UIImageView alloc] init];
+    _arrowImageView.contentMode = UIViewContentModeCenter;
+    [self addSubview:_arrowImageView];
+    
+    _titleWidth = ceilf((SCREEN_WIDTH - 50) / 2);
+    self.lineColor = [[YPSettingItem appearance] lineColor];
 }
 
 - (void)updateLayouts {
@@ -53,14 +53,14 @@
                                        0, _titleWidth, self.height);
     }
     
-    if (_arrowImageView) {
+    if (!_arrowImageView.hidden) {
         _arrowImageView.frame = CGRectMake(SCREEN_WIDTH - _arrowImageView.image.size.width - _paddingRight,
                                            0,
                                           _arrowImageView.image.size.width,
                                           self.height);
     }
     if (_rightImageView) {
-        _rightImageView.frame = CGRectMake(SCREEN_WIDTH - _paddingRight - (_arrowImageView == nil ? 0 : (_arrowImageView.image.size.    width + 8)) - 8 - _rightImageView.image.size.width,
+        _rightImageView.frame = CGRectMake(SCREEN_WIDTH - _paddingRight - (_arrowImageView == nil ? 0 : (_arrowImageView.image.size.width + 8)) - 8 - _rightImageView.image.size.width,
                                            0,
                                            _rightImageView.image.size.width,
                                            self.height);
@@ -74,6 +74,37 @@
     }
 }
 
+- (void)setType:(YPSettingItemType)type {
+    _type = type;
+    if (_topLineLayer) {
+        [_topLineLayer removeFromSuperlayer];
+        _topLineLayer = nil;
+    }
+    if (_bottomLineLayer) {
+        [_bottomLineLayer removeFromSuperlayer];
+        _bottomLineLayer = nil;
+    }
+    CGColorRef color = _lineColor.CGColor;
+    if (_type == YPSettingItemTypeTop) {
+        self.topLineLayer = [self addTopFillLineWithColor:color];
+        self.bottomLineLayer = [self addBottomLineWithColor:color
+                                                paddingLeft:[[YPSettingItem appearance] paddingLeft]];
+    } else if (_type == YPSettingItemTypeCenter) {
+        self.bottomLineLayer = [self addBottomLineWithColor:color
+                                                paddingLeft:[[YPSettingItem appearance] paddingLeft]];
+    } else if (_type == YPSettingItemTypeBottom) {
+        self.bottomLineLayer = [self addBottomFillLineWithColor:color];
+    }
+}
+- (void)setPaddingLeft:(float)paddingLeft {
+    _paddingLeft = paddingLeft;
+    [self updateLayouts];
+}
+
+- (void)setPaddingRight:(float)paddingRight {
+    _paddingRight = paddingRight;
+    [self updateLayouts];
+}
 
 - (void)setTitle:(NSString *)title {
     _titleField.text = title;
@@ -88,14 +119,33 @@
     [self updateLayouts];
 }
 
+- (void)setTitleFont:(UIFont *)titleFont {
+    _titleFont = titleFont;
+    _titleField.font = titleFont;
+}
+
+- (void)setTitleColor:(UIColor *)titleColor {
+    _titleColor = titleColor;
+    _titleField.textColor = titleColor;
+}
+
 - (void)setText:(NSString *)text {
-    
     _textField.text = text;
 }
 
 - (NSString *)text {
     return _textField.text;
 }
+
+- (void)setTextFont:(UIFont *)textFont {
+    _textFont = textFont;
+    _textField.font = textFont;
+}
+- (void)setTextColor:(UIColor *)textColor {
+    _textColor = textColor;
+    _textField.textColor = textColor;
+}
+
 
 - (void)setLeftImage:(UIImage *)image {
     if (_leftImageView == nil) {
@@ -125,25 +175,15 @@
     return _rightImageView.image;
 }
 
-- (void)setArrowImage:(UIImage *)image {
-    if (image == nil) {
-        [_arrowImageView removeFromSuperview];
-        self.arrowImageView = nil;
-        [self updateLayouts];
-        return;
+- (void)setArrowImage:(UIImage *)arrowImage {
+    _arrowImage = arrowImage;
+    if (arrowImage == nil) {
+        _arrowImageView.hidden = YES;
+    } else {
+        _arrowImageView.image = arrowImage;
+        _arrowImageView.hidden = NO;
     }
-    if (_arrowImageView == nil) {
-        self.arrowImageView = [[UIImageView alloc] init];
-        _arrowImageView.contentMode = UIViewContentModeCenter;
-        [self addSubview:_arrowImageView];
-    }
-    _arrowImageView.image = image;
-    
     [self updateLayouts];
-}
-
-- (UIImage *)arrowImage {
-    return _arrowImageView.image;
 }
 
 - (void)setLeftImageWidth:(float)leftImageWidth {

@@ -38,7 +38,7 @@
 - (void)setFooterText:(NSString *)text
                  font:(UIFont *)font
                 color:(UIColor *)color
-               height:(int)height
+               height:(NSInteger)height
 {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, height)];
     label.backgroundColor = [UIColor clearColor];

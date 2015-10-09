@@ -8,21 +8,13 @@
 
 #import "YPHttpEngine.h"
 @implementation YPHttpEngine
-- (id)init
+- (id)initWithHostName:(NSString *)hostName
 {
     self = [super init];
     if (self) {
-        self.mkNetworkEngine = [[MKNetworkEngine alloc] initWithHostName:nil];
-        self.reachability = [Reachability reachabilityWithHostname:@"www.apple.com"];
-        [_reachability startNotifier];
-        
+        self.mkNetworkEngine = [[MKNetworkEngine alloc] initWithHostName:hostName];
     }
     return self;
-}
-
-- (BOOL)isReachable
-{
-    return ([self.reachability currentReachabilityStatus] != NotReachable);
 }
 
 + (YPHttpEngine *)shared
@@ -56,9 +48,10 @@
             successed:(ApiRequestSuccessedBlock)successed
                failed:(ApiRequestFailedBlock)failed
 {
-    [self startWithURLString:[self requestUrlWithPath:path]
-                      params:params
-                  httpMethod:method
+    MKNetworkOperation *op = [self.mkNetworkEngine operationWithPath:path
+                                                              params:params
+                                                          httpMethod:method];
+    [self startWithOperation:op
                   controller:controller
                    successed:successed
                       failed:failed];
@@ -129,7 +122,7 @@
     
     if (request.uploadFileDatas) {
         for (UploadFile *file in request.uploadFileDatas) {
-            NSLog(@"key-->%@  data length-->%ud fileName-->%@  type-->%@", file.key, file.data.length, file.fileName, file.mimeType);
+            NSLog(@"key-->%@  data length-->%d fileName-->%@  type-->%@", file.key, file.data.length, file.fileName, file.mimeType);
             [op addData:file.data
                  forKey:file.key
                mimeType:file.mimeType ? file.mimeType : @"application/octet-stream"
@@ -241,11 +234,6 @@
     }
 }
 
-- (NSString *)requestUrlWithPath:(NSString *)path
-{
-    return [NSString stringWithFormat:@"%@/%@", _hostName, path];
-}
-
 - (NSString *)getErrorMessage:(NSDictionary *)responseData
 {
     return nil;
@@ -286,21 +274,6 @@
         }
     } else {
         [YPNativeUtil showToast:@"网络连接不可用，请重试"];
-    }
-}
-
-- (void)reachabilityChanged:(NSNotification *)note
-{
-    switch ([_reachability currentReachabilityStatus]) {
-        case NotReachable:
-            // 没有网络连接
-            break;
-        case ReachableViaWWAN:
-            // 使用3G网络
-            break;
-        case ReachableViaWiFi:
-            // 使用WiFi网络
-            break;
     }
 }
 

@@ -145,18 +145,18 @@
     return [self addBottomLineWithColor:color paddingLeft:0];
 }
 
-- (CALayer *)addTopLineWithColor:(CGColorRef)color paddingLeft:(float)width {
-    return [self addSubLayerWithFrame:CGRectMake(width,
+- (CALayer *)addTopLineWithColor:(CGColorRef)color paddingLeft:(float)paddingLeft {
+    return [self addSubLayerWithFrame:CGRectMake(paddingLeft,
                                                  0,
-                                                 SCREEN_WIDTH - width,
+                                                 SCREEN_WIDTH - paddingLeft,
                                                  0.5f)
                                 color:color];
 }
 
-- (CALayer *)addBottomLineWithColor:(CGColorRef)color paddingLeft:(float)width {
-    return [self addSubLayerWithFrame:CGRectMake(width,
+- (CALayer *)addBottomLineWithColor:(CGColorRef)color paddingLeft:(float)paddingLeft {
+    return [self addSubLayerWithFrame:CGRectMake(paddingLeft,
                                                  self.height - 0.5f,
-                                                 SCREEN_WIDTH - width,
+                                                 SCREEN_WIDTH - paddingLeft,
                                                  0.5f)
                                 color:color];
 }

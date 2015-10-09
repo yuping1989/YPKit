@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @interface NSMutableAttributedString (YPKit)
+- (void)addFont:(UIFont *)font;
 - (void)addFont:(UIFont *)font range:(NSRange)range;
+- (void)addFont:(UIFont *)font string:(NSString *)string;
+
 - (void)addColor:(UIColor *)color range:(NSRange)range;
-- (void)addLineSpace:(float)space range:(NSRange)range;
+- (void)addColor:(UIColor *)color string:(NSString *)string;
+
+- (void)addLineSpace:(CGFloat)space range:(NSRange)range;
 - (void)addDeleteLineWithRange:(NSRange)range;
-
-
 @end

@@ -21,5 +21,5 @@
 @property (nonatomic, strong) UIColor *placeholderColor UI_APPEARANCE_SELECTOR;
 @property(nonatomic, assign) NSInteger maxHeight;
 
-@property(nonatomic, assign) IBOutlet id<YPTextViewDelegate> yp_delegate;
+@property(nonatomic, assign) id<YPTextViewDelegate> delegate;
 @end

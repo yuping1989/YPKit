@@ -9,8 +9,7 @@
 #import "AppDelegate.h"
 #import "RootController.h"
 #import "YPTextView.h"
-#import "IQKeyboardManager.h"
-
+#import "YPSettingItem.h"
 @interface AppDelegate ()
 
 @end
@@ -24,7 +23,16 @@
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[RootController alloc] init]];
     
     [[YPTextView appearance] setPlaceholderColor:[UIColor redColor]];
-    [IQKeyboardManager sharedManager].enable = NO;
+    
+    [[YPSettingItem appearance] setPaddingLeft:15];
+    [[YPSettingItem appearance] setPaddingRight:10];
+    [[YPSettingItem appearance] setTitleColor:[UIColor darkGrayColor]];
+    [[YPSettingItem appearance] setTextColor:rgb(175, 168, 159)];
+    [[YPSettingItem appearance] setTitleFont:[UIFont systemFontOfSize:20]];
+    [[YPSettingItem appearance] setTextFont:[UIFont systemFontOfSize:17]];
+    [[YPSettingItem appearance] setArrowImage:[UIImage imageNamed:@"icon_arrow_light"]];
+    [[YPSettingItem appearance] setLeftImageWidth:30];
+    [[YPSettingItem appearance] setLineColor:[UIColor lightGrayColor]];
     [self.window makeKeyAndVisible];
     return YES;
 }

@@ -22,10 +22,7 @@ typedef void (^UploadDownloadFinishedBlock)(MKNetworkOperation *operation);
 @class ApiRequest;
 @interface YPHttpEngine : NSObject
 @property (nonatomic, strong) MKNetworkEngine *mkNetworkEngine;
-@property (nonatomic, strong) Reachability *reachability;
-@property (nonatomic, strong) NSString *hostName;
 + (YPHttpEngine *)shared;
-- (BOOL)isReachable;
 - (void)startWithPath:(NSString *)path
                params:(NSMutableDictionary *)params
            httpMethod:(NSString *)method
@@ -78,8 +75,6 @@ typedef void (^UploadDownloadFinishedBlock)(MKNetworkOperation *operation);
  子类需重写的方法，视情况而定
  */
 
-// 根据path组装请求的url
-- (NSString *)requestUrlWithPath:(NSString *)path;
 
 // 请求失败时，获取错误信息
 - (NSString *)getErrorMessage:(NSDictionary *)responseData;

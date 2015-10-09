@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface YPControlView : UIView
+@property (nonatomic, strong) UIColor *normalColor;
 @property (nonatomic, strong) UIColor *highlightColor;
 - (void)setOnClickedHandler:(void (^)(void))clickedHanlder;
 @end

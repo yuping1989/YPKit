@@ -17,7 +17,7 @@
 @end
 
 @implementation YPTextView
-
+@dynamic delegate;
 #pragma mark -
 #pragma mark Initialisation
 
@@ -53,7 +53,7 @@
 }
 
 - (void)setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated {
-    if (_yp_delegate && [_yp_delegate respondsToSelector:@selector(yp_textView:didContentHeightChanged:)]) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(yp_textView:didContentHeightChanged:)]) {
         [super setContentOffset:contentOffset animated:NO];
     } else {
         [super setContentOffset:contentOffset animated:animated];
@@ -97,7 +97,7 @@
 - (void)textChanged:(NSNotification *)notification {
     NSLog(@"content size-->%@", NSStringFromCGSize(self.contentSize));
     NSLog(@"content offset--->%@", NSStringFromCGPoint(self.contentOffset));
-    if (_yp_delegate && [_yp_delegate respondsToSelector:@selector(yp_textView:didContentHeightChanged:)]) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(yp_textView:didContentHeightChanged:)]) {
         NSInteger height;
         if (_maxHeight > 0 && self.contentSize.height > _maxHeight) {
             height = ceilf(_maxHeight - self.height);
@@ -105,7 +105,7 @@
             height = ceilf(self.contentSize.height - self.height);
         }
         if (height != 0) {
-            [_yp_delegate yp_textView:self didContentHeightChanged:height];
+            [self.delegate yp_textView:self didContentHeightChanged:height];
         }
     }
 }

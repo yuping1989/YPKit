@@ -22,7 +22,8 @@
     _textView.placeholder = @"请输入";
     [_textView setCornerRadius:5];
     [_textView setBoarderWith:0.5f color:[UIColor grayColor].CGColor];
-    _textView.yp_delegate = self;
+    _textView.delegate = self;
+//    _textView.dataDetectorTypes = UIDataDetectorTypeAll;
 //    _textView.textContainerInset = UIEdgeInsetsMake(8, 0, 0, 0);
     NSLog(@"content size-->%@", NSStringFromCGSize(_textView.contentSize));
     NSLog(@"content offset--->%@", NSStringFromCGPoint(_textView.contentOffset));
@@ -41,5 +42,8 @@
     _bgView.frame = CGRectMake(0, _bgView.y - heightOffset, _bgView.width, _bgView.height + heightOffset);
 
 }
-
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+    NSLog(@"url--->%@", URL.absoluteString);
+    return NO;
+}
 @end

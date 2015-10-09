@@ -16,6 +16,7 @@
 @implementation YPControlView
 - (void)awakeFromNib {
     self.highlightColor = rgb(220, 220, 220);
+    self.normalColor = self.backgroundColor;
 }
 
 - (void)setOnClickedHandler:(void (^)(void))clickedHanlder
@@ -45,21 +46,21 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (self.clickedHanlder) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = _normalColor;
     }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (self.clickedHanlder) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = _normalColor;
     }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (self.clickedHanlder) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = _normalColor;
     }
 }
 @end

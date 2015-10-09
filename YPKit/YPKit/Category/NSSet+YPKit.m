@@ -9,7 +9,7 @@
 #import "NSSet+YPKit.h"
 
 @implementation NSSet (YPKit)
-- (NSArray *)sortedArrayUsingKey:(NSString *)key ascending:(BOOL)ascending
+- (NSArray *)sortedArrayWithKey:(NSString *)key ascending:(BOOL)ascending
 {
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];
     return [self sortedArrayUsingDescriptors:@[descriptor]];

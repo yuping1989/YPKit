@@ -17,6 +17,6 @@
 - (void)setFooterText:(NSString *)text
                  font:(UIFont *)font
                 color:(UIColor *)color
-               height:(int)height;
+               height:(NSInteger)height;
 - (void)scrollToRow:(NSInteger)row animated:(BOOL)animated;
 @end

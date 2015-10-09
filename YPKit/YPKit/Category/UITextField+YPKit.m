@@ -9,7 +9,7 @@
 #import "UITextField+YPKit.h"
 
 @implementation UITextField (YPKit)
-- (void)setContentPaddingLeft:(float)width
+- (void)setContentPaddingLeft:(CGFloat)width
 {
     self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, self.height)];
     self.leftViewMode = UITextFieldViewModeAlways;

@@ -7,11 +7,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YPDateUtilController">
             <connections>
+                <outlet property="bottomItem" destination="vIV-Ut-mhx" id="Uzh-wO-LNa"/>
+                <outlet property="centerItem" destination="942-GQ-X27" id="W9I-eu-mNt"/>
                 <outlet property="dateLabel" destination="lSL-yU-Rrp" id="QID-Cw-600"/>
                 <outlet property="dayLabel" destination="Ntw-8h-dbQ" id="gE5-t0-9nW"/>
                 <outlet property="hourLabel" destination="cel-Eq-9UE" id="o0r-kh-ZjY"/>
                 <outlet property="minuteLabel" destination="cKS-1j-Onn" id="Pp8-qt-gjj"/>
+                <outlet property="pickerButton" destination="Hwe-io-s1x" id="mjb-et-XrU"/>
                 <outlet property="secondLabel" destination="8rH-Wf-aR3" id="sJN-eL-93k"/>
+                <outlet property="topItem" destination="t8h-XX-wY7" id="nip-FB-cOi"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="fff-hb-oik"/>
             </connections>
         </placeholder>
@@ -55,10 +59,33 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" id="t8h-XX-wY7" customClass="YPSettingItem">
+                    <rect key="frame" x="0.0" y="333" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="942-GQ-X27" customClass="YPSettingItem">
+                    <rect key="frame" x="0.0" y="377" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="vIV-Ut-mhx" customClass="YPSettingItem">
+                    <rect key="frame" x="0.0" y="421" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Hwe-io-s1x">
+                    <rect key="frame" x="89" y="34" width="101" height="54"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Button">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-            <point key="canvasLocation" x="522" y="364"/>
+            <point key="canvasLocation" x="285" y="362"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

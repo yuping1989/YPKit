@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface UITextField (YPKit)
-- (void)setContentPaddingLeft:(float)width;
+- (void)setContentPaddingLeft:(CGFloat)width;
 - (void)setText:(NSString *)text attributeString:(void(^)(NSMutableAttributedString *attrString))block;
 @end

@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSSet (YPKit)
-- (NSArray *)sortedArrayUsingKey:(NSString *)key ascending:(BOOL)ascending;
+- (NSArray *)sortedArrayWithKey:(NSString *)key ascending:(BOOL)ascending;
 @end

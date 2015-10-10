@@ -22,7 +22,7 @@
     static YPHttpEngine *httpEngine = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        httpEngine = [[YPHttpEngine alloc] init];
+        httpEngine = [[YPHttpEngine alloc] initWithHostName:nil];
     });
     return httpEngine;
 }

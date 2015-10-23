@@ -32,15 +32,15 @@
 - (void)verticalCenterInSuperView;
 - (void)horizontalCenterInSuperView;
 
-- (void)setBoarderWith:(CGFloat)width color:(CGColorRef)color;
+- (void)setBoarderWith:(CGFloat)width color:(UIColor *)color;
 - (void)setCornerRadius:(CGFloat)radius;
 
-- (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef;
-- (CALayer *)addTopFillLineWithColor:(CGColorRef)color;
-- (CALayer *)addTopLineWithColor:(CGColorRef)color paddingLeft:(float)paddingLeft;
-- (CALayer *)addBottomFillLineWithColor:(CGColorRef)color;
-- (CALayer *)addBottomLineWithColor:(CGColorRef)color paddingLeft:(float)paddingLeft;
-- (void)addTopAndBottomLineWithColor:(CGColorRef)color;
+- (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(UIColor *)color;
+- (CALayer *)addTopFillLineWithColor:(UIColor *)color;
+- (CALayer *)addTopLineWithColor:(UIColor *)color paddingLeft:(float)paddingLeft;
+- (CALayer *)addBottomFillLineWithColor:(UIColor *)color;
+- (CALayer *)addBottomLineWithColor:(UIColor *)color paddingLeft:(float)paddingLeft;
+- (void)addTopAndBottomLineWithColor:(UIColor *)color;
 
 - (void)setTarget:(id)target action:(SEL)action;
 

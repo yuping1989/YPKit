@@ -84,6 +84,26 @@
       }];
 }
 
+- (void)pickSingleImageInController:(UIViewController *)controller
+                         sourceType:(UIImagePickerControllerSourceType)sourceType
+                       allowEditing:(BOOL)allowEditing
+                    completionBlock:(void (^)(UIImage *image))completionBlock
+{
+    _singleBlock = completionBlock;
+    if (sourceType == UIImagePickerControllerSourceTypeCamera) {
+        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            [YPNativeUtil showToast:@"您的设备不支持相机"];
+            return;
+        }
+    }
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.sourceType = sourceType;
+    
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = allowEditing;
+    [controller presentViewController:imagePickerController animated:YES completion:nil];
+}
+
 - (UIViewController *)lastPresentedController:(UIViewController *)firstController
 {
     if (firstController.presentedViewController == nil) {

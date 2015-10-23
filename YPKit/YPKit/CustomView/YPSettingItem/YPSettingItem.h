@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-typedef NS_ENUM(NSInteger, YPSettingItemType) {
-    YPSettingItemTypeTop,
-    YPSettingItemTypeCenter,
-    YPSettingItemTypeBottom
+typedef NS_ENUM(NSInteger, YPSettingItemStyle) {
+    YPSettingItemStyleTop,
+    YPSettingItemStyleCenter,
+    YPSettingItemStyleBottom,
+    YPSettingItemStyleSingle
 };
 @interface YPSettingItem : UIView
 @property (nonatomic, strong) UITextField *titleField;
@@ -22,7 +23,7 @@ typedef NS_ENUM(NSInteger, YPSettingItemType) {
 @property (nonatomic, strong) CALayer *bottomLineLayer;
 
 @property (nonatomic, assign) float titleWidth;
-@property (nonatomic, assign) YPSettingItemType type;
+@property (nonatomic, assign) YPSettingItemStyle style;
 
 @property (nonatomic, assign) float paddingLeft UI_APPEARANCE_SELECTOR;
 @property (nonatomic, assign) float paddingRight UI_APPEARANCE_SELECTOR;
@@ -50,5 +51,8 @@ typedef NS_ENUM(NSInteger, YPSettingItemType) {
 - (void)setRightImage:(UIImage *)image;
 - (UIImage *)rightImage;
 
-
+- (void)topStyle;
+- (void)bottomStyle;
+- (void)centerStyle;
+- (void)singleStyle;
 @end

@@ -74,8 +74,8 @@
     }
 }
 
-- (void)setType:(YPSettingItemType)type {
-    _type = type;
+- (void)setStyle:(YPSettingItemStyle)style {
+    _style = style;
     if (_topLineLayer) {
         [_topLineLayer removeFromSuperlayer];
         _topLineLayer = nil;
@@ -84,17 +84,32 @@
         [_bottomLineLayer removeFromSuperlayer];
         _bottomLineLayer = nil;
     }
-    CGColorRef color = _lineColor.CGColor;
-    if (_type == YPSettingItemTypeTop) {
-        self.topLineLayer = [self addTopFillLineWithColor:color];
-        self.bottomLineLayer = [self addBottomLineWithColor:color
+    if (_style == YPSettingItemStyleTop) {
+        self.topLineLayer = [self addTopFillLineWithColor:_lineColor];
+        self.bottomLineLayer = [self addBottomLineWithColor:_lineColor
                                                 paddingLeft:[[YPSettingItem appearance] paddingLeft]];
-    } else if (_type == YPSettingItemTypeCenter) {
-        self.bottomLineLayer = [self addBottomLineWithColor:color
+    } else if (_style == YPSettingItemStyleCenter) {
+        self.bottomLineLayer = [self addBottomLineWithColor:_lineColor
                                                 paddingLeft:[[YPSettingItem appearance] paddingLeft]];
-    } else if (_type == YPSettingItemTypeBottom) {
-        self.bottomLineLayer = [self addBottomFillLineWithColor:color];
+    } else if (_style == YPSettingItemStyleBottom) {
+        self.bottomLineLayer = [self addBottomFillLineWithColor:_lineColor];
+    } else if (_style == YPSettingItemStyleSingle) {
+        self.topLineLayer = [self addTopFillLineWithColor:_lineColor];
+        self.bottomLineLayer = [self addBottomFillLineWithColor:_lineColor];
     }
+}
+
+- (void)topStyle {
+    self.style = YPSettingItemStyleTop;
+}
+- (void)bottomStyle {
+    self.style = YPSettingItemStyleBottom;
+}
+- (void)centerStyle {
+    self.style = YPSettingItemStyleCenter;
+}
+- (void)singleStyle {
+    self.style = YPSettingItemStyleSingle;
 }
 - (void)setPaddingLeft:(float)paddingLeft {
     _paddingLeft = paddingLeft;

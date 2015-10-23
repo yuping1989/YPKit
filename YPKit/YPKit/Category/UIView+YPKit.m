@@ -115,10 +115,10 @@
     [self horizontalCenterWithWidth:self.superview.width];
 }
 
-- (void)setBoarderWith:(CGFloat)width color:(CGColorRef)color
+- (void)setBoarderWith:(CGFloat)width color:(UIColor *)color
 {
     self.layer.borderWidth = width;
-    self.layer.borderColor = color;
+    self.layer.borderColor = color.CGColor;
 }
 - (void)setCornerRadius:(CGFloat)radius
 {
@@ -126,26 +126,26 @@
     self.layer.cornerRadius = radius;
 }
 
-- (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(CGColorRef)colorRef
+- (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(UIColor *)color
 {
     CALayer *layer = [CALayer layer];
     layer.frame = frame;
-    layer.backgroundColor = colorRef;
+    layer.backgroundColor = color.CGColor;
     [self.layer addSublayer:layer];
     return layer;
 }
 
-- (CALayer *)addTopFillLineWithColor:(CGColorRef)color
+- (CALayer *)addTopFillLineWithColor:(UIColor *)color
 {
     return [self addSubLayerWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5f) color:color];
 }
 
-- (CALayer *)addBottomFillLineWithColor:(CGColorRef)color
+- (CALayer *)addBottomFillLineWithColor:(UIColor *)color
 {
     return [self addBottomLineWithColor:color paddingLeft:0];
 }
 
-- (CALayer *)addTopLineWithColor:(CGColorRef)color paddingLeft:(float)paddingLeft {
+- (CALayer *)addTopLineWithColor:(UIColor *)color paddingLeft:(float)paddingLeft {
     return [self addSubLayerWithFrame:CGRectMake(paddingLeft,
                                                  0,
                                                  SCREEN_WIDTH - paddingLeft,
@@ -153,7 +153,7 @@
                                 color:color];
 }
 
-- (CALayer *)addBottomLineWithColor:(CGColorRef)color paddingLeft:(float)paddingLeft {
+- (CALayer *)addBottomLineWithColor:(UIColor *)color paddingLeft:(float)paddingLeft {
     return [self addSubLayerWithFrame:CGRectMake(paddingLeft,
                                                  self.height - 0.5f,
                                                  SCREEN_WIDTH - paddingLeft,
@@ -161,7 +161,7 @@
                                 color:color];
 }
 
-- (void)addTopAndBottomLineWithColor:(CGColorRef)color {
+- (void)addTopAndBottomLineWithColor:(UIColor *)color {
     [self addTopFillLineWithColor:color];
     [self addBottomFillLineWithColor:color];
 }

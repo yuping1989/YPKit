@@ -16,4 +16,9 @@
 - (void)pickSingleImageInController:(UIViewController *)controller
                        allowEditing:(BOOL)allowEditing
                     completionBlock:(void (^)(UIImage *image))completionBlock;
+
+- (void)pickSingleImageInController:(UIViewController *)controller
+                         sourceType:(UIImagePickerControllerSourceType)sourceType
+                       allowEditing:(BOOL)allowEditing
+                    completionBlock:(void (^)(UIImage *image))completionBlock;
 @end

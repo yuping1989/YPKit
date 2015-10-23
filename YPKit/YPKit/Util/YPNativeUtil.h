@@ -23,6 +23,8 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
+#define APP_DELEGATE (AppDelegate *)[UIApplication sharedApplication].delegate
+
 typedef void(^YPCompletionBlock)(void);
 typedef void(^YPCompletionBlockWithData)(id data);
 

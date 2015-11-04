@@ -40,9 +40,9 @@
     _centerItem.text = @"中间内容";
     _bottomItem.title = @"底部标题";
     _bottomItem.text = @"底部内容";
-    _topItem.type = YPSettingItemTypeTop;
-    _centerItem.type = YPSettingItemTypeCenter;
-    _bottomItem.type = YPSettingItemTypeBottom;
+    [_topItem topStyle];
+    [_centerItem centerStyle];
+    [_bottomItem bottomStyle];
     _topItem.leftImage = [UIImage imageNamed:@"icon_discovery_joined"];
 }
 

@@ -11,6 +11,7 @@
 #import "YPDateUtil.h"
 #import "YPHttpEngine.h"
 #import "YPFileUtil.h"
+#import "YPHttpUtil.h"
 
 
 #import "YPBaseViewController.h"

@@ -21,7 +21,7 @@
     // Do any additional setup after loading the view from its nib.
     _textView.placeholder = @"请输入";
     [_textView setCornerRadius:5];
-    [_textView setBoarderWith:0.5f color:[UIColor grayColor].CGColor];
+    [_textView setBoarderWith:0.5f color:[UIColor grayColor]];
     _textView.delegate = self;
 //    _textView.dataDetectorTypes = UIDataDetectorTypeAll;
 //    _textView.textContainerInset = UIEdgeInsetsMake(8, 0, 0, 0);

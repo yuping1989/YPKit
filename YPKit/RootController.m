@@ -9,6 +9,7 @@
 #import "RootController.h"
 #import "YPTextViewController.h"
 #import "YPDateUtilController.h"
+#import "AutoLayoutCellController.h"
 
 @interface RootController ()
 
@@ -34,7 +35,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return 3;
 }
 
 
@@ -47,6 +48,9 @@
             break;
         case 1:
             cell.textLabel.text = @"YPDateUtil";
+            break;
+        case 2:
+            cell.textLabel.text = @"AutoLayoutCell";
             break;
             
         default:
@@ -62,6 +66,9 @@
             break;
         case 1:
             [self.navigationController pushViewController:[YPDateUtilController instance] animated:YES];
+            break;
+        case 2:
+            [self.navigationController pushViewController:[AutoLayoutCellController instance] animated:YES];
             break;
         default:
             break;

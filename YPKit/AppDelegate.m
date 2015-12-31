@@ -33,7 +33,15 @@
     [[YPSettingItem appearance] setArrowImage:[UIImage imageNamed:@"icon_arrow_light"]];
     [[YPSettingItem appearance] setLeftImageWidth:30];
     [[YPSettingItem appearance] setLineColor:[UIColor lightGrayColor]];
+    
     [self.window makeKeyAndVisible];
+    
+    [[YPHttpUtil shared] GET:@"http://api.nbd.com.cn/2/columns/375/articles.json?count=15&app_key=f4af4864997a00ddff7e1765e643f9ec&client_key=iPhone"
+                      params:nil
+                  controller:nil
+                     success:^(id successData, NSURLSessionDataTask *task) {
+                         
+                     }];
     return YES;
 }
 

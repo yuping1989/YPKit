@@ -24,6 +24,6 @@
 @interface YPPageView : UIView
 @property (nonatomic, copy) NSArray *dataSourceArray;
 @property (nonatomic, assign) IBOutlet id<YPPageViewDelegate> delegate;
-
+@property (nonatomic, assign) NSInteger displayingIndex;
 - (void)reloadData;
 @end

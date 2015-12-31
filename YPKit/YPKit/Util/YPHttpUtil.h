@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
-typedef void (^AFHttpRequestSuccessBlock)(id successData, AFHTTPRequestOperation *operation);
-typedef BOOL (^AFHttpRequestErrorBlock)(id errorData, AFHTTPRequestOperation *operation);
+typedef void (^AFHttpRequestSuccessBlock)(id successData, NSURLSessionDataTask *task);
+typedef BOOL (^AFHttpRequestErrorBlock)(id errorData, NSURLSessionDataTask *task);
 typedef void (^AFHttpRequestProgressBlock)(NSProgress *progress);
 
 @interface YPHttpUtil : NSObject
@@ -20,11 +20,11 @@ typedef void (^AFHttpRequestProgressBlock)(NSProgress *progress);
 /**
  *  用于POST，GET等方法
  */
-@property (nonatomic, strong, readonly) AFHTTPRequestOperationManager *operationManager;
+@property (nonatomic, strong, readonly) AFHTTPSessionManager *httpSessionManager;
 /**
  *  用于upload，download等方法
  */
-@property (nonatomic, strong, readonly) AFURLSessionManager *sessionManager;
+@property (nonatomic, strong, readonly) AFURLSessionManager *urlSessionManager;
 
 /**
  *  返回YPHttpUtil单例
@@ -45,32 +45,33 @@ typedef void (^AFHttpRequestProgressBlock)(NSProgress *progress);
  *  @param successBlock 请求成功的回调
  *  @param errorBlock   请求失败的回调
  */
-- (AFHTTPRequestOperation *)POST:(NSString *)URLString
+- (NSURLSessionDataTask *)POST:(NSString *)URLString
+                        params:(NSDictionary *)params
+     constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))bodyBlock
+                      progress:(void (^)(NSProgress *))uploadProgress
+                    controller:(UIViewController *)controller
+                       success:(AFHttpRequestSuccessBlock)successBlock
+                         error:(AFHttpRequestErrorBlock)errorBlock;
+// 同上
+- (NSURLSessionDataTask *)POST:(NSString *)URLString
                           params:(NSDictionary *)params
-       constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))bodyBlock
                       controller:(UIViewController *)controller
                          success:(AFHttpRequestSuccessBlock)successBlock
                            error:(AFHttpRequestErrorBlock)errorBlock;
 // 同上
-- (AFHTTPRequestOperation *)POST:(NSString *)URLString
-                          params:(NSDictionary *)params
-                      controller:(UIViewController *)controller
-                         success:(AFHttpRequestSuccessBlock)successBlock
-                           error:(AFHttpRequestErrorBlock)errorBlock;
-// 同上
-- (AFHTTPRequestOperation *)POST:(NSString *)URLString
+- (NSURLSessionDataTask *)POST:(NSString *)URLString
                           params:(NSDictionary *)params
                       controller:(UIViewController *)controller
                          success:(AFHttpRequestSuccessBlock)successBlock;
 
 // 同上
-- (AFHTTPRequestOperation *)GET:(NSString *)URLString
+- (NSURLSessionDataTask *)GET:(NSString *)URLString
                          params:(NSDictionary *)params
                      controller:(UIViewController *)controller
                         success:(AFHttpRequestSuccessBlock)successBlock
                           error:(AFHttpRequestErrorBlock)errorBlock;
 // 同上
-- (AFHTTPRequestOperation *)GET:(NSString *)URLString
+- (NSURLSessionDataTask *)GET:(NSString *)URLString
                          params:(NSDictionary *)params
                      controller:(UIViewController *)controller
                         success:(AFHttpRequestSuccessBlock)successBlock;
@@ -97,11 +98,13 @@ completionHandler:(void (^)(NSURLResponse *response, NSURL *filePath, NSError *e
  *  @param progressBlock     上传进度的回调
  *  @param completionHandler 上传成功的回调
  */
+/*
 - (void)upload:(NSString *)URLString
         params:(NSDictionary *)params
 constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))bodyBlock
       progress:(AFHttpRequestProgressBlock)progressBlock
-completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler;
+completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler; 
+ */
 
 + (void)setReachabilityStatusChangeBlock:(void (^)(AFNetworkReachabilityStatus status))block;
 
@@ -123,7 +126,7 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
  *  @param successBlock 请求成功的回调
  *  @param errorBlock   出现错误的回调
  */
-- (void)operationSuccess:(AFHTTPRequestOperation *)operation
+- (void)operationSuccess:(NSURLSessionDataTask *)task
              successData:(id)successData
               controller:(UIViewController *)controller
             successBlock:(AFHttpRequestSuccessBlock)successBlock
@@ -136,7 +139,7 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
  *  @param controller
  *  @param errorBlock 错误的回调
  */
-- (void)operationError:(AFHTTPRequestOperation *)operation
+- (void)operationError:(NSURLSessionDataTask *)task
              errorData:(id)errorData
             controller:(UIViewController *)controller
             errorBlock:(AFHttpRequestErrorBlock)errorBlock;

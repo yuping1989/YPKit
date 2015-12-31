@@ -78,7 +78,13 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
+    
     NSInteger page = scrollView.contentOffset.x / scrollView.frame.size.width;
+    if (page == self.displayingIndex) {
+        return;
+    }
+    NSLog(@"page--->%ld", page);
+    self.displayingIndex = page;
     if (self.delegate && [self.delegate respondsToSelector:@selector(controlView:displayingPageCellAtIndex:)]) {
         [self.delegate controlView:self displayingPageCellAtIndex:page];
     }

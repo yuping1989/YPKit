@@ -85,13 +85,19 @@
     }
     NSLog(@"page--->%ld", page);
     self.displayingIndex = page;
+}
+
+- (void)setDisplayingIndex:(NSInteger)displayingIndex {
+    _displayingIndex = displayingIndex;
     if (self.delegate && [self.delegate respondsToSelector:@selector(controlView:displayingPageCellAtIndex:)]) {
-        [self.delegate controlView:self displayingPageCellAtIndex:page];
+        [self.delegate controlView:self displayingPageCellAtIndex:self.displayingIndex];
     }
 }
 
 - (void)reloadData {
     [self.collectionView reloadData];
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    self.displayingIndex = 0;
 }
 
 - (void)imageButtonClicked:(UIButton *)button {

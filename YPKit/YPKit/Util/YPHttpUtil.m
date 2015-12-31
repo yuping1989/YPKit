@@ -59,7 +59,7 @@
 {
     NSLog(@"post url-->%@", [[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]);
     return [self.httpSessionManager POST:URLString
-                              parameters:params
+                              parameters:[self requestParams:params]
                                 progress:nil
                                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                                      [self processRequestOperation:task
@@ -203,26 +203,6 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
 {
     NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
     NSLog(@"request code--->%ld", response.statusCode);
-    /*
-    NSError *error;
-    id responseData;
-    if (operation.responseData) {
-        responseData = [NSJSONSerialization JSONObjectWithData:operation.responseData
-                                                       options:NSJSONReadingMutableLeaves
-                                                         error:&error];
-    }
-     */
-//    if (responseData == nil && operation.responseString != nil) {
-//        responseData = @{@"responseString": operation.responseString};
-//    }
-    /*
-    NSLog(@"controller--->%@", controller.class.description);
-    if (responseData) {
-        NSLog(@"result data--->%@", [responseData description]);
-    } else {
-        NSLog(@"result string--->%@", operation.responseString);
-    }
-     */
     NSLog(@"url--->%@", response.URL.absoluteString);
     NSLog(@"controller--->%@", controller.class.description);
     NSLog(@"response-->%@ %@", [[responseObject class] description], responseObject);

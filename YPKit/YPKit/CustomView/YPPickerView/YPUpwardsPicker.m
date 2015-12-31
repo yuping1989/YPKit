@@ -13,10 +13,13 @@
 - (void)awakeFromNib {
     self.backgroundView = [[UIView alloc] init];
     _backgroundView.backgroundColor = [UIColor blackColor];
-    [_cancelItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [YPUpwardsPicker appearance].barItemTintColor}
+    if ([YPUpwardsPicker appearance].barItemTintColor) {
+        [_cancelItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [YPUpwardsPicker appearance].barItemTintColor}
+                                   forState:UIControlStateNormal];
+        [_okItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [YPUpwardsPicker appearance].barItemTintColor}
                                forState:UIControlStateNormal];
-    [_okItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [YPUpwardsPicker appearance].barItemTintColor}
-                               forState:UIControlStateNormal];
+    }
+    
     _pickerView.delegate = self;
 }
 
@@ -65,7 +68,7 @@
 
 - (void)showInView:(UIView *)view
          withTitle:(NSString *)title {
-    [YPNativeUtil hideKeyboard];
+    [YPNativeUtil  hideKeyboard];
     _titleLabel.text = title;
     _backgroundView.frame = view.bounds;
     self.width = view.width;

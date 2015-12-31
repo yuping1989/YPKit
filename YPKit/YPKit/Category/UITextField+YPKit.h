@@ -11,4 +11,5 @@
 @interface UITextField (YPKit)
 - (void)setContentPaddingLeft:(CGFloat)width;
 - (void)setText:(NSString *)text attributeString:(void(^)(NSMutableAttributedString *attrString))block;
+- (void)hideInputAssistantItem;
 @end

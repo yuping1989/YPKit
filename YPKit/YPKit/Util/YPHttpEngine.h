@@ -10,10 +10,10 @@
 #import "MKNetworkKit.h"
 #import "YPBaseViewController.h"
 
-#define HttpMethodPost     @"POST"
-#define HttpMethodGet      @"GET"
-#define HttpMethodPut      @"PUT"
-#define HttpMethodDelete   @"DELETE"
+extern NSString *const HttpMethodPost;
+extern NSString *const HttpMethodGet;
+extern NSString *const HttpMethodPut;
+extern NSString *const HttpMethodDelete;
 
 typedef void (^ApiRequestSuccessedBlock)(id successedData, MKNetworkOperation *operation);
 typedef BOOL (^ApiRequestFailedBlock)(id failedData, MKNetworkOperation *operation);
@@ -22,21 +22,22 @@ typedef void (^UploadDownloadFinishedBlock)(MKNetworkOperation *operation);
 @class ApiRequest;
 @interface YPHttpEngine : NSObject
 @property (nonatomic, strong) MKNetworkEngine *mkNetworkEngine;
+@property (nonatomic, strong) NSString *baseURLString;
 + (YPHttpEngine *)shared;
-- (void)startWithPath:(NSString *)path
+- (MKNetworkOperation *)startWithPath:(NSString *)path
                params:(NSMutableDictionary *)params
            httpMethod:(NSString *)method
            controller:(UIViewController *)controller
             successed:(ApiRequestSuccessedBlock)successed;
 
-- (void)startWithPath:(NSString *)path
+- (MKNetworkOperation *)startWithPath:(NSString *)path
                params:(NSMutableDictionary *)params
            httpMethod:(NSString *)method
            controller:(UIViewController *)controller
             successed:(ApiRequestSuccessedBlock)successed
                failed:(ApiRequestFailedBlock)failed;
 
-- (void)startWithURLString:(NSString *)urlString
+- (MKNetworkOperation *)startWithURLString:(NSString *)urlString
                     params:(NSMutableDictionary *)params
                 httpMethod:(NSString *)method
                 controller:(UIViewController *)controller
@@ -48,25 +49,27 @@ typedef void (^UploadDownloadFinishedBlock)(MKNetworkOperation *operation);
                  successed:(ApiRequestSuccessedBlock)successed
                     failed:(ApiRequestFailedBlock)failed;
 
-- (void)startApiRequest:(ApiRequest *)request
+- (MKNetworkOperation *)startApiRequest:(ApiRequest *)request
              controller:(UIViewController *)controller
               successed:(ApiRequestSuccessedBlock)successed
                  failed:(ApiRequestFailedBlock)failed;
 
-- (void)downloadFileWithUrlString:(NSString *)urlString
+- (MKNetworkOperation *)downloadFileWithUrlString:(NSString *)urlString
                      toFileAtPath:(NSString *)filePath
                   progressChanged:(MKNKProgressBlock)progressChanged
                        controller:(UIViewController *)controller
                         successed:(UploadDownloadFinishedBlock)successed
                            failed:(UploadDownloadFinishedBlock)failed;
 
-- (void)uploadFileWithUrlString:(NSString *)urlString
+- (MKNetworkOperation *)uploadFileWithUrlString:(NSString *)urlString
                          params:(NSMutableDictionary *)params
                      uploadData:(NSData *)data
                 progressChanged:(MKNKProgressBlock)progressChanged
                      controller:(UIViewController *)controller
                       successed:(ApiRequestSuccessedBlock)successed
                          failed:(ApiRequestFailedBlock)failed;
+
+- (NSString *)requestURLStringWithPath:(NSString *)path;
 
 // 显示提示信息
 - (void)hideProgressAndShowErrorMsg:(NSString *)message controller:(UIViewController *)controller;

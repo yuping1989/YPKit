@@ -26,13 +26,13 @@ typedef void (^AFHttpRequestProgressBlock)(NSProgress *progress);
  */
 @property (nonatomic, strong, readonly) AFURLSessionManager *sessionManager;
 
-
 /**
  *  返回YPHttpUtil单例
  */
 + (YPHttpUtil *)shared;
 
 - (id)initWithBaseURL:(NSURL *)URL;
+
 
 
 /**
@@ -45,35 +45,35 @@ typedef void (^AFHttpRequestProgressBlock)(NSProgress *progress);
  *  @param successBlock 请求成功的回调
  *  @param errorBlock   请求失败的回调
  */
-- (void)POST:(NSString *)URLString
-      params:(NSDictionary *)params
-constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))bodyBlock
-  controller:(UIViewController *)controller
-     success:(AFHttpRequestSuccessBlock)successBlock
-       error:(AFHttpRequestErrorBlock)errorBlock;
+- (AFHTTPRequestOperation *)POST:(NSString *)URLString
+                          params:(NSDictionary *)params
+       constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))bodyBlock
+                      controller:(UIViewController *)controller
+                         success:(AFHttpRequestSuccessBlock)successBlock
+                           error:(AFHttpRequestErrorBlock)errorBlock;
 // 同上
-- (void)POST:(NSString *)URLString
-      params:(NSDictionary *)params
-  controller:(UIViewController *)controller
-     success:(AFHttpRequestSuccessBlock)successBlock
-       error:(AFHttpRequestErrorBlock)errorBlock;
+- (AFHTTPRequestOperation *)POST:(NSString *)URLString
+                          params:(NSDictionary *)params
+                      controller:(UIViewController *)controller
+                         success:(AFHttpRequestSuccessBlock)successBlock
+                           error:(AFHttpRequestErrorBlock)errorBlock;
 // 同上
-- (void)POST:(NSString *)URLString
-      params:(NSDictionary *)params
-  controller:(UIViewController *)controller
-     success:(AFHttpRequestSuccessBlock)successBlock;
+- (AFHTTPRequestOperation *)POST:(NSString *)URLString
+                          params:(NSDictionary *)params
+                      controller:(UIViewController *)controller
+                         success:(AFHttpRequestSuccessBlock)successBlock;
 
 // 同上
-- (void)GET:(NSString *)URLString
-     params:(NSDictionary *)params
- controller:(UIViewController *)controller
-    success:(AFHttpRequestSuccessBlock)successBlock
-      error:(AFHttpRequestErrorBlock)errorBlock;
+- (AFHTTPRequestOperation *)GET:(NSString *)URLString
+                         params:(NSDictionary *)params
+                     controller:(UIViewController *)controller
+                        success:(AFHttpRequestSuccessBlock)successBlock
+                          error:(AFHttpRequestErrorBlock)errorBlock;
 // 同上
-- (void)GET:(NSString *)URLString
-     params:(NSDictionary *)params
- controller:(UIViewController *)controller
-    success:(AFHttpRequestSuccessBlock)successBlock;
+- (AFHTTPRequestOperation *)GET:(NSString *)URLString
+                         params:(NSDictionary *)params
+                     controller:(UIViewController *)controller
+                        success:(AFHttpRequestSuccessBlock)successBlock;
 
 /**
  *  下载一个文件
@@ -104,11 +104,53 @@ constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))bodyBlock
 completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler;
 
 + (void)setReachabilityStatusChangeBlock:(void (^)(AFNetworkReachabilityStatus status))block;
+
+/**
+ *
+ *
+ *  @param params 
+ *
+ *  @return
+ */
+- (NSMutableDictionary *)requestParams:(NSDictionary *)params;
+
+/**
+ *  请求的statusCode等于200时，执行此方法。有时候服务器会返回一些错误信息，可在此方法进行处理
+ *
+ *  @param operation    AFHTTPRequestOperation
+ *  @param successData  成功数据
+ *  @param controller
+ *  @param successBlock 请求成功的回调
+ *  @param errorBlock   出现错误的回调
+ */
+- (void)operationSuccess:(AFHTTPRequestOperation *)operation
+             successData:(id)successData
+              controller:(UIViewController *)controller
+            successBlock:(AFHttpRequestSuccessBlock)successBlock
+              errorBlock:(AFHttpRequestErrorBlock)errorBlock;
+/**
+ *  请求的statusCode不等于200时，执行此方法。
+ *
+ *  @param operation  AFHTTPRequestOperation
+ *  @param errorData  错误数据
+ *  @param controller
+ *  @param errorBlock 错误的回调
+ */
+- (void)operationError:(AFHTTPRequestOperation *)operation
+             errorData:(id)errorData
+            controller:(UIViewController *)controller
+            errorBlock:(AFHttpRequestErrorBlock)errorBlock;
+
+/**
+ *  通过此方法可以获得一条错误信息
+ *
+ *  @param errorData 请求结果
+ *
+ *  @return 错误信息
+ */
+- (NSString *)getErrorMessage:(id)errorData;
 @end
 
-
-//#define kProgress @"kProgress"
-#define kProgressBlock @"kProgressBlock"
 @interface NSURLSessionTask (YPKit)
 //@property (nonatomic, strong) NSProgress *progress;
 @property (nonatomic, strong) AFHttpRequestProgressBlock progressBlock;

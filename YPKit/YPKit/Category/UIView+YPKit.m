@@ -7,14 +7,36 @@
 //
 
 #import "UIView+YPKit.h"
-#define kClickedHanlder @"kClickedHanlder"
+
 @implementation UIView (YPKit)
-- (void)setClickedHanlder:(YPCompletionBlock)clickedHanlder {
-    objc_setAssociatedObject(self, kClickedHanlder, clickedHanlder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
++ (instancetype)instanceWithOwner:(id)owner {
+    return [[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:owner options:nil] firstObject];
 }
+
+- (void)setClickedHanlder:(YPCompletionBlock)clickedHanlder {
+    objc_setAssociatedObject(self, @selector(clickedHanlder), clickedHanlder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 - (YPCompletionBlock)clickedHanlder
 {
-    return objc_getAssociatedObject(self, kClickedHanlder);
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (CALayer *)topLineLayer {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setTopLineLayer:(CALayer *)topLineLayer {
+    objc_setAssociatedObject(self, @selector(topLineLayer), topLineLayer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (CALayer *)bottomLineLayer {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setBottomLineLayer:(CALayer *)bottomLineLayer {
+    objc_setAssociatedObject(self, @selector(bottomLineLayer), bottomLineLayer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)setOnClickedHanlder:(YPCompletionBlock)clickedHanlder {
@@ -135,35 +157,42 @@
     return layer;
 }
 
-- (CALayer *)addTopFillLineWithColor:(UIColor *)color
+- (void)setTopFillLineWithColor:(UIColor *)color
 {
-    return [self addSubLayerWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5f) color:color];
+    [self setTopLineWithColor:color paddingLeft:0];
+}
+- (void)setTopLineWithColor:(UIColor *)color paddingLeft:(float)paddingLeft {
+    if (self.topLineLayer) {
+        [self.topLineLayer removeFromSuperlayer];
+        self.topLineLayer = nil;
+    }
+    self.topLineLayer = [self addSubLayerWithFrame:CGRectMake(paddingLeft,
+                                                              0,
+                                                              SCREEN_WIDTH - paddingLeft,
+                                                              ONE_PIXEL)
+                                             color:color];
 }
 
-- (CALayer *)addBottomFillLineWithColor:(UIColor *)color
+- (void)setBottomFillLineWithColor:(UIColor *)color
 {
-    return [self addBottomLineWithColor:color paddingLeft:0];
+    [self setBottomLineWithColor:color paddingLeft:0];
 }
 
-- (CALayer *)addTopLineWithColor:(UIColor *)color paddingLeft:(float)paddingLeft {
-    return [self addSubLayerWithFrame:CGRectMake(paddingLeft,
-                                                 0,
-                                                 SCREEN_WIDTH - paddingLeft,
-                                                 0.5f)
-                                color:color];
+- (void)setBottomLineWithColor:(UIColor *)color paddingLeft:(float)paddingLeft {
+    if (self.bottomLineLayer) {
+        [self.bottomLineLayer removeFromSuperlayer];
+        self.bottomLineLayer = nil;
+    }
+    self.bottomLineLayer = [self addSubLayerWithFrame:CGRectMake(paddingLeft,
+                                                                 self.height - ONE_PIXEL,
+                                                                 SCREEN_WIDTH - paddingLeft,
+                                                                 ONE_PIXEL)
+                                                color:color];
 }
 
-- (CALayer *)addBottomLineWithColor:(UIColor *)color paddingLeft:(float)paddingLeft {
-    return [self addSubLayerWithFrame:CGRectMake(paddingLeft,
-                                                 self.height - 0.5f,
-                                                 SCREEN_WIDTH - paddingLeft,
-                                                 0.5f)
-                                color:color];
-}
-
-- (void)addTopAndBottomLineWithColor:(UIColor *)color {
-    [self addTopFillLineWithColor:color];
-    [self addBottomFillLineWithColor:color];
+- (void)setTopAndBottomLineWithColor:(UIColor *)color {
+    [self setTopFillLineWithColor:color];
+    [self setBottomFillLineWithColor:color];
 }
 
 - (void)setTarget:(id)target action:(SEL)action
@@ -192,38 +221,37 @@
     }
 }
 
-//- (UIView *)addTopLineView
-//{
-//    return [self addTopLineViewPaddingLeft:0 color:nil];
-//}
-//- (UIView *)addTopLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color
-//{
-//    UIView *line = [[UIView alloc] init];
-//    line.backgroundColor = color;
-//    [self addSubview:line];
-//    [line mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(@(left));
-//        make.right.equalTo(self);
-//        make.top.equalTo(self);
-//        make.height.equalTo(@0.5f);
-//    }];
-//    return line;
-//}
-//- (UIView *)addBottomLineView
-//{
-//    return [self addBottomLineViewPaddingLeft:0 color:nil];
-//}
-//- (UIView *)addBottomLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color
-//{
-//    UIView *line = [[UIView alloc] init];
-//    line.backgroundColor = color;
-//    [self addSubview:line];
-//    [line mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(@(left));
-//        make.right.equalTo(self);
-//        make.bottom.equalTo(self);
-//        make.height.equalTo(@0.5f);
-//    }];
-//    return line;
-//}
+
+- (UIView *)setTopLineViewWithColor:(UIColor *)color paddingLeft:(CGFloat)left
+{
+    __block UIView *blockSelf = self;
+    return [self addSubviewWithColor:color constraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@(left));
+        make.right.equalTo(blockSelf);
+        make.height.equalTo(@(ONE_PIXEL));
+        make.top.equalTo(blockSelf);
+    }];
+}
+
+- (UIView *)setBottomLineViewWithColor:(UIColor *)color paddingLeft:(CGFloat)left
+{
+    __block UIView *blockSelf = self;
+    return [self addSubviewWithColor:color constraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@(left));
+        make.right.equalTo(blockSelf);
+        make.height.equalTo(@(ONE_PIXEL));
+        make.bottom.equalTo(blockSelf);
+    }];
+}
+
+- (UIView *)addSubviewWithColor:(UIColor *)color
+                    constraints:(void(^)(MASConstraintMaker *make))block  {
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = color;
+    [self addSubview:line];
+    [line mas_makeConstraints:block];
+    return line;
+}
+
+
 @end

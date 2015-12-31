@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Masonry.h"
 @interface UIView (YPKit)
 @property (nonatomic, strong) YPCompletionBlock clickedHanlder;
+@property (nonatomic, strong) CALayer *topLineLayer;
+@property (nonatomic, strong) CALayer *bottomLineLayer;
+
++ (instancetype)instanceWithOwner:(id)owner;
+
 - (void)setOnClickedHanlder:(YPCompletionBlock)clickedHanlder;
 
 - (void)setWidth:(CGFloat)width;
@@ -36,17 +42,16 @@
 - (void)setCornerRadius:(CGFloat)radius;
 
 - (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(UIColor *)color;
-- (CALayer *)addTopFillLineWithColor:(UIColor *)color;
-- (CALayer *)addTopLineWithColor:(UIColor *)color paddingLeft:(float)paddingLeft;
-- (CALayer *)addBottomFillLineWithColor:(UIColor *)color;
-- (CALayer *)addBottomLineWithColor:(UIColor *)color paddingLeft:(float)paddingLeft;
-- (void)addTopAndBottomLineWithColor:(UIColor *)color;
+- (void)setTopFillLineWithColor:(UIColor *)color;
+- (void)setTopLineWithColor:(UIColor *)color paddingLeft:(float)paddingLeft;
+- (void)setBottomFillLineWithColor:(UIColor *)color;
+- (void)setBottomLineWithColor:(UIColor *)color paddingLeft:(float)paddingLeft;
+- (void)setTopAndBottomLineWithColor:(UIColor *)color;
 
 - (void)setTarget:(id)target action:(SEL)action;
 
 - (UIImage *)capture;
-//- (UIView *)addTopLineView;
-//- (UIView *)addTopLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color;
-//- (UIView *)addBottomLineView;
-//- (UIView *)addBottomLineViewPaddingLeft:(CGFloat)left color:(UIColor *)color;
+- (UIView *)setTopLineViewWithColor:(UIColor *)color paddingLeft:(CGFloat)left;
+- (UIView *)setBottomLineViewWithColor:(UIColor *)color paddingLeft:(CGFloat)left;
+- (UIView *)addSubviewWithColor:(UIColor *)color constraints:(void(^)(MASConstraintMaker *make))block;
 @end

@@ -46,99 +46,100 @@
     return _sessionManager;
 }
 
-- (void)POST:(NSString *)URLString
-      params:(NSDictionary *)params
-  controller:(UIViewController *)controller
-     success:(AFHttpRequestSuccessBlock)successBlock
-       error:(AFHttpRequestErrorBlock)errorBlock;
+- (NSMutableDictionary *)requestParams:(NSDictionary *)params {
+    NSMutableDictionary *requestParams = [NSMutableDictionary dictionaryWithDictionary:params];
+    return requestParams;
+}
+
+- (AFHTTPRequestOperation *)POST:(NSString *)URLString
+                          params:(NSDictionary *)params
+                      controller:(UIViewController *)controller
+                         success:(AFHttpRequestSuccessBlock)successBlock
+                           error:(AFHttpRequestErrorBlock)errorBlock;
 {
     NSLog(@"post url-->%@", [[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]);
-    NSLog(@"post params-->%@", params);
-
-    [self.operationManager POST:URLString
-                     parameters:params
-                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                            [self processRequestOperation:operation
-                                               controller:controller
-                                             successBlock:successBlock
-                                               errorBlock:errorBlock];
-                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                            [self processRequestOperation:operation
-                                               controller:controller
-                                             successBlock:successBlock
-                                               errorBlock:errorBlock];
-                        }];
+    return [self.operationManager POST:URLString
+                            parameters:[self requestParams:params]
+                               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                   [self processRequestOperation:operation
+                                                      controller:controller
+                                                    successBlock:successBlock
+                                                      errorBlock:errorBlock];
+                               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                   [self processRequestOperation:operation
+                                                      controller:controller
+                                                    successBlock:successBlock
+                                                      errorBlock:errorBlock];
+                               }];
 }
 
-- (void)POST:(NSString *)URLString
-      params:(NSDictionary *)params
-constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))bodyBlock
-  controller:(UIViewController *)controller
-     success:(AFHttpRequestSuccessBlock)successBlock
-       error:(AFHttpRequestErrorBlock)errorBlock {
-    [self.operationManager POST:URLString
-                     parameters:params
-      constructingBodyWithBlock:bodyBlock
-                        success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-                            [self processRequestOperation:operation
-                                               controller:controller
-                                             successBlock:successBlock
-                                               errorBlock:errorBlock];
-                        }
-                        failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-                            [self processRequestOperation:operation
-                                               controller:controller
-                                             successBlock:successBlock
-                                               errorBlock:errorBlock];
-                        }];
+- (AFHTTPRequestOperation *)POST:(NSString *)URLString
+                          params:(NSDictionary *)params
+       constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))bodyBlock
+                      controller:(UIViewController *)controller
+                         success:(AFHttpRequestSuccessBlock)successBlock
+                           error:(AFHttpRequestErrorBlock)errorBlock {
+    return [self.operationManager POST:URLString
+                            parameters:[self requestParams:params]
+             constructingBodyWithBlock:bodyBlock
+                               success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+                                   [self processRequestOperation:operation
+                                                      controller:controller
+                                                    successBlock:successBlock
+                                                      errorBlock:errorBlock];
+                               }
+                               failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+                                   [self processRequestOperation:operation
+                                                      controller:controller
+                                                    successBlock:successBlock
+                                                      errorBlock:errorBlock];
+                               }];
 }
 
-- (void)POST:(NSString *)URLString
-      params:(NSDictionary *)params
-  controller:(UIViewController *)controller
-     success:(AFHttpRequestSuccessBlock)successBlock {
+- (AFHTTPRequestOperation *)POST:(NSString *)URLString
+                          params:(NSDictionary *)params
+                      controller:(UIViewController *)controller
+                         success:(AFHttpRequestSuccessBlock)successBlock {
     
-    [self POST:URLString
-        params:params
-    controller:controller
-       success:successBlock
-         error:nil];
+    return [self POST:URLString
+               params:params
+           controller:controller
+              success:successBlock
+                error:nil];
 }
 
 
-- (void)GET:(NSString *)URLString
-     params:(NSDictionary *)params
- controller:(UIViewController *)controller
-    success:(AFHttpRequestSuccessBlock)successBlock
-      error:(AFHttpRequestErrorBlock)errorBlock
-{
+- (AFHTTPRequestOperation *)GET:(NSString *)URLString
+                         params:(NSDictionary *)params
+                     controller:(UIViewController *)controller
+                        success:(AFHttpRequestSuccessBlock)successBlock
+                          error:(AFHttpRequestErrorBlock)errorBlock {
     NSLog(@"get url-->%@", [[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString]);
-    NSLog(@"get params-->%@", params);
-    [self.operationManager GET:URLString
-                    parameters:params
-                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                           [self processRequestOperation:operation
-                                              controller:controller
-                                            successBlock:successBlock
-                                              errorBlock:errorBlock];
-                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                           [self processRequestOperation:operation
-                                              controller:controller
-                                            successBlock:successBlock
-                                              errorBlock:errorBlock];
-                       }];
+    return [self.operationManager GET:URLString
+                           parameters:[self requestParams:params]
+                              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                  [self processRequestOperation:operation
+                                                     controller:controller
+                                                   successBlock:successBlock
+                                                     errorBlock:errorBlock];
+                              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                  [self processRequestOperation:operation
+                                                     controller:controller
+                                                   successBlock:successBlock
+                                                     errorBlock:errorBlock];
+                              }];
 }
 
-- (void)GET:(NSString *)path
-     params:(NSDictionary *)params
- controller:(UIViewController *)controller
-    success:(AFHttpRequestSuccessBlock)successBlock
+- (AFHTTPRequestOperation *)GET:(NSString *)path
+                         params:(NSDictionary *)params
+                     controller:(UIViewController *)controller
+                        success:(AFHttpRequestSuccessBlock)successBlock
 {
-    [self GET:path
-       params:params
-   controller:controller
-      success:successBlock
-        error:nil];
+    return [self GET:path
+              params:params
+          controller:controller
+             success:successBlock
+               error:nil];
 }
 
 - (void)download:(NSString *)URLString
@@ -169,8 +170,7 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
     
     NSString *relativeURLString = [[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString];
     NSLog(@"upload url-->%@", relativeURLString);
-    NSLog(@"get params-->%@", params);
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:relativeURLString parameters:params constructingBodyWithBlock:bodyBlock error:nil];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:relativeURLString parameters:[self requestParams:params] constructingBodyWithBlock:bodyBlock error:nil];
     
     NSProgress *progress = nil;
     
@@ -205,7 +205,11 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
 //        responseData = @{@"responseString": operation.responseString};
 //    }
     NSLog(@"controller--->%@", controller.class.description);
-    NSLog(@"result data--->%@", [responseData description]);
+    if (responseData) {
+        NSLog(@"result data--->%@", [responseData description]);
+    } else {
+        NSLog(@"result string--->%@", operation.responseString);
+    }
     
     if (status == 200) {
         [self operationSuccess:operation
@@ -255,15 +259,15 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
     if (controller) {
         [controller hideProgress];
     }
-    if (message) {
+    if (message && ![message isKindOfClass:[NSNull class]]) {
         NSLog(@"message length-->%ld", [message charLength]);
         if ([message charLength] < 30) {
-            [YPNativeUtil showToast:message];
+            [YPNativeUtil showToastInAppWindow:message];
         } else {
             [UIAlertView showAlertWithTitle:message];
         }
     } else {
-        [YPNativeUtil showToast:@"网络请求错误，请稍后再试"];
+        [YPNativeUtil showToastInAppWindow:@"网络请求错误，请稍后再试"];
     }
 }
 
@@ -277,11 +281,11 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
 @implementation NSURLSessionTask (YPKit)
 
 - (void)setProgressBlock:(AFHttpRequestProgressBlock)progressBlock {
-    objc_setAssociatedObject(self, kProgressBlock, progressBlock, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(progressBlock), progressBlock, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (AFHttpRequestProgressBlock)progressBlock{
-    return objc_getAssociatedObject(self, kProgressBlock);
+    return objc_getAssociatedObject(self, @selector(progressBlock));
 }
 
 //- (void)setProgress:(NSProgress *)progress {
@@ -296,7 +300,7 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
     
     if ([keyPath isEqualToString:@"fractionCompleted"] && [object isKindOfClass:[NSProgress class]]) {
         NSProgress *progress = (NSProgress *)object;
-//        NSLog(@"Progress is %f", progress.fractionCompleted);
+        NSLog(@"Progress is %f", progress.fractionCompleted);
         if (self.progressBlock) {
             self.progressBlock(progress);
         }

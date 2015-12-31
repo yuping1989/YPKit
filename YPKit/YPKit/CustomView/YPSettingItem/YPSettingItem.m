@@ -49,7 +49,7 @@
                                           _leftImageView.image.size.height);
     }
     if (_titleField) {
-        _titleField.frame = CGRectMake(_leftImageView == nil ? _paddingLeft : _leftImageView.maxX + 8,
+        _titleField.frame = CGRectMake(_leftImageView == nil ? _paddingLeft : _paddingLeft + _leftImageView.maxX + 8,
                                        0, _titleWidth, self.height);
     }
     
@@ -76,26 +76,24 @@
 
 - (void)setStyle:(YPSettingItemStyle)style {
     _style = style;
-    if (_topLineLayer) {
-        [_topLineLayer removeFromSuperlayer];
-        _topLineLayer = nil;
+    if (self.topLineLayer) {
+        [self.topLineLayer removeFromSuperlayer];
+        self.topLineLayer = nil;
     }
-    if (_bottomLineLayer) {
-        [_bottomLineLayer removeFromSuperlayer];
-        _bottomLineLayer = nil;
+    if (self.bottomLineLayer) {
+        [self.bottomLineLayer removeFromSuperlayer];
+        self.bottomLineLayer = nil;
     }
     if (_style == YPSettingItemStyleTop) {
-        self.topLineLayer = [self addTopFillLineWithColor:_lineColor];
-        self.bottomLineLayer = [self addBottomLineWithColor:_lineColor
-                                                paddingLeft:[[YPSettingItem appearance] paddingLeft]];
+        [self setTopFillLineWithColor:self.lineColor];
+        [self setBottomLineWithColor:self.lineColor paddingLeft:[[YPSettingItem appearance] paddingLeft]];
     } else if (_style == YPSettingItemStyleCenter) {
-        self.bottomLineLayer = [self addBottomLineWithColor:_lineColor
-                                                paddingLeft:[[YPSettingItem appearance] paddingLeft]];
+        [self setBottomLineWithColor:self.lineColor paddingLeft:[[YPSettingItem appearance] paddingLeft]];
     } else if (_style == YPSettingItemStyleBottom) {
-        self.bottomLineLayer = [self addBottomFillLineWithColor:_lineColor];
+        [self setBottomFillLineWithColor:self.lineColor];
     } else if (_style == YPSettingItemStyleSingle) {
-        self.topLineLayer = [self addTopFillLineWithColor:_lineColor];
-        self.bottomLineLayer = [self addBottomFillLineWithColor:_lineColor];
+        [self setTopFillLineWithColor:self.lineColor];
+        [self setBottomFillLineWithColor:self.lineColor];
     }
 }
 
@@ -225,7 +223,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (self.clickedHanlder) {
-        self.backgroundColor = rgb(220, 220, 220);
+        self.backgroundColor = RGB(220, 220, 220);
     }
     
 }
@@ -249,5 +247,13 @@
     if (self.clickedHanlder) {
         self.backgroundColor = [UIColor whiteColor];
     }
+}
+
+- (void)updateViewsWhenNightModelExchanged {
+    self.titleField.textColor = [[YPSettingItem appearance] titleColor];
+    self.textField.textColor = [[YPSettingItem appearance] textColor];
+    self.backgroundColor = [[YPSettingItem appearance] backgroundColor];
+    self.topLineLayer.backgroundColor = [[YPSettingItem appearance] lineColor].CGColor;
+    self.bottomLineLayer.backgroundColor = [[YPSettingItem appearance] lineColor].CGColor;
 }
 @end

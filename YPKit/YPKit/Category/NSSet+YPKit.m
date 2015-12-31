@@ -14,4 +14,14 @@
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];
     return [self sortedArrayUsingDescriptors:@[descriptor]];
 }
+
+- (NSArray *)sortedArrayWithTerms:(NSDictionary *)sortTerm
+{
+    NSMutableArray *descriptors = [NSMutableArray array];
+    for (NSString *key in sortTerm.allKeys) {
+        [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:key ascending:[sortTerm[key] boolValue]]];
+    }
+    return [self sortedArrayUsingDescriptors:descriptors];
+}
+
 @end

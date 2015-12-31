@@ -8,6 +8,13 @@
 
 #import "YPDateUtil.h"
 
+NSString *const yyyyMMddHHmmss = @"yyyy-MM-dd HH:mm:ss";
+NSString *const yyyyMMddHHmm = @"yyyy-MM-dd HH:mm";
+NSString *const yyyyMMdd = @"yyyy-MM-dd";
+NSString *const yyMMddHHmm = @"yy-MM-dd HH:mm";
+NSString *const MMddHHmm = @"MM-dd HH:mm";
+NSString *const MMdd = @"MM-dd";
+
 @implementation YPDateUtil
 
 + (YPDateUtil *)shareInstance

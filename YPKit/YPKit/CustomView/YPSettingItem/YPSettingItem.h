@@ -19,8 +19,6 @@ typedef NS_ENUM(NSInteger, YPSettingItemStyle) {
 @property (nonatomic, strong) UIImageView *leftImageView;
 @property (nonatomic, strong) UIImageView *rightImageView;
 @property (nonatomic, strong) UIImageView *arrowImageView;
-@property (nonatomic, strong) CALayer *topLineLayer;
-@property (nonatomic, strong) CALayer *bottomLineLayer;
 
 @property (nonatomic, assign) float titleWidth;
 @property (nonatomic, assign) YPSettingItemStyle style;
@@ -38,6 +36,7 @@ typedef NS_ENUM(NSInteger, YPSettingItemStyle) {
 - (void)setOnClickedHandler:(void (^)(YPSettingItem *item))clickedHanlder;
 
 - (void)updateLayouts;
+- (void)updateViewsWhenNightModelExchanged;
 
 - (void)setTitle:(NSString *)title;
 - (NSString *)title;

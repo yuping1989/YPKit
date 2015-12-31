@@ -23,4 +23,12 @@
     }
     self.attributedText = aString;
 }
+
+- (void)hideInputAssistantItem {
+    if ([self respondsToSelector:@selector(inputAssistantItem)]) {
+        UITextInputAssistantItem *inputAssistantItem = [self inputAssistantItem];
+        inputAssistantItem.leadingBarButtonGroups = @[];
+        inputAssistantItem.trailingBarButtonGroups = @[];
+    }
+}
 @end

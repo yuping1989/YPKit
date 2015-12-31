@@ -10,6 +10,7 @@
 
 @interface NSArray (YPKit)
 - (NSArray *)sortedArrayWithKey:(NSString *)key ascending:(BOOL)ascending;
+- (NSArray *)sortedArrayWithTerms:(NSDictionary *)sortTerm;
 - (NSString *)jsonString;
 + (NSArray *)arrayWithPlistFile:(NSString *)name;
 

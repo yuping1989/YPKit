@@ -8,6 +8,9 @@
 
 #import "YPBaseViewController.h"
 #import "AppDelegate.h"
+
+
+
 @interface YPBaseViewController ()
 {
     
@@ -21,7 +24,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
     }
     return self;
 }
@@ -32,11 +34,14 @@
     if (IOS7_AND_LATER) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.navigationController.navigationBar.translucent = NO;
-    } else {
-#ifdef NAV_BACK_IMAGE_NAME
-        [self initLeftBarButtonItemWithImage:[UIImage imageNamed:NAV_BACK_IMAGE_NAME] target:self];
-#endif
     }
+#ifdef kUDIsNightModel
+    [self nightModelExchanged:nil];
+#endif
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,5 +53,7 @@
 //        self.view = nil;
 //    }
 }
+
+
 
 @end

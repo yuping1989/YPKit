@@ -20,32 +20,28 @@
     return checkBox;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self setup];
-    }
-    return self;
+
+- (void)awakeFromNib {
+    [self setup];
 }
 
 - (void)setup
 {
-//    if ([self imageForState:UIControlStateNormal] == nil) {
-//        [self setImage:[UIImage imageNamed:@"checkbox_unchecked.png"] forState:UIControlStateNormal];
-//    }
-//    if ([self imageForState:UIControlStateSelected] == nil) {
-//        [self setImage:[UIImage imageNamed:@"checkbox_checked.png"] forState:UIControlStateSelected];
-//    }
-    
+    if ([self imageForState:UIControlStateNormal] == nil) {
+        [self setNormalImageName:@"checkbox_unchecked" checkedImageName:@"checkbox_checked"];
+    }
+    self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    self.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
     [self addTarget:self action:@selector(checkboxBtnChecked) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)setNomaleImageName:(NSString *)normal checkedImageName:(NSString *)checked
+
+- (void)setNormalImageName:(NSString *)normal checkedImageName:(NSString *)checked
 {
     [self setImage:[UIImage imageNamed:normal] forState:UIControlStateNormal];
     [self setImage:[UIImage imageNamed:checked] forState:UIControlStateSelected];
 }
+
 
 - (void)setChecked:(BOOL)checked {
     if (_checked == checked) {
@@ -56,8 +52,9 @@
 }
 
 - (void)checkboxBtnChecked {
+    
     if (_delegate && [_delegate respondsToSelector:@selector(ypCheckBox:stateWillChange:)]) {
-        if (![_delegate ypCheckBox:self stateWillChange:self.checked]) {
+        if (![_delegate ypCheckBox:self stateWillChange:!self.checked]) {
             return;
         }
     }
@@ -67,13 +64,14 @@
     }
 }
 
-- (CGRect)imageRectForContentRect:(CGRect)contentRect {
-    return CGRectMake(0, (CGRectGetHeight(contentRect) - Q_CHECK_ICON_WH)/2.0, Q_CHECK_ICON_WH, Q_CHECK_ICON_WH);
-}
-
-- (CGRect)titleRectForContentRect:(CGRect)contentRect {
-    return CGRectMake(Q_CHECK_ICON_WH + Q_ICON_TITLE_MARGIN, 0,
-                      CGRectGetWidth(contentRect) - Q_CHECK_ICON_WH - Q_ICON_TITLE_MARGIN,
-                      CGRectGetHeight(contentRect));
-}
+//- (CGRect)imageRectForContentRect:(CGRect)contentRect {
+//    NSLog(@"imageRectForContentRect");
+//    return CGRectMake(0, (CGRectGetHeight(contentRect) - Q_CHECK_ICON_WH)/2.0, Q_CHECK_ICON_WH, Q_CHECK_ICON_WH);
+//}
+//
+//- (CGRect)titleRectForContentRect:(CGRect)contentRect {
+//    return CGRectMake(Q_CHECK_ICON_WH + Q_ICON_TITLE_MARGIN, 0,
+//                      CGRectGetWidth(contentRect) - Q_CHECK_ICON_WH - Q_ICON_TITLE_MARGIN,
+//                      CGRectGetHeight(contentRect));
+//}
 @end

@@ -15,6 +15,15 @@
     return [self sortedArrayUsingDescriptors:@[descriptor]];
 }
 
+- (NSArray *)sortedArrayWithTerms:(NSDictionary *)sortTerm
+{
+    NSMutableArray *descriptors = [NSMutableArray array];
+    for (NSString *key in sortTerm.allKeys) {
+        [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:key ascending:[sortTerm[key] boolValue]]];
+    }
+    return [self sortedArrayUsingDescriptors:descriptors];
+}
+
 - (NSString *)jsonString
 {
     NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil];

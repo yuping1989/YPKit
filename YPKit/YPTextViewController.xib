@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YPTextViewController">
             <connections>
                 <outlet property="bgView" destination="jS6-ro-aI4" id="o8O-vG-qEN"/>
                 <outlet property="textView" destination="YfO-r9-b4n" id="Byl-Io-yJn"/>
+                <outlet property="textView1" destination="ZAT-qz-4pY" id="nl9-gw-MvV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+            <rect key="frame" x="0.0" y="64" width="320" height="504"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="jS6-ro-aI4">
-                    <rect key="frame" x="0.0" y="220" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jS6-ro-aI4">
+                    <rect key="frame" x="0.0" y="127" width="320" height="44"/>
                     <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="YfO-r9-b4n" customClass="YPTextView">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YfO-r9-b4n" customClass="YPTestTextView">
                             <rect key="frame" x="10" y="4" width="300" height="36"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -31,9 +30,8 @@
                     </subviews>
                     <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Lorem ip www.baidu.com" id="a8M-b1-L6I">
-                    <rect key="frame" x="0.0" y="28" width="320" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Lorem ip www.baidu.com" translatesAutoresizingMaskIntoConstraints="NO" id="a8M-b1-L6I">
+                    <rect key="frame" x="0.0" y="28" width="320" height="66"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -42,16 +40,38 @@
                         <outlet property="delegate" destination="-1" id="MhW-i0-Vgv"/>
                     </connections>
                 </textView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JIv-sm-Sn2">
+                    <rect key="frame" x="0.0" y="188" width="320" height="44"/>
+                    <subviews>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZAT-qz-4pY" customClass="YPTextView">
+                            <rect key="frame" x="10" y="7" width="300" height="30"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="mvK-Ln-CGz"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="ZAT-qz-4pY" secondAttribute="trailing" constant="10" id="6zl-Qz-w8O"/>
+                        <constraint firstItem="ZAT-qz-4pY" firstAttribute="top" secondItem="JIv-sm-Sn2" secondAttribute="top" constant="7" id="Oiq-w1-PG8"/>
+                        <constraint firstItem="ZAT-qz-4pY" firstAttribute="leading" secondItem="JIv-sm-Sn2" secondAttribute="leading" constant="10" id="Pnq-4t-IWd"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="Thl-Zi-3Jd"/>
+                        <constraint firstAttribute="bottom" secondItem="ZAT-qz-4pY" secondAttribute="bottom" constant="7" id="euf-nc-Pls"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="JIv-sm-Sn2" secondAttribute="trailing" id="9LK-Sz-Xmj"/>
+                <constraint firstAttribute="bottom" secondItem="JIv-sm-Sn2" secondAttribute="bottom" constant="272" id="Buq-4m-xKO"/>
+                <constraint firstItem="JIv-sm-Sn2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="t2v-q8-AbC"/>
+            </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="522" y="433"/>
         </view>
     </objects>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

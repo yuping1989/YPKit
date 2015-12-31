@@ -10,6 +10,7 @@
 #import "YPTextViewController.h"
 #import "YPDateUtilController.h"
 #import "AutoLayoutCellController.h"
+#import "WebViewController.h"
 
 @interface RootController ()
 
@@ -35,7 +36,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 4;
 }
 
 
@@ -44,7 +45,7 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     switch (indexPath.row) {
         case 0:
-            cell.textLabel.text = @"YPTextView";
+            cell.textLabel.text = @"YPTestTextView";
             break;
         case 1:
             cell.textLabel.text = @"YPDateUtil";
@@ -52,7 +53,9 @@
         case 2:
             cell.textLabel.text = @"AutoLayoutCell";
             break;
-            
+        case 3:
+            cell.textLabel.text = @"WebView";
+            break;
         default:
             break;
     }
@@ -69,6 +72,9 @@
             break;
         case 2:
             [self.navigationController pushViewController:[AutoLayoutCellController instance] animated:YES];
+            break;
+        case 3:
+            [self.navigationController pushViewController:[WebViewController instance] animated:YES];
             break;
         default:
             break;

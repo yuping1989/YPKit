@@ -24,4 +24,12 @@
     // lower the text and push it left to center it
     self.titleEdgeInsets = UIEdgeInsetsMake(0.0, - imageSize.width, - (totalHeight - titleSize.height), 0.0);
 }
+
+- (void)setIndexPath:(NSIndexPath *)indexPath {
+    objc_setAssociatedObject(self, @selector(indexPath), indexPath, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSIndexPath *)indexPath {
+    return objc_getAssociatedObject(self, @selector(indexPath));
+}
 @end

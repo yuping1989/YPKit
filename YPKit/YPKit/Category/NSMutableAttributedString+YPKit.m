@@ -41,6 +41,11 @@
                      }];
 }
 
+- (void)addLineSpace:(CGFloat)space
+{
+    [self addLineSpace:space range:NSMakeRange(0, self.length)];
+}
+
 - (void)addLineSpace:(CGFloat)space range:(NSRange)range
 {
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];

@@ -17,31 +17,34 @@
 
 + (void)showToast:(NSString *)text
 {
-    [YPNativeUtil showToast:text inCenter:YES hideAfterDelay:1.5f];
+    [YPNativeUtil showToast:text hideAfterDelay:1.5f];
 }
 
-+ (void)showToast:(NSString *)text inCenter:(BOOL)inCenter
++ (void)showToastInAppWindow:(NSString *)text
 {
-    [YPNativeUtil showToast:text inCenter:inCenter hideAfterDelay:1.5f];
+    [YPNativeUtil showToast:text inView:[YPNativeUtil appDelegate].window hideAfterDelay:1.5f];
 }
 
-+ (void)showToast:(NSString *)text inCenter:(BOOL)inCenter hideAfterDelay:(NSTimeInterval)delay
++ (void)showToast:(NSString *)text hideAfterDelay:(NSTimeInterval)delay
 {
-	MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[YPNativeUtil appDelegate].window animated:YES];
-	
-	// Configure for text only and offset down
-	hud.mode = MBProgressHUDModeText;
-	hud.labelText = text;
-	hud.margin = 10.f;
-    if (inCenter) {
-        hud.center = [YPNativeUtil appDelegate].window.center;
-    } else{
-        hud.yOffset = [YPNativeUtil appDelegate].window.frame.size.height * 0.2f;
-    }
-	
-	hud.removeFromSuperViewOnHide = YES;
-	hud.userInteractionEnabled = NO;
-	[hud hide:YES afterDelay:delay];
+    UIWindow *window = [[UIApplication sharedApplication].windows lastObject];
+    [YPNativeUtil showToast:text inView:window hideAfterDelay:delay];
+}
+
++ (void)showToast:(NSString *)text
+           inView:(UIView *)view
+   hideAfterDelay:(NSTimeInterval)delay
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    
+    // Configure for text only and offset down
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = text;
+    hud.margin = 10.f;
+    hud.center = [YPNativeUtil  appDelegate].window.center;
+    hud.removeFromSuperViewOnHide = YES;
+    hud.userInteractionEnabled = NO;
+    [hud hide:YES afterDelay:delay];
 }
 
 + (void)hideKeyboard
@@ -62,5 +65,18 @@
 + (void)call:(NSString *)phone
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", phone]]];
+}
+
++ (CGFloat)onePixel {
+    UIScreen* mainScreen = [UIScreen mainScreen];
+    if ([mainScreen respondsToSelector:@selector(nativeScale)]) {
+        return 1.0f / mainScreen.nativeScale;
+    } else {
+        return 1.0f / mainScreen.scale;
+    }
+}
+
++ (void)openURLString:(NSString *)URLString {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URLString]];
 }
 @end

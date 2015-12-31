@@ -7,11 +7,13 @@
 //
 
 #import "YPTextViewController.h"
+#import "YPTestTextView.h"
 #import "YPTextView.h"
 
-@interface YPTextViewController ()<YPTextViewDelegate>
+@interface YPTextViewController ()<YPTestTextViewDelegate>
 @property (nonatomic, weak) IBOutlet UIView *bgView;
-@property (nonatomic, weak) IBOutlet YPTextView *textView;
+@property (nonatomic, weak) IBOutlet YPTestTextView *textView;
+@property (nonatomic, weak) IBOutlet YPTextView *textView1;
 @end
 
 @implementation YPTextViewController
@@ -23,12 +25,11 @@
     [_textView setCornerRadius:5];
     [_textView setBoarderWith:0.5f color:[UIColor grayColor]];
     _textView.delegate = self;
-//    _textView.dataDetectorTypes = UIDataDetectorTypeAll;
-//    _textView.textContainerInset = UIEdgeInsetsMake(8, 0, 0, 0);
+    [self hideKeyboardWhenTapBackground];
     NSLog(@"content size-->%@", NSStringFromCGSize(_textView.contentSize));
     NSLog(@"content offset--->%@", NSStringFromCGPoint(_textView.contentOffset));
     NSLog(@"container--->%@", NSStringFromUIEdgeInsets(_textView.textContainerInset));
-//    _textView.maxHeight = 100;
+    self.textView1.placeholder = @"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,7 +37,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)yp_textView:(YPTextView *)textView didContentHeightChanged:(NSInteger)heightOffset {
+- (void)yp_textView:(YPTestTextView *)textView didContentHeightChanged:(NSInteger)heightOffset {
     NSLog(@"height--->%f", textView.contentSize.height);
     textView.height += heightOffset;
     _bgView.frame = CGRectMake(0, _bgView.y - heightOffset, _bgView.width, _bgView.height + heightOffset);

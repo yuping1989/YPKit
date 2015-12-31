@@ -11,9 +11,9 @@
 @interface YPBaseTableViewController : UITableViewController
 {
     NSMutableArray *tableViewDataSource;
-    int _page;
 }
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
+@property (nonatomic, assign) NSInteger page;
 - (void)initTableViewDataSource;
 - (void)addRefreshControlWithStartedHandler:(YPCompletionBlock)handler;
 - (void)startRefreshControl;

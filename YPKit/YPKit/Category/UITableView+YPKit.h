@@ -19,4 +19,5 @@
                 color:(UIColor *)color
                height:(NSInteger)height;
 - (void)scrollToRow:(NSInteger)row animated:(BOOL)animated;
+- (void)scrollToRow:(NSInteger)row inSection:(NSInteger)section animated:(BOOL)animated;
 @end

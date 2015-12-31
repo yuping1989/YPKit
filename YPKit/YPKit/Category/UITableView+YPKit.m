@@ -50,6 +50,10 @@
 }
 
 - (void)scrollToRow:(NSInteger)row animated:(BOOL)animated {
-    [self scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:animated];
+    [self scrollToRow:row inSection:0 animated:animated];
+}
+
+- (void)scrollToRow:(NSInteger)row inSection:(NSInteger)section animated:(BOOL)animated {
+    [self scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:animated];
 }
 @end

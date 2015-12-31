@@ -7,19 +7,19 @@
 //
 
 #import "UIViewController+YPKit.h"
-#define kProgressHUD @"kProgressHUD"
+NSString * const kNotiNightModelExchanged = @"kNotiNightModelExchanged";
 @implementation UIViewController (YPKit) 
 + (instancetype)instance;
 {
-    return [[self alloc] initWithNibName:[[self class] description] bundle:nil];
+    return [[self alloc] initWithNibName:NSStringFromClass([self class]) bundle:nil];
 }
 
 - (MBProgressHUD *)progressHUD {
-    return objc_getAssociatedObject(self, kProgressHUD);
+    return objc_getAssociatedObject(self, _cmd);
 }
 
 - (void)setProgressHUD:(MBProgressHUD *)progressHUD {
-    objc_setAssociatedObject(self, kProgressHUD, progressHUD, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(progressHUD), progressHUD, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)showProgressWithText:(NSString *)text
@@ -29,7 +29,7 @@
 
 - (void)showProgressOnWindowWithText:(NSString *)text
 {
-    [self showProgressOnView:[YPNativeUtil appDelegate].window text:text userInteractionEnabled:YES];
+    [self showProgressOnView:[YPNativeUtil  appDelegate].window text:text userInteractionEnabled:YES];
 }
 
 - (void)showProgressOnView:(UIView *)view text:(NSString *)text userInteractionEnabled:(BOOL)enabled
@@ -111,12 +111,20 @@
 }
 - (void)leftBarButtonClicked:(id)sender
 {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
 - (void)rightBarButtonClicked:(id)sender
 {
+    
+}
+
+- (void)addNightModelExchangedObserver {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightModelExchanged:) name:kNotiNightModelExchanged object:nil];
+}
+
+- (void)nightModelExchanged:(NSNotification *)notification {
     
 }
 
@@ -126,6 +134,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
+
+
 
 - (void)removeKeyboardNotification
 {
@@ -165,12 +175,12 @@
     [self keyboardWillHideWithRect:keyboardRect animationDuration:animationDuration];
 }
 
-- (void)keyboardWillShowWithRect:(CGRect)keyboardRect animationDuration:(float)duration
+- (void)keyboardWillShowWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration
 {
     
 }
 
-- (void)keyboardWillHideWithRect:(CGRect)keyboardRect animationDuration:(float)duration
+- (void)keyboardWillHideWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration
 {
     
 }
@@ -183,7 +193,7 @@
 
 - (void)viewTapped:(UITapGestureRecognizer *)recognizer
 {
-    [YPNativeUtil hideKeyboard];
+    [YPNativeUtil  hideKeyboard];
 }
 
 - (BOOL)isViewInBackground

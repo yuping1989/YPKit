@@ -66,6 +66,7 @@
             [alert addButtonWithTitle:otherButtonArray[i]];
         }
     }
+    [alert setCancelButtonIndex:0];
     [alert showWithCompletionHandler:completion];
     return alert;
 }

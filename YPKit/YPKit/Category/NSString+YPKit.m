@@ -41,6 +41,13 @@
     return [NSString isMatchRegex:REGEX_POSITIVE_INT string:string];
 }
 
++ (BOOL)isMobile:(NSString *)string {
+    if ([NSString isEmpty:string]) {
+        return NO;
+    }
+    return [NSString isMatchRegex:REGEX_MOBILE string:string];
+}
+
 + (BOOL)isMatchRegex:(NSString *)regex string:(NSString *)string
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
@@ -52,11 +59,7 @@
 
 - (BOOL)isMatchRegex:(NSString *)regex
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    if ([predicate evaluateWithObject:self]) {
-        return YES;
-    }
-    return NO;
+    return [NSString isMatchRegex:regex string:self];
 }
 
 - (NSString *)stringByAppendSpaceToLength:(NSUInteger)length
@@ -84,7 +87,7 @@
     return tmp;
 }
 
-- (NSString *)md5
+- (NSString *)MD5
 {
     const char *cStr = [self UTF8String];
     unsigned char result[CC_MD5_DIGEST_LENGTH];
@@ -160,4 +163,5 @@
     }
     return index;
 }
+
 @end

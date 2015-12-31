@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
+extern NSString * const kNotiNightModelExchanged;
 @interface UIViewController (YPKit) <MBProgressHUDDelegate>
 
 + (instancetype)instance;
@@ -35,10 +36,13 @@
 // 键盘通知
 - (void)registerKeyboardNotification;
 - (void)removeKeyboardNotification;
-- (void)keyboardWillShowWithRect:(CGRect)keyboardRect animationDuration:(float)duration;
-- (void)keyboardWillHideWithRect:(CGRect)keyboardRect animationDuration:(float)duration;
+- (void)keyboardWillShowWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration;
+- (void)keyboardWillHideWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration;
 //点击背景view的时候，关闭键盘
 - (void)hideKeyboardWhenTapBackground;
+
+- (void)addNightModelExchangedObserver;
+- (void)nightModelExchanged:(NSNotification *)notification;
 
 - (void)setProgressHUD:(MBProgressHUD *)progressHUD;
 - (MBProgressHUD *)progressHUD;

@@ -14,7 +14,7 @@
 + (BOOL)createFileAtDirectory:(NSString *)directory fileName:(NSString *)fileName;
 + (BOOL)createDirectoryAtDocument:(NSString *)path;
 
-+ (NSString *)directory:(int) type;
++ (NSString *)directory:(NSInteger)type;
 + (NSString *)applicationDocumentsDirectory;
 + (NSString *)applicationStorageDirectory;
 
@@ -24,4 +24,5 @@
 + (BOOL)removeFile:(NSURL *)url;
 
 + (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL;
++ (NSString *)MD5WithPath:(NSString *)path;
 @end

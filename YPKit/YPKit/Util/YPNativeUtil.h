@@ -11,19 +11,15 @@
 
 #define IOS7_AND_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f ? YES : NO)
 
-#define IPHONE5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? [UIScreen mainScreen].currentMode.size.height > 960 : NO)
-#define IPHONE6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? [UIScreen mainScreen].currentMode.size.height == 1334 : NO)
-
-#define rgb(RED,GREEN,BLUE) [UIColor colorWithRed:RED/255.0f green:GREEN/255.0f blue:BLUE/255.0f alpha:1.0f]
-#define rgba(RED,GREEN,BLUE,ALPHA) [UIColor colorWithRed:RED/255.0f green:GREEN/255.0f blue:BLUE/255.0f alpha:ALPHA]
-#define userDefaults [NSUserDefaults standardUserDefaults]
-
-#define NSLogYP(tag, text) NSLog(@"%@-->%@", tag, text)
+#define RGB(RED,GREEN,BLUE) [UIColor colorWithRed:RED/255.0f green:GREEN/255.0f blue:BLUE/255.0f alpha:1.0f]
+#define RGBA(RED,GREEN,BLUE,ALPHA) [UIColor colorWithRed:RED/255.0f green:GREEN/255.0f blue:BLUE/255.0f alpha:ALPHA]
+#define USER_DEFAULTS [NSUserDefaults standardUserDefaults]
 
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
 #define APP_DELEGATE (AppDelegate *)[UIApplication sharedApplication].delegate
+#define ONE_PIXEL [YPNativeUtil onePixel]
 
 typedef void(^YPCompletionBlock)(void);
 typedef void(^YPCompletionBlockWithData)(id data);
@@ -32,11 +28,17 @@ typedef void(^YPCompletionBlockWithData)(id data);
 @interface YPNativeUtil : NSObject
 + (AppDelegate *)appDelegate;
 + (void)showToast:(NSString *)text;
-+ (void)showToast:(NSString *)text inCenter:(BOOL)inCenter;
-+ (void)showToast:(NSString *)text inCenter:(BOOL)inCenter hideAfterDelay:(NSTimeInterval)delay;
++ (void)showToastInAppWindow:(NSString *)text;
++ (void)showToast:(NSString *)text
+   hideAfterDelay:(NSTimeInterval)delay;
++ (void)showToast:(NSString *)text
+           inView:(UIView *)view
+   hideAfterDelay:(NSTimeInterval)delay;
 
 + (void)hideKeyboard;
 + (NSString *)appVersionName;
 + (NSInteger)appVersionCode;
 + (void)call:(NSString *)phone;
++ (CGFloat)onePixel;
++ (void)openURLString:(NSString *)URLString;
 @end

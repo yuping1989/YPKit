@@ -7,12 +7,19 @@
 //
 
 #import "YPHttpEngine.h"
+
+NSString *const HttpMethodPost = @"POST";
+NSString *const HttpMethodGet = @"GET";
+NSString *const HttpMethodPut = @"PUT";
+NSString *const HttpMethodDelete = @"DELETE";
+
+
 @implementation YPHttpEngine
-- (id)initWithHostName:(NSString *)hostName
+- (id)init
 {
     self = [super init];
     if (self) {
-        self.mkNetworkEngine = [[MKNetworkEngine alloc] initWithHostName:hostName];
+        self.mkNetworkEngine = [[MKNetworkEngine alloc] initWithHostName:nil];
     }
     return self;
 }
@@ -22,42 +29,42 @@
     static YPHttpEngine *httpEngine = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        httpEngine = [[YPHttpEngine alloc] initWithHostName:nil];
+        httpEngine = [[YPHttpEngine alloc] init];
     });
     return httpEngine;
 }
 
-- (void)startWithPath:(NSString *)path
+- (MKNetworkOperation *)startWithPath:(NSString *)path
                params:(NSMutableDictionary *)params
            httpMethod:(NSString *)method
            controller:(UIViewController *)controller
             successed:(ApiRequestSuccessedBlock)successed
 {
-    [self startWithPath:path
-                 params:params
-             httpMethod:method
-             controller:controller
-              successed:successed
-                 failed:nil];
+    return [self startWithPath:path
+                        params:params
+                    httpMethod:method
+                    controller:controller
+                     successed:successed
+                        failed:nil];
 }
 
-- (void)startWithPath:(NSString *)path
+- (MKNetworkOperation *)startWithPath:(NSString *)path
                params:(NSMutableDictionary *)params
            httpMethod:(NSString *)method
            controller:(UIViewController *)controller
             successed:(ApiRequestSuccessedBlock)successed
                failed:(ApiRequestFailedBlock)failed
 {
-    MKNetworkOperation *op = [self.mkNetworkEngine operationWithPath:path
-                                                              params:params
-                                                          httpMethod:method];
-    [self startWithOperation:op
-                  controller:controller
-                   successed:successed
-                      failed:failed];
+    
+    return [self startWithURLString:[self requestURLStringWithPath:path]
+                             params:params
+                         httpMethod:method
+                         controller:controller
+                          successed:successed
+                             failed:failed];
 }
 
-- (void)startWithURLString:(NSString *)urlString
+- (MKNetworkOperation *)startWithURLString:(NSString *)urlString
                     params:(NSMutableDictionary *)params
                 httpMethod:(NSString *)method
                 controller:(UIViewController *)controller
@@ -73,6 +80,7 @@
                   controller:controller
                    successed:successed
                       failed:failed];
+    return op;
 }
 
 - (void)startWithOperation:(MKNetworkOperation *)operation
@@ -96,7 +104,7 @@
     [self.mkNetworkEngine enqueueOperation:operation forceReload:YES];
 }
 
-- (void)startApiRequest:(ApiRequest *)request
+- (MKNetworkOperation *)startApiRequest:(ApiRequest *)request
              controller:(UIViewController *)controller
               successed:(ApiRequestSuccessedBlock)successed
                  failed:(ApiRequestFailedBlock)failed
@@ -145,9 +153,10 @@
         [op onDownloadProgressChanged:request.downloadProgressBlock];
     }
     [self.mkNetworkEngine enqueueOperation:op forceReload:YES];
+    return op;
 }
 
-- (void)downloadFileWithUrlString:(NSString *)urlString
+- (MKNetworkOperation *)downloadFileWithUrlString:(NSString *)urlString
                      toFileAtPath:(NSString *)filePath
                   progressChanged:(MKNKProgressBlock)progressChanged
                        controller:(UIViewController *)controller
@@ -171,9 +180,10 @@
         }
     }];
     [self.mkNetworkEngine enqueueOperation:op forceReload:YES];
+    return op;
 }
 
-- (void)uploadFileWithUrlString:(NSString *)urlString
+- (MKNetworkOperation *)uploadFileWithUrlString:(NSString *)urlString
                          params:(NSMutableDictionary *)params
                      uploadData:(NSData *)data
                 progressChanged:(MKNKProgressBlock)progressChanged
@@ -200,6 +210,7 @@
                         failedHandler:failed];
     }];
     [self.mkNetworkEngine enqueueOperation:op forceReload:YES];
+    return op;
 }
 
 - (void)processRequestOperation:(MKNetworkOperation *)operation
@@ -233,6 +244,11 @@
                 failedHandler:failed];
     }
 }
+
+- (NSString *)requestURLStringWithPath:(NSString *)path {
+    return [NSString stringWithFormat:@"%@/%@", self.baseURLString, path];
+}
+
 
 - (NSString *)getErrorMessage:(NSDictionary *)responseData
 {
@@ -268,12 +284,12 @@
     if (message) {
         NSLog(@"message length-->%ld", [message charLength]);
         if ([message charLength] < 30) {
-            [YPNativeUtil showToast:message];
+            [YPNativeUtil  showToastInAppWindow:message];
         } else {
             [UIAlertView showAlertWithTitle:message];
         }
     } else {
-        [YPNativeUtil showToast:@"网络连接不可用，请重试"];
+        [YPNativeUtil showToastInAppWindow:@"网络请求错误，稍后再试"];
     }
 }
 

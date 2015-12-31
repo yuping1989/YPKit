@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#define yyyyMMddHHmmss @"yyyy-MM-dd HH:mm:ss"
-#define yyyyMMddHHmm @"yyyy-MM-dd HH:mm"
-#define yyMMddHHmm @"yy-MM-dd HH:mm"
-#define MMddHHmm @"MM-dd HH:mm"
-#define MMdd @"MM-dd"
-#define yyyyMMdd @"yyyy-MM-dd"
+
+extern NSString *const yyyyMMddHHmmss;
+extern NSString *const yyyyMMddHHmm;
+extern NSString *const yyyyMMdd;
+extern NSString *const yyMMddHHmm;
+extern NSString *const MMddHHmm;
+extern NSString *const MMdd;
 @interface YPDateUtil : NSObject
 {
     NSDateFormatter *_dateFormatter;

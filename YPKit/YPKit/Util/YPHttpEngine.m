@@ -130,7 +130,7 @@ NSString *const HttpMethodDelete = @"DELETE";
     
     if (request.uploadFileDatas) {
         for (UploadFile *file in request.uploadFileDatas) {
-            NSLog(@"key-->%@  data length-->%d fileName-->%@  type-->%@", file.key, file.data.length, file.fileName, file.mimeType);
+            NSLog(@"key-->%@  data length-->%ld fileName-->%@  type-->%@", file.key, file.data.length, file.fileName, file.mimeType);
             [op addData:file.data
                  forKey:file.key
                mimeType:file.mimeType ? file.mimeType : @"application/octet-stream"

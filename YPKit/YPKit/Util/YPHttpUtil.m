@@ -270,36 +270,4 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:block];
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
-
-@end
-
-@implementation NSURLSessionTask (YPKit)
-
-- (void)setProgressBlock:(AFHttpRequestProgressBlock)progressBlock {
-    objc_setAssociatedObject(self, @selector(progressBlock), progressBlock, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (AFHttpRequestProgressBlock)progressBlock{
-    return objc_getAssociatedObject(self, @selector(progressBlock));
-}
-
-//- (void)setProgress:(NSProgress *)progress {
-//    objc_setAssociatedObject(self, kProgress, progress, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//}
-//
-//- (NSProgress *)progress{
-//    return objc_getAssociatedObject(self, kProgress);
-//}
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    
-    if ([keyPath isEqualToString:@"fractionCompleted"] && [object isKindOfClass:[NSProgress class]]) {
-        NSProgress *progress = (NSProgress *)object;
-        NSLog(@"Progress is %f", progress.fractionCompleted);
-        if (self.progressBlock) {
-            self.progressBlock(progress);
-        }
-    }
-}
-
 @end

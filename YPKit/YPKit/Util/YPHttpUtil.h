@@ -154,7 +154,3 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
 - (NSString *)getErrorMessage:(id)errorData;
 @end
 
-@interface NSURLSessionTask (YPKit)
-//@property (nonatomic, strong) NSProgress *progress;
-@property (nonatomic, strong) AFHttpRequestProgressBlock progressBlock;
-@end

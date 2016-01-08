@@ -11,5 +11,6 @@ s.platform     = :ios, "7.0"
 s.ios.deployment_target = "7.0"
 s.source       = { :git => "https://github.com/yuping1989/YPKit.git", :tag => s.version}
 s.source_files  = 'YPKit/YPKit/**/*'
+s.resource     = 'YPKit/YPKit/YPKit.bundle'
 s.requires_arc = true
 end

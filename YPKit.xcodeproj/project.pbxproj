@@ -55,13 +55,11 @@
 		F0E421E81C3F44FB00A60C21 /* UIView+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E421341C3F44FB00A60C21 /* UIView+YPKit.m */; };
 		F0E421E91C3F44FB00A60C21 /* UIViewController+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E421361C3F44FB00A60C21 /* UIViewController+YPKit.m */; };
 		F0E421EA1C3F44FB00A60C21 /* YPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E4213A1C3F44FB00A60C21 /* YPBadgeView.m */; };
-		F0E421EB1C3F44FB00A60C21 /* YPCheckBox.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F0E4213C1C3F44FB00A60C21 /* YPCheckBox.bundle */; };
 		F0E421EC1C3F44FB00A60C21 /* YPCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E4213E1C3F44FB00A60C21 /* YPCheckBox.m */; };
 		F0E421ED1C3F44FB00A60C21 /* YPControlLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E421411C3F44FB00A60C21 /* YPControlLabel.m */; };
 		F0E421EE1C3F44FB00A60C21 /* YPControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E421431C3F44FB00A60C21 /* YPControlView.m */; };
 		F0E421EF1C3F44FB00A60C21 /* YPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E421461C3F44FB00A60C21 /* YPPageView.m */; };
 		F0E421F01C3F44FB00A60C21 /* YPPageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E421481C3F44FB00A60C21 /* YPPageViewCell.m */; };
-		F0E421F11C3F44FB00A60C21 /* YPPageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0E421491C3F44FB00A60C21 /* YPPageViewCell.xib */; };
 		F0E421F21C3F44FB00A60C21 /* YPUpwardsPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E4214C1C3F44FB00A60C21 /* YPUpwardsPicker.m */; };
 		F0E421F31C3F44FB00A60C21 /* YPUpwardsPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0E4214D1C3F44FB00A60C21 /* YPUpwardsPicker.xib */; };
 		F0E421F41C3F44FB00A60C21 /* YPSettingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E421501C3F44FB00A60C21 /* YPSettingItem.m */; };
@@ -119,6 +117,7 @@
 		F0E422281C3F44FB00A60C21 /* YPHttpUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E421CE1C3F44FB00A60C21 /* YPHttpUtil.m */; };
 		F0E422291C3F44FB00A60C21 /* YPImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E421D01C3F44FB00A60C21 /* YPImagePicker.m */; };
 		F0E4222A1C3F44FB00A60C21 /* YPNativeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E421D21C3F44FB00A60C21 /* YPNativeUtil.m */; };
+		F0E4222C1C3F48BC00A60C21 /* YPKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F0E4222B1C3F48BC00A60C21 /* YPKit.bundle */; };
 		F0F809271B8DC4F7001318F2 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0F809261B8DC4F7001318F2 /* Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -220,7 +219,6 @@
 		F0E421361C3F44FB00A60C21 /* UIViewController+YPKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+YPKit.m"; sourceTree = "<group>"; };
 		F0E421391C3F44FB00A60C21 /* YPBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPBadgeView.h; sourceTree = "<group>"; };
 		F0E4213A1C3F44FB00A60C21 /* YPBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPBadgeView.m; sourceTree = "<group>"; };
-		F0E4213C1C3F44FB00A60C21 /* YPCheckBox.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YPCheckBox.bundle; sourceTree = "<group>"; };
 		F0E4213D1C3F44FB00A60C21 /* YPCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPCheckBox.h; sourceTree = "<group>"; };
 		F0E4213E1C3F44FB00A60C21 /* YPCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPCheckBox.m; sourceTree = "<group>"; };
 		F0E421401C3F44FB00A60C21 /* YPControlLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPControlLabel.h; sourceTree = "<group>"; };
@@ -231,7 +229,6 @@
 		F0E421461C3F44FB00A60C21 /* YPPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPPageView.m; sourceTree = "<group>"; };
 		F0E421471C3F44FB00A60C21 /* YPPageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPPageViewCell.h; sourceTree = "<group>"; };
 		F0E421481C3F44FB00A60C21 /* YPPageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPPageViewCell.m; sourceTree = "<group>"; };
-		F0E421491C3F44FB00A60C21 /* YPPageViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YPPageViewCell.xib; sourceTree = "<group>"; };
 		F0E4214B1C3F44FB00A60C21 /* YPUpwardsPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPUpwardsPicker.h; sourceTree = "<group>"; };
 		F0E4214C1C3F44FB00A60C21 /* YPUpwardsPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPUpwardsPicker.m; sourceTree = "<group>"; };
 		F0E4214D1C3F44FB00A60C21 /* YPUpwardsPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YPUpwardsPicker.xib; sourceTree = "<group>"; };
@@ -354,6 +351,7 @@
 		F0E421D11C3F44FB00A60C21 /* YPNativeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPNativeUtil.h; sourceTree = "<group>"; };
 		F0E421D21C3F44FB00A60C21 /* YPNativeUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPNativeUtil.m; sourceTree = "<group>"; };
 		F0E421D31C3F44FB00A60C21 /* YPKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPKit.h; sourceTree = "<group>"; };
+		F0E4222B1C3F48BC00A60C21 /* YPKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = YPKit.bundle; sourceTree = "<group>"; };
 		F0F809261B8DC4F7001318F2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -484,6 +482,7 @@
 		F0E421081C3F44FB00A60C21 /* YPKit */ = {
 			isa = PBXGroup;
 			children = (
+				F0E4222B1C3F48BC00A60C21 /* YPKit.bundle */,
 				F0E421091C3F44FB00A60C21 /* BaseViewController */,
 				F0E421141C3F44FB00A60C21 /* Category */,
 				F0E421371C3F44FB00A60C21 /* CustomView */,
@@ -578,7 +577,6 @@
 		F0E4213B1C3F44FB00A60C21 /* YPCheckBox */ = {
 			isa = PBXGroup;
 			children = (
-				F0E4213C1C3F44FB00A60C21 /* YPCheckBox.bundle */,
 				F0E4213D1C3F44FB00A60C21 /* YPCheckBox.h */,
 				F0E4213E1C3F44FB00A60C21 /* YPCheckBox.m */,
 			);
@@ -603,7 +601,6 @@
 				F0E421461C3F44FB00A60C21 /* YPPageView.m */,
 				F0E421471C3F44FB00A60C21 /* YPPageViewCell.h */,
 				F0E421481C3F44FB00A60C21 /* YPPageViewCell.m */,
-				F0E421491C3F44FB00A60C21 /* YPPageViewCell.xib */,
 			);
 			path = YPPageControlView;
 			sourceTree = "<group>";
@@ -939,12 +936,11 @@
 				F009E38F1B7C414300D80FD5 /* LaunchScreen.xib in Resources */,
 				F0CA303E1B7DE1E1003D8AB4 /* YPTextViewController.xib in Resources */,
 				F0D5D6A51BDA0FE000A77F6A /* AutoLayoutCell.xib in Resources */,
+				F0E4222C1C3F48BC00A60C21 /* YPKit.bundle in Resources */,
 				7EFC894E1C0B592A00ECCF87 /* test.txt in Resources */,
 				F0D5D69B1BDA0FA900A77F6A /* AutoLayoutCellController.xib in Resources */,
 				F0E422001C3F44FB00A60C21 /* Info.plist in Resources */,
-				F0E421F11C3F44FB00A60C21 /* YPPageViewCell.xib in Resources */,
 				F009E38C1B7C414300D80FD5 /* Images.xcassets in Resources */,
-				F0E421EB1C3F44FB00A60C21 /* YPCheckBox.bundle in Resources */,
 				F0E421F31C3F44FB00A60C21 /* YPUpwardsPicker.xib in Resources */,
 				F0F809271B8DC4F7001318F2 /* Info.plist in Resources */,
 				F0C5D2021B85C1F500DA537E /* YPDateUtilController.xib in Resources */,

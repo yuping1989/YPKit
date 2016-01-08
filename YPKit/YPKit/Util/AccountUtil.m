@@ -11,12 +11,12 @@ NSString *const kUDAccountInfo = @"kUDAccountInfo";
 
 @implementation AccountUtil
 + (void)saveAccount:(NSDictionary *)accountDict {
-    [USER_DEFAULTS setObject:accountDict forKey:kUDAccountInfo];
-    [USER_DEFAULTS synchronize];
+    [[NSUserDefaults standardUserDefaults] setObject:accountDict forKey:kUDAccountInfo];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (NSDictionary *)account {
-    return [USER_DEFAULTS objectForKey:kUDAccountInfo];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kUDAccountInfo];
 }
 
 + (id)objectForKey:(NSString *)key {

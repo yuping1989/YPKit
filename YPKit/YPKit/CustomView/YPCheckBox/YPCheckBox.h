@@ -18,7 +18,9 @@
 @property(nonatomic, assign) BOOL checked;
 @property(nonatomic, assign) IBOutlet id<YPCheckBoxDelegate> delegate;
 @property (nonatomic, assign) NSInteger imageSideLength;
+@property (nonatomic, strong) UIImage *normalImage UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIImage *checkedImage UI_APPEARANCE_SELECTOR;
 
 + (id)checkBoxWithFrame:(CGRect)frame;
-- (void)setNormalImageName:(NSString *)normal checkedImageName:(NSString *)checked;
+- (void)setNormalImage:(UIImage *)normalImage checkedImage:(UIImage *)checkedImage;
 @end

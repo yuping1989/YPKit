@@ -55,10 +55,6 @@
 		F0E423121C3F53C300A60C21 /* UIView+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E4225B1C3F53C300A60C21 /* UIView+YPKit.m */; };
 		F0E423131C3F53C300A60C21 /* UIViewController+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E4225D1C3F53C300A60C21 /* UIViewController+YPKit.m */; };
 		F0E423141C3F53C300A60C21 /* YPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E422611C3F53C300A60C21 /* YPBadgeView.m */; };
-		F0E423151C3F53C300A60C21 /* checkbox_checked.png in Resources */ = {isa = PBXBuildFile; fileRef = F0E422631C3F53C300A60C21 /* checkbox_checked.png */; };
-		F0E423161C3F53C300A60C21 /* checkbox_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F0E422641C3F53C300A60C21 /* checkbox_checked@2x.png */; };
-		F0E423171C3F53C300A60C21 /* checkbox_unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = F0E422651C3F53C300A60C21 /* checkbox_unchecked.png */; };
-		F0E423181C3F53C300A60C21 /* checkbox_unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F0E422661C3F53C300A60C21 /* checkbox_unchecked@2x.png */; };
 		F0E423191C3F53C300A60C21 /* YPCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E422681C3F53C300A60C21 /* YPCheckBox.m */; };
 		F0E4231A1C3F53C300A60C21 /* YPControlLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E4226B1C3F53C300A60C21 /* YPControlLabel.m */; };
 		F0E4231B1C3F53C300A60C21 /* YPControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E4226D1C3F53C300A60C21 /* YPControlView.m */; };
@@ -223,10 +219,6 @@
 		F0E4225D1C3F53C300A60C21 /* UIViewController+YPKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+YPKit.m"; sourceTree = "<group>"; };
 		F0E422601C3F53C300A60C21 /* YPBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPBadgeView.h; sourceTree = "<group>"; };
 		F0E422611C3F53C300A60C21 /* YPBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPBadgeView.m; sourceTree = "<group>"; };
-		F0E422631C3F53C300A60C21 /* checkbox_checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_checked.png; sourceTree = "<group>"; };
-		F0E422641C3F53C300A60C21 /* checkbox_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_checked@2x.png"; sourceTree = "<group>"; };
-		F0E422651C3F53C300A60C21 /* checkbox_unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_unchecked.png; sourceTree = "<group>"; };
-		F0E422661C3F53C300A60C21 /* checkbox_unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_unchecked@2x.png"; sourceTree = "<group>"; };
 		F0E422671C3F53C300A60C21 /* YPCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPCheckBox.h; sourceTree = "<group>"; };
 		F0E422681C3F53C300A60C21 /* YPCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPCheckBox.m; sourceTree = "<group>"; };
 		F0E4226A1C3F53C300A60C21 /* YPControlLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPControlLabel.h; sourceTree = "<group>"; };
@@ -584,10 +576,6 @@
 		F0E422621C3F53C300A60C21 /* YPCheckBox */ = {
 			isa = PBXGroup;
 			children = (
-				F0E422631C3F53C300A60C21 /* checkbox_checked.png */,
-				F0E422641C3F53C300A60C21 /* checkbox_checked@2x.png */,
-				F0E422651C3F53C300A60C21 /* checkbox_unchecked.png */,
-				F0E422661C3F53C300A60C21 /* checkbox_unchecked@2x.png */,
 				F0E422671C3F53C300A60C21 /* YPCheckBox.h */,
 				F0E422681C3F53C300A60C21 /* YPCheckBox.m */,
 			);
@@ -942,7 +930,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0E423151C3F53C300A60C21 /* checkbox_checked.png in Resources */,
 				F0BA041A1B9007BF00F49425 /* icon_arrow_light@2x.png in Resources */,
 				F0E4232D1C3F53C300A60C21 /* Info.plist in Resources */,
 				F0BA041B1B9007BF00F49425 /* icon_discovery_joined@2x.png in Resources */,
@@ -951,13 +938,10 @@
 				F009E38F1B7C414300D80FD5 /* LaunchScreen.xib in Resources */,
 				F0CA303E1B7DE1E1003D8AB4 /* YPTextViewController.xib in Resources */,
 				F0D5D6A51BDA0FE000A77F6A /* AutoLayoutCell.xib in Resources */,
-				F0E423171C3F53C300A60C21 /* checkbox_unchecked.png in Resources */,
-				F0E423161C3F53C300A60C21 /* checkbox_checked@2x.png in Resources */,
 				7EFC894E1C0B592A00ECCF87 /* test.txt in Resources */,
 				F0E4234C1C3F53C300A60C21 /* QBImagePickerController.strings in Resources */,
 				F0D5D69B1BDA0FA900A77F6A /* AutoLayoutCellController.xib in Resources */,
 				F009E38C1B7C414300D80FD5 /* Images.xcassets in Resources */,
-				F0E423181C3F53C300A60C21 /* checkbox_unchecked@2x.png in Resources */,
 				F0F809271B8DC4F7001318F2 /* Info.plist in Resources */,
 				F0E423201C3F53C300A60C21 /* YPUpwardsPicker.xib in Resources */,
 				F0C5D2021B85C1F500DA537E /* YPDateUtilController.xib in Resources */,

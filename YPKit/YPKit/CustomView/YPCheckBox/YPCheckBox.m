@@ -28,7 +28,12 @@
 - (void)setup
 {
     if ([self imageForState:UIControlStateNormal] == nil) {
-        [self setNormalImageName:@"checkbox_unchecked" checkedImageName:@"checkbox_checked"];
+        if ([[YPCheckBox appearance] normalImage]) {
+            [self setImage:[[YPCheckBox appearance] normalImage] forState:UIControlStateNormal];
+        }
+        if ([[YPCheckBox appearance] checkedImage]) {
+            [self setImage:[[YPCheckBox appearance] checkedImage] forState:UIControlStateSelected];
+        }
     }
     self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
@@ -36,10 +41,10 @@
 }
 
 
-- (void)setNormalImageName:(NSString *)normal checkedImageName:(NSString *)checked
+- (void)setNormalImage:(UIImage *)normalImage checkedImage:(UIImage *)checkedImage
 {
-    [self setImage:[UIImage imageNamed:normal] forState:UIControlStateNormal];
-    [self setImage:[UIImage imageNamed:checked] forState:UIControlStateSelected];
+    [self setImage:normalImage forState:UIControlStateNormal];
+    [self setImage:normalImage forState:UIControlStateSelected];
 }
 
 

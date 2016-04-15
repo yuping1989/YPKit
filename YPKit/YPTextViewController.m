@@ -7,12 +7,10 @@
 //
 
 #import "YPTextViewController.h"
-#import "YPTestTextView.h"
 #import "YPTextView.h"
 
-@interface YPTextViewController ()<YPTestTextViewDelegate>
+@interface YPTextViewController ()<YPTextViewDelegate>
 @property (nonatomic, weak) IBOutlet UIView *bgView;
-@property (nonatomic, weak) IBOutlet YPTestTextView *textView;
 @property (nonatomic, weak) IBOutlet YPTextView *textView1;
 @end
 
@@ -21,15 +19,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    _textView.placeholder = @"请输入";
-    [_textView setCornerRadius:5];
-    [_textView setBoarderWith:0.5f color:[UIColor grayColor]];
-    _textView.delegate = self;
+    _textView1.delegate = self;
     [self hideKeyboardWhenTapBackground];
-    NSLog(@"content size-->%@", NSStringFromCGSize(_textView.contentSize));
-    NSLog(@"content offset--->%@", NSStringFromCGPoint(_textView.contentOffset));
-    NSLog(@"container--->%@", NSStringFromUIEdgeInsets(_textView.textContainerInset));
-    self.textView1.placeholder = @"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈";
+//    NSLog(@"content size-->%@", NSStringFromCGSize(_textView1.contentSize));
+//    NSLog(@"content offset--->%@", NSStringFromCGPoint(_textView1.contentOffset));
+//    NSLog(@"container--->%@", NSStringFromUIEdgeInsets(_textView1.textContainerInset));
+//    _textView1.maxHeight = 100;
+    _textView1.textContainerInset = UIEdgeInsetsMake(5, 0, 5, 0);
+//    _textView1.heigthChangedAnimateDuration = 0.25f;
+    self.bgView.frame = CGRectMake(0, SCREEN_HEIGHT - 500 - 44, SCREEN_WIDTH, 44);
+    NSLog(@"frame--->%@", NSStringFromCGRect(self.bgView.frame));
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,14 +36,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)yp_textView:(YPTestTextView *)textView didContentHeightChanged:(NSInteger)heightOffset {
-    NSLog(@"height--->%f", textView.contentSize.height);
-    textView.height += heightOffset;
-    _bgView.frame = CGRectMake(0, _bgView.y - heightOffset, _bgView.width, _bgView.height + heightOffset);
-
+- (void)textView:(YPTextView *)textView didContentHeightChanged:(CGFloat)height {
+    NSLog(@"height--->%f", height);
+    textView.height = height;
+    self.bgView.frame = CGRectMake(0, SCREEN_HEIGHT - height - 14 - 500, SCREEN_WIDTH, height + 14);
+    NSLog(@"frame--->%@", NSStringFromCGRect(self.bgView.frame));
 }
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
     NSLog(@"url--->%@", URL.absoluteString);
     return NO;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    NSLog(@"text-->%@", textView.text);
 }
 @end

@@ -35,8 +35,8 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.navigationController.navigationBar.translucent = NO;
     }
-#ifdef kUDIsNightModel
-    [self nightModelExchanged:nil];
+#ifdef UDIsNightModel
+    [self nightModelSwitched:nil];
 #endif
 }
 

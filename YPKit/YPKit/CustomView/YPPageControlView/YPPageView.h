@@ -22,6 +22,7 @@
 @end
 
 @interface YPPageView : UIView
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, copy) NSArray *dataSourceArray;
 @property (nonatomic, assign) IBOutlet id<YPPageViewDelegate> delegate;
 @property (nonatomic, assign) NSInteger displayingIndex;

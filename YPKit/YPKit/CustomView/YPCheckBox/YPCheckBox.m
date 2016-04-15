@@ -44,7 +44,7 @@
 - (void)setNormalImage:(UIImage *)normalImage checkedImage:(UIImage *)checkedImage
 {
     [self setImage:normalImage forState:UIControlStateNormal];
-    [self setImage:normalImage forState:UIControlStateSelected];
+    [self setImage:checkedImage forState:UIControlStateSelected];
 }
 
 

@@ -17,4 +17,9 @@
         return self.stringValue;
     }
 }
+
++ (NSNumber *)numberWithCurrentDate
+{
+    return [NSNumber numberWithInt:[[NSDate date] timeIntervalSince1970]];
+}
 @end

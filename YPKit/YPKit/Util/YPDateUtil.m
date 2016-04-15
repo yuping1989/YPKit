@@ -44,12 +44,12 @@ NSString *const MMdd = @"MM-dd";
     return [self stringWithDate:[NSDate dateWithTimeIntervalSince1970:number.intValue] format:format];
 }
 
-- (NSString *)stringWithDateTimeInterval:(int)timeInterval
+- (NSString *)stringWithDateTimeInterval:(NSTimeInterval)timeInterval
 {
     return [self stringWithDateTimeInterval:timeInterval format:yyyyMMdd];
 }
 
-- (NSString *)stringWithDateTimeInterval:(int)timeInterval format:(NSString *)format
+- (NSString *)stringWithDateTimeInterval:(NSTimeInterval)timeInterval format:(NSString *)format
 {
     return [self stringWithDate:[NSDate dateWithTimeIntervalSince1970:timeInterval] format:format];
 }
@@ -74,9 +74,9 @@ NSString *const MMdd = @"MM-dd";
     return [self dateDiffStringWithFromDate:date toDate:[NSDate date]];
 }
 
-- (NSString *)dateDiffStringWithFromTimeInterval:(int)dateMills
+- (NSString *)dateDiffStringWithFromTimeInterval:(NSTimeInterval)timeInterval
 {
-    NSDate *fromDate = [NSDate dateWithTimeIntervalSince1970:dateMills];
+    NSDate *fromDate = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     NSDate *toDate = [NSDate date];
     return [self dateDiffStringWithFromDate:fromDate toDate:toDate];
 }
@@ -127,14 +127,18 @@ NSString *const MMdd = @"MM-dd";
     return compInfo;
 }
 
-- (NSString *)weekStringWithDate:(NSDate *)date
-{
+- (NSInteger)weekdayWithDate:(NSDate *)date {
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
     NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
     NSDateComponents *comps = [calendar components:unitFlags fromDate:date];
     
-    NSInteger week = [comps weekday];
+    return [comps weekday];
+}
+
+- (NSString *)weekdayStringWithDate:(NSDate *)date
+{
+    NSInteger week = [self weekdayWithDate:date];
     switch (week) {
         case 1:
             return @"星期天";
@@ -162,6 +166,47 @@ NSString *const MMdd = @"MM-dd";
     NSDate *date = [_dateFormatter dateFromString:dateString];
     return date;
 }
+
+- (NSString *)formatDateNumber:(NSNumber *)number {
+    return [self formatDateTimeInterval:number.intValue];
+}
+
+
+- (NSString *)formatDateTimeInterval:(NSTimeInterval)timeInterval {
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+    NSDate *currentDate = [NSDate date];
+    NSString *currentDateString = [self stringWithDate:currentDate];
+    int current = [currentDate timeIntervalSince1970];
+    if (timeInterval > current) { //传入时间大于当前时间，返回
+        return @"";
+    }
+    int todayZero = [[self dateWithString:currentDateString format:yyyyMMdd] timeIntervalSince1970];
+    
+    int dayDiff = (todayZero - timeInterval) / (24 * 3600);
+    
+    NSString *hour = [self stringWithDate:date format:@"HH:mm"];
+    if (timeInterval >= todayZero) {
+        return [NSString stringWithFormat:@"今天 %@", hour];
+    } else {
+        if (dayDiff == 0) {
+            return [NSString stringWithFormat:@"昨天 %@", hour];
+        } else if (dayDiff == 1) {
+            return [NSString stringWithFormat:@"前天 %@", hour];
+        } else {
+            return [NSString stringWithFormat:@"%d天前", dayDiff + 1];
+        }
+        /*
+         else {
+            NSString *year = [self stringWithDate:date format:@"yyyy"];
+            if ([year isEqualToString:[currentDateString substringToIndex:4]]) {
+                return [self stringWithDate:date format:@"M月d日"];
+            } else {
+                return [self stringWithDate:date format:@"yyyy年M月d日"];
+            }
+        }*/
+    }
+}
+
 
 + (NSNumber *)numberWithCurrentDate
 {

@@ -41,4 +41,5 @@ typedef void(^YPCompletionBlockWithData)(id data);
 + (void)call:(NSString *)phone;
 + (CGFloat)onePixel;
 + (void)openURLString:(NSString *)URLString;
++ (NSString *)deviceName;
 @end

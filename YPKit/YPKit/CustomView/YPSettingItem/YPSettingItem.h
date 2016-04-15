@@ -36,7 +36,7 @@ typedef NS_ENUM(NSInteger, YPSettingItemStyle) {
 - (void)setOnClickedHandler:(void (^)(YPSettingItem *item))clickedHanlder;
 
 - (void)updateLayouts;
-- (void)updateViewsWhenNightModelExchanged;
+- (void)updateViewsWhenNightModelSwitched;
 
 - (void)setTitle:(NSString *)title;
 - (NSString *)title;

@@ -11,6 +11,7 @@
 @interface YPBadgeView : UIView
 @property (nonatomic, strong) UIImageView *bgImageView;
 @property (nonatomic, strong) UILabel *badgeLabel;
+@property (nonatomic, assign) CGFloat padding;
 
 - (void)setBadgeFont:(UIFont *)font textColor:(UIColor *)color;
 

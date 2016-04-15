@@ -10,4 +10,5 @@
 
 @interface NSNumber (YPKit)
 - (NSString *)toString;
++ (NSNumber *)numberWithCurrentDate;
 @end

@@ -10,15 +10,18 @@
 #import "BlockUI.h"
 @interface UIAlertView (YPKit)
 + (UIAlertView *)showAlertWithTitle:(NSString *)title;
+
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
                             message:(NSString *)message;
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
                             message:(NSString *)message
+
          cancelButtonTitle:(NSString *)cancelButtonTitle;
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
                             message:(NSString *)message
                       okButtonTitle:(NSString *)okButtonTitle
                          completion:(void (^)(void))okButtonClicked;
+
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
                             message:(NSString *)message
                   cancelButtonTitle:(NSString *)cancelButtonTitle

@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "RootController.h"
-#import "YPTestTextView.h"
 #import "YPSettingItem.h"
 @interface AppDelegate ()
 
@@ -22,8 +21,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[RootController alloc] init]];
     
-    [[YPTestTextView appearance] setPlaceholderColor:[UIColor redColor]];
-    
     [[YPSettingItem appearance] setPaddingLeft:15];
     [[YPSettingItem appearance] setPaddingRight:10];
     [[YPSettingItem appearance] setTitleColor:[UIColor darkGrayColor]];
@@ -35,13 +32,7 @@
     [[YPSettingItem appearance] setLineColor:[UIColor lightGrayColor]];
     
     [self.window makeKeyAndVisible];
-    
-    [[YPHttpUtil shared] GET:@"http://api.nbd.com.cn/2/columns/375/articles.json?count=15&app_key=f4af4864997a00ddff7e1765e643f9ec&client_key=iPhone"
-                      params:nil
-                  controller:nil
-                     success:^(id successData, NSURLSessionDataTask *task) {
-                         
-                     }];
+
     return YES;
 }
 

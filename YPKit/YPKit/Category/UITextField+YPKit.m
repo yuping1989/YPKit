@@ -15,6 +15,12 @@
     self.leftViewMode = UITextFieldViewModeAlways;
 }
 
+- (void)setContentPaddingRight:(CGFloat)width
+{
+    self.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, self.height)];
+    self.rightViewMode = UITextFieldViewModeAlways;
+}
+
 - (void)setText:(NSString *)text attributeString:(void(^)(NSMutableAttributedString *attrString))block
 {
     NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] initWithString:text];
@@ -30,5 +36,10 @@
         inputAssistantItem.leadingBarButtonGroups = @[];
         inputAssistantItem.trailingBarButtonGroups = @[];
     }
+}
+
+- (void)setPlaceholder:(NSString *)placeholder withColor:(UIColor *)color {
+    self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder
+                                                                 attributes:@{NSForegroundColorAttributeName : color}];
 }
 @end

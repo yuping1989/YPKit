@@ -14,8 +14,10 @@
 @end
 @implementation YPSettingItem
 
-- (instancetype)init {
-    self = [super init];
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
     if (self) {
         [self awakeFromNib];
     }
@@ -23,6 +25,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.titleField = [[UITextField alloc] init];
     _titleField.borderStyle = UITextBorderStyleNone;
     _titleField.enabled = NO;
@@ -231,25 +234,25 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (self.clickedHanlder) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [[YPSettingItem appearance] backgroundColor];
     }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (self.clickedHanlder) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [[YPSettingItem appearance] backgroundColor];
     }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (self.clickedHanlder) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [[YPSettingItem appearance] backgroundColor];
     }
 }
 
-- (void)updateViewsWhenNightModelExchanged {
+- (void)updateViewsWhenNightModelSwitched {
     self.titleField.textColor = [[YPSettingItem appearance] titleColor];
     self.textField.textColor = [[YPSettingItem appearance] textColor];
     self.backgroundColor = [[YPSettingItem appearance] backgroundColor];

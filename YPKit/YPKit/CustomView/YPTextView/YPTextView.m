@@ -8,152 +8,64 @@
 
 #import "YPTextView.h"
 @interface YPTextView ()
-@property (nonatomic, strong) UITextView *placeholderTextView;
-@property (strong, nonatomic) NSLayoutConstraint *heightConstraint;
-@property (strong, nonatomic) NSLayoutConstraint *maxHeightConstraint;
-@property (strong, nonatomic) NSLayoutConstraint *minHeightConstraint;
+@property (nonatomic, assign) BOOL layoutFinished;
+@property (nonatomic, assign) CGFloat defaultHeight;
+@property (nonatomic, strong) NSLayoutConstraint *heightConstraint;
 
 @end
 
 @implementation YPTextView
+@dynamic delegate;
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [self commonInit];
-    }
-    return self;
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self commonInit];
-    }
-    return self;
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)awakeFromNib
-{
-    [self commonInit];
-}
-
-- (void)commonInit
-{
-    // If we are using auto layouts, than get a handler to the height constraint.
-    for (NSLayoutConstraint *constraint in self.constraints) {
-        if (constraint.firstAttribute == NSLayoutAttributeHeight) {
-            self.heightConstraint = constraint;
-            break;
-        }
-    }
-    if (!self.heightConstraint) {
-        // TODO: We might use auto layouts but set the height of the textView by using a top + bottom constraints. In this case we would want to manually create a height constraint
-    }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChanged:) name:UITextViewTextDidChangeNotification object:nil];
-}
-
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     [super layoutSubviews];
-    
-    if (self.heightConstraint) {
-        [self handleLayoutWithAutoLayouts];
-    } else {
-        [self handleLayoutWithoutAutoLayouts];
+    self.layoutFinished = YES;
+}
+
+- (void)setContentSize:(CGSize)contentSize {
+    [super setContentSize:contentSize];
+    if (!self.dynamicHeightEnabled) {
+        return;
     }
-    
-    // Center vertically
-    // We're  supposed to have a maximum height contstarint in code for the text view which will makes the intrinsicSide eventually higher then the height of the text view - if we had enough text.
-    // This code only center vertically the text view while the context size is smaller/equal to the text view frame.
-    if (self.intrinsicContentSize.height <= self.bounds.size.height) {
-        CGFloat topCorrect = (self.bounds.size.height - self.contentSize.height * [self zoomScale])/2.0;
-        topCorrect = ( topCorrect < 0.0 ? 0.0 : topCorrect );
-        self.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
+    // 监听size变化
+    if (self.font) {
+        if (self.layoutFinished) { // 更新约束或者大小
+            CGFloat fitHeight = MAX(self.contentSize.height, self.defaultHeight);
+
+            if (fabs(fitHeight - self.bounds.size.height) < self.font.lineHeight * 0.5) { // 变化量小于一个行距的0.5倍
+                [self findHeightConstraint];
+                return;
+            }
+            if (fitHeight > self.maxHeight) {
+                return;
+            }
+            [UIView animateWithDuration:self.heigthChangedAnimateDuration animations:^{
+                if (self.heightConstraint) {
+                    self.heightConstraint.constant = fitHeight;
+                    [self layoutIfNeeded];
+                    [self.superview layoutIfNeeded];
+                }
+                if (self.delegate && [self.delegate respondsToSelector:@selector(textView:didContentHeightChanged:)]) {
+                    [self.delegate textView:self didContentHeightChanged:fitHeight];
+                }
+            }];
+        } else { // 查找height约束，记录初值
+            [self findHeightConstraint];
+        }
     }
 }
 
-- (void)handleLayoutWithAutoLayouts
-{
-    CGSize intrinsicSize = self.intrinsicContentSize;
-    if (self.minHeight) {
-        intrinsicSize.height = MAX(intrinsicSize.height, self.minHeight);
+- (void)findHeightConstraint {
+    if (self.heightConstraint || self.defaultHeight > 0.0f) {
+        return;
     }
-    if (self.maxHeight) {
-        intrinsicSize.height = MIN(intrinsicSize.height, self.maxHeight);
-    }
-    self.heightConstraint.constant = intrinsicSize.height;
-}
-
--(void) handleLayoutWithoutAutoLayouts
-{
     for (NSLayoutConstraint *constraint in self.constraints) {
-        if (constraint.firstAttribute == NSLayoutAttributeHeight) {
+        if (constraint.secondItem == nil && constraint.firstAttribute == NSLayoutAttributeHeight) {
             self.heightConstraint = constraint;
-            break;
+            self.defaultHeight = self.heightConstraint.constant;
+            return;
         }
     }
-}
-
-- (CGSize)intrinsicContentSize
-{
-    CGSize intrinsicContentSize = self.contentSize;
-    
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-        intrinsicContentSize.width += (self.textContainerInset.left + self.textContainerInset.right ) / 2.0f;
-        intrinsicContentSize.height += (self.textContainerInset.top + self.textContainerInset.bottom) / 2.0f;
-    }
-    
-    return intrinsicContentSize;
-}
-
-
-
-- (void)setPlaceholder:(NSString *)placeholder {
-    _placeholder = placeholder;
-    if (self.placeholderTextView == nil) {
-        self.placeholderTextView = [[UITextView alloc] initWithFrame:self.bounds];
-        [self addSubview:self.placeholderTextView];
-        self.placeholderTextView.userInteractionEnabled = NO;
-        self.placeholderTextView.backgroundColor = [UIColor clearColor];
-        self.placeholderTextView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.placeholderTextView.font = self.font;
-        if (_placeholderColor) {
-            self.placeholderTextView.textColor = _placeholderColor;
-        } else {
-            self.placeholderTextView.textColor = [UIColor lightGrayColor];
-        }
-//        [self.placeholderTextView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.edges.equalTo(self);
-//        }];
-    }
-    self.placeholderTextView.text = placeholder;
-}
-
-- (void)setFont:(UIFont *)font {
-    [super setFont:font];
-    self.placeholderTextView.font = font;
-}
-
-- (void)setTextContainerInset:(UIEdgeInsets)textContainerInset {
-    [super setTextContainerInset:textContainerInset];
-    self.placeholderTextView.textContainerInset = textContainerInset;
-}
-
-
-- (void)textDidChanged:(NSNotification*) notification {
-    if (self.text.length == 0) {
-        self.placeholderTextView.hidden = NO;
-    } else {
-        self.placeholderTextView.hidden = YES;
-    }
-    
+    self.defaultHeight = self.bounds.size.height;
 }
 @end

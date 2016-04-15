@@ -13,6 +13,11 @@
 - (void)reloadRow:(NSInteger)row inSection:(NSInteger)section;
 - (void)reloadRow:(NSInteger)row;
 - (void)deleteRow:(NSInteger )row;
+
+/**
+ *  在UITableView的末尾显示一段文字
+ *
+ */
 - (void)setFooterText:(NSString *)text;
 - (void)setFooterText:(NSString *)text
                  font:(UIFont *)font

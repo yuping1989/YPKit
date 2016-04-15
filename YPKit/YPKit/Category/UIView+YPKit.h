@@ -13,7 +13,10 @@
 @property (nonatomic, strong) CALayer *topLineLayer;
 @property (nonatomic, strong) CALayer *bottomLineLayer;
 
-+ (instancetype)instanceWithOwner:(id)owner;
+/**
+ *  根据nib name返回UIView
+ */
++ (instancetype)viewWithNibName:(NSString *)name;
 
 - (void)setOnClickedHanlder:(YPCompletionBlock)clickedHanlder;
 
@@ -54,4 +57,9 @@
 - (UIView *)setTopLineViewWithColor:(UIColor *)color paddingLeft:(CGFloat)left;
 - (UIView *)setBottomLineViewWithColor:(UIColor *)color paddingLeft:(CGFloat)left;
 - (UIView *)addSubviewWithColor:(UIColor *)color constraints:(void(^)(MASConstraintMaker *make))block;
+
+- (void)setTipsViewWithImageName:(NSString *)imageName
+                            text:(NSString *)text
+                       textColor:(UIColor *)textColor;
+- (void)removeTipsView;
 @end

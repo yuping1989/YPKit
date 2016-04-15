@@ -27,6 +27,7 @@
     _badgeLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_bgImageView];
     [self addSubview:_badgeLabel];
+    self.padding = 3;
 }
 
 - (void)setBackgroundImageName:(NSString *)imageName
@@ -47,10 +48,18 @@
     } else {
         self.hidden = NO;
         _badgeLabel.text = @(badge).stringValue;
-        int width = [_badgeLabel.text widthWithFont:_badgeLabel.font];
-        self.width = MAX(width + 6, self.height);
-        _bgImageView.frame = self.bounds;
-        _badgeLabel.frame = self.bounds;
     }
+}
+
+- (void)updateWidth {
+    int width = [_badgeLabel.text widthWithFont:_badgeLabel.font];
+    self.width = MAX(width + self.padding * 2, self.height);
+    _bgImageView.frame = self.bounds;
+    _badgeLabel.frame = self.bounds;
+}
+
+- (void)setPadding:(CGFloat)padding {
+    _padding = padding;
+    [self updateWidth];
 }
 @end

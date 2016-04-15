@@ -11,8 +11,7 @@
 @implementation YPUpwardsPicker
 
 - (void)awakeFromNib {
-    self.backgroundView = [[UIView alloc] init];
-    _backgroundView.backgroundColor = [UIColor blackColor];
+    [super awakeFromNib];
     if ([YPUpwardsPicker appearance].barItemTintColor) {
         [_cancelItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [YPUpwardsPicker appearance].barItemTintColor}
                                    forState:UIControlStateNormal];
@@ -66,31 +65,13 @@
     }
 }
 
+
 - (void)showInView:(UIView *)view
          withTitle:(NSString *)title {
-    [YPNativeUtil  hideKeyboard];
     _titleLabel.text = title;
-    _backgroundView.frame = view.bounds;
-    self.width = view.width;
-    [view addSubview:_backgroundView];
-    [view addSubview:self];
-    
-    _backgroundView.alpha = 0.0f;
-    self.y = view.height;
-    [UIView animateWithDuration:0.25f animations:^{
-        _backgroundView.alpha = 0.7f;
-        self.y = view.height - self.height;
-    }];
+    [self show];
 }
-- (IBAction)cancelButtonClicked:(id)sender {
-    [UIView animateWithDuration:0.25f animations:^{
-        self.backgroundView.alpha = 0.0f;
-        self.y = self.superview.height;
-    } completion:^(BOOL finished) {
-        [self.backgroundView removeFromSuperview];
-        [self removeFromSuperview];
-    }];
-}
+
 - (IBAction)okButtonClicked:(id)sender {
     if (_completionBlock) {
         if (_dataSources.count == 1) {

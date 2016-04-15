@@ -10,7 +10,7 @@
 #import "YPPageViewCell.h"
 
 @interface YPPageView () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
-@property (nonatomic, strong) UICollectionView *collectionView;
+
 @end
 
 @implementation YPPageView
@@ -76,8 +76,7 @@
     return 0;
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
     NSInteger page = scrollView.contentOffset.x / scrollView.frame.size.width;
     if (page == self.displayingIndex) {

@@ -32,8 +32,8 @@
     }
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-#ifdef kUDIsNightModel
-    [self nightModelExchanged:nil];
+#ifdef UDIsNightModel
+    [self nightModelSwitched:nil];
 #endif
 }
 

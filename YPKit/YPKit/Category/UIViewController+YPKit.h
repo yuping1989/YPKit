@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
-extern NSString * const kNotiNightModelExchanged;
+extern NSString * const NotiNightModelSwitched;
 @interface UIViewController (YPKit) <MBProgressHUDDelegate>
 
 + (instancetype)instance;
@@ -41,8 +41,8 @@ extern NSString * const kNotiNightModelExchanged;
 //点击背景view的时候，关闭键盘
 - (void)hideKeyboardWhenTapBackground;
 
-- (void)addNightModelExchangedObserver;
-- (void)nightModelExchanged:(NSNotification *)notification;
+- (void)addNightModelSwitchedObserver;
+- (void)nightModelSwitched:(NSNotification *)notification;
 
 - (void)setProgressHUD:(MBProgressHUD *)progressHUD;
 - (MBProgressHUD *)progressHUD;

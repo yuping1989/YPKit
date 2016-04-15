@@ -7,10 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YPPlaceHolderTextView.h"
+@class YPTextView;
+@protocol YPTextViewDelegate <UITextViewDelegate>
+@optional
+- (void)textView:(YPTextView *)textView didContentHeightChanged:(CGFloat)height;
 
-@interface YPTextView : UITextView
-@property(nonatomic, strong) NSString *placeholder;
-@property (nonatomic, strong) UIColor *placeholderColor;
-@property (nonatomic, assign) CGFloat maxHeight;
-@property (nonatomic, assign) CGFloat minHeight;
+@end
+
+
+@interface YPTextView : YPPlaceHolderTextView
+
+@property (nonatomic, assign) IBInspectable BOOL dynamicHeightEnabled;
+@property (nonatomic, assign) IBInspectable CGFloat maxHeight;
+@property (nonatomic, assign) IBInspectable CGFloat heigthChangedAnimateDuration;
+
+@property (nonatomic, assign) id<YPTextViewDelegate> delegate;
+
 @end

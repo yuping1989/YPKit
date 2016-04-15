@@ -20,8 +20,8 @@ extern NSString *const MMdd;
     NSCalendar *_calendar;
 }
 + (YPDateUtil *)shareInstance;
-- (NSString *)stringWithDateTimeInterval:(int)timeInterval;
-- (NSString *)stringWithDateTimeInterval:(int)timeInterval format:(NSString *)format;
+- (NSString *)stringWithDateTimeInterval:(NSTimeInterval)timeInterval;
+- (NSString *)stringWithDateTimeInterval:(NSTimeInterval)timeInterval format:(NSString *)format;
 - (NSString *)stringWithDateNumber:(NSNumber *)number;
 - (NSString *)stringWithDateNumber:(NSNumber *)number format:(NSString *)format;
 
@@ -29,13 +29,16 @@ extern NSString *const MMdd;
 - (NSString *)stringWithDate:(NSDate *)date format:(NSString *)format;
 + (NSNumber *)numberWithCurrentDate;
 - (NSDate *)dateWithString:(NSString *)dateString format:(NSString *)format;
-- (NSString *)weekStringWithDate:(NSDate *)date;
+- (NSInteger)weekdayWithDate:(NSDate *)date;
+- (NSString *)weekdayStringWithDate:(NSDate *)date;
 
 - (NSString *)dateDiffStringWithFromDateString:(NSString *)dateString format:(NSString *)format;
-- (NSString *)dateDiffStringWithFromTimeInterval:(int)dateMills;
+- (NSString *)dateDiffStringWithFromTimeInterval:(NSTimeInterval)timeInterval;
 - (NSString *)dateDiffStringWithFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
 
 - (NSDateComponents *)getDateComponentsByFromDate:(NSDate *)fromDate ToDate:(NSDate *)toDate;
 
-
+// 格式化时间
+- (NSString *)formatDateNumber:(NSNumber *)number;
+- (NSString *)formatDateTimeInterval:(NSTimeInterval)timeInterval;
 @end

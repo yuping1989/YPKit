@@ -18,20 +18,19 @@
     self.attributedText = aString;
 }
 
-- (void)resizeToFitHeight
+- (void)resizeToFitHeight:(BOOL)isAttributedText
 {
     self.numberOfLines = 0;
-    if (self.attributedText) {
+    if (isAttributedText) {
         self.height = [self.attributedText heightWithWidth:self.width];
     } else {
-        
         self.height = [self.text heightWithFont:self.font width:self.width];
     }
 }
-- (void)resizeToFitWidth
+- (void)resizeToFitWidth:(BOOL)isAttributedText
 {
     self.numberOfLines = 0;
-    if (self.attributedText) {
+    if (isAttributedText) {
         self.width = self.attributedText.width;
     } else {
         self.width = [self.text widthWithFont:self.font];

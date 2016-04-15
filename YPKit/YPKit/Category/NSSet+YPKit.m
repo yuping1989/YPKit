@@ -24,4 +24,16 @@
     return [self sortedArrayUsingDescriptors:descriptors];
 }
 
+- (NSArray *)sortedArrayWithFormat:(NSString *)formatString {
+    NSMutableArray *descriptors = [NSMutableArray array];
+    NSArray *descriptorStrings = [formatString componentsSeparatedByString:@","];
+    for (NSString *descriptorString in descriptorStrings) {
+        NSArray *keyValues = [descriptorString componentsSeparatedByString:@":"];
+        NSString *key = [keyValues firstObject];
+        NSString *value = [keyValues lastObject];
+        [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:key ascending:[@"YES" isEqualToString:value]]];
+    }
+    return [self sortedArrayUsingDescriptors:descriptors];
+}
+
 @end

@@ -9,20 +9,26 @@
 #import "UIButton+YPKit.h"
 
 @implementation UIButton (YPKit)
-- (void)centerImageAndTitle:(float)spacing
+- (void)setContentHorizontalCenterWithSpacing:(CGFloat)spacing {
+    [self setContentHorizontalCenterWithMarginTop:0 spacing:spacing];
+}
+
+- (void)setContentHorizontalCenterWithMarginTop:(CGFloat)marginTop
+                                        spacing:(CGFloat)spacing
 {
     // get the size of the elements here for readability
     CGSize imageSize = self.imageView.frame.size;
-    CGSize titleSize = self.titleLabel.frame.size;
-    
+    CGSize titleSize = [self.titleLabel.text sizeWithFont:self.titleLabel.font width:CGFLOAT_MAX];
     // get the height they will take up as a unit
     CGFloat totalHeight = (imageSize.height + titleSize.height + spacing);
     
+    
     // raise the image and push it right to center it
-    self.imageEdgeInsets = UIEdgeInsetsMake(- (totalHeight - imageSize.height), 0.0, 0.0, - titleSize.width);
+    self.imageEdgeInsets = UIEdgeInsetsMake(- (totalHeight - imageSize.height - marginTop), 0.0, 0.0, - titleSize.width);
     
     // lower the text and push it left to center it
-    self.titleEdgeInsets = UIEdgeInsetsMake(0.0, - imageSize.width, - (totalHeight - titleSize.height), 0.0);
+    self.titleEdgeInsets = UIEdgeInsetsMake(marginTop, - imageSize.width, - (totalHeight - titleSize.height), 0.0);
+    
 }
 
 - (void)setIndexPath:(NSIndexPath *)indexPath {
@@ -31,5 +37,9 @@
 
 - (NSIndexPath *)indexPath {
     return objc_getAssociatedObject(self, @selector(indexPath));
+}
+
+- (void)addTouchUpInsideTarget:(id)target action:(SEL)action {
+    [self addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
 }
 @end

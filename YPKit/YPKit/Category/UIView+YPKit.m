@@ -8,10 +8,13 @@
 
 #import "UIView+YPKit.h"
 
+#define TIPS_IMAGE_VIEW_TAG 10000
+#define TIPS_LABEL_TAG 10001
+
 @implementation UIView (YPKit)
 
-+ (instancetype)instanceWithOwner:(id)owner {
-    return [[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:owner options:nil] firstObject];
++ (instancetype)viewWithNibName:(NSString *)name {
+    return [[[NSBundle mainBundle] loadNibNamed:name owner:nil options:nil] firstObject];
 }
 
 - (void)setClickedHanlder:(YPCompletionBlock)clickedHanlder {
@@ -253,5 +256,34 @@
     return line;
 }
 
+- (void)setTipsViewWithImageName:(NSString *)imageName
+                            text:(NSString *)text
+                       textColor:(UIColor *)textColor {
+    UIImageView *imageView = [self viewWithTag:TIPS_IMAGE_VIEW_TAG];
+    if (!imageView) {
+        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+    }
+    imageView.center = CGPointMake(self.width / 2, self.height / 2 - 40);
+    imageView.contentMode = UIViewContentModeCenter;
+    imageView.tag = TIPS_IMAGE_VIEW_TAG;
+    [self addSubview:imageView];
+    NSLog(@"self--->%@", NSStringFromCGRect(self.frame));
+    NSLog(@"image frame--->%@", NSStringFromCGRect(imageView.frame));
+    
+    UILabel *label = [self viewWithTag:TIPS_LABEL_TAG];
+    if (!label) {
+        label = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.maxY + 10, SCREEN_WIDTH, 20)];
+    }
+    label.font = [UIFont systemFontOfSize:16];
+    label.textColor = textColor;
+    label.text = text;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.tag = TIPS_LABEL_TAG;
+    [self addSubview:label];
+}
 
+- (void)removeTipsView {
+    [[self viewWithTag:TIPS_IMAGE_VIEW_TAG] removeFromSuperview];
+    [[self viewWithTag:TIPS_LABEL_TAG] removeFromSuperview];
+}
 @end

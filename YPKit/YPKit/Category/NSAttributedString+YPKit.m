@@ -15,6 +15,7 @@
                                     context:nil].size.height);
 }
 - (CGFloat)width {
+    
     return ceilf([self boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                     context:nil].size.width);

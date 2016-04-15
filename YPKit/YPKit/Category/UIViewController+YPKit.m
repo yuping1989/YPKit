@@ -7,7 +7,7 @@
 //
 
 #import "UIViewController+YPKit.h"
-NSString * const kNotiNightModelExchanged = @"kNotiNightModelExchanged";
+NSString * const NotiNightModelSwitched = @"NotiNightModelSwitched";
 @implementation UIViewController (YPKit) 
 + (instancetype)instance;
 {
@@ -29,7 +29,8 @@ NSString * const kNotiNightModelExchanged = @"kNotiNightModelExchanged";
 
 - (void)showProgressOnWindowWithText:(NSString *)text
 {
-    [self showProgressOnView:[YPNativeUtil  appDelegate].window text:text userInteractionEnabled:YES];
+    UIWindow *window = [[UIApplication sharedApplication].windows lastObject];
+    [self showProgressOnView:window text:text userInteractionEnabled:YES];
 }
 
 - (void)showProgressOnView:(UIView *)view text:(NSString *)text userInteractionEnabled:(BOOL)enabled
@@ -120,11 +121,11 @@ NSString * const kNotiNightModelExchanged = @"kNotiNightModelExchanged";
     
 }
 
-- (void)addNightModelExchangedObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightModelExchanged:) name:kNotiNightModelExchanged object:nil];
+- (void)addNightModelSwitchedObserver {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightModelSwitched:) name:NotiNightModelSwitched object:nil];
 }
 
-- (void)nightModelExchanged:(NSNotification *)notification {
+- (void)nightModelSwitched:(NSNotification *)notification {
     
 }
 

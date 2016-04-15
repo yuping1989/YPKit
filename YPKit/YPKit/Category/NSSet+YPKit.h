@@ -10,5 +10,6 @@
 
 @interface NSSet (YPKit)
 - (NSArray *)sortedArrayWithKey:(NSString *)key ascending:(BOOL)ascending;
-- (NSArray *)sortedArrayWithTerms:(NSDictionary *)sortTerm;
+- (NSArray *)sortedArrayWithTerms:(NSDictionary *)sortTerm __deprecated;
+- (NSArray *)sortedArrayWithFormat:(NSString *)formatString;
 @end

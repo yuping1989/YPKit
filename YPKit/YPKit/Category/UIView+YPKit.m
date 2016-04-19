@@ -17,11 +17,11 @@
     return [[[NSBundle mainBundle] loadNibNamed:name owner:nil options:nil] firstObject];
 }
 
-- (void)setClickedHanlder:(YPCompletionBlock)clickedHanlder {
-    objc_setAssociatedObject(self, @selector(clickedHanlder), clickedHanlder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setClickedHandler:(YPCompletionBlock)clickedHandler {
+    objc_setAssociatedObject(self, @selector(clickedHandler), clickedHandler, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (YPCompletionBlock)clickedHanlder
+- (YPCompletionBlock)clickedHandler
 {
     return objc_getAssociatedObject(self, _cmd);
 }
@@ -42,11 +42,16 @@
     objc_setAssociatedObject(self, @selector(bottomLineLayer), bottomLineLayer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)setOnClickedHanlder:(YPCompletionBlock)clickedHanlder {
-    self.clickedHanlder = clickedHanlder;
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap)];
-    tapRecognizer.numberOfTapsRequired = 1;
-    [self addGestureRecognizer:tapRecognizer];
+- (void)setOnClickedHandler:(YPCompletionBlock)clickedHandler {
+    self.clickedHandler = clickedHandler;
+    [self setTapGestureTarget:self action:@selector(handleSingleTap)];
+}
+
+- (void)setTapGestureTarget:(id)target action:(SEL)action
+{
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:target action:action];
+    recognizer.numberOfTapsRequired = 1;
+    [self addGestureRecognizer:recognizer];
 }
 
 - (void)setWidth:(CGFloat)width
@@ -198,11 +203,7 @@
     [self setBottomFillLineWithColor:color];
 }
 
-- (void)setTarget:(id)target action:(SEL)action
-{
-    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:target action:action];
-    [self addGestureRecognizer:recognizer];
-}
+
 
 - (UIImage *)capture
 {
@@ -219,8 +220,8 @@
 
 
 - (void)handleSingleTap {
-    if (self.clickedHanlder) {
-        self.clickedHanlder();
+    if (self.clickedHandler) {
+        self.clickedHandler();
     }
 }
 

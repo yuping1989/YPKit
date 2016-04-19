@@ -9,5 +9,11 @@
 #import "NSObject+YPKit.h"
 
 @implementation NSObject (YPKit)
+- (void)addNightModelSwitchedObserver {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightModelSwitched:) name:NotiNightModelSwitched object:nil];
+}
 
+- (void)nightModelSwitched:(NSNotification *)notification {
+    
+}
 @end

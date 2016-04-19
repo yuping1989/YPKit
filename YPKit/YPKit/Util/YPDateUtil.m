@@ -41,7 +41,7 @@ NSString *const MMdd = @"MM-dd";
 
 - (NSString *)stringWithDateNumber:(NSNumber *)number format:(NSString *)format
 {
-    return [self stringWithDate:[NSDate dateWithTimeIntervalSince1970:number.intValue] format:format];
+    return [self stringWithDate:[NSDate dateWithTimeIntervalSince1970:number.doubleValue] format:format];
 }
 
 - (NSString *)stringWithDateTimeInterval:(NSTimeInterval)timeInterval
@@ -117,9 +117,13 @@ NSString *const MMdd = @"MM-dd";
     if (_calendar == nil) {
         _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     }
-    unsigned int unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |
-    NSDayCalendarUnit | NSHourCalendarUnit |
-    NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSInteger unitFlags =
+    NSYearCalendarUnit |
+    NSMonthCalendarUnit |
+    NSDayCalendarUnit |
+    NSHourCalendarUnit |
+    NSMinuteCalendarUnit |
+    NSSecondCalendarUnit;
     NSDateComponents *compInfo = [_calendar components:unitFlags
                                                 fromDate:fromDate
                                                   toDate:toDate
@@ -128,10 +132,18 @@ NSString *const MMdd = @"MM-dd";
 }
 
 - (NSInteger)weekdayWithDate:(NSDate *)date {
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit |
-    NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
-    NSDateComponents *comps = [calendar components:unitFlags fromDate:date];
+    if (_calendar == nil) {
+        _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    }
+    NSInteger unitFlags =
+    NSYearCalendarUnit |
+    NSMonthCalendarUnit |
+    NSDayCalendarUnit |
+    NSWeekdayCalendarUnit |
+    NSHourCalendarUnit |
+    NSMinuteCalendarUnit |
+    NSSecondCalendarUnit;
+    NSDateComponents *comps = [_calendar components:unitFlags fromDate:date];
     
     return [comps weekday];
 }
@@ -168,7 +180,7 @@ NSString *const MMdd = @"MM-dd";
 }
 
 - (NSString *)formatDateNumber:(NSNumber *)number {
-    return [self formatDateTimeInterval:number.intValue];
+    return [self formatDateTimeInterval:number.doubleValue];
 }
 
 

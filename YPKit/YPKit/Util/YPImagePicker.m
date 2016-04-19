@@ -26,12 +26,12 @@
 }
 
 - (void)pickImageWithMaxNumber:(NSInteger)maxNumber
-                  inController:(UIViewController *)controller
                completionBlock:(void (^)(NSArray *images))completionBlock
 {
     _multiBlock = completionBlock;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从相册选择", nil];
-    [actionSheet showInView:controller.view
+    UIWindow *window = [[UIApplication sharedApplication].delegate window];
+    [actionSheet showInView:window
       withCompletionHandler:^(NSInteger buttonIndex) {
           if (buttonIndex == 0) {
               UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
@@ -43,7 +43,7 @@
               }
               
               imagePickerController.delegate = self;
-              [controller presentViewController:imagePickerController animated:YES completion:nil];
+              [window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
           } else if (buttonIndex == 1) {
               QBImagePickerController *imagePickerController = [[QBImagePickerController alloc] init];
               imagePickerController.delegate = self;
@@ -51,18 +51,18 @@
               imagePickerController.showsCancelButton = YES;
               imagePickerController.maximumNumberOfSelection = maxNumber;
               UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:imagePickerController];
-              [controller presentViewController:navController animated:YES completion:nil];
+              [window.rootViewController presentViewController:navController animated:YES completion:nil];
           }
       }];
 }
 
-- (void)pickSingleImageInController:(UIViewController *)controller
-                       allowEditing:(BOOL)allowEditing
+- (void)pickSingleImageAllowEditing:(BOOL)allowEditing
         completionBlock:(void (^)(UIImage *image))completionBlock
 {
     _singleBlock = completionBlock;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从相册选择", nil];
-    [actionSheet showInView:controller.view
+    UIWindow *window = [[UIApplication sharedApplication].delegate window];
+    [actionSheet showInView:window
       withCompletionHandler:^(NSInteger buttonIndex) {
           if (buttonIndex == 2) {
               return;
@@ -80,14 +80,13 @@
           }
           imagePickerController.delegate = self;
           imagePickerController.allowsEditing = allowEditing;
-          [controller presentViewController:imagePickerController animated:YES completion:nil];
+          [window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
       }];
 }
 
-- (void)pickSingleImageInController:(UIViewController *)controller
-                         sourceType:(UIImagePickerControllerSourceType)sourceType
-                       allowEditing:(BOOL)allowEditing
-                    completionBlock:(void (^)(UIImage *image))completionBlock
+- (void)pickSingleImageWithSourceType:(UIImagePickerControllerSourceType)sourceType
+                           allowEditing:(BOOL)allowEditing
+                        completionBlock:(void (^)(UIImage *image))completionBlock
 {
     _singleBlock = completionBlock;
     if (sourceType == UIImagePickerControllerSourceTypeCamera) {
@@ -96,22 +95,14 @@
             return;
         }
     }
+    UIWindow *window = [[UIApplication sharedApplication].delegate window];
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.sourceType = sourceType;
-    
     imagePickerController.delegate = self;
     imagePickerController.allowsEditing = allowEditing;
-    [controller presentViewController:imagePickerController animated:YES completion:nil];
+    [window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
 }
 
-- (UIViewController *)lastPresentedController:(UIViewController *)firstController
-{
-    if (firstController.presentedViewController == nil) {
-        return firstController;
-    } else {
-        return [self lastPresentedController:firstController.presentedViewController];
-    }
-}
 - (void)imagePickerControllerDidCancel:(QBImagePickerController *)imagePickerController
 {
     [imagePickerController dismissViewControllerAnimated:YES completion:nil];

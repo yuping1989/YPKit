@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 IB_DESIGNABLE
-@interface YPPlaceHolderTextView : UITextView {
-}
+@interface YPPlaceHolderTextView : UITextView 
 @property (nonatomic, strong) IBInspectable NSString *placeholder;
 @property (nonatomic, strong) IBInspectable UIColor *placeholderColor;
 @end

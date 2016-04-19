@@ -9,7 +9,7 @@
 #import "YPSettingItem.h"
 @interface YPSettingItem ()
 
-@property (nonatomic, strong) YPCompletionBlockWithData clickedHanlder;
+@property (nonatomic, strong) YPCompletionBlockWithData clickedHandler;
 @property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 @end
 @implementation YPSettingItem
@@ -207,25 +207,25 @@
     [self updateLayouts];
 }
 
-- (void)setOnClickedHandler:(void (^)(YPSettingItem *item))clickedHanlder
+- (void)setOnClickedHandler:(void (^)(YPSettingItem *item))clickedHandler
 {
     if (self.tapRecognizer == nil) {
         self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap)];
         _tapRecognizer.numberOfTapsRequired = 1;
         [self addGestureRecognizer:_tapRecognizer];
     }
-    self.clickedHanlder = clickedHanlder;
+    self.clickedHandler = clickedHandler;
 }
 
 - (void)handleSingleTap
 {
-    if (_clickedHanlder) {
-        _clickedHanlder(self);
+    if (_clickedHandler) {
+        _clickedHandler(self);
     }
 }
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (self.clickedHanlder) {
+    if (self.clickedHandler) {
         self.backgroundColor = RGB(220, 220, 220);
     }
     
@@ -233,21 +233,21 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (self.clickedHanlder) {
+    if (self.clickedHandler) {
         self.backgroundColor = [[YPSettingItem appearance] backgroundColor];
     }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (self.clickedHanlder) {
+    if (self.clickedHandler) {
         self.backgroundColor = [[YPSettingItem appearance] backgroundColor];
     }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (self.clickedHanlder) {
+    if (self.clickedHandler) {
         self.backgroundColor = [[YPSettingItem appearance] backgroundColor];
     }
 }

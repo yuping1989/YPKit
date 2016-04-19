@@ -9,7 +9,7 @@
 #import "YPControlLabel.h"
 @interface YPControlLabel ()
 @property (nonatomic, strong) UIColor *normalBackgroundlColor;
-@property (nonatomic, strong) YPCompletionBlock clickedHanlder;
+@property (nonatomic, strong) YPCompletionBlock clickedHandler;
 @end
 @implementation YPControlLabel
 
@@ -25,8 +25,8 @@
     self.textAlignment = NSTextAlignmentCenter;
     self.userInteractionEnabled = YES;
 }
-- (void)setOnClickedHandler:(void (^)(void))clickedHanlder {
-    self.clickedHanlder = clickedHanlder;
+- (void)setOnClickedHandler:(void (^)(void))clickedHandler {
+    self.clickedHandler = clickedHandler;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -39,8 +39,8 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesEnded");
-    if (self.clickedHanlder) {
-        self.clickedHanlder();
+    if (self.clickedHandler) {
+        self.clickedHandler();
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(controlLabeldidClicked:)]) {
         [self.delegate controlLabeldidClicked:self];

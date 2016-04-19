@@ -29,7 +29,7 @@
     return [YPFileUtil createFileAtPath:[path stringByAppendingFormat:@"/%@", fileName]];
 }
 /**
- 创建文件
+ * 创建文件
  */
 + (BOOL)createFileAtPath:(NSString *)path
 {
@@ -38,18 +38,19 @@
     }
     return [[NSFileManager defaultManager] createFileAtPath:path contents:nil attributes:nil];
 }
+
++ (BOOL)removeFileAtPath:(NSString *)path {
+    return [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+}
 /**
- 在文档目录创建文件夹
+ * 在文档目录创建文件夹
  */
 + (BOOL)createDirectoryAtDocument:(NSString *)path
 {
     return [self createDirectoryAtPath:[[YPFileUtil applicationDocumentsDirectory] stringByAppendingString:path]];
 }
-/**
- 返回文档路径
- */
 
-+ (NSString *)directory:(int) type
++ (NSString *)directory:(NSSearchPathDirectory)type
 {
     return [NSSearchPathForDirectoriesInDomains(type, NSUserDomainMask, YES) lastObject];
 }
@@ -65,9 +66,7 @@
     return [[self directory:NSApplicationSupportDirectory] stringByAppendingPathComponent:applicationName];
 }
 
-/**
- 向指定文件添加字符串，如果文件不存在则创建
- */
+
 + (BOOL)appendStringToFile:(NSString *)path string:(NSString *)string
 {
     if ([NSString isEmpty:string]) {
@@ -95,10 +94,7 @@
     return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
-+ (BOOL)removeFile:(NSURL *)url
-{
-    return [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
-}
+
 
 + (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
 {

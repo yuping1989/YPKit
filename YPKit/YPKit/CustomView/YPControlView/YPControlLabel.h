@@ -22,5 +22,5 @@
 @property (nonatomic, assign) id<YPControlLabelDelegate> delegate;
 
 
-- (void)setOnClickedHandler:(void (^)(void))clickedHanlder;
+- (void)setOnClickedHandler:(void (^)(void))clickedHandler;
 @end

@@ -16,7 +16,7 @@
     if (!self.backgroundView) {
         self.backgroundView = [[UIView alloc] init];
         self.backgroundView.backgroundColor = [UIColor blackColor];
-        [self.backgroundView setTarget:self action:@selector(cancelButtonClicked:)];
+        [self.backgroundView setTapGestureTarget:self action:@selector(cancelButtonClicked:)];
     }
     self.backgroundView.frame = view.bounds;
     self.width = view.width;

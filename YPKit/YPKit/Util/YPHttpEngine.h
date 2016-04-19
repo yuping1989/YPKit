@@ -1,10 +1,10 @@
 //
 //  YPHttpEngine.h
-//  iCarsClub
 //
 //  Created by 喻平 on 13-11-13.
 //  Copyright (c) 2013年 iCarsclub. All rights reserved.
 //
+//  此类库为封装MKNetworkKit的http请求库，但是由于MKNetworkKit长期没有维护，所以不建议使用
 
 #import <Foundation/Foundation.h>
 #import "MKNetworkKit.h"

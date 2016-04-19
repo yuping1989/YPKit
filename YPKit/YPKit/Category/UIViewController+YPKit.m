@@ -42,7 +42,7 @@ NSString * const NotiNightModelSwitched = @"NotiNightModelSwitched";
         [self.progressHUD show:YES];
     }
     self.progressHUD.labelText = text;
-    NSLog(@"show");
+    NSLog(@"show progress");
     self.progressHUD.userInteractionEnabled = enabled;
 }
 
@@ -53,7 +53,7 @@ NSString * const NotiNightModelSwitched = @"NotiNightModelSwitched";
     }
     [self.progressHUD removeFromSuperview];
     self.progressHUD = nil;
-    NSLog(@"hide");
+    NSLog(@"hide progress");
 }
 
 - (void)hideProgress
@@ -87,7 +87,7 @@ NSString * const NotiNightModelSwitched = @"NotiNightModelSwitched";
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:title forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:15];
-    [button setTarget:target action:@selector(rightBarButtonClicked:)];
+    [button addTouchUpInsideTarget:target action:@selector(rightBarButtonClicked:)];
     [button setBackgroundImage:bgImage forState:UIControlStateNormal];
 //    button.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, -10);
     button.frame = CGRectMake(0, 0, MAX(50, [title widthWithFont:button.titleLabel.font] + 10), 28);
@@ -120,15 +120,6 @@ NSString * const NotiNightModelSwitched = @"NotiNightModelSwitched";
 {
     
 }
-
-- (void)addNightModelSwitchedObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightModelSwitched:) name:NotiNightModelSwitched object:nil];
-}
-
-- (void)nightModelSwitched:(NSNotification *)notification {
-    
-}
-
 
 - (void)registerKeyboardNotification
 {

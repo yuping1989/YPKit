@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
+extern NSString * const NotiNightModelSwitched;
 @interface NSObject (YPKit)
 
+/**
+ *  添加夜间模式切换的监听
+ */
+- (void)addNightModelSwitchedObserver;
+- (void)nightModelSwitched:(NSNotification *)notification;
 @end

@@ -10,5 +10,5 @@
 
 @interface YPControlView : UIView
 @property (nonatomic, strong) UIColor *highlightBackgroundColor;
-- (void)setOnClickedHandler:(void (^)(void))clickedHanlder;
+- (void)setOnClickedHandler:(void (^)(void))clickedHandler;
 @end

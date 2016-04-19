@@ -31,6 +31,7 @@
 #import "NSMutableAttributedString+YPKit.h"
 #import "NSAttributedString+YPKit.h"
 
+#import "NSObject+YPKit.h"
 #import "UIView+YPKit.h"
 #import "UIAlertView+YPKit.h"
 #import "UITableView+YPKit.h"

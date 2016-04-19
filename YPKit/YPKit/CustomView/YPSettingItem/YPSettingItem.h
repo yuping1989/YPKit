@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, YPSettingItemStyle) {
 @property (nonatomic, strong) UIImage *arrowImage UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *lineColor UI_APPEARANCE_SELECTOR;
 
-- (void)setOnClickedHandler:(void (^)(YPSettingItem *item))clickedHanlder;
+- (void)setOnClickedHandler:(void (^)(YPSettingItem *item))clickedHandler;
 
 - (void)updateLayouts;
 - (void)updateViewsWhenNightModelSwitched;

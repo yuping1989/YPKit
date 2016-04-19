@@ -9,7 +9,7 @@
 #import "YPControlView.h"
 @interface YPControlView ()
 
-@property (nonatomic, strong) YPCompletionBlock clickedHanlder;
+@property (nonatomic, strong) YPCompletionBlock clickedHandler;
 @property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 @property (nonatomic, strong) UIColor *normalBackgroundlColor;
 @end
@@ -21,26 +21,26 @@
 }
 
 
-- (void)setOnClickedHandler:(void (^)(void))clickedHanlder
+- (void)setOnClickedHandler:(void (^)(void))clickedHandler
 {
 //    if (self.tapRecognizer == nil) {
 //        self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap)];
 //        _tapRecognizer.numberOfTapsRequired = 1;
 //        [self addGestureRecognizer:_tapRecognizer];
 //    }
-    self.clickedHanlder = clickedHanlder;
+    self.clickedHandler = clickedHandler;
 }
 
 - (void)handleSingleTap
 {
-    if (_clickedHanlder) {
-        _clickedHanlder();
+    if (self.clickedHandler) {
+        self.clickedHandler();
     }
 }
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesBegan");
-    if (self.clickedHanlder) {
+    if (self.clickedHandler) {
         self.normalBackgroundlColor = self.backgroundColor;
         self.backgroundColor = self.highlightBackgroundColor;
     }
@@ -49,15 +49,15 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesEnded");
-    if (self.clickedHanlder) {
+    if (self.clickedHandler) {
         self.backgroundColor = self.normalBackgroundlColor;
-        self.clickedHanlder();
+        self.clickedHandler();
     }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (self.clickedHanlder) {
+    if (self.clickedHandler) {
         self.backgroundColor = self.normalBackgroundlColor;
     }
 }
@@ -65,7 +65,7 @@
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesCancelled");
-    if (self.clickedHanlder) {
+    if (self.clickedHandler) {
         self.backgroundColor = self.normalBackgroundlColor;
     }
 }

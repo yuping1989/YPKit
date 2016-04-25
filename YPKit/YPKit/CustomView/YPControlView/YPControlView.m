@@ -9,7 +9,7 @@
 #import "YPControlView.h"
 @interface YPControlView ()
 
-@property (nonatomic, strong) YPCompletionBlock clickedHandler;
+@property (nonatomic, copy) YPCompletionBlock clickedHandler;
 @property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 @property (nonatomic, strong) UIColor *normalBackgroundlColor;
 @end

@@ -9,7 +9,7 @@
 #import "YPControlLabel.h"
 @interface YPControlLabel ()
 @property (nonatomic, strong) UIColor *normalBackgroundlColor;
-@property (nonatomic, strong) YPCompletionBlock clickedHandler;
+@property (nonatomic, copy) YPCompletionBlock clickedHandler;
 @end
 @implementation YPControlLabel
 

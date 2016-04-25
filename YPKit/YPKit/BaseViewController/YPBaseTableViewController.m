@@ -9,7 +9,7 @@
 #import "YPBaseTableViewController.h"
 
 @interface YPBaseTableViewController ()
-@property (nonatomic, strong) YPCompletionBlock refreshStartedBlock;
+@property (nonatomic, copy) YPCompletionBlock refreshStartedBlock;
 @end
 
 @implementation YPBaseTableViewController

@@ -22,6 +22,6 @@
 @property (nonatomic, assign) IBInspectable CGFloat maxHeight;
 @property (nonatomic, assign) IBInspectable CGFloat heigthChangedAnimateDuration;
 
-@property (nonatomic, assign) id<YPTextViewDelegate> delegate;
+@property (nonatomic, weak) id<YPTextViewDelegate> delegate;
 
 @end

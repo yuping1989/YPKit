@@ -19,7 +19,7 @@
 @property (nonatomic, strong) UIColor *highlightBackgroundColor;
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, assign) NSInteger row;
-@property (nonatomic, assign) id<YPControlLabelDelegate> delegate;
+@property (nonatomic, weak) id<YPControlLabelDelegate> delegate;
 
 
 - (void)setOnClickedHandler:(void (^)(void))clickedHandler;

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Masonry.h"
 @interface UIView (YPKit)
-@property (nonatomic, strong) YPCompletionBlock clickedHandler;
+@property (nonatomic, copy) YPCompletionBlock clickedHandler;
 @property (nonatomic, strong) CALayer *topLineLayer;
 @property (nonatomic, strong) CALayer *bottomLineLayer;
 

@@ -8,7 +8,7 @@
 
 #import "YPBaseCollectionViewController.h"
 
-@interface YPBaseCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface YPBaseCollectionViewController ()
 
 @end
 
@@ -39,4 +39,5 @@
     UICollectionViewCell *cell = [[UICollectionViewCell alloc] init];
     return cell;
 }
+
 @end

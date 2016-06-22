@@ -7,7 +7,9 @@
 //
 
 #import "YPTextView.h"
+
 @interface YPTextView ()
+
 @property (nonatomic, assign) BOOL layoutFinished;
 @property (nonatomic, assign) CGFloat defaultHeight;
 @property (nonatomic, strong) NSLayoutConstraint *heightConstraint;
@@ -68,4 +70,5 @@
     }
     self.defaultHeight = self.bounds.size.height;
 }
+
 @end

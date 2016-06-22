@@ -11,6 +11,8 @@
 #import "YPDateUtilController.h"
 #import "AutoLayoutCellController.h"
 #import "WebViewController.h"
+#import "TestHttpUtil.h"
+#import "CustomViewController.h"
 
 @interface RootController ()
 
@@ -22,6 +24,11 @@
     [super viewDidLoad];
     self.title = @"YPKit";
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+    
+    NSString *email = @"\n0.3 d  ";
+    
+    NSLog(@"is email-->%f", [email numberValue].floatValue);
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,7 +43,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 
 
@@ -55,6 +62,9 @@
             break;
         case 3:
             cell.textLabel.text = @"WebView";
+            break;
+        case 4:
+            cell.textLabel.text = @"自定义View";
             break;
         default:
             break;
@@ -75,6 +85,9 @@
             break;
         case 3:
             [self.navigationController pushViewController:[WebViewController instance] animated:YES];
+            break;
+        case 4:
+            [self.navigationController pushViewController:[CustomViewController instance] animated:YES];
             break;
         default:
             break;

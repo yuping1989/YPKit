@@ -35,6 +35,7 @@
 #import "UIView+YPKit.h"
 #import "UIAlertView+YPKit.h"
 #import "UITableView+YPKit.h"
+#import "UIControl+YPKit.h"
 #import "UIButton+YPKit.h"
 #import "UITextField+YPKit.h"
 #import "UILabel+YPKit.h"

@@ -30,7 +30,7 @@
 + (YPUpwardsPicker *)instance;
 - (void)showInView:(UIView *)view
          withTitle:(NSString *)title
-        dateSource:(NSArray *)dataSource
+        dataSource:(NSArray *)dataSource
       selectedText:(NSString *)selected
    completionBlock:(void (^)(NSString *text))completionBlock;
 - (void)showInView:(UIView *)view

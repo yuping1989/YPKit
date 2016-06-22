@@ -9,6 +9,20 @@
 #import "YPNativeUtil.h"
 #import "MBProgressHUD.h"
 #import <sys/utsname.h>
+
+
+void YPOpenURLString(NSString *URLString) {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URLString]];
+}
+
+void YPHideKeyboard() {
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+}
+
+void YPCallTelephone(NSString *phone) {
+    YPOpenURLString([NSString stringWithFormat:@"tel://%@", phone]);
+}
+
 @implementation YPNativeUtil
 
 + (AppDelegate *)appDelegate
@@ -162,3 +176,6 @@
     return deviceName;
 }
 @end
+
+
+

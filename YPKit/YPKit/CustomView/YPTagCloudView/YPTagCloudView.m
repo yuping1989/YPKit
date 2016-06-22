@@ -9,14 +9,14 @@
 #import "YPTagCloudView.h"
 
 @interface YPTagCloudView ()
+
 @property (nonatomic, strong) NSMutableArray *labels;
-
-
 @property (nonatomic, assign) NSInteger labelTextVerticalPadding;
 @property (nonatomic, assign) NSInteger labelTextHorizontalPadding;
 @property (nonatomic, assign) CGFloat labelBorderWidth;
 @property (nonatomic, strong) UIColor *labelBorderColor;
 @property (nonatomic, assign) CGFloat labelCornerRadius;
+
 @end
 
 @implementation YPTagCloudView

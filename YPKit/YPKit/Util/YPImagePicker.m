@@ -9,14 +9,13 @@
 #import "YPImagePicker.h"
 #import "QBImagePickerController.h"
 @interface YPImagePicker ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, QBImagePickerControllerDelegate>
-{
-    YPCompletionBlockWithData _singleBlock;
-    YPCompletionBlockWithData _multiBlock;
-}
+
+@property (nonatomic, copy) YPCompletionBlockWithData singleBlock;
+@property (nonatomic, copy) YPCompletionBlockWithData multiBlock;
+
 @end
 @implementation YPImagePicker
-+ (YPImagePicker *)shared
-{
++ (YPImagePicker *)shared {
     static YPImagePicker *imagePicker = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -26,9 +25,8 @@
 }
 
 - (void)pickImageWithMaxNumber:(NSInteger)maxNumber
-               completionBlock:(void (^)(NSArray *images))completionBlock
-{
-    _multiBlock = completionBlock;
+               completionBlock:(void (^)(NSArray *images))completionBlock {
+    self.multiBlock = completionBlock;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从相册选择", nil];
     UIWindow *window = [[UIApplication sharedApplication].delegate window];
     [actionSheet showInView:window
@@ -57,9 +55,8 @@
 }
 
 - (void)pickSingleImageAllowEditing:(BOOL)allowEditing
-        completionBlock:(void (^)(UIImage *image))completionBlock
-{
-    _singleBlock = completionBlock;
+        completionBlock:(void (^)(UIImage *image))completionBlock {
+    self.singleBlock = completionBlock;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从相册选择", nil];
     UIWindow *window = [[UIApplication sharedApplication].delegate window];
     [actionSheet showInView:window
@@ -86,9 +83,8 @@
 
 - (void)pickSingleImageWithSourceType:(UIImagePickerControllerSourceType)sourceType
                            allowEditing:(BOOL)allowEditing
-                        completionBlock:(void (^)(UIImage *image))completionBlock
-{
-    _singleBlock = completionBlock;
+                        completionBlock:(void (^)(UIImage *image))completionBlock {
+    self.singleBlock = completionBlock;
     if (sourceType == UIImagePickerControllerSourceTypeCamera) {
         if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             [YPNativeUtil  showToast:@"您的设备不支持相机"];
@@ -103,37 +99,34 @@
     [window.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
 }
 
-- (void)imagePickerControllerDidCancel:(QBImagePickerController *)imagePickerController
-{
+- (void)imagePickerControllerDidCancel:(QBImagePickerController *)imagePickerController {
     [imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     @autoreleasepool {
         
         UIImage *image;
         if (picker.allowsEditing) {
             image = info[UIImagePickerControllerEditedImage];
         } else {
-            image = [info[UIImagePickerControllerOriginalImage] fixOrientation];
+            image = [info[UIImagePickerControllerOriginalImage] imageByFixOrientation];
         }
         NSLog(@"image size-->%@", NSStringFromCGSize(image.size));
-        if (_singleBlock) {
-            _singleBlock(image);
+        if (self.singleBlock) {
+            self.singleBlock(image);
         }
-        if (_multiBlock) {
-            _multiBlock(@[image]);
+        if (self.multiBlock) {
+            self.multiBlock(@[image]);
         }
         [picker dismissViewControllerAnimated:YES completion:nil];
-        _singleBlock = nil;
-        _multiBlock = nil;
+        self.singleBlock = nil;
+        self.multiBlock = nil;
     }
 }
 
 
-- (void)imagePickerController:(QBImagePickerController *)imagePickerController didSelectAssets:(NSArray *)assets
-{
+- (void)imagePickerController:(QBImagePickerController *)imagePickerController didSelectAssets:(NSArray *)assets {
     @autoreleasepool {
         NSMutableArray *images = [NSMutableArray array];
         for (int i = 0; i < assets.count; i++) {
@@ -141,12 +134,13 @@
             ALAssetRepresentation *assetRepresentation = [asset defaultRepresentation];
             [images addObject:[UIImage imageWithCGImage:[assetRepresentation fullScreenImage]]];
         }
-        if (_multiBlock) {
-            _multiBlock(images);
+        if (self.multiBlock) {
+            self.multiBlock(images);
         }
         [imagePickerController dismissViewControllerAnimated:YES completion:nil];
-        _singleBlock = nil;
-        _multiBlock = nil;
+        self.singleBlock = nil;
+        self.multiBlock = nil;
     }
 }
+
 @end

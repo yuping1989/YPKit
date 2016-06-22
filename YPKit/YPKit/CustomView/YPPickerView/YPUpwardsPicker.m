@@ -10,33 +10,31 @@
 
 @implementation YPUpwardsPicker
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    if ([YPUpwardsPicker appearance].barItemTintColor) {
-        [_cancelItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [YPUpwardsPicker appearance].barItemTintColor}
-                                   forState:UIControlStateNormal];
-        [_okItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [YPUpwardsPicker appearance].barItemTintColor}
-                               forState:UIControlStateNormal];
-    }
-    
-    _pickerView.delegate = self;
-}
-
 + (YPUpwardsPicker *)instance {
     return [[[NSBundle mainBundle] loadNibNamed:@"YPUpwardsPicker" owner:nil options:nil] firstObject];
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    if ([YPUpwardsPicker appearance].barItemTintColor) {
+        [self.cancelItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [YPUpwardsPicker appearance].barItemTintColor} forState:UIControlStateNormal];
+        [self.okItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [YPUpwardsPicker appearance].barItemTintColor} forState:UIControlStateNormal];
+    }
+    
+    self.pickerView.delegate = self;
+}
+
 - (void)showInView:(UIView *)view
          withTitle:(NSString *)title
-        dateSource:(NSArray *)dataSource
+        dataSource:(NSArray *)dataSource
       selectedText:(NSString *)selectedText
    completionBlock:(void (^)(NSString *text))completionBlock {
     self.completionBlock = completionBlock;
-    self.dataSources =@[dataSource];
+    self.dataSources = @[dataSource];
     self.selectedText = selectedText;
     [self showInView:view withTitle:title];
-    if ([dataSource containsObject:_selectedText]) {
-        [_pickerView selectRow:[dataSource indexOfObject:_selectedText]
+    if ([dataSource containsObject:self.selectedText]) {
+        [self.pickerView selectRow:[dataSource indexOfObject:self.selectedText]
                    inComponent:0
                       animated:NO];
     }
@@ -56,7 +54,7 @@
                 NSArray *dataSource = dataSources[i];
                 NSString *selectedText = selectedTexts[i];
                 if ([dataSource containsObject:selectedText]) {
-                    [_pickerView selectRow:[dataSource indexOfObject:selectedText]
+                    [self.pickerView selectRow:[dataSource indexOfObject:selectedText]
                                inComponent:i
                                   animated:NO];
                 }
@@ -65,43 +63,44 @@
     }
 }
 
-
 - (void)showInView:(UIView *)view
          withTitle:(NSString *)title {
-    _titleLabel.text = title;
+    self.titleLabel.text = title;
     [self show];
 }
 
 - (IBAction)okButtonClicked:(id)sender {
-    if (_completionBlock) {
-        if (_dataSources.count == 1) {
-            _completionBlock(_dataSources[0][[_pickerView selectedRowInComponent:0]]);
+    if (self.completionBlock) {
+        if (self.dataSources.count == 1) {
+            self.completionBlock(self.dataSources[0][[self.pickerView selectedRowInComponent:0]]);
         } else {
             NSMutableArray *array = [NSMutableArray array];
-            for (int i = 0; i < _dataSources.count; i++) {
-                [array addObject:_dataSources[i][[_pickerView selectedRowInComponent:i]]];
+            for (int i = 0; i < self.dataSources.count; i++) {
+                [array addObject:self.dataSources[i][[self.pickerView selectedRowInComponent:i]]];
             }
-            _completionBlock(array);
+            self.completionBlock(array);
         }
     }
     [self cancelButtonClicked:sender];
 }
+
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return _dataSources.count;
+    return self.dataSources.count;
 }
+
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [_dataSources[component] count];
+    return [self.dataSources[component] count];
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return _dataSources[component][row];
-}
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    if (_delegate && [_delegate respondsToSelector:@selector(yp_pickerView:widthForComponent:)]) {
-        return [_delegate yp_pickerView:self widthForComponent:component];
-    }
-    return self.width / _dataSources.count;
+    return self.dataSources[component][row];
 }
 
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(yp_pickerView:widthForComponent:)]) {
+        return [self.delegate yp_pickerView:self widthForComponent:component];
+    }
+    return self.width / self.dataSources.count;
+}
 
 @end

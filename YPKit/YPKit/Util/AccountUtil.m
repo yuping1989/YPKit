@@ -7,9 +7,11 @@
 //
 
 #import "AccountUtil.h"
+
 NSString * const UDAccountInfo = @"kUDAccountInfo";
 
 @implementation AccountUtil
+
 + (void)saveAccount:(NSDictionary *)accountDict {
     [[NSUserDefaults standardUserDefaults] setObject:accountDict forKey:UDAccountInfo];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -28,4 +30,5 @@ NSString * const UDAccountInfo = @"kUDAccountInfo";
     [account setObject:object forKey:key];
     [AccountUtil saveAccount:account];
 }
+
 @end

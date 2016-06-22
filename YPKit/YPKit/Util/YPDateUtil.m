@@ -15,7 +15,13 @@ NSString *const yyMMddHHmm = @"yy-MM-dd HH:mm";
 NSString *const MMddHHmm = @"MM-dd HH:mm";
 NSString *const MMdd = @"MM-dd";
 
+static NSDateFormatter *dateFormatter;
+
 @implementation YPDateUtil
+
++ (void)initialize {
+    dateFormatter = [[NSDateFormatter alloc] init];
+}
 
 + (YPDateUtil *)shareInstance
 {

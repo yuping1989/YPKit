@@ -79,7 +79,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"table count-->%lu", tableViewDataSource.count);
+    NSLog(@"table count-->%lu", (unsigned long)tableViewDataSource.count);
     return [tableViewDataSource count];
 }
 

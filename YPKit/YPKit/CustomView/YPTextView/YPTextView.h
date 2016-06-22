@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "YPPlaceHolderTextView.h"
+
 @class YPTextView;
+
 @protocol YPTextViewDelegate <UITextViewDelegate>
+
 @optional
+
 - (void)textView:(YPTextView *)textView didContentHeightChanged:(CGFloat)height;
 
 @end

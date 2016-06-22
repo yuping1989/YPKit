@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface YPTagCloudView : UIView
+
+@property (nonatomic, copy) NSArray<NSString *> *titles;
+
 @property (nonatomic, assign) NSInteger fontSize;
 @property (nonatomic, assign) NSInteger minFontSize;
 @property (nonatomic, assign) NSInteger maxFontSize;
 @property (nonatomic, assign) NSInteger minSpacing;
 
-@property (nonatomic, copy) NSArray<NSString *> *titles;
 /**
  *  颜色数组，默认为:
  [UIColor blackColor],
@@ -30,13 +32,14 @@
  */
 @property (nonatomic, copy) NSArray<UIColor *> *colors;
 
-
 @property (nonatomic, copy) void (^tagClickBlock)(NSString *title, NSInteger index);
 
 - (void)setLabelHorizontalPadding:(NSInteger)horizontalPadding
                   verticalPadding:(NSInteger)verticalPadding;
+
 - (void)setLabelBoarderWith:(CGFloat)width
                boarderColor:(UIColor *)color
                cornerRadius:(CGFloat)radius;
+
 - (void)reloadData;
 @end

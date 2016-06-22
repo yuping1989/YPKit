@@ -6,7 +6,10 @@
 //  Copyright (c) 2014年 com.huoqiu. All rights reserved.
 //
 
-@interface YPBaseCollectionViewController : YPBaseViewController
+@interface YPBaseCollectionViewController : YPBaseViewController <
+UICollectionViewDelegate,
+UICollectionViewDataSource,
+UICollectionViewDelegateFlowLayout>
 {
     NSMutableArray *collectionViewDataSource;
 }

@@ -18,12 +18,17 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self awakeFromNib];
+        [self setup];
     }
     return self;
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
+    [self setup];
+}
+
+- (void)setup {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
@@ -42,21 +47,22 @@
     [self.collectionView reloadData];
 }
 
-
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(numberOfPagesInPageControl:)]) {
-        return [self.delegate numberOfPagesInPageControl:self];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(yp_numberOfPagesInPageView:)]) {
+        return [self.delegate yp_numberOfPagesInPageView:self];
     }
     return 0;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(yp_pageView:cellForItemAtIndex:)]) {
+        return [self.delegate yp_pageView:self cellForItemAtIndex:indexPath.row];
+    }
     YPPageViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"YPPageViewCell" forIndexPath:indexPath];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(controlView:configurePageCell:forIndex:)]) {
-        [self.delegate controlView:self configurePageCell:cell forIndex:indexPath.row];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(yp_pageView:configurePageCell:forIndex:)]) {
+        [self.delegate yp_pageView:self configurePageCell:cell forIndex:indexPath.row];
     }
     [cell.imageButton addTarget:self action:@selector(imageButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     cell.imageButton.tag = indexPath.row;
@@ -67,8 +73,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return self.size;
 }
 
@@ -88,8 +93,8 @@
 
 - (void)setDisplayingIndex:(NSInteger)displayingIndex {
     _displayingIndex = displayingIndex;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(controlView:displayingPageCellAtIndex:)]) {
-        [self.delegate controlView:self displayingPageCellAtIndex:self.displayingIndex];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(yp_pageView:didEndDisplayingPageCellAtIndex:)]) {
+        [self.delegate yp_pageView:self didEndDisplayingPageCellAtIndex:self.displayingIndex];
     }
 }
 
@@ -100,8 +105,9 @@
 }
 
 - (void)imageButtonClicked:(UIButton *)button {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(controlView:didPageCellClickedAtIndex:)]) {
-        [self.delegate controlView:self didPageCellClickedAtIndex:button.tag];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(yp_pageView:didClickPageCellAtIndex:)]) {
+        [self.delegate yp_pageView:self didClickPageCellAtIndex:button.tag];
     }
 }
+
 @end

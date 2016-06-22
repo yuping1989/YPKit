@@ -1,5 +1,5 @@
 // AFURLSessionManager.m
-// Copyright (c) 2011–2015 Alamofire Software Foundation (http://alamofire.org/)
+// Copyright (c) 2011–2016 Alamofire Software Foundation ( http://alamofire.org/ )
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -84,8 +84,6 @@ NSString * const AFNetworkingTaskDidCompleteAssetPathKey = @"com.alamofire.netwo
 static NSString * const AFURLSessionManagerLockName = @"com.alamofire.networking.session.manager.lock";
 
 static NSUInteger const AFMaximumNumberOfAttemptsToRecreateBackgroundSessionUploadTask = 3;
-
-static void * AFTaskStateChangedContext = &AFTaskStateChangedContext;
 
 typedef void (^AFURLSessionDidBecomeInvalidBlock)(NSURLSession *session, NSError *error);
 typedef NSURLSessionAuthChallengeDisposition (^AFURLSessionDidReceiveAuthenticationChallengeBlock)(NSURLSession *session, NSURLAuthenticationChallenge *challenge, NSURLCredential * __autoreleasing *credential);
@@ -222,15 +220,15 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-    if ([object isKindOfClass:[NSURLSessionTask class]]) {
+    if ([object isKindOfClass:[NSURLSessionTask class]] || [object isKindOfClass:[NSURLSessionDownloadTask class]]) {
         if ([keyPath isEqualToString:NSStringFromSelector(@selector(countOfBytesReceived))]) {
-            self.downloadProgress.completedUnitCount = [change[@"new"] longLongValue];
+            self.downloadProgress.completedUnitCount = [change[NSKeyValueChangeNewKey] longLongValue];
         } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(countOfBytesExpectedToReceive))]) {
-            self.downloadProgress.totalUnitCount = [change[@"new"] longLongValue];
+            self.downloadProgress.totalUnitCount = [change[NSKeyValueChangeNewKey] longLongValue];
         } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(countOfBytesSent))]) {
-            self.uploadProgress.completedUnitCount = [change[@"new"] longLongValue];
+            self.uploadProgress.completedUnitCount = [change[NSKeyValueChangeNewKey] longLongValue];
         } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(countOfBytesExpectedToSend))]) {
-            self.uploadProgress.totalUnitCount = [change[@"new"] longLongValue];
+            self.uploadProgress.totalUnitCount = [change[NSKeyValueChangeNewKey] longLongValue];
         }
     }
     else if ([object isEqual:self.downloadProgress]) {
@@ -251,8 +249,6 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
               task:(NSURLSessionTask *)task
 didCompleteWithError:(NSError *)error
 {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu"
     __strong AFURLSessionManager *manager = self.manager;
 
     __block id responseObject = nil;
@@ -314,7 +310,6 @@ didCompleteWithError:(NSError *)error
             });
         });
     }
-#pragma clang diagnostic pop
 }
 
 #pragma mark - NSURLSessionDataTaskDelegate
@@ -783,6 +778,7 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
         uploadTask = [self.session uploadTaskWithRequest:request fromFile:fileURL];
     });
 
+    // uploadTask may be nil on iOS7 because uploadTaskWithRequest:fromFile: may return nil despite being documented as nonnull (https://devforums.apple.com/message/926113#926113)
     if (!uploadTask && self.attemptsToRecreateUploadTasksForBackgroundSessions && self.session.configuration.identifier) {
         for (NSUInteger attempts = 0; !uploadTask && attempts < AFMaximumNumberOfAttemptsToRecreateBackgroundSessionUploadTask; attempts++) {
             uploadTask = [self.session uploadTaskWithRequest:request fromFile:fileURL];
@@ -983,7 +979,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                     disposition = NSURLSessionAuthChallengePerformDefaultHandling;
                 }
             } else {
-                disposition = NSURLSessionAuthChallengeRejectProtectionSpace;
+                disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
             }
         } else {
             disposition = NSURLSessionAuthChallengePerformDefaultHandling;
@@ -1030,7 +1026,7 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                 disposition = NSURLSessionAuthChallengeUseCredential;
                 credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
             } else {
-                disposition = NSURLSessionAuthChallengeRejectProtectionSpace;
+                disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
             }
         } else {
             disposition = NSURLSessionAuthChallengePerformDefaultHandling;

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 /**
  *  日期格式
  */
@@ -16,12 +17,17 @@ extern NSString *const yyyyMMdd;
 extern NSString *const yyMMddHHmm;
 extern NSString *const MMddHHmm;
 extern NSString *const MMdd;
-@interface YPDateUtil : NSObject
-{
+
+
+
+
+@interface YPDateUtil : NSObject {
     NSDateFormatter *_dateFormatter;
     NSCalendar *_calendar;
 }
+
 + (YPDateUtil *)shareInstance;
+
 /**
  *  将日期格式化为字符串
  */

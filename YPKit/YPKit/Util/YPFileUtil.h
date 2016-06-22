@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface YPFileUtil : NSObject
+
 /**
  *  文件操作
  */
@@ -36,8 +37,6 @@
  */
 + (NSString *)readStringFromFile:(NSString *)path;
 
-
-
 /**
  *  设置跳过iCloud备份
  */
@@ -47,4 +46,5 @@
  *  获取文件的MD5
  */
 + (NSString *)MD5WithPath:(NSString *)path;
+
 @end

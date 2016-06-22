@@ -17,7 +17,7 @@ typedef void (^AFHttpRequestProgressBlock)(NSProgress *progress);
 /**
  *  基础URL，设置此URL后，调用POST，GET，upload，download等方法可以只传入相关的path即可
  */
-@property (nonatomic, strong) NSURL *baseURL;
+@property (nonatomic, strong, readonly) NSURL *baseURL;
 /**
  *  用于POST，GET等方法
  */
@@ -30,12 +30,12 @@ typedef void (^AFHttpRequestProgressBlock)(NSProgress *progress);
 /**
  *  返回YPHttpUtil单例
  */
-+ (YPHttpUtil *)shared;
++ (instancetype)shared;
 
 /**
  *  初始化
  */
-- (id)initWithBaseURL:(NSURL *)URL;
+- (instancetype)initWithBaseURL:(NSURL *)URL;
 
 
 /**

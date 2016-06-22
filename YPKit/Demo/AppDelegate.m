@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "RootController.h"
 #import "YPSettingItem.h"
+#import "TestHttpUtil.h"
 @interface AppDelegate ()
 
 @end
@@ -23,16 +24,16 @@
     
     [[YPSettingItem appearance] setPaddingLeft:15];
     [[YPSettingItem appearance] setPaddingRight:10];
+    [[YPSettingItem appearance] setArrowImage:[UIImage imageNamed:@"icon_arrow_light"]];
+    [[YPSettingItem appearance] setLeftImageWidth:30];
+    
     [[YPSettingItem appearance] setTitleColor:[UIColor darkGrayColor]];
     [[YPSettingItem appearance] setTextColor:RGB(175, 168, 159)];
     [[YPSettingItem appearance] setTitleFont:[UIFont systemFontOfSize:20]];
     [[YPSettingItem appearance] setTextFont:[UIFont systemFontOfSize:17]];
-    [[YPSettingItem appearance] setArrowImage:[UIImage imageNamed:@"icon_arrow_light"]];
-    [[YPSettingItem appearance] setLeftImageWidth:30];
     [[YPSettingItem appearance] setLineColor:[UIColor lightGrayColor]];
     
     [self.window makeKeyAndVisible];
-
     return YES;
 }
 

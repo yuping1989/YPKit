@@ -11,8 +11,10 @@
 extern NSString *const UDAccountInfo;
 
 @interface AccountUtil : NSObject
+
 + (void)saveAccount:(NSDictionary *)accountDict;
 + (NSDictionary *)account;
 + (id)objectForKey:(NSString *)key;
 + (void)setObject:(id)object forKey:(NSString *)key;
+
 @end

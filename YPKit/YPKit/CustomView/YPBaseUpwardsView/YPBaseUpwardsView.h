@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface YPBaseUpwardsView : UIView
+
 @property (nonatomic, strong) UIView *backgroundView;
 
 - (void)show;
 - (IBAction)cancelButtonClicked:(id)sender;
+
 @end

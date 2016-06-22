@@ -9,11 +9,12 @@
 #import "YPHttpUtil.h"
 
 @interface YPHttpUtil ()
+@property (nonatomic, strong, readwrite) NSURL *baseURL;
 @property (nonatomic, strong, readwrite) AFHTTPSessionManager *httpSessionManager;
 @property (nonatomic, strong, readwrite) AFURLSessionManager *urlSessionManager;
 @end
 @implementation YPHttpUtil
-- (id)initWithBaseURL:(NSURL *)URL
+- (instancetype)initWithBaseURL:(NSURL *)URL
 {
     self = [super init];
     if (self) {
@@ -23,20 +24,14 @@
     return self;
 }
 
-+ (YPHttpUtil *)shared
++ (instancetype)shared
 {
     static YPHttpUtil *httpUtil = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        httpUtil = [[YPHttpUtil alloc] initWithBaseURL:nil];
+        httpUtil = [[self alloc] initWithBaseURL:nil];
     });
     return httpUtil;
-}
-
-- (void)setBaseURL:(NSURL *)baseURL {
-    _baseURL = baseURL;
-    self.httpSessionManager = nil;
-    self.httpSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
 }
 
 - (AFURLSessionManager *)sessionManager {

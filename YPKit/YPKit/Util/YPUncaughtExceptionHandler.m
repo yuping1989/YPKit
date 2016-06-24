@@ -21,6 +21,7 @@ const NSInteger UncaughtExceptionHandlerSkipAddressCount = 4;
 const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
 
 @implementation YPUncaughtExceptionHandler
+
 - (instancetype)init
 {
     self = [super init];
@@ -69,9 +70,9 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
     NSString *name = [exception name];
     
     NSString *exceptionDesc = [NSString stringWithFormat:@"=============异常崩溃报告=============\nApp : %@\nVersion : %@(%@)\nDevice : %@\nOS Version : %@ %@\nName : %@\nReason : %@\nCallStack : %@",
-                               AppBundleDisplayName,
-                               AppVersionName,
-                               AppVersionCode,
+                               [UIApplication appBundleDisplayName],
+                               [UIApplication appVersionName],
+                               [UIApplication appShortVersionString],
                                [UIDevice currentDevice].model,
                                [UIDevice currentDevice].systemName,
                                [UIDevice currentDevice].systemVersion,
@@ -82,7 +83,7 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
     
     NSString *directoryPath = [YPUncaughtExceptionHandler exceptionFilesDirectory];
     [YPFileUtil createDirectoryAtPath:directoryPath];
-    NSString *fileName = [[YPDateUtil shareInstance] stringWithDate:[NSDate date] format:yyyyMMddHHmmss];
+    NSString *fileName = [YPDateUtil stringWithDate:[NSDate date] format:yyyyMMddHHmmss];
     NSString *exptionPath = [directoryPath stringByAppendingPathComponent:fileName];
     [exceptionDesc writeToFile:exptionPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }

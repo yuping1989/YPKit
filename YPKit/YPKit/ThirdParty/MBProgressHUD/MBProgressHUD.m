@@ -1,6 +1,6 @@
 //
 // MBProgressHUD.m
-// Version 0.9.1
+// Version 0.9.2
 // Created by Matej Bukovinski on 2.4.09.
 //
 
@@ -507,7 +507,9 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		if (mode == MBProgressHUDModeAnnularDeterminate) {
 			[(MBRoundProgressView *)indicator setAnnular:YES];
 		}
-	} 
+		[(MBRoundProgressView *)indicator setProgressTintColor:self.activityIndicatorColor];
+		[(MBRoundProgressView *)indicator setBackgroundTintColor:[self.activityIndicatorColor colorWithAlphaComponent:0.1f]];
+	}
 	else if (mode == MBProgressHUDModeCustomView && customView != indicator) {
 		// Update custom view indicator
 		[indicator removeFromSuperview];
@@ -531,7 +533,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	}
 	CGRect bounds = self.bounds;
 	
-	// Determine the total widt and height needed
+	// Determine the total width and height needed
 	CGFloat maxWidth = bounds.size.width - 4 * margin;
 	CGSize totalSize = CGSizeZero;
 	
@@ -715,17 +717,22 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 #pragma mark - Notifications
 
 - (void)registerForNotifications {
+#if !TARGET_OS_TV
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 
 	[nc addObserver:self selector:@selector(statusBarOrientationDidChange:)
-			   name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+               name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+#endif
 }
 
 - (void)unregisterFromNotifications {
+#if !TARGET_OS_TV
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    [nc removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+#endif
 }
 
+#if !TARGET_OS_TV
 - (void)statusBarOrientationDidChange:(NSNotification *)notification {
 	UIView *superview = self.superview;
 	if (!superview) {
@@ -734,6 +741,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		[self updateForCurrentOrientationAnimated:YES];
 	}
 }
+#endif
 
 - (void)updateForCurrentOrientationAnimated:(BOOL)animated {
     // Stay in sync with the superview in any case

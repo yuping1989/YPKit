@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSDictionary (YPKit)
+
 /**
  *  将NSDictionary转换为JSON字符串
  */
@@ -18,4 +19,5 @@
  *  从Plist文件中获取NSDictionary
  */
 + (NSDictionary *)dictionaryWithPlistFile:(NSString *)name;
+
 @end

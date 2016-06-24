@@ -8,6 +8,7 @@
 
 #import "UIView+YPKit.h"
 #import "UIGestureRecognizer+YPKit.h"
+#import <objc/runtime.h>
 
 #define TIPS_IMAGE_VIEW_TAG 10000
 #define TIPS_LABEL_TAG 10001
@@ -259,6 +260,7 @@
     self.layer.borderWidth = width;
     self.layer.borderColor = color.CGColor;
 }
+
 - (void)setCornerRadius:(CGFloat)radius {
     self.clipsToBounds = YES;
     self.layer.cornerRadius = radius;

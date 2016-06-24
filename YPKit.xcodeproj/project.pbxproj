@@ -14,7 +14,6 @@
 		F062655B1D012113004944B0 /* checkbox_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F06265591D012113004944B0 /* checkbox_checked@2x.png */; };
 		F062655E1D01221B004944B0 /* checkbox_unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = F062655C1D01221B004944B0 /* checkbox_unchecked.png */; };
 		F062655F1D01221B004944B0 /* checkbox_unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F062655D1D01221B004944B0 /* checkbox_unchecked@2x.png */; };
-		F062CE661D113480002ADE87 /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = F062CE641D113480002ADE87 /* pinyin.c */; };
 		F062CEC91D11404C002ADE87 /* NSArray+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F062CEA41D11404C002ADE87 /* NSArray+YPKit.m */; };
 		F062CECA1D11404C002ADE87 /* NSAttributedString+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F062CEA61D11404C002ADE87 /* NSAttributedString+YPKit.m */; };
 		F062CECB1D11404C002ADE87 /* NSDictionary+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F062CEA81D11404C002ADE87 /* NSDictionary+YPKit.m */; };
@@ -37,6 +36,7 @@
 		F062D5311D13D0F4002ADE87 /* UIControl+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F062D5301D13D0F4002ADE87 /* UIControl+YPKit.m */; };
 		F062D5751D13E79F002ADE87 /* NSObject+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F062D5741D13E79F002ADE87 /* NSObject+YPKit.m */; };
 		F07A5C071CE02710003544F7 /* TestHttpUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F07A5C061CE02710003544F7 /* TestHttpUtil.m */; };
+		F08569C41D1B778E00348861 /* UIActionSheet+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F08569C31D1B778E00348861 /* UIActionSheet+YPKit.m */; };
 		F09B90411D1A210E00F54887 /* YPControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F09B90401D1A210E00F54887 /* YPControl.m */; };
 		F0ADC41B1CC5BE3B009DBB53 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADC3231CC5BE3A009DBB53 /* AppDelegate.m */; };
 		F0ADC41C1CC5BE3B009DBB53 /* AutoLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADC3251CC5BE3A009DBB53 /* AutoLayoutCell.m */; };
@@ -85,9 +85,6 @@
 		F0ADC45A1CC5BE3B009DBB53 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADC3A71CC5BE3A009DBB53 /* AFURLRequestSerialization.m */; };
 		F0ADC45B1CC5BE3B009DBB53 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADC3A91CC5BE3A009DBB53 /* AFURLResponseSerialization.m */; };
 		F0ADC45C1CC5BE3B009DBB53 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADC3AB1CC5BE3A009DBB53 /* AFURLSessionManager.m */; };
-		F0ADC45D1CC5BE3B009DBB53 /* BUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADC3AF1CC5BE3B009DBB53 /* BUIControl.m */; };
-		F0ADC45E1CC5BE3B009DBB53 /* BUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADC3B11CC5BE3B009DBB53 /* BUIView.m */; };
-		F0ADC45F1CC5BE3B009DBB53 /* ZXObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADC3B31CC5BE3B009DBB53 /* ZXObject.m */; };
 		F0ADC4601CC5BE3B009DBB53 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0ADC3B51CC5BE3B009DBB53 /* Info.plist */; };
 		F0ADC4611CC5BE3B009DBB53 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADC3B71CC5BE3B009DBB53 /* MASCompositeConstraint.m */; };
 		F0ADC4621CC5BE3B009DBB53 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADC3BA1CC5BE3B009DBB53 /* MASConstraint.m */; };
@@ -155,8 +152,6 @@
 		F06265591D012113004944B0 /* checkbox_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_checked@2x.png"; sourceTree = "<group>"; };
 		F062655C1D01221B004944B0 /* checkbox_unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_unchecked.png; sourceTree = "<group>"; };
 		F062655D1D01221B004944B0 /* checkbox_unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_unchecked@2x.png"; sourceTree = "<group>"; };
-		F062CE641D113480002ADE87 /* pinyin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinyin.c; sourceTree = "<group>"; };
-		F062CE651D113480002ADE87 /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
 		F062CEA31D11404C002ADE87 /* NSArray+YPKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+YPKit.h"; sourceTree = "<group>"; };
 		F062CEA41D11404C002ADE87 /* NSArray+YPKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+YPKit.m"; sourceTree = "<group>"; };
 		F062CEA51D11404C002ADE87 /* NSAttributedString+YPKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+YPKit.h"; sourceTree = "<group>"; };
@@ -201,6 +196,8 @@
 		F062D5741D13E79F002ADE87 /* NSObject+YPKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+YPKit.m"; sourceTree = "<group>"; };
 		F07A5C051CE02710003544F7 /* TestHttpUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHttpUtil.h; sourceTree = "<group>"; };
 		F07A5C061CE02710003544F7 /* TestHttpUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestHttpUtil.m; sourceTree = "<group>"; };
+		F08569C21D1B778E00348861 /* UIActionSheet+YPKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+YPKit.h"; sourceTree = "<group>"; };
+		F08569C31D1B778E00348861 /* UIActionSheet+YPKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+YPKit.m"; sourceTree = "<group>"; };
 		F09B903F1D1A210E00F54887 /* YPControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPControl.h; sourceTree = "<group>"; };
 		F09B90401D1A210E00F54887 /* YPControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPControl.m; sourceTree = "<group>"; };
 		F0ADC3221CC5BE3A009DBB53 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -285,13 +282,6 @@
 		F0ADC3A91CC5BE3A009DBB53 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		F0ADC3AA1CC5BE3A009DBB53 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		F0ADC3AB1CC5BE3A009DBB53 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
-		F0ADC3AD1CC5BE3B009DBB53 /* BlockUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockUI.h; sourceTree = "<group>"; };
-		F0ADC3AE1CC5BE3B009DBB53 /* BUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUIControl.h; sourceTree = "<group>"; };
-		F0ADC3AF1CC5BE3B009DBB53 /* BUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUIControl.m; sourceTree = "<group>"; };
-		F0ADC3B01CC5BE3B009DBB53 /* BUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUIView.h; sourceTree = "<group>"; };
-		F0ADC3B11CC5BE3B009DBB53 /* BUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUIView.m; sourceTree = "<group>"; };
-		F0ADC3B21CC5BE3B009DBB53 /* ZXObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXObject.h; sourceTree = "<group>"; };
-		F0ADC3B31CC5BE3B009DBB53 /* ZXObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXObject.m; sourceTree = "<group>"; };
 		F0ADC3B51CC5BE3B009DBB53 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0ADC3B61CC5BE3B009DBB53 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		F0ADC3B71CC5BE3B009DBB53 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
@@ -450,15 +440,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		F062CE631D113480002ADE87 /* PinYinFirstLetter */ = {
-			isa = PBXGroup;
-			children = (
-				F062CE641D113480002ADE87 /* pinyin.c */,
-				F062CE651D113480002ADE87 /* pinyin.h */,
-			);
-			path = PinYinFirstLetter;
-			sourceTree = "<group>";
-		};
 		F062CEA11D11404C002ADE87 /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -508,6 +489,8 @@
 		F062CEB81D11404C002ADE87 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				F08569C21D1B778E00348861 /* UIActionSheet+YPKit.h */,
+				F08569C31D1B778E00348861 /* UIActionSheet+YPKit.m */,
 				F062CEC51D11404C002ADE87 /* UIView+YPKit.h */,
 				F062CEC61D11404C002ADE87 /* UIView+YPKit.m */,
 				F062D5291D12AA61002ADE87 /* UIGestureRecognizer+YPKit.h */,
@@ -737,9 +720,7 @@
 		F0ADC39D1CC5BE3A009DBB53 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				F062CE631D113480002ADE87 /* PinYinFirstLetter */,
 				F0ADC39E1CC5BE3A009DBB53 /* AFNetworking */,
-				F0ADC3AC1CC5BE3B009DBB53 /* BlockUI */,
 				F0ADC3B41CC5BE3B009DBB53 /* Masonry */,
 				F0ADC3CF1CC5BE3B009DBB53 /* MBProgressHUD */,
 				F0ADC3D21CC5BE3B009DBB53 /* MKNetworkKit */,
@@ -767,20 +748,6 @@
 				F0ADC3AB1CC5BE3A009DBB53 /* AFURLSessionManager.m */,
 			);
 			path = AFNetworking;
-			sourceTree = "<group>";
-		};
-		F0ADC3AC1CC5BE3B009DBB53 /* BlockUI */ = {
-			isa = PBXGroup;
-			children = (
-				F0ADC3AD1CC5BE3B009DBB53 /* BlockUI.h */,
-				F0ADC3AE1CC5BE3B009DBB53 /* BUIControl.h */,
-				F0ADC3AF1CC5BE3B009DBB53 /* BUIControl.m */,
-				F0ADC3B01CC5BE3B009DBB53 /* BUIView.h */,
-				F0ADC3B11CC5BE3B009DBB53 /* BUIView.m */,
-				F0ADC3B21CC5BE3B009DBB53 /* ZXObject.h */,
-				F0ADC3B31CC5BE3B009DBB53 /* ZXObject.m */,
-			);
-			path = BlockUI;
 			sourceTree = "<group>";
 		};
 		F0ADC3B41CC5BE3B009DBB53 /* Masonry */ = {
@@ -1090,10 +1057,10 @@
 				F0ADC4801CC5BE3B009DBB53 /* NSArray+ ZXPUnicode.m in Sources */,
 				F0ADC4671CC5BE3B009DBB53 /* NSArray+MASAdditions.m in Sources */,
 				F0ADC4861CC5BE3B009DBB53 /* YPFileUtil.m in Sources */,
+				F08569C41D1B778E00348861 /* UIActionSheet+YPKit.m in Sources */,
 				F0ADC4631CC5BE3B009DBB53 /* MASConstraintMaker.m in Sources */,
 				F0ADC4811CC5BE3B009DBB53 /* NSDictionary+ZXPUnicode.m in Sources */,
 				F0ADC45A1CC5BE3B009DBB53 /* AFURLRequestSerialization.m in Sources */,
-				F0ADC45F1CC5BE3B009DBB53 /* ZXObject.m in Sources */,
 				F0ADC44F1CC5BE3B009DBB53 /* YPPageViewCell.m in Sources */,
 				F0ADC46E1CC5BE3B009DBB53 /* NSDate+RFC1123.m in Sources */,
 				F0ADC4561CC5BE3B009DBB53 /* YPTextView.m in Sources */,
@@ -1118,7 +1085,6 @@
 				F0ADC46A1CC5BE3B009DBB53 /* ViewController+MASAdditions.m in Sources */,
 				F062CED31D11404C002ADE87 /* UIAlertView+YPKit.m in Sources */,
 				F0ADC4371CC5BE3B009DBB53 /* YPTableViewController.m in Sources */,
-				F0ADC45D1CC5BE3B009DBB53 /* BUIControl.m in Sources */,
 				F0ADC4731CC5BE3B009DBB53 /* MKNetworkEngine.m in Sources */,
 				F062CED71D11404C002ADE87 /* UITableView+YPKit.m in Sources */,
 				F062D5311D13D0F4002ADE87 /* UIControl+YPKit.m in Sources */,
@@ -1141,7 +1107,6 @@
 				F0ADC4251CC5BE3B009DBB53 /* main.m in Sources */,
 				F0ADC4831CC5BE3B009DBB53 /* AccountUtil.m in Sources */,
 				F062D52B1D12AA61002ADE87 /* UIGestureRecognizer+YPKit.m in Sources */,
-				F062CE661D113480002ADE87 /* pinyin.c in Sources */,
 				F0ADC4721CC5BE3B009DBB53 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				F062D5751D13E79F002ADE87 /* NSObject+YPKit.m in Sources */,
 				F0ADC4571CC5BE3B009DBB53 /* AFHTTPSessionManager.m in Sources */,
@@ -1166,7 +1131,6 @@
 				F0ADC4261CC5BE3B009DBB53 /* RootController.m in Sources */,
 				F0ADC44B1CC5BE3B009DBB53 /* YPCheckBox.m in Sources */,
 				F062CED61D11404C002ADE87 /* UILabel+YPKit.m in Sources */,
-				F0ADC45E1CC5BE3B009DBB53 /* BUIView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

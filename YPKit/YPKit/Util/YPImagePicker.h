@@ -9,14 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface YPImagePicker : NSObject
-+ (YPImagePicker *)shared;
+
 /**
  *  获取多张照片
  *
  *  @param maxNumber       最大选择数量
  *  @param completionBlock 回调
  */
-- (void)pickImageWithMaxNumber:(NSInteger)maxNumber
++ (void)pickImageWithMaxNumber:(NSInteger)maxNumber
                completionBlock:(void (^)(NSArray *images))completionBlock;
 
 /**
@@ -25,7 +25,7 @@
  *  @param allowEditing    获取后是否可以编辑
  *  @param completionBlock 回调
  */
-- (void)pickSingleImageAllowEditing:(BOOL)allowEditing
++ (void)pickSingleImageAllowEditing:(BOOL)allowEditing
                     completionBlock:(void (^)(UIImage *image))completionBlock;
 
 /**
@@ -35,7 +35,7 @@
  *  @param allowEditing    获取后是否可以编辑
  *  @param completionBlock 回调
  */
-- (void)pickSingleImageWithSourceType:(UIImagePickerControllerSourceType)sourceType
++ (void)pickSingleImageWithSourceType:(UIImagePickerControllerSourceType)sourceType
                        allowEditing:(BOOL)allowEditing
                     completionBlock:(void (^)(UIImage *image))completionBlock;
 @end

@@ -29,11 +29,11 @@
     [super viewDidLoad];
     int date = [[NSDate date] timeIntervalSince1970];
     
-    _secondLabel.text = [[YPDateUtil shareInstance] dateDiffStringWithFromTimeInterval:date - 10];
-    _minuteLabel.text = [[YPDateUtil shareInstance] dateDiffStringWithFromTimeInterval:date - 3 * 60];
-    _hourLabel.text = [[YPDateUtil shareInstance] dateDiffStringWithFromTimeInterval:date - 60 * 60 * 3];
-    _dayLabel.text = [[YPDateUtil shareInstance] dateDiffStringWithFromTimeInterval:date - 60 * 60 * 40];
-    _dateLabel.text = [[YPDateUtil shareInstance] dateDiffStringWithFromTimeInterval:date - 60 * 60 * 24 * 3];
+    _secondLabel.text = [YPDateUtil dateDiffStringWithFromTimeInterval:date - 10];
+    _minuteLabel.text = [YPDateUtil dateDiffStringWithFromTimeInterval:date - 3 * 60];
+    _hourLabel.text = [YPDateUtil dateDiffStringWithFromTimeInterval:date - 60 * 60 * 3];
+    _dayLabel.text = [YPDateUtil dateDiffStringWithFromTimeInterval:date - 60 * 60 * 40];
+    _dateLabel.text = [YPDateUtil dateDiffStringWithFromTimeInterval:date - 60 * 60 * 24 * 3];
     
     _topItem.title = @"顶部标题";
     _topItem.text = @"顶部内容";

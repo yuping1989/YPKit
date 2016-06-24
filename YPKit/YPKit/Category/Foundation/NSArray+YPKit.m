@@ -7,16 +7,33 @@
 //
 
 #import "NSArray+YPKit.h"
-
+#import <objc/runtime.h>
 @implementation NSArray (YPKit)
-- (NSArray *)sortedArrayWithKey:(NSString *)key ascending:(BOOL)ascending
-{
+
++ (void)load {
+    method_exchangeImplementations(class_getInstanceMethod([self class], @selector(description)), class_getInstanceMethod([self class], @selector(replaceDescription)));
+    method_exchangeImplementations(class_getInstanceMethod([self class], @selector(descriptionWithLocale:)), class_getInstanceMethod([self class], @selector(replaceDescriptionWithLocale:)));
+    method_exchangeImplementations(class_getInstanceMethod([self class], @selector(descriptionWithLocale:indent:)), class_getInstanceMethod([self class], @selector(replaceDescriptionWithLocale:indent:)));
+}
+
+- (NSString *)replaceDescription {
+    return [NSObject stringByReplaceUnicode:[self replaceDescription]];
+}
+
+- (NSString *)replaceDescriptionWithLocale:(nullable id)locale {
+    return [NSObject stringByReplaceUnicode:[self replaceDescriptionWithLocale:locale]];
+}
+
+- (NSString *)replaceDescriptionWithLocale:(nullable id)locale indent:(NSUInteger)level {
+    return [NSObject stringByReplaceUnicode:[self replaceDescriptionWithLocale:locale indent:level]];
+}
+
+- (NSArray *)sortedArrayWithKey:(NSString *)key ascending:(BOOL)ascending {
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];
     return [self sortedArrayUsingDescriptors:@[descriptor]];
 }
 
-- (NSArray *)sortedArrayWithTerms:(NSDictionary *)sortTerm
-{
+- (NSArray *)sortedArrayWithTerms:(NSDictionary *)sortTerm {
     NSMutableArray *descriptors = [NSMutableArray array];
     for (NSString *key in sortTerm.allKeys) {
         [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:key ascending:[sortTerm[key] boolValue]]];

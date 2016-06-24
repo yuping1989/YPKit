@@ -7,12 +7,15 @@
 //
 
 #import "UIViewController+YPKit.h"
+#import <objc/runtime.h>
 
 @implementation UIViewController (YPKit)
 
 + (instancetype)instance; {
     return [[self alloc] initWithNibName:NSStringFromClass([self class]) bundle:nil];
 }
+
+#pragma mark - ProgressHUD
 
 - (MBProgressHUD *)progressHUD {
     return objc_getAssociatedObject(self, _cmd);
@@ -59,6 +62,8 @@
     }
     [self.progressHUD hide:YES];
 }
+
+#pragma mark - BarButtonItem
 
 - (void)initLeftBarButtonItemWithTitle:(NSString *)title {
     [self initLeftBarButtonItemWithTitle:title target:self];
@@ -115,6 +120,8 @@
 
 - (void)rightBarButtonClicked:(id)sender {}
 
+#pragma mark - Keyboard Observer
+
 - (void)registerKeyboardNotification {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -170,13 +177,15 @@
 
 - (void)keyboardWillHideWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration {}
 
+#pragma mark - Others
+
 - (void)hideKeyboardWhenTapBackground {
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     [self.view addGestureRecognizer:tapGesture];
 }
 
 - (void)viewTapped:(UITapGestureRecognizer *)recognizer {
-    [YPNativeUtil hideKeyboard];
+    [UIApplication hideKeyboard];
 }
 
 - (BOOL)isViewInBackground {

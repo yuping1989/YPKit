@@ -1,6 +1,6 @@
 //
 //  MBProgressHUD.h
-//  Version 0.9.1
+//  Version 0.9.2
 //  Created by Matej Bukovinski on 2.4.09.
 //
 
@@ -434,7 +434,7 @@ typedef void (^MBProgressHUDCompletionBlock)();
 
 /**
  * The actual size of the HUD bezel.
- * You can use this to limit touch handling on the bezel aria only.
+ * You can use this to limit touch handling on the bezel area only.
  * @see https://github.com/jdg/MBProgressHUD/pull/200
  */
 @property (atomic, assign, readonly) CGSize size;

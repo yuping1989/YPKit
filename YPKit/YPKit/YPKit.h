@@ -22,7 +22,6 @@
 
 // import Categories
 
-#import "UIImage+YPKit.h"
 #import "NSNumber+YPKit.h"
 #import "NSSet+YPKit.h"
 #import "NSArray+YPKit.h"
@@ -30,17 +29,23 @@
 #import "NSString+YPKit.h"
 #import "NSMutableAttributedString+YPKit.h"
 #import "NSAttributedString+YPKit.h"
-
 #import "NSObject+YPKit.h"
+
+#import "UIColor+YPKit.h"
+#import "UIImage+YPKit.h"
 #import "UIView+YPKit.h"
 #import "UIAlertView+YPKit.h"
+#import "UIActionSheet+YPKit.h"
 #import "UITableView+YPKit.h"
 #import "UIControl+YPKit.h"
 #import "UIButton+YPKit.h"
 #import "UITextField+YPKit.h"
 #import "UILabel+YPKit.h"
-#import "CALayer+YPKit.h"
-
 #import "UIViewController+YPKit.h"
+#import "UIDevice+YPKit.h"
+#import "UIApplication+YPKit.h"
+#import "UIScreen+YPKit.h"
+
+#import "CALayer+YPKit.h"
 
 

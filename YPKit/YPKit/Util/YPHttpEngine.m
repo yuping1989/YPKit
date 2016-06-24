@@ -284,12 +284,12 @@ NSString *const HttpMethodDelete = @"DELETE";
     if (message) {
         NSLog(@"message length-->%ld", [message charLength]);
         if ([message charLength] < 30) {
-            [YPNativeUtil  showToast:message];
+            [UIApplication showToast:message];
         } else {
             [UIAlertView showAlertWithTitle:message];
         }
     } else {
-        [YPNativeUtil showToast:@"网络请求错误，稍后再试"];
+        [UIApplication showToast:@"网络请求错误，稍后再试"];
     }
 }
 

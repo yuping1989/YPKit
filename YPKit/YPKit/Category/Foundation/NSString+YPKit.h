@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "pinyin.h"
 
 #define REGEX_POSITIVE_NUMBER @"^(0|([1-9]\\d*))(\\.\\d+)?$"
 #define REGEX_POSITIVE_INT @"^\\d+$"
@@ -104,11 +103,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable id)jsonObject;
 
 /**
- *  返回首字母，如果是中文，则返回其第一个字的拼音首字母
- */
-- (nullable NSString *)pinyinFirstLetter;
-
-/**
  *  搜索字符串中，某个字符串的位置
  *
  *  @return 匹配的个数
@@ -116,6 +110,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)enumerateRangesOfString:(NSString *)string
                           usingBlock:(void (^)(NSRange range, NSInteger index))block;
 
+/**
+ *  返回首字母，如果是中文，则返回其第一个字的拼音首字母
+ */
+- (NSString *)pinyinFirstLetter;
 
 #pragma mark - Methods should be deprecated
 

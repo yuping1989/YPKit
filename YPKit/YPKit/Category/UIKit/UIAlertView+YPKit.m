@@ -7,27 +7,27 @@
 //
 
 #import "UIAlertView+YPKit.h"
+#import <objc/runtime.h>
 
 static const int block_key;
 
 @implementation UIAlertView (YPKit)
 
-+ (UIAlertView *)showAlertWithTitle:(NSString *)title
-{
++ (UIAlertView *)showAlertWithTitle:(NSString *)title {
     return [UIAlertView showAlertWithTitle:title
                                    message:nil];
 }
+
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
-                   message:(NSString *)message
-{
+                   message:(NSString *)message {
     return [UIAlertView showAlertWithTitle:title
                                    message:message
                          cancelButtonTitle:@"确定"];
 }
+
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
                    message:(NSString *)message
-         cancelButtonTitle:(NSString *)cancelButtonTitle
-{
+         cancelButtonTitle:(NSString *)cancelButtonTitle {
     return [UIAlertView showAlertWithTitle:title
                                    message:message
                          cancelButtonTitle:cancelButtonTitle
@@ -47,8 +47,7 @@ static const int block_key;
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
                    message:(NSString *)message
              okButtonTitle:(NSString *)okButtonTitle
-                completion:(void (^)(void))okButtonClicked
-{
+                completion:(void (^)(void))okButtonClicked {
     return [UIAlertView showAlertWithTitle:title
                                    message:message
                          cancelButtonTitle:@"取消"
@@ -64,9 +63,7 @@ static const int block_key;
                    message:(NSString *)message
          cancelButtonTitle:(NSString *)cancelButtonTitle
          otherButtonTitles:(NSArray *)otherButtonArray
-                completion:(void (^)(NSInteger buttonIndex))completion
-
-{
+                completion:(void (^)(NSInteger buttonIndex))completion {
     UIAlertView *alert = [[UIAlertView alloc] init];
     alert.title = title;
     alert.message = message;

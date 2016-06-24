@@ -25,8 +25,11 @@
 @property (nonatomic, copy) void (^exceptionHandler)(NSException *exception);
 
 + (NSString *)exceptionFilesDirectory;
+
 @end
+
 void HandleException(NSException *exception);
+
 void SignalHandler(int signal);
 
 /**

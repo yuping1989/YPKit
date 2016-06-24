@@ -8,14 +8,21 @@
 
 #import "YPImagePicker.h"
 #import "QBImagePickerController.h"
-@interface YPImagePicker ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, QBImagePickerControllerDelegate>
+#import <objc/runtime.h>
 
-@property (nonatomic, copy) YPCompletionBlockWithData singleBlock;
-@property (nonatomic, copy) YPCompletionBlockWithData multiBlock;
+@interface YPImagePicker () <
+UIImagePickerControllerDelegate,
+UINavigationControllerDelegate,
+QBImagePickerControllerDelegate>
+
+@property (nonatomic, copy) void (^singleBlock)(UIImage *image);
+@property (nonatomic, copy) void (^multiBlock)(NSArray *images);
 
 @end
+
 @implementation YPImagePicker
-+ (YPImagePicker *)shared {
+
++ (instancetype)shared {
     static YPImagePicker *imagePicker = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -24,19 +31,39 @@
     return imagePicker;
 }
 
++ (void)pickImageWithMaxNumber:(NSInteger)maxNumber
+               completionBlock:(void (^)(NSArray *images))completionBlock {
+    [[YPImagePicker shared] pickImageWithMaxNumber:maxNumber
+                                   completionBlock:completionBlock];
+}
+
++ (void)pickSingleImageAllowEditing:(BOOL)allowEditing
+                    completionBlock:(void (^)(UIImage *image))completionBlock {
+    [[YPImagePicker shared] pickSingleImageAllowEditing:allowEditing
+                                        completionBlock:completionBlock];
+}
+
++ (void)pickSingleImageWithSourceType:(UIImagePickerControllerSourceType)sourceType
+                         allowEditing:(BOOL)allowEditing
+                      completionBlock:(void (^)(UIImage *image))completionBlock {
+    [[YPImagePicker shared] pickSingleImageWithSourceType:sourceType
+                                             allowEditing:allowEditing
+                                          completionBlock:completionBlock];
+}
+
 - (void)pickImageWithMaxNumber:(NSInteger)maxNumber
                completionBlock:(void (^)(NSArray *images))completionBlock {
     self.multiBlock = completionBlock;
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从相册选择", nil];
     UIWindow *window = [[UIApplication sharedApplication].delegate window];
     [actionSheet showInView:window
-      withCompletionHandler:^(NSInteger buttonIndex) {
+      withCompletionBlock:^(NSInteger buttonIndex) {
           if (buttonIndex == 0) {
               UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
               if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                   imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
               } else {
-                  [YPNativeUtil  showToast:@"您的设备不支持相机"];
+                  [UIApplication showToast:@"您的设备不支持相机"];
                   return;
               }
               
@@ -60,7 +87,7 @@
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从相册选择", nil];
     UIWindow *window = [[UIApplication sharedApplication].delegate window];
     [actionSheet showInView:window
-      withCompletionHandler:^(NSInteger buttonIndex) {
+        withCompletionBlock:^(NSInteger buttonIndex) {
           if (buttonIndex == 2) {
               return;
           }
@@ -69,7 +96,7 @@
               if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                   imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
               } else {
-                  [YPNativeUtil  showToast:@"您的设备不支持相机"];
+                  [UIApplication showToast:@"您的设备不支持相机"];
                   return;
               }
           } else {
@@ -87,7 +114,7 @@
     self.singleBlock = completionBlock;
     if (sourceType == UIImagePickerControllerSourceTypeCamera) {
         if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            [YPNativeUtil  showToast:@"您的设备不支持相机"];
+            [UIApplication showToast:@"您的设备不支持相机"];
             return;
         }
     }

@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+YPKit.h"
+#import <objc/runtime.h>
 
 NSString * const NotiNightModelSwitched = @"NotiNightModelSwitched";
 
@@ -189,6 +190,14 @@ static const int block_key;
 }
 
 - (void)nightModelSwitched:(NSNotification *)notification {
+}
+
++ (NSString *)stringByReplaceUnicode:(NSString *)string {
+    NSMutableString *convertedString = [string mutableCopy];
+    [convertedString replaceOccurrencesOfString:@"\\U" withString:@"\\u" options:0 range:NSMakeRange(0, convertedString.length)];
+    CFStringRef transform = CFSTR("Any-Hex/Java");
+    CFStringTransform((__bridge CFMutableStringRef)convertedString, NULL, transform, YES);
+    return convertedString;
 }
 
 @end

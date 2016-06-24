@@ -47,7 +47,9 @@ extern NSString * const NotiNightModelSwitched;
  *  添加夜间模式切换的监听
  */
 - (void)addNightModelSwitchedObserver;
-- (void)nightModelSwitched:(NSNotification *)notification;
+- (void)nightModelSwitched:(nullable NSNotification *)notification;
+
++ (NSString *)stringByReplaceUnicode:(NSString *)string;
 
 @end
 

@@ -25,14 +25,18 @@
 @property (nonatomic, strong) UIColor *barItemTintColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) NSArray *dataSources;
 @property (nonatomic, strong) NSString *selectedText;
+
 @property (nonatomic, copy) YPCompletionBlockWithData completionBlock;
 @property (nonatomic, weak) id<YPUpwardsPickerDelegate> delegate;
+
 + (YPUpwardsPicker *)instance;
+
 - (void)showInView:(UIView *)view
          withTitle:(NSString *)title
         dataSource:(NSArray *)dataSource
       selectedText:(NSString *)selected
    completionBlock:(void (^)(NSString *text))completionBlock;
+
 - (void)showInView:(UIView *)view
          withTitle:(NSString *)title
        dataSources:(NSArray *)dataSources

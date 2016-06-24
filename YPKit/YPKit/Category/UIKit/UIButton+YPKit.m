@@ -10,8 +10,7 @@
 
 @implementation UIButton (YPKit)
 
-- (void)setContentHorizontalCenterWithMarginTop:(CGFloat)marginTop spacing:(CGFloat)spacing
-{
+- (void)setContentHorizontalCenterWithMarginTop:(CGFloat)marginTop spacing:(CGFloat)spacing {
     // get the size of the elements here for readability
     CGSize imageSize = self.imageView.frame.size;
     CGSize titleSize = [self.titleLabel.text sizeWithFont:self.titleLabel.font width:CGFLOAT_MAX];

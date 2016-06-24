@@ -9,41 +9,38 @@
 #import "YPHttpUtil.h"
 
 @interface YPHttpUtil ()
-@property (nonatomic, strong, readwrite) NSURL *baseURL;
+
+@property (nonatomic, strong) NSURL *baseURL;
 @property (nonatomic, strong, readwrite) AFHTTPSessionManager *httpSessionManager;
 @property (nonatomic, strong, readwrite) AFURLSessionManager *urlSessionManager;
+
 @end
+
 @implementation YPHttpUtil
-- (instancetype)initWithBaseURL:(NSURL *)URL
-{
+
+- (instancetype)init {
     self = [super init];
     if (self) {
-        self.baseURL = URL;
-        self.httpSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:URL];
+        self.baseURL = [NSURL URLWithString:[self baseURLString]];
+        self.httpSessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:self.baseURL];
     }
     return self;
 }
 
-+ (instancetype)shared
-{
++ (instancetype)shared {
     static YPHttpUtil *httpUtil = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        httpUtil = [[self alloc] initWithBaseURL:nil];
+        httpUtil = [[self alloc] init];
     });
     return httpUtil;
 }
 
-- (AFURLSessionManager *)sessionManager {
+- (AFURLSessionManager *)urlSessionManager {
     if (!_urlSessionManager) {
-        self.urlSessionManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+        _urlSessionManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     }
     return _urlSessionManager;
-}
-
-- (NSMutableDictionary *)requestParams:(NSDictionary *)params {
-    NSMutableDictionary *requestParams = [NSMutableDictionary dictionaryWithDictionary:params];
-    return requestParams;
 }
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
@@ -189,6 +186,14 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
 }
  */
 
+- (NSString *)baseURLString {
+    return nil;
+};
+
+- (NSMutableDictionary *)requestParams:(NSDictionary *)params {
+    NSMutableDictionary *requestParams = [NSMutableDictionary dictionaryWithDictionary:params];
+    return requestParams;
+}
 
 - (void)processRequestOperation:(NSURLSessionDataTask *)task
                  responseObject:(id)responseObject
@@ -252,12 +257,12 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
     if (message && ![message isKindOfClass:[NSNull class]]) {
         NSLog(@"message length-->%ld", [message charLength]);
         if ([message charLength] < 30) {
-            [YPNativeUtil showToastInAppWindow:message];
+            [UIApplication showToastInAppWindow:message];
         } else {
             [UIAlertView showAlertWithTitle:message];
         }
     } else {
-        [YPNativeUtil showToastInAppWindow:@"网络请求错误，请稍后再试"];
+        [UIApplication showToastInAppWindow:@"网络请求错误，请稍后再试"];
     }
 }
 

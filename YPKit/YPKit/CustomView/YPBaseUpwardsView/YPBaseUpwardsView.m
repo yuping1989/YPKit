@@ -11,8 +11,8 @@
 @implementation YPBaseUpwardsView
 
 - (void)show {
-    [YPNativeUtil  hideKeyboard];
-    UIView *view = [YPNativeUtil appDelegate].window;
+    [UIApplication hideKeyboard];
+    UIView *view = [UIApplication appDelegate].window;
     if (!self.backgroundView) {
         self.backgroundView = [[UIView alloc] init];
         self.backgroundView.backgroundColor = [UIColor blackColor];

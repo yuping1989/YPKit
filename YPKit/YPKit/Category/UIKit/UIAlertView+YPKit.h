@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BlockUI.h"
+
 @interface UIAlertView (YPKit)
 
 + (UIAlertView *)showAlertWithTitle:(NSString *)title;

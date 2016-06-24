@@ -9,19 +9,18 @@
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
+
 typedef void (^AFHttpRequestSuccessBlock)(id successData, NSURLSessionDataTask *task);
 typedef BOOL (^AFHttpRequestErrorBlock)(id errorData, NSURLSessionDataTask *task);
 typedef void (^AFHttpRequestProgressBlock)(NSProgress *progress);
 
 @interface YPHttpUtil : NSObject
-/**
- *  基础URL，设置此URL后，调用POST，GET，upload，download等方法可以只传入相关的path即可
- */
-@property (nonatomic, strong, readonly) NSURL *baseURL;
+
 /**
  *  用于POST，GET等方法
  */
 @property (nonatomic, strong, readonly) AFHTTPSessionManager *httpSessionManager;
+
 /**
  *  用于upload，download等方法
  */
@@ -31,12 +30,6 @@ typedef void (^AFHttpRequestProgressBlock)(NSProgress *progress);
  *  返回YPHttpUtil单例
  */
 + (instancetype)shared;
-
-/**
- *  初始化
- */
-- (instancetype)initWithBaseURL:(NSURL *)URL;
-
 
 /**
  *  POST请求
@@ -112,6 +105,14 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
 
 + (void)setReachabilityStatusChangeBlock:(void (^)(AFNetworkReachabilityStatus status))block;
 
+/**
+ *  返回基础URL，子类可重写此方法
+ *  如果子类重写了此方法，调用POST，GET，upload，download等方法可以只传入相关的path即可
+ *  例如，假设返回的baseURLString为@"http://www.api.apple.com"，
+ *  如果请求一个@"http://www.api.apple.com/user/update_info"的链接
+ *  在调用POST, GET方法时，可以只传入@"user/update_info"即可
+ */
+- (NSString *)baseURLString;
 
 /**
  *  把一些每次请求的必传参数添加到params里面去，子类可重写此方法
@@ -137,6 +138,7 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
               controller:(UIViewController *)controller
             successBlock:(AFHttpRequestSuccessBlock)successBlock
               errorBlock:(AFHttpRequestErrorBlock)errorBlock;
+
 /**
  *  请求的statusCode不等于200时，执行此方法。
  *  子类可重写此方法
@@ -160,5 +162,6 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
  *  @return 错误信息
  */
 - (NSString *)getErrorMessage:(id)errorData;
+
 @end
 

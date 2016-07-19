@@ -261,9 +261,13 @@
     self.layer.borderColor = color.CGColor;
 }
 
-- (void)setCornerRadius:(CGFloat)radius {
+- (void)setCornerRadius:(CGFloat)cornerRadius {
     self.clipsToBounds = YES;
-    self.layer.cornerRadius = radius;
+    self.layer.cornerRadius = cornerRadius;
+}
+
+- (CGFloat)cornerRadius {
+    return self.layer.cornerRadius;
 }
 
 - (void)setTipsViewWithImageName:(NSString *)imageName

@@ -105,7 +105,7 @@
 /**
  *  设置圆角
  */
-- (void)setCornerRadius:(CGFloat)radius;
+@property (nonatomic, assign) CGFloat cornerRadius;
 
 /**
  *  主要用于UITableView，UIScrollView，UICollectionView等列表类的View，

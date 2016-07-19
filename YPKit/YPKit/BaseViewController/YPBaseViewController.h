@@ -8,4 +8,5 @@
 #import <UIKit/UIKit.h>
 
 @interface YPBaseViewController : UIViewController
+
 @end

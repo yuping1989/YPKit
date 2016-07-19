@@ -17,7 +17,7 @@
 
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
                             message:(NSString *)message
-         cancelButtonTitle:(NSString *)cancelButtonTitle;
+                  cancelButtonTitle:(NSString *)cancelButtonTitle;
 
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
                       okButtonTitle:(NSString *)okButtonTitle

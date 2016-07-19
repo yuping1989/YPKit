@@ -13,7 +13,9 @@
 @end
 
 @implementation YPBaseCollectionViewController
+
 @synthesize collectionViewDataSource;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.collectionView.dataSource = self;
@@ -25,17 +27,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)initCollectionViewDataSource
-{
+- (void)initCollectionViewDataSource {
     self.collectionViewDataSource = [[NSMutableArray alloc] init];
 }
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return collectionViewDataSource.count;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [[UICollectionViewCell alloc] init];
     return cell;
 }

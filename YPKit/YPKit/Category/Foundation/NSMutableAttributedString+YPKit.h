@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSMutableAttributedString (YPKit)
+
 - (void)addFont:(UIFont *)font;
 - (void)addFont:(UIFont *)font range:(NSRange)range;
 - (void)addFont:(UIFont *)font string:(NSString *)string;
@@ -18,4 +21,7 @@
 - (void)addLineSpace:(CGFloat)space;
 - (void)addLineSpace:(CGFloat)space range:(NSRange)range;
 - (void)addDeleteLineWithRange:(NSRange)range;
+
 @end
+
+NS_ASSUME_NONNULL_END

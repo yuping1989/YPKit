@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface NSNumber (YPKit)
+
 - (NSString *)toString;
 + (NSNumber *)numberWithCurrentDate;
+
 @end

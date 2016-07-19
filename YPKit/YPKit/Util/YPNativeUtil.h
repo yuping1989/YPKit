@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define USER_DEFAULTS [NSUserDefaults standardUserDefaults]
+
 
 typedef void(^YPCompletionBlock)(void);
 typedef void(^YPCompletionBlockWithData)(id data);

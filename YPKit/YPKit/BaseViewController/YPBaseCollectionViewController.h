@@ -9,11 +9,14 @@
 @interface YPBaseCollectionViewController : YPBaseViewController <
 UICollectionViewDelegate,
 UICollectionViewDataSource,
-UICollectionViewDelegateFlowLayout>
-{
+UICollectionViewDelegateFlowLayout> {
+    
     NSMutableArray *collectionViewDataSource;
 }
+
 @property (nonatomic, strong) NSMutableArray *collectionViewDataSource;
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
+
 - (void)initCollectionViewDataSource;
+
 @end

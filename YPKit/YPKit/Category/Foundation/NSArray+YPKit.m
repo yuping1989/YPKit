@@ -8,6 +8,7 @@
 
 #import "NSArray+YPKit.h"
 #import <objc/runtime.h>
+
 @implementation NSArray (YPKit)
 
 + (void)load {
@@ -65,31 +66,24 @@
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
-+ (NSArray *)arrayWithPlistFile:(NSString *)name
-{
++ (NSArray *)arrayWithPlistFile:(NSString *)name {
     NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];
     return [NSArray arrayWithContentsOfFile:path];
 }
 
 - (void)each:(void (^)(id obj))block {
-    NSParameterAssert(block != nil);
-    
     [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         block(obj);
     }];
 }
 
 - (void)eachWithIdx:(void (^)(id obj, NSUInteger idx))block {
-    NSParameterAssert(block != nil);
-    
     [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         block(obj, idx);
     }];
 }
 
 - (void)eachReverse:(void (^)(id obj))block {
-    NSParameterAssert(block != nil);
-    
     [self enumerateObjectsWithOptions:NSEnumerationReverse
                            usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                                block(obj);
@@ -97,8 +91,6 @@
 }
 
 - (void)eachReverseWithIdx:(void (^)(id obj, NSUInteger idx))block {
-    NSParameterAssert(block != nil);
-    
     [self enumerateObjectsWithOptions:NSEnumerationReverse
                            usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                                block(obj, idx);

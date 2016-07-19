@@ -26,9 +26,13 @@ NSString * const UDAccountInfo = @"kUDAccountInfo";
 }
 
 + (void)setObject:(id)object forKey:(NSString *)key {
-    NSMutableDictionary *account = [NSMutableDictionary dictionaryWithDictionary:[AccountUtil account]];
-    [account setObject:object forKey:key];
-    [AccountUtil saveAccount:account];
+    NSDictionary *account = [AccountUtil account];
+    if (!account) {
+        return;
+    }
+    NSMutableDictionary *newAccount = [NSMutableDictionary dictionaryWithDictionary:account];
+    [newAccount setObject:object forKey:key];
+    [AccountUtil saveAccount:newAccount];
 }
 
 @end

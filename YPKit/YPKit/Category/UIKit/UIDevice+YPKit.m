@@ -11,19 +11,10 @@
 
 @implementation UIDevice (YPKit)
 
-+ (double)systemVersion {
-    static double version;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        version = [UIDevice currentDevice].systemVersion.doubleValue;
-    });
-    return version;
-}
-
 - (BOOL)isPad {
-    static dispatch_once_t one;
+    static dispatch_once_t onceToken;
     static BOOL pad;
-    dispatch_once(&one, ^{
+    dispatch_once(&onceToken, ^{
         pad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
     });
     return pad;

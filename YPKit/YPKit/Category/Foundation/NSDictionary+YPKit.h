@@ -8,16 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSDictionary (YPKit)
 
 /**
  *  将NSDictionary转换为JSON字符串
  */
-- (NSString *)jsonString;
+- (nullable NSString *)jsonString;
 
 /**
  *  从Plist文件中获取NSDictionary
  */
-+ (NSDictionary *)dictionaryWithPlistFile:(NSString *)name;
++ (nullable NSDictionary *)dictionaryWithPlistFile:(NSString *)name;
 
 @end
+
+NS_ASSUME_NONNULL_END

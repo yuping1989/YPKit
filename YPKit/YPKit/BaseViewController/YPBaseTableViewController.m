@@ -9,11 +9,15 @@
 #import "YPBaseTableViewController.h"
 
 @interface YPBaseTableViewController ()
-@property (nonatomic, copy) YPCompletionBlock refreshStartedBlock;
+
+@property (nonatomic, copy) void (^refreshStartedBlock)(void);
+
 @end
 
 @implementation YPBaseTableViewController
+
 @synthesize tableViewDataSource;
+
 - (instancetype)init
 {
     self = [super init];
@@ -26,15 +30,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     if (IOS7_AND_LATER) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.navigationController.navigationBar.translucent = NO;
     }
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
 #ifdef UDIsNightModel
     [self nightModelSwitched:nil];
 #endif
+    
 }
 
 
@@ -49,36 +57,33 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)initTableViewDataSource
-{
+- (void)initTableViewDataSource {
     self.tableViewDataSource = [[NSMutableArray alloc] init];
 }
 
-- (void)addRefreshControlWithStartedHandler:(YPCompletionBlock)handler
-{
+- (void)addRefreshControlWithStartedBlock:(void (^)(void))block {
     if (self.refreshControl == nil) {
         self.refreshControl = [[UIRefreshControl alloc] init];
         [self.refreshControl addTarget:self action:@selector(refreshControlStarted) forControlEvents:UIControlEventValueChanged];
-        self.refreshStartedBlock = handler;
     }
+    self.refreshStartedBlock = block;
 }
-- (void)startRefreshControl
-{
+
+- (void)startRefreshControl {
     [self.refreshControl beginRefreshing];
     [self refreshControlStarted];
 }
-- (void)refreshControlStarted
-{
-    if (_refreshStartedBlock) {
-        _refreshStartedBlock();
+
+- (void)refreshControlStarted {
+    if (self.refreshStartedBlock) {
+        self.refreshStartedBlock();
     }
 }
 
 
 #pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSLog(@"table count-->%lu", (unsigned long)tableViewDataSource.count);
     return [tableViewDataSource count];
 }

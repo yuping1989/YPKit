@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YPBaseTableViewController : UITableViewController
-{
+@interface YPBaseTableViewController : UITableViewController {
     NSMutableArray *tableViewDataSource;
 }
+
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
 @property (nonatomic, assign) NSInteger page;
+
 - (void)initTableViewDataSource;
-- (void)addRefreshControlWithStartedHandler:(YPCompletionBlock)handler;
+- (void)addRefreshControlWithStartedBlock:(void (^)(void))block;
 - (void)startRefreshControl;
+
 @end

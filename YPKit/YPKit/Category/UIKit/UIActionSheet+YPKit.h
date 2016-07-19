@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIActionSheet (YPKit)
 
 - (void)showInView:(UIView *)view withCompletionBlock:(void (^)(NSInteger buttonIndex))completionBlock;
@@ -28,3 +30,5 @@
           withCompletionBlock:(void (^)(NSInteger buttonIndex))completionBlock;
 
 @end
+
+NS_ASSUME_NONNULL_END

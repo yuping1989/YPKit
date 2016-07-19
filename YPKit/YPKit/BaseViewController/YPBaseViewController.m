@@ -7,26 +7,13 @@
 //
 
 #import "YPBaseViewController.h"
-#import "AppDelegate.h"
 
-
-
-@interface YPBaseViewController ()
-{
+@interface YPBaseViewController () {
     
 }
 @end
 
 @implementation YPBaseViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -35,6 +22,7 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.navigationController.navigationBar.translucent = NO;
     }
+    
 #ifdef UDIsNightModel
     [self nightModelSwitched:nil];
 #endif
@@ -43,17 +31,5 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-//    if ([self isViewInBackground]) {
-//        NSLog(@"%@-->didReceiveMemoryWarning", [[self class] description]);
-//        self.view = nil;
-//    }
-}
-
-
 
 @end

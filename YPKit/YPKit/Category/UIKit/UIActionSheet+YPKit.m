@@ -9,7 +9,7 @@
 #import "UIActionSheet+YPKit.h"
 #import <objc/runtime.h>
 
-static const int block_key;
+static const int sheet_block_key;
 
 @interface UIActionSheet () <UIActionSheetDelegate>
 
@@ -56,13 +56,13 @@ static const int block_key;
 
 - (void)config:(void(^)(NSInteger buttonIndex))completionBlock {
     if (!completionBlock) return;
-    
-    objc_setAssociatedObject(self, &block_key, completionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+
+    objc_setAssociatedObject(self, &sheet_block_key, completionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
     self.delegate = self;
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    void (^completionBlock)(NSInteger buttonIndex) = objc_getAssociatedObject(self, &block_key);
+    void (^completionBlock)(NSInteger buttonIndex) = objc_getAssociatedObject(self, &sheet_block_key);
     if(!completionBlock) return;
     
     completionBlock(buttonIndex);

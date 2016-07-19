@@ -48,8 +48,12 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, height)];
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = NSTextAlignmentCenter;
-    label.font = font;
-    label.textColor = color;
+    if (font) {
+        label.font = font;
+    }
+    if (color) {
+        label.textColor = color;
+    }
     label.text = text;
     self.tableFooterView = label;
 }

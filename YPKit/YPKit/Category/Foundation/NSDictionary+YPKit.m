@@ -1,9 +1,9 @@
 //
 //  NSDictionary+YPKit.m
-//  PiFuKeYiSheng
+//  NBD2
 //
 //  Created by 喻平 on 14-8-5.
-//  Copyright (c) 2014年 com.pifukeyisheng. All rights reserved.
+//  Copyright (c) 2014年 NBD2. All rights reserved.
 //
 
 #import "NSDictionary+YPKit.h"

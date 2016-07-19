@@ -9,22 +9,24 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIApplication (YPKit)
 
 /// Bundle Name
-+ (NSString *)appBundleName;
++ (nullable NSString *)appBundleName;
 
 /// Bundle Display Name
-+ (NSString *)appBundleDisplayName;
++ (nullable NSString *)appBundleDisplayName;
 
 /// Bundle ID
-+ (NSString *)appBundleID;
++ (nullable NSString *)appBundleID;
 
 /// 版本名称，例如：1.2.0
-+ (NSString *)appVersionName;
++ (nullable NSString *)appVersionName;
 
 /// 版本号，例如：123
-+ (NSString *)appShortVersionString;
++ (nullable NSString *)appShortVersionString;
 
 /// 判断程序是否为从AppStore安装
 + (BOOL)isPirated;
@@ -54,3 +56,5 @@
    hideAfterDelay:(NSTimeInterval)delay;
 
 @end
+
+NS_ASSUME_NONNULL_END

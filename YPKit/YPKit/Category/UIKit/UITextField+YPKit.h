@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UITextField (YPKit)
 /**
  *  设置文字左边留出的空白宽度
@@ -38,3 +40,5 @@
 - (void)hideInputAssistantItem;
 
 @end
+
+NS_ASSUME_NONNULL_END

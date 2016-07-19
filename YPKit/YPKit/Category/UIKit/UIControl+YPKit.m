@@ -12,7 +12,7 @@
 #import "UIControl+YPKit.h"
 #import <objc/runtime.h>
 
-static const int block_key;
+static const int event_block_key;
 
 @interface YPUIControlBlockTarget : NSObject
 
@@ -116,16 +116,16 @@ static const int block_key;
 }
 
 - (NSMutableArray *)allUIControlBlockTargets {
-    NSMutableArray *targets = objc_getAssociatedObject(self, &block_key);
+    NSMutableArray *targets = objc_getAssociatedObject(self, &event_block_key);
     if (!targets) {
         targets = [NSMutableArray array];
-        objc_setAssociatedObject(self, &block_key, targets, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, &event_block_key, targets, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return targets;
 }
 
 - (NSArray *)allBlockTargets {
-    return objc_getAssociatedObject(self, &block_key);
+    return objc_getAssociatedObject(self, &event_block_key);
 }
 
 @end

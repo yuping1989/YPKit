@@ -9,9 +9,12 @@
 #import "YPBaseViewController.h"
 
 @interface YPBaseSegmentedController : YPBaseViewController
+
 @property (nonatomic, strong) IBOutlet UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) NSArray *viewControllers;
 @property (nonatomic, strong) UIViewController *selectedController;
 @property (nonatomic, assign) CGRect contentViewFrame;
+
 - (void)segmentedValueChanged:(UISegmentedControl *)segmentedControl;
+
 @end

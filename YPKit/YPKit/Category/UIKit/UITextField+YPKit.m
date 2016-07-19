@@ -36,7 +36,6 @@
 }
 
 - (void)setPlaceholder:(NSString *)placeholder withColor:(UIColor *)color {
-    NSParameterAssert(color);
     
     self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder
                                                                  attributes:@{NSForegroundColorAttributeName : color}];

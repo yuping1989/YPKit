@@ -9,7 +9,7 @@
 #import "UIAlertView+YPKit.h"
 #import <objc/runtime.h>
 
-static const int block_key;
+static const int alert_block_key;
 
 @implementation UIAlertView (YPKit)
 
@@ -105,15 +105,16 @@ static const int block_key;
 }
 
 - (void)showWithCompletionBlock:(void (^)(NSInteger))completionBlock {
-    if (!completionBlock) return;
+    if (completionBlock) {
+        objc_setAssociatedObject(self, &alert_block_key, completionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+        self.delegate = self;
+    }
     
-    objc_setAssociatedObject(self, &block_key, completionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
-    self.delegate = self;
     [self show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    void (^completionBlock)(NSInteger buttonIndex) = objc_getAssociatedObject(self, &block_key);
+    void (^completionBlock)(NSInteger buttonIndex) = objc_getAssociatedObject(self, &alert_block_key);
     if(!completionBlock) return;
     
     completionBlock(buttonIndex);

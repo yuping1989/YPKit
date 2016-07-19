@@ -15,6 +15,9 @@
 #import "CustomViewController.h"
 
 @interface RootController ()
+@property (nonatomic, strong) void (^block)();
+
+
 
 @end
 
@@ -28,6 +31,7 @@
     NSString *email = @"\n0.3 d  ";
     
     NSLog(@"is email-->%f", [email numberValue].floatValue);
+    
     
 }
 
@@ -75,6 +79,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"asdfasdfasdf" object:nil];
             [self.navigationController pushViewController:[YPTextViewController instance] animated:YES];
             break;
         case 1:

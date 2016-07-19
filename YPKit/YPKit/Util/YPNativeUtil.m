@@ -8,7 +8,6 @@
 
 #import "YPNativeUtil.h"
 
-
 @implementation YPNativeUtil
 
 @end

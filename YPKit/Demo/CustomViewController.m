@@ -10,7 +10,9 @@
 #import "YPCheckBox.h"
 #import "YPImagePicker.h"
 
-@interface CustomViewController () <UIAlertViewDelegate>
+@interface CustomViewController () <UIAlertViewDelegate> {
+    id observer1, observer2, observer3;
+}
 @property (nonatomic, weak) IBOutlet YPCheckBox *checkBox;
 @property (nonatomic, weak) IBOutlet UISwitch *mSwitch;
 @property (nonatomic, weak) IBOutlet UILabel *singleLabel;
@@ -26,30 +28,17 @@
     [self.checkBox setStateChangedBlock:^(BOOL checked) {
         [YPCheckBox viewFromNib];
     }];
-//    [self.button addTouchUpInsideTarget:self action:@selector(first)];
-//    [self.button addTouchUpInsideTarget:self action:@selector(first)];
-//    [self.button handleControlEvent:UIControlEventTouchUpInside
-//                          withBlock:^(id sender) {
-//                              NSLog(@"1");
-//                          }];
-//    [self.button handleControlEvent:UIControlEventTouchUpInside
-//                          withBlock:^(id sender) {
-//                              NSLog(@"2");
-//                          }];
+    
+    [self.button addTouchUpInsideEventBlock:^(id  _Nonnull sender) {
+        
+    }];
+    
+    self.singleLabel.textColor = UIColorRGB(255, 0, 0);
+    self.doubleLabel.textColor = UIColorRGBA(255, 0, 0, 0.2f);
+}
 
-    [self.button setBlockForControlEvents:UIControlEventTouchUpInside
-                                    block:^(id sender) {
-                                        NSLog(@"4");
-                                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"adsf"
-                                                                                        message:nil
-                                                                                       delegate:nil
-                                                                              cancelButtonTitle:@"cancel"
-                                                                              otherButtonTitles:@"first", @"second", nil];
-                                        [alert showWithCompletionHandler:^(NSInteger buttonIndex) {
-                                            NSLog(@"index--->%ld", (long)buttonIndex);
-                                        }];
-//                                        alert.delegate = self;
-                                    }];
+- (void)dealloc {
+    NSLog(@"asdf");
 }
 
 - (void)first {

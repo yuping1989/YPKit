@@ -10,9 +10,9 @@
 
 #define IOS7_AND_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f ? YES : NO)
 
-@interface UIDevice (YPKit)
+NS_ASSUME_NONNULL_BEGIN
 
-+ (double)systemVersion;
+@interface UIDevice (YPKit)
 
 /// 判断设备是否为iPad/iPad mini.
 @property (nonatomic, readonly) BOOL isPad;
@@ -41,4 +41,7 @@
 
 /// 已使用的存储空间
 @property (nonatomic, readonly) int64_t diskSpaceUsed;
+
 @end
+
+NS_ASSUME_NONNULL_END

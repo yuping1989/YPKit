@@ -205,6 +205,10 @@ NSString * const kYPRegexPositiveIntNumber = @"^\\d+$";
 }
 
 - (BOOL)isNotBlank {
+    if ([self isKindOfClass:[NSNull class]]) {
+        return NO;
+    }
+    
     NSString *str = [self stringByTrim];
     return str.length > 0 ? YES : NO;
 }

@@ -6,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString * const NotiNightModelSwitched;
+extern NSString * const YPNightModelSwitchedNotification;
 
 @interface NSObject (YPKit)
 
@@ -47,6 +47,7 @@ extern NSString * const NotiNightModelSwitched;
  *  添加夜间模式切换的监听
  */
 - (void)addNightModelSwitchedObserver;
+- (void)removeNightModelSwitchedObserver;
 - (void)nightModelSwitched:(nullable NSNotification *)notification;
 
 + (NSString *)stringByReplaceUnicode:(NSString *)string;

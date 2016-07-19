@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UITableView (YPKit)
 
 - (void)registerNibWithName:(NSString *)name;
@@ -24,8 +26,10 @@
  */
 - (void)setFooterText:(NSString *)text;
 - (void)setFooterText:(NSString *)text
-                 font:(UIFont *)font
-                color:(UIColor *)color
+                 font:(nullable UIFont *)font
+                color:(nullable UIColor *)color
                height:(NSInteger)height;
 
 @end
+
+NS_ASSUME_NONNULL_END

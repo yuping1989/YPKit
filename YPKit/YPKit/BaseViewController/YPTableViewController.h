@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "YPBaseViewController.h"
-@interface YPTableViewController : YPBaseViewController<UITableViewDataSource, UITableViewDelegate>
-{
+@interface YPTableViewController : YPBaseViewController<UITableViewDataSource, UITableViewDelegate> {
     NSMutableArray *tableViewDataSource;
 }
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, assign) NSInteger page;
+
 - (void)initTableViewDataSource;
+
 @end

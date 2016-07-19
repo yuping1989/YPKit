@@ -9,9 +9,9 @@
 #import "NSObject+YPKit.h"
 #import <objc/runtime.h>
 
-NSString * const NotiNightModelSwitched = @"NotiNightModelSwitched";
+NSString * const YPNightModelSwitchedNotification = @"YPNightModelSwitchedNotification";
 
-static const int block_key;
+static const int kvo_block_key;
 
 @interface YPNSObjectKVOBlockTarget : NSObject
 
@@ -144,10 +144,10 @@ static const int block_key;
 }
 
 - (NSMutableDictionary *)allNSObjectObserverBlocks {
-    NSMutableDictionary *targets = objc_getAssociatedObject(self, &block_key);
+    NSMutableDictionary *targets = objc_getAssociatedObject(self, &kvo_block_key);
     if (!targets) {
         targets = [NSMutableDictionary new];
-        objc_setAssociatedObject(self, &block_key, targets, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, &kvo_block_key, targets, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return targets;
 }
@@ -186,7 +186,11 @@ static const int block_key;
 }
 
 - (void)addNightModelSwitchedObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightModelSwitched:) name:NotiNightModelSwitched object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightModelSwitched:) name:YPNightModelSwitchedNotification object:nil];
+}
+
+- (void)removeNightModelSwitchedObserver {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:YPNightModelSwitchedNotification object:nil];
 }
 
 - (void)nightModelSwitched:(NSNotification *)notification {

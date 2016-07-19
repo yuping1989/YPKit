@@ -8,19 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIImage (YPKit)
 
 /**
  *  根据颜色值生成UIImage
  */
-+ (UIImage *)imageWithColor:(UIColor *)color;
++ (nullable UIImage *)imageWithColor:(UIColor *)color;
 
 /**
  *  根据颜色值生成UIImage
  *
  *  @param size  生成UIImage的size
  */
-+ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
++ (nullable UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 
 /**
  *  保持比例，放大或者缩小UIImage
@@ -28,7 +30,7 @@
  *  @param width 放大或者缩小后的宽度
  *
  */
-- (UIImage *)scaledImageByWidth:(CGFloat)width;
+- (nullable UIImage *)scaledImageByWidth:(CGFloat)width;
 
 /**
  *  保持比例，放大或者缩小UIImage
@@ -36,18 +38,18 @@
  *  @param height 放大或者缩小后的高度
  *
  */
-- (UIImage *)scaledImageByHeight:(CGFloat)height;
+- (nullable UIImage *)scaledImageByHeight:(CGFloat)height;
 
 /**
  *  修正UIImage的方向
  *
  */
-- (UIImage *)imageByFixOrientation;
+- (nullable UIImage *)imageByFixOrientation;
 
 /**
  *  从中间拉升图像
  */
-+ (UIImage *)stretchableImageNamed:(NSString *)name;
++ (nullable UIImage *)stretchableImageNamed:(NSString *)name;
 
 /**
  *  拉升图像
@@ -56,8 +58,10 @@
  *  @param topCapHeight 竖向拉升，复制的像素位置
  *
  */
-+ (UIImage *)stretchableImageNamed:(NSString *)name
++ (nullable UIImage *)stretchableImageNamed:(NSString *)name
                       leftCapWidth:(NSInteger)leftCapWidth
                       topCapHeight:(NSInteger)topCapHeight;
 
 @end
+
+NS_ASSUME_NONNULL_END

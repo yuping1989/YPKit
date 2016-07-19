@@ -8,8 +8,7 @@
 
 #import "YPBaseSegmentedController.h"
 
-@interface YPBaseSegmentedController ()
-{
+@interface YPBaseSegmentedController () {
     BOOL _viewWillAppearFirstTime;
 }
 @end

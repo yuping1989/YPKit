@@ -12,7 +12,7 @@
 #import "UIGestureRecognizer+YPKit.h"
 #import <objc/runtime.h>
 
-static const int block_key;
+static const int gesture_block_key;
 
 @interface YPUIGestureRecognizerBlockTarget : NSObject
 
@@ -42,8 +42,6 @@ static const int block_key;
 @end
 
 
-
-
 @implementation UIGestureRecognizer (YPKit)
 
 - (instancetype)initWithActionBlock:(void (^)(id sender))block {
@@ -59,7 +57,7 @@ static const int block_key;
     [targets addObject:target];
 }
 
-- (void)removeAllActionBlocks{
+- (void)removeAllActionBlocks {
     NSMutableArray *targets = [self allUIGestureRecognizerBlockTargets];
     [targets enumerateObjectsUsingBlock:^(id target, NSUInteger idx, BOOL *stop) {
         [self removeTarget:target action:@selector(invoke:)];
@@ -68,10 +66,10 @@ static const int block_key;
 }
 
 - (NSMutableArray *)allUIGestureRecognizerBlockTargets {
-    NSMutableArray *targets = objc_getAssociatedObject(self, &block_key);
+    NSMutableArray *targets = objc_getAssociatedObject(self, &gesture_block_key);
     if (!targets) {
         targets = [NSMutableArray array];
-        objc_setAssociatedObject(self, &block_key, targets, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, &gesture_block_key, targets, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return targets;
 }

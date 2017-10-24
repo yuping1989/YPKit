@@ -87,7 +87,7 @@
     if (page == self.displayingIndex) {
         return;
     }
-    NSLog(@"page--->%ld", page);
+    NSLog(@"page--->%zd", page);
     self.displayingIndex = page;
 }
 

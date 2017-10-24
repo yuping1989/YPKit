@@ -57,9 +57,9 @@
 - (IBAction)valueChanged:(UISwitch *)sender {
     NSLog(@"value changed--->");
     if (sender.on) {
-        self.checkBox.width = 200;
+        self.checkBox.yp_width = 200;
     } else {
-        self.checkBox.width = 100;
+        self.checkBox.yp_width = 100;
     }
 }
 

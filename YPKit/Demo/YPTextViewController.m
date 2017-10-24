@@ -38,7 +38,7 @@
 
 - (void)textView:(YPTextView *)textView didContentHeightChanged:(CGFloat)height {
     NSLog(@"height--->%f", height);
-    textView.height = height;
+    textView.yp_height = height;
     self.bgView.frame = CGRectMake(0, SCREEN_HEIGHT - height - 14 - 500, SCREEN_WIDTH, height + 14);
     NSLog(@"frame--->%@", NSStringFromCGRect(self.bgView.frame));
 }

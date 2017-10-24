@@ -45,6 +45,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isEmail;
 
 /**
+ *  判断是否是QQ号
+ */
+- (BOOL)isQQ;
+
+/**
  *  判断是否是正数
  */
 - (BOOL)isPositiveNumber;
@@ -83,9 +88,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)isNotBlank;
 
+/**
+ *  转化为NSNumber
+ */
 - (nullable NSNumber *)numberValue;
-
-- (NSRange)rangeOfAll;
 
 /**
  *  返回UTF-8编码的NSdata对象.
@@ -100,7 +106,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  将字符串转换为JSON对象
  */
-- (nullable id)jsonObject;
+- (nullable id)yp_jsonObject;
+
+/**
+ *  返回NSMakeRange(0, self.length)
+ */
+- (NSRange)rangeOfAll;
 
 /**
  *  搜索字符串中，某个字符串的位置
@@ -115,43 +126,50 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)pinyinFirstLetter;
 
+/**
+ 将参数列表格式的字符串转换成NSDictionary
+
+ @param paramsString 参数列表格式的字符串，例如 @"key1=value1&key2=value2"
+ */
+- (NSDictionary *)parameterStringToDictionary;
+
 #pragma mark - Methods should be deprecated
 
 /**
  *  去掉前后的空格后，判断是否为空
  */
-+ (BOOL)isEmpty:(NSString *)string;
++ (BOOL)isEmpty:(NSString *)string __deprecated;
 
 /**
  *  判断是否是正数
  */
-+ (BOOL)isPositiveNumber:(NSString *)string;
++ (BOOL)isPositiveNumber:(NSString *)string __deprecated;
 
 /**
  *  判断是否是正整数
  */
-+ (BOOL)isPositiveIntNumber:(NSString *)string;
++ (BOOL)isPositiveIntNumber:(NSString *)string __deprecated;
 
 /**
  *  判断是否是手机号
  */
-+ (BOOL)isMobile:(NSString *)string;
++ (BOOL)isMobile:(NSString *)string __deprecated;
 
 /**
  *  匹配正则表达式
  */
-+ (BOOL)isMatchRegex:(NSString *)regex string:(NSString *)string;
++ (BOOL)isMatchRegex:(NSString *)regex string:(NSString *)string __deprecated;
 
 /**
  *  匹配正则表达式
  */
-- (BOOL)isMatchRegex:(NSString *)regex;
+- (BOOL)isMatchRegex:(NSString *)regex __deprecated;
 
 
 - (NSString *)stringByAppendSpaceToLength:(NSUInteger)length;
 - (NSString *)stringByInsertSpaceToLength:(NSUInteger)length;
 
-- (NSString *)MD5;
+- (NSString *)MD5 __deprecated;
 /**
  *  根据字符串数组的元素和分隔符，返回字符串
  *  该方法可用NSArray的componentsJoinedByString方法替代，故废弃
@@ -164,13 +182,19 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  URL编码
  */
-- (NSString *)URLEncodedString;
+- (NSString *)URLEncodedString __deprecated;
 
 /**
  *  搜索字符串中，某个字符串的位置
  */
 - (NSInteger)rangesOfString:(NSString *)string
-                 rangeBlock:(void (^)(NSRange range, NSInteger index))block;
+                 rangeBlock:(void (^)(NSRange range, NSInteger index))block __deprecated;
+
+
+/**
+ * 16进制字符串对应的整数值
+ */
+- (NSUInteger)hexValue __deprecated;
 
 @end
 

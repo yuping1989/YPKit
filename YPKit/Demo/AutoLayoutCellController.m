@@ -24,7 +24,7 @@
     [super viewDidLoad];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 80;
-    [self.tableView registerNibWithName:@"AutoLayoutCell"];
+    [self.tableView registerCellNibWithName:@"AutoLayoutCell"];
     [self initTableViewDataSource];
     [tableViewDataSource addObject:@{@"text" : @"啊十分的咖啡拉升了亏大发了快递费拉卡拉亏大发的算法第三方"}];
     [tableViewDataSource addObject:@{@"text" : @"啊十分的咖啡拉升了亏大发了快递费拉卡拉亏大发的算法第三方萨法撒打发打算阿萨德发的发阿打算发撒算法的阿萨德飞 阿斯顿发大水阿萨德发生的发生"}];
@@ -58,7 +58,7 @@
 //    [_cell.contentView layoutIfNeeded];
     if (indexPath.row == 0) {
         [cell.titleLabel setSingleTapGestureTarget:self action:@selector(tapped:)];
-        NSLog(@"count--->%d", cell.titleLabel.gestureRecognizers.count);
+        NSLog(@"count--->%zd", cell.titleLabel.gestureRecognizers.count);
     }
     
     return cell;
@@ -85,7 +85,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.navigationController pushViewController:[AutoLayoutCellController instance] animated:YES];
+    [self.navigationController pushViewController:[AutoLayoutCellController viewControllerFromNib] animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 @end

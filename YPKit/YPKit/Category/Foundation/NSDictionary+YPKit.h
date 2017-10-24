@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  将NSDictionary转换为JSON字符串
  */
-- (nullable NSString *)jsonString;
+- (nullable NSString *)yp_jsonString;
 
 /**
  *  从Plist文件中获取NSDictionary

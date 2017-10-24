@@ -14,6 +14,7 @@ NSString * const kYPRegexMobile = @"^1[3|4|5|7|8][0-9]\\d{8}$";
 NSString * const kYPRegexEmail = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
 NSString * const kYPRegexPositiveNumber = @"^(0|([1-9]\\d*))(\\.\\d+)?$";
 NSString * const kYPRegexPositiveIntNumber = @"^\\d+$";
+NSString * const kYPRegexQQ = @"[1-9][0-9]{4,14}";
 
 #define HANZI_START 19968
 #define HANZI_COUNT 20902
@@ -47,7 +48,7 @@ NSString * const kYPRegexPositiveIntNumber = @"^\\d+$";
          - returns: The percent-escaped string.
          */
         static NSString * const kAFCharactersGeneralDelimitersToEncode = @":#[]@"; // does not include "?" or "/" due to RFC 3986 - Section 3.4
-        static NSString * const kAFCharactersSubDelimitersToEncode = @"!$&'()*+,;=";
+        static NSString * const kAFCharactersSubDelimitersToEncode = @"!*'();:@&+$,/?%#[]=";
         
         NSMutableCharacterSet * allowedCharacterSet = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
         [allowedCharacterSet removeCharactersInString:[kAFCharactersGeneralDelimitersToEncode stringByAppendingString:kAFCharactersSubDelimitersToEncode]];
@@ -122,7 +123,9 @@ NSString * const kYPRegexPositiveIntNumber = @"^\\d+$";
 }
 
 - (CGSize)sizeWithFont:(UIFont *)font size:(CGSize)size mode:(NSLineBreakMode)lineBreakMode {
-    if (!font) font = [UIFont systemFontOfSize:12];
+    if (!font) {
+        return CGSizeZero;
+    }
     CGSize result;
     if ([self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
         NSMutableDictionary *attr = [[NSMutableDictionary alloc] init];
@@ -153,6 +156,10 @@ NSString * const kYPRegexPositiveIntNumber = @"^\\d+$";
 
 - (BOOL)isEmail {
     return [self matchesRegex:kYPRegexEmail];
+}
+
+- (BOOL)isQQ {
+    return [self matchesRegex:kYPRegexQQ];
 }
 
 - (BOOL)isPositiveNumber {
@@ -220,10 +227,6 @@ NSString * const kYPRegexPositiveIntNumber = @"^\\d+$";
     return [formatter numberFromString:str];
 }
 
-- (NSRange)rangeOfAll {
-    return NSMakeRange(0, self.length);
-}
-
 - (NSData *)dataValue {
     return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
@@ -232,12 +235,18 @@ NSString * const kYPRegexPositiveIntNumber = @"^\\d+$";
     return [[self dataValue] md5String];
 }
 
-- (id)jsonObject {
+- (id)yp_jsonObject {
     return [[self dataValue] jsonObject];
 }
 
+- (NSRange)rangeOfAll {
+    return NSMakeRange(0, self.length);
+}
 
 - (NSInteger)enumerateRangesOfString:(NSString *)string usingBlock:(void (^)(NSRange range, NSInteger index))block {
+    if (!string) {
+        return 0;
+    }
     NSUInteger index = 0, length = [self length];
     NSRange range = NSMakeRange(0, length);
     while(range.location != NSNotFound) {
@@ -482,26 +491,44 @@ char firstLetter(unsigned short hanzi) {
     return [[NSString stringWithFormat:@"%c", firstLetter([str characterAtIndex:0])] uppercaseString];
 }
 
+- (NSDictionary *)parameterStringToDictionary {
+    if (![self containsString:@"="]) {
+        return nil;
+    }
+    NSArray *keyValues = [self componentsSeparatedByString:@"&"];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    for (NSString *keyValue in keyValues) {
+        if (![keyValue containsString:@"="]) {
+            continue;
+        }
+        NSRange range = [keyValue rangeOfString:@"="];
+        NSString *key = [keyValue substringToIndex:range.location];
+        NSString *value = [keyValue substringFromIndex:range.location + 1];
+        if (key && value) {
+            params[key] = value;
+        }
+    }
+    return params;
+}
+
 #pragma mark - Methods should be deprecated
 
-+ (BOOL)isEmpty:(NSString *)string
-{
++ (BOOL)isEmpty:(NSString *)string {
     if (string == nil) {
         return YES;
     }
     return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length == 0 ? YES : NO;
 }
 
-+ (BOOL)isPositiveNumber:(NSString *)string
-{
++ (BOOL)isPositiveNumber:(NSString *)string {
     if ([NSString isEmpty:string]) {
         return YES;
     }
     return [NSString isMatchRegex:REGEX_POSITIVE_NUMBER string:string];
 }
 
-+ (BOOL)isPositiveIntNumber:(NSString *)string
-{
++ (BOOL)isPositiveIntNumber:(NSString *)string {
     if ([NSString isEmpty:string]) {
         return YES;
     }
@@ -601,5 +628,9 @@ char firstLetter(unsigned short hanzi) {
     return index;
 }
 
+- (NSUInteger)hexValue {
+    unsigned long colorHex = strtoul([self UTF8String],0,16);
+    return colorHex;
+}
 
 @end

@@ -8,6 +8,13 @@
 
 #import "UIDevice+YPKit.h"
 #import <sys/utsname.h>
+#include <sys/socket.h>
+#include <sys/sysctl.h>
+#include <net/if.h>
+#include <net/if_dl.h>
+#include <mach/mach.h>
+#include <arpa/inet.h>
+#include <ifaddrs.h>
 
 @implementation UIDevice (YPKit)
 
@@ -59,6 +66,10 @@
         NSDictionary *dic = @{
                               @"Watch1,1" : @"Apple Watch",
                               @"Watch1,2" : @"Apple Watch",
+                              @"Watch2,6" : @"Apple Watch Series 1",
+                              @"Watch2,7" : @"Apple Watch Series 1",
+                              @"Watch2,3" : @"Apple Watch Series 2",
+                              @"Watch2,4" : @"Apple Watch Series 2",
                               
                               @"iPod1,1" : @"iPod touch 1",
                               @"iPod2,1" : @"iPod touch 2",
@@ -84,6 +95,10 @@
                               @"iPhone7,2" : @"iPhone 6",
                               @"iPhone8,1" : @"iPhone 6s",
                               @"iPhone8,2" : @"iPhone 6s Plus",
+                              @"iPhone9,1" : @"iPhone 7",
+                              @"iPhone9,3" : @"iPhone 7",
+                              @"iPhone9,2" : @"iPhone 7 Plus",
+                              @"iPhone9,4" : @"iPhone 7 Plus",
                               @"iPhone8,4" : @"iPhone SE",
                               
                               @"iPad1,1" : @"iPad 1",
@@ -159,5 +174,49 @@
     return used;
 }
 
+- (NSString *)ipAddressWithIfaName:(NSString *)name {
+    if (name.length == 0) return nil;
+    NSString *address = nil;
+    struct ifaddrs *addrs = NULL;
+    if (getifaddrs(&addrs) == 0) {
+        struct ifaddrs *addr = addrs;
+        while (addr) {
+            if ([[NSString stringWithUTF8String:addr->ifa_name] isEqualToString:name]) {
+                sa_family_t family = addr->ifa_addr->sa_family;
+                switch (family) {
+                    case AF_INET: { // IPv4
+                        char str[INET_ADDRSTRLEN] = {0};
+                        inet_ntop(family, &(((struct sockaddr_in *)addr->ifa_addr)->sin_addr), str, sizeof(str));
+                        if (strlen(str) > 0) {
+                            address = [NSString stringWithUTF8String:str];
+                        }
+                    } break;
+                        
+                    case AF_INET6: { // IPv6
+                        char str[INET6_ADDRSTRLEN] = {0};
+                        inet_ntop(family, &(((struct sockaddr_in6 *)addr->ifa_addr)->sin6_addr), str, sizeof(str));
+                        if (strlen(str) > 0) {
+                            address = [NSString stringWithUTF8String:str];
+                        }
+                    }
+                        
+                    default: break;
+                }
+                if (address) break;
+            }
+            addr = addr->ifa_next;
+        }
+    }
+    freeifaddrs(addrs);
+    return address;
+}
+
+- (NSString *)ipAddressWIFI {
+    return [self ipAddressWithIfaName:@"en0"];
+}
+
+- (NSString *)ipAddressCell {
+    return [self ipAddressWithIfaName:@"pdp_ip0"];
+}
 
 @end

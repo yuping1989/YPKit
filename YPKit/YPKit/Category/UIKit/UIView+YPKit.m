@@ -8,6 +8,7 @@
 
 #import "UIView+YPKit.h"
 #import "UIGestureRecognizer+YPKit.h"
+#import "UIScreen+YPKit.h"
 #import <objc/runtime.h>
 
 #define TIPS_IMAGE_VIEW_TAG 10000
@@ -28,40 +29,79 @@
 
 #pragma mark - Frame
 
-- (CGFloat)x {
+//- (CGFloat)x {
+//    return self.frame.origin.x;
+//}
+//- (void)setX:(CGFloat)x {
+//    CGRect rect = self.frame;
+//    rect.origin.x = x;
+//    self.frame = rect;
+//}
+//
+//- (CGFloat)y {
+//    return self.frame.origin.y;
+//}
+//
+//- (void)setY:(CGFloat)y {
+//    CGRect rect = self.frame;
+//    rect.origin.y = y;
+//    self.frame = rect;
+//}
+//
+//- (CGFloat)width {
+//    return self.frame.size.width;
+//}
+//
+//- (void)setWidth:(CGFloat)width {
+//    CGRect rect = self.frame;
+//    rect.size.width = width;
+//    self.frame = rect;
+//}
+//
+//- (CGFloat)height {
+//    return self.frame.size.height;
+//}
+//
+//- (void)setHeight:(CGFloat)height {
+//    CGRect rect = self.frame;
+//    rect.size.height = height;
+//    self.frame = rect;
+//}
+
+- (CGFloat)yp_x {
     return self.frame.origin.x;
 }
-- (void)setX:(CGFloat)x {
+- (void)setYp_x:(CGFloat)x {
     CGRect rect = self.frame;
     rect.origin.x = x;
     self.frame = rect;
 }
 
-- (CGFloat)y {
+- (CGFloat)yp_y {
     return self.frame.origin.y;
 }
 
-- (void)setY:(CGFloat)y {
+- (void)setYp_y:(CGFloat)y {
     CGRect rect = self.frame;
     rect.origin.y = y;
     self.frame = rect;
 }
 
-- (CGFloat)width {
+- (CGFloat)yp_width {
     return self.frame.size.width;
 }
 
-- (void)setWidth:(CGFloat)width {
+- (void)setYp_width:(CGFloat)width {
     CGRect rect = self.frame;
     rect.size.width = width;
     self.frame = rect;
 }
 
-- (CGFloat)height {
+- (CGFloat)yp_height {
     return self.frame.size.height;
 }
 
-- (void)setHeight:(CGFloat)height {
+- (void)setYp_height:(CGFloat)height {
     CGRect rect = self.frame;
     rect.size.height = height;
     self.frame = rect;
@@ -96,19 +136,19 @@
 }
 
 - (void)horizontalCenterWithWidth:(CGFloat)width {
-    self.x = ceilf((width - self.width) / 2);
+    self.yp_x = ceilf((width - self.yp_width) / 2);
 }
 
 - (void)verticalCenterWithHeight:(CGFloat)height {
-    self.y = ceilf((height - self.height) / 2);
+    self.yp_y = ceilf((height - self.yp_height) / 2);
 }
 
 - (void)verticalCenterInSuperView {
-    [self verticalCenterWithHeight:self.superview.height];
+    [self verticalCenterWithHeight:self.superview.yp_height];
 }
 
 - (void)horizontalCenterInSuperView {
-    [self horizontalCenterWithWidth:self.superview.width];
+    [self horizontalCenterWithWidth:self.superview.yp_width];
 }
 
 #pragma mark - Tap Gesture
@@ -200,7 +240,7 @@
 
 - (void)setBottomLineWithColor:(UIColor *)color paddingLeft:(CGFloat)paddingLeft {
     CGRect frame = CGRectMake(paddingLeft,
-                              self.height - ONE_PIXEL,
+                              self.yp_height - ONE_PIXEL,
                               SCREEN_WIDTH - paddingLeft,
                               ONE_PIXEL);
     if (!self.bottomLineLayer) {
@@ -248,6 +288,16 @@
 
 #pragma mark - Others
 
+- (UIViewController *)viewController {
+    for (UIView *view = self; view; view = view.superview) {
+        UIResponder *nextResponder = [view nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
+
 - (NSIndexPath *)indexPath {
     return objc_getAssociatedObject(self, _cmd);
 }
@@ -277,7 +327,7 @@
     if (!imageView) {
         imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
     }
-    imageView.center = CGPointMake(self.width / 2, self.height / 2 - 40);
+    imageView.center = CGPointMake(self.yp_width / 2, self.yp_height / 2 - 40);
     imageView.contentMode = UIViewContentModeCenter;
     imageView.tag = TIPS_IMAGE_VIEW_TAG;
     [self addSubview:imageView];
@@ -326,15 +376,15 @@
 
 #pragma mark - Methods should be deprecated
 
-- (void)setClickedHandler:(YPCompletionBlock)clickedHandler {
+- (void)setClickedHandler:(void (^)(void))clickedHandler {
     objc_setAssociatedObject(self, @selector(clickedHandler), clickedHandler, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (YPCompletionBlock)clickedHandler{
+- (void (^)(void))clickedHandler{
     return objc_getAssociatedObject(self, _cmd);
 }
 
-- (void)setOnClickedHandler:(YPCompletionBlock)clickedHandler {
+- (void)setOnClickedHandler:(void (^)(void))clickedHandler {
     self.clickedHandler = clickedHandler;
     [self setTapGestureTarget:self action:@selector(handleSingleTap)];
 }

@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSArray<ObjectType> (YPKit)
+
 /**
  *  对NSArray进行排序
  */
@@ -35,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  将NSArray转换为JSONString
  */
-- (nullable NSString *)jsonString;
+- (nullable NSString *)yp_jsonString;
 
 /**
  *  从Plist文件中获取NSArray
@@ -53,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)eachReverse:(void (^)(ObjectType obj))block;
 - (void)eachReverseWithIdx:(void (^)(ObjectType obj, NSUInteger idx))block;
+
 @end
 
 NS_ASSUME_NONNULL_END

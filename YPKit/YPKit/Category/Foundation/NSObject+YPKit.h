@@ -52,6 +52,21 @@ extern NSString * const YPNightModelSwitchedNotification;
 
 + (NSString *)stringByReplaceUnicode:(NSString *)string;
 
+/**
+ *  清除掉NSArray或者NSDictionary里面的NSNull对象
+ */
+- (id)removeNullObjects;
+
+- (nullable NSArray *)yp_arrayForKey:(id)key;
+- (nullable NSDictionary *)yp_dictionaryForKey:(id)key;
+- (nullable NSString *)yp_stringForKey:(id)key;
+- (nullable NSNumber *)yp_numberForKey:(id)key;
+- (NSInteger)yp_integerForKey:(id)key;
+- (BOOL)yp_boolForKey:(id)key;
+- (CGFloat)yp_floatForKey:(id)key;
+
+- (nullable id)yp_objectAtIndex:(NSUInteger)index;
+
 @end
 
 NS_ASSUME_NONNULL_END

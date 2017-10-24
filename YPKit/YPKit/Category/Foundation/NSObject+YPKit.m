@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+YPKit.h"
+#import "NSString+YPKit.h"
 #import <objc/runtime.h>
 
 NSString * const YPNightModelSwitchedNotification = @"YPNightModelSwitchedNotification";
@@ -202,6 +203,154 @@ static const int kvo_block_key;
     CFStringRef transform = CFSTR("Any-Hex/Java");
     CFStringTransform((__bridge CFMutableStringRef)convertedString, NULL, transform, YES);
     return convertedString;
+}
+
+- (id)removeNullObjects {
+    NSObject *objResult = nil;
+    NSMutableArray *marrSearch = nil;
+    if ([self isKindOfClass:NSNull.class]) {
+        return nil;
+    } else if ([self isKindOfClass:NSArray.class]) {
+        objResult = [NSMutableArray arrayWithArray:(NSArray *)self];
+        marrSearch = [NSMutableArray arrayWithObject:objResult];
+    } else if ([self isKindOfClass:NSDictionary.class]) {
+        objResult = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary *)self];
+        marrSearch = [NSMutableArray arrayWithObject:objResult];
+    } else {
+        return self;
+    }
+    while (marrSearch.count > 0) {
+        NSObject *header = marrSearch[0];
+        if ([header isKindOfClass:NSMutableDictionary.class]) {
+            // 遍历这个字典
+            NSMutableDictionary *mdicTemp = (NSMutableDictionary *)header;
+            for (NSString *strKey in mdicTemp.allKeys) {
+                NSObject *objTemp = mdicTemp[strKey];
+                if ([objTemp isKindOfClass:NSDictionary.class]) {
+                    // 将NSDictionary替换为NSMutableDictionary
+                    NSMutableDictionary *mdic = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary *)objTemp];
+                    mdicTemp[strKey] = mdic;
+                    [marrSearch addObject:mdic];
+                } else if ([objTemp isKindOfClass:NSArray.class]) {
+                    // 将NSArray替换为NSMutableArray
+                    NSMutableArray *marr = [NSMutableArray arrayWithArray:(NSArray *)objTemp];
+                    mdicTemp[strKey] = marr;
+                    [marrSearch addObject:marr];
+                } else if ([objTemp isKindOfClass:NSNull.class]) {
+                    // 删除NSNull
+                    mdicTemp[strKey] = nil;
+                }
+            }
+        } else if ([header isKindOfClass:NSMutableArray.class]) {
+            // 遍历这个数组
+            NSMutableArray *marrTemp = (NSMutableArray *)header;
+            for (NSInteger i = marrTemp.count - 1; i >= 0; i--) {
+                NSObject *objTemp = marrTemp[i];
+                
+                if ([objTemp isKindOfClass:NSDictionary.class]) {
+                    // 将NSDictionary替换为NSMutableDictionary
+                    NSMutableDictionary *mdic = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary *)objTemp];
+                    [marrTemp replaceObjectAtIndex:i withObject:mdic];
+                    [marrSearch addObject:mdic];
+                } else if ([objTemp isKindOfClass:NSArray.class]) {
+                    // 将NSArray替换为NSMutableArray
+                    NSMutableArray *marr = [NSMutableArray arrayWithArray:(NSArray *)objTemp];
+                    [marrTemp replaceObjectAtIndex:i withObject:marr];
+                    [marrSearch addObject:marr];
+                } else if ([objTemp isKindOfClass:NSNull.class]) {
+                    // 删除NSNull
+                    [marrTemp removeObjectAtIndex:i];
+                }
+            }
+        } else {
+            // 到这里就出错了
+        }
+        [marrSearch removeObjectAtIndex:0];
+    }
+    return objResult;
+}
+
+- (NSArray *)yp_arrayForKey:(id)key {
+    if (!key) {
+        return nil;
+    }
+    if (![self respondsToSelector:@selector(objectForKey:)]) {
+        return nil;
+    }
+    id obj = [(NSDictionary *)self objectForKey:key];
+    if ([obj isKindOfClass:[NSArray class]]) {
+        return (NSArray *)obj;
+    }
+    return nil;
+}
+
+- (NSDictionary *)yp_dictionaryForKey:(id)key {
+    if (!key) {
+        return nil;
+    }
+    if (![self respondsToSelector:@selector(objectForKey:)]) {
+        return nil;
+    }
+    id obj = [(NSDictionary *)self objectForKey:key];
+    if ([obj isKindOfClass:[NSDictionary class]]) {
+        return (NSDictionary *)obj;
+    }
+    return nil;
+}
+
+- (NSString *)yp_stringForKey:(id)key {
+    if (!key) {
+        return nil;
+    }
+    if (![self respondsToSelector:@selector(objectForKey:)]) {
+        return nil;
+    }
+    id obj = [(NSDictionary *)self objectForKey:key];
+    if ([obj isKindOfClass:[NSString class]]) {
+        return (NSString *)obj;
+    } else if ([obj isKindOfClass:[NSNumber class]]) {
+        return [(NSNumber *)obj stringValue];
+    }
+    return nil;
+}
+
+- (NSNumber *)yp_numberForKey:(id)key {
+    if (!key) {
+        return nil;
+    }
+    if (![self respondsToSelector:@selector(objectForKey:)]) {
+        return nil;
+    }
+    id obj = [(NSDictionary *)self objectForKey:key];
+    if ([obj isKindOfClass:[NSNumber class]]) {
+        return (NSNumber *)obj;
+    } else if ([obj isKindOfClass:[NSString class]]) {
+        return [(NSString *)obj numberValue];
+    }
+    return nil;
+}
+
+- (NSInteger)yp_integerForKey:(id)key {
+    return [[self yp_numberForKey:key] integerValue];
+}
+
+- (BOOL)yp_boolForKey:(id)key {
+    return [[self yp_numberForKey:key] boolValue];
+}
+
+- (CGFloat)yp_floatForKey:(id)key {
+    return [[self yp_numberForKey:key] floatValue];
+}
+
+- (id)yp_objectAtIndex:(NSUInteger)index {
+    if (![self respondsToSelector:@selector(objectAtIndex:)]) {
+        return nil;
+    }
+    NSArray *array = (NSArray *)self;
+    if (index < array.count) {
+        return [array objectAtIndex:index];
+    }
+    return nil;
 }
 
 @end

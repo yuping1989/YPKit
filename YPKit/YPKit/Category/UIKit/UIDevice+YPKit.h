@@ -42,6 +42,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 已使用的存储空间
 @property (nonatomic, readonly) int64_t diskSpaceUsed;
 
+/// 获取wifi下的ip地址 @"192.168.1.111"
+@property (nullable, nonatomic, readonly) NSString *ipAddressWIFI;
+
+/// 获取ip地址 @"10.2.2.222"
+@property (nullable, nonatomic, readonly) NSString *ipAddressCell;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,15 +7,17 @@
 //
 
 #import "UITextField+YPKit.h"
+#import "UIView+YPKit.h"
 
 @implementation UITextField (YPKit)
+
 - (void)setContentPaddingLeft:(CGFloat)width {
-    self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, self.height)];
+    self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, self.yp_height)];
     self.leftViewMode = UITextFieldViewModeAlways;
 }
 
 - (void)setContentPaddingRight:(CGFloat)width {
-    self.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, self.height)];
+    self.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, self.yp_height)];
     self.rightViewMode = UITextFieldViewModeAlways;
 }
 
@@ -36,7 +38,8 @@
 }
 
 - (void)setPlaceholder:(NSString *)placeholder withColor:(UIColor *)color {
-    
+    assert(placeholder);
+    assert(color);
     self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder
                                                                  attributes:@{NSForegroundColorAttributeName : color}];
 }

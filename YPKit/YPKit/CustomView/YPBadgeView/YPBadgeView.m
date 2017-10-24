@@ -53,7 +53,7 @@
 
 - (void)updateWidth {
     int width = [_badgeLabel.text widthWithFont:_badgeLabel.font];
-    self.width = MAX(width + self.padding * 2, self.height);
+    self.yp_width = MAX(width + self.padding * 2, self.yp_height);
     _bgImageView.frame = self.bounds;
     _badgeLabel.frame = self.bounds;
 }

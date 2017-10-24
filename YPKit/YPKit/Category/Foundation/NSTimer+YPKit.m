@@ -17,24 +17,32 @@
     }
 }
 
-+ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)seconds
-                                    repeats:(BOOL)repeats
-                                      block:(void (^)(NSTimer *timer))block {
-    return [NSTimer scheduledTimerWithTimeInterval:seconds
-                                            target:self
-                                          selector:@selector(yp_ExecBlock:)
-                                          userInfo:[block copy]
-                                           repeats:repeats];
++ (NSTimer *)yp_scheduledTimerWithTimeInterval:(NSTimeInterval)seconds
+                                       repeats:(BOOL)repeats
+                                         block:(void (^)(NSTimer *timer))block {
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+        return [NSTimer scheduledTimerWithTimeInterval:seconds repeats:repeats block:block];
+    } else {
+        return [NSTimer scheduledTimerWithTimeInterval:seconds
+                                                target:self
+                                              selector:@selector(yp_ExecBlock:)
+                                              userInfo:[block copy]
+                                               repeats:repeats];
+    }
 }
 
-+ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)seconds
-                           repeats:(BOOL)repeats
-                             block:(void (^)(NSTimer *timer))block {
-    return [NSTimer timerWithTimeInterval:seconds
-                                   target:self
-                                 selector:@selector(yp_ExecBlock:)
-                                 userInfo:[block copy]
-                                  repeats:repeats];
++ (NSTimer *)yp_timerWithTimeInterval:(NSTimeInterval)seconds
+                              repeats:(BOOL)repeats
+                                block:(void (^)(NSTimer *timer))block {
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+        return [NSTimer timerWithTimeInterval:seconds repeats:repeats block:block];
+    } else {
+        return [NSTimer timerWithTimeInterval:seconds
+                                       target:self
+                                     selector:@selector(yp_ExecBlock:)
+                                     userInfo:[block copy]
+                                      repeats:repeats];
+    }
 }
 
 @end

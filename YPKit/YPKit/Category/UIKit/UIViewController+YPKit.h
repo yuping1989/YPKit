@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
 
-@interface UIViewController (YPKit) <MBProgressHUDDelegate>
+@interface UIViewController (YPKit)  <MBProgressHUDDelegate>
 
 /**
  *  将UIViewController的类名作为NibName，使用initWithNibName方法，返回UIViewController对象
  */
-+ (instancetype)instance;
++ (instancetype)viewControllerFromNib;
 
 /**
  *  显示等待提示框
@@ -85,7 +85,12 @@
 /**
  *  返回最顶部的presentedViewController
  */
-- (UIViewController *)topPresentedViewController;
+- (UIViewController *)yp_topPresentedViewController;
+
+/**
+ *  返回最顶部的viewController
+ */
+- (UIViewController *)yp_topViewController;
 
 /**
  *  present带导航栏的UIViewController
@@ -98,4 +103,3 @@
 - (void)setScrollViewContentHeight:(CGFloat)height;
 
 @end
-

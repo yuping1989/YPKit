@@ -202,7 +202,7 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
                      errorBlock:(AFHttpRequestErrorBlock)errorBlock;
 {
     NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-    NSLog(@"request code--->%ld", response.statusCode);
+    NSLog(@"request code--->%zd", response.statusCode);
     NSLog(@"url--->%@", response.URL.absoluteString);
     NSLog(@"controller--->%@", controller.class.description);
     NSLog(@"response-->%@ %@", [[responseObject class] description], responseObject);
@@ -255,7 +255,7 @@ completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError 
         [controller hideProgress];
     }
     if (message && ![message isKindOfClass:[NSNull class]]) {
-        NSLog(@"message length-->%ld", [message charLength]);
+        NSLog(@"message length-->%zd", [message charLength]);
         if ([message charLength] < 30) {
             [UIApplication showToastInAppWindow:message];
         } else {

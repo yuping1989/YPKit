@@ -7,6 +7,7 @@
 //
 
 #import "NSDictionary+YPKit.h"
+#import "NSObject+YPKit.h"
 #import <objc/runtime.h>
 
 @implementation NSDictionary (YPKit)
@@ -29,15 +30,19 @@
     return [NSObject stringByReplaceUnicode:[self replaceDescriptionWithLocale:locale indent:level]];
 }
 
-- (NSString *)jsonString
-{
-    NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil];
+- (NSString *)yp_jsonString {
+    NSError *error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
+    if (error) {
+        NSLog(@"jsonString error:%@", error);
+        return nil;
+    }
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
+
 + (NSDictionary *)dictionaryWithPlistFile:(NSString *)name {
     NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];
     return [NSDictionary dictionaryWithContentsOfFile:path];
 }
-
 
 @end

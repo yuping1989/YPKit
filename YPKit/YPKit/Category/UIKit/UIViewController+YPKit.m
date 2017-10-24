@@ -7,11 +7,14 @@
 //
 
 #import "UIViewController+YPKit.h"
+#import "UIControl+YPKit.h"
 #import <objc/runtime.h>
+#import "NSString+YPKit.h"
+#import "UIApplication+YPKit.h"
 
 @implementation UIViewController (YPKit)
 
-+ (instancetype)instance; {
++ (instancetype)viewControllerFromNib {
     return [[self alloc] initWithNibName:NSStringFromClass([self class]) bundle:nil];
 }
 
@@ -192,11 +195,21 @@
     return [self isViewLoaded] && self.view.window == nil;
 }
 
-- (UIViewController *)topPresentedViewController {
+- (UIViewController *)yp_topPresentedViewController {
     if (self.presentedViewController) {
-        return [self.presentedViewController topPresentedViewController];
+        return [self.presentedViewController yp_topPresentedViewController];
     } else {
         return self;
+    }
+}
+
+- (UIViewController *)yp_topViewController {
+    UIViewController *topController = [self yp_topPresentedViewController];
+    if ([topController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navigationController = (UINavigationController *)topController;
+        return navigationController.topViewController;
+    } else {
+        return topController;
     }
 }
 

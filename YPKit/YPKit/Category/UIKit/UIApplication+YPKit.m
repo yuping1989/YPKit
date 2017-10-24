@@ -33,6 +33,41 @@
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 }
 
++ (UIImage *)appLaunchImage {
+    NSString *viewOrientation = @"Portrait";
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+        viewOrientation = @"Landscape";
+    }
+    NSString *launchImageName = nil;
+    NSArray* imagesDict = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"UILaunchImages"];
+    
+    CGSize viewSize = [UIScreen mainScreen].bounds.size;
+    for (NSDictionary* dict in imagesDict) {
+        CGSize imageSize = CGSizeFromString(dict[@"UILaunchImageSize"]);
+        if (CGSizeEqualToSize(imageSize, viewSize) && [viewOrientation isEqualToString:dict[@"UILaunchImageOrientation"]]) {
+            launchImageName = dict[@"UILaunchImageName"];
+        }
+    }
+    return [UIImage imageNamed:launchImageName];
+}
+
++ (UIWindow *)mainWindow {
+    return [UIApplication sharedApplication].delegate.window;
+}
+
++ (YPNetworkStatus)networkStatusFromStateBar {
+    // 状态栏是由当前app控制的，首先获取当前app
+    UIApplication *app = [UIApplication sharedApplication];
+    NSArray *children = [[[app valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
+    
+    for (id child in children) {
+        if ([child isKindOfClass:[NSClassFromString(@"UIStatusBarDataNetworkItemView") class]]) {
+            return [[child valueForKeyPath:@"dataNetworkType"] integerValue];
+        }
+    }
+    return YPNetworkStatusUnknown;
+}
+
 + (BOOL)isPirated {
     if ([[UIDevice currentDevice] isSimulator]) return YES; // Simulator is not from appstore
     
@@ -90,7 +125,6 @@
 + (void)openURLString:(NSString *)URLString {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URLString]];
 }
-
 
 + (void)showToast:(NSString *)text {
     [UIApplication showToast:text hideAfterDelay:1.5f];

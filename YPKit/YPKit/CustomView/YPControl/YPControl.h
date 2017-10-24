@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface YPControl : UIControl
+
 @property (nonatomic, strong) UIColor *highlightBackgroundColor;
-//@property (nonatomic, copy) void (^onClickedHandler)(id sender);
+
 @end

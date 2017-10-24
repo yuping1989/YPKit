@@ -10,11 +10,11 @@
 
 @interface NSTimer (YPKit)
 
-+ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)seconds
-                                    repeats:(BOOL)repeats
-                                      block:(void (^)(NSTimer *timer))block;
++ (NSTimer *)yp_scheduledTimerWithTimeInterval:(NSTimeInterval)seconds
+                                       repeats:(BOOL)repeats
+                                         block:(void (^)(NSTimer *timer))block;
 
-+ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)seconds
-                           repeats:(BOOL)repeats
-                             block:(void (^)(NSTimer *timer))block;
++ (NSTimer *)yp_timerWithTimeInterval:(NSTimeInterval)seconds
+                              repeats:(BOOL)repeats
+                                block:(void (^)(NSTimer *timer))block;
 @end

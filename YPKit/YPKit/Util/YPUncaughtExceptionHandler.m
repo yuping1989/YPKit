@@ -41,8 +41,6 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
     return handler;
 }
 
-
-
 + (NSArray *)backtrace {
     void *callstack[128];
     int frames = backtrace(callstack, 128);
@@ -73,7 +71,7 @@ const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
                                [UIApplication appBundleDisplayName],
                                [UIApplication appVersionName],
                                [UIApplication appShortVersionString],
-                               [UIDevice currentDevice].model,
+                               [UIDevice currentDevice].machineModelName,
                                [UIDevice currentDevice].systemName,
                                [UIDevice currentDevice].systemVersion,
                                name,

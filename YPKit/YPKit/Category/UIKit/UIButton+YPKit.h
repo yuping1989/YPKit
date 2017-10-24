@@ -13,10 +13,11 @@
 /**
  *  将UIButton的图片和文字设置为竖直居中
  *
- *  @param marginTop image与顶部的距离
+ *  @param verticalOffset 竖直方向的偏移量
  *  @param spacing   image与title的距离
  */
-- (void)setContentHorizontalCenterWithMarginTop:(CGFloat)marginTop spacing:(CGFloat)spacing;
-- (void)setContentHorizontalCenterWithSpacing:(CGFloat)spacing;
+- (void)setContentHorizontalCenterWithVerticalOffset:(CGFloat)verticalOffset
+                                             spacing:(CGFloat)spacing;
+- (void)setContentHorizontalCenterWithVerticalOffset:(CGFloat)spacing;
 
 @end

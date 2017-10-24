@@ -7,11 +7,20 @@
 //
 
 #import "UITableView+YPKit.h"
+#import "UIView+YPKit.h"
 
 @implementation UITableView (YPKit)
 
 - (void)registerNibWithName:(NSString *)name {
     [self registerNib:[UINib nibWithNibName:name bundle:nil] forCellReuseIdentifier:name];
+}
+
+- (void)registerCellNibWithName:(NSString *)name {
+    [self registerNib:[UINib nibWithNibName:name bundle:nil] forCellReuseIdentifier:name];
+}
+
+- (void)registerHeaderFooterNibWithName:(NSString *)name {
+    [self registerNib:[UINib nibWithNibName:name bundle:nil] forHeaderFooterViewReuseIdentifier:name];
 }
 
 - (void)reloadRow:(NSInteger)row inSection:(NSInteger)section {
@@ -45,7 +54,7 @@
                  font:(UIFont *)font
                 color:(UIColor *)color
                height:(NSInteger)height {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, height)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.yp_width, height)];
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = NSTextAlignmentCenter;
     if (font) {

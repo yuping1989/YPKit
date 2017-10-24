@@ -7,6 +7,7 @@
 //
 
 #import "NSArray+YPKit.h"
+#import "NSObject+YPKit.h"
 #import <objc/runtime.h>
 
 @implementation NSArray (YPKit)
@@ -55,13 +56,12 @@
     return [self sortedArrayUsingDescriptors:descriptors];
 }
 
-- (NSString *)jsonString {
+- (NSString *)yp_jsonString {
     NSError *error = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
     if (error) {
-        if (error) {
-            NSLog(@"jsonString error:%@", error);
-        }
+        NSLog(@"jsonString error:%@", error);
+        return nil;
     }
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }

@@ -19,22 +19,22 @@
         [self.backgroundView setTapGestureTarget:self action:@selector(cancelButtonClicked:)];
     }
     self.backgroundView.frame = view.bounds;
-    self.width = view.width;
+    self.yp_width = view.yp_width;
     [view addSubview:self.backgroundView];
     [view addSubview:self];
     
     self.backgroundView.alpha = 0.0f;
-    self.y = view.height;
+    self.yp_y = view.yp_height;
     [UIView animateWithDuration:0.25f animations:^{
         self.backgroundView.alpha = 0.3f;
-        self.y = view.height - self.height;
+        self.yp_y = view.yp_height - self.yp_height;
     }];
 }
 
 - (IBAction)cancelButtonClicked:(id)sender {
     [UIView animateWithDuration:0.25f animations:^{
         self.backgroundView.alpha = 0.0f;
-        self.y = self.superview.height;
+        self.yp_y = self.superview.yp_height;
     } completion:^(BOOL finished) {
         [self.backgroundView removeFromSuperview];
         [self removeFromSuperview];

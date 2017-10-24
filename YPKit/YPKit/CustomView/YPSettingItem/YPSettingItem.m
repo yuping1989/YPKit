@@ -46,29 +46,29 @@
     CGFloat x = self.paddingLeft;
     CGFloat marginRight = self.paddingRight;
     if (self.leftImageView) {
-        self.leftImageView.frame = CGRectMake(x, 0, self.leftImageWidth, self.height);
+        self.leftImageView.frame = CGRectMake(x, 0, self.leftImageWidth, self.yp_height);
         x = self.leftImageView.maxX + 8;
     }
     
-    self.titleField.frame = CGRectMake(x, 0, self.titleWidth, self.height);
+    self.titleField.frame = CGRectMake(x, 0, self.titleWidth, self.yp_height);
     x = self.titleField.maxX + 8;
     
     if (self.arrowImageView) {
         self.arrowImageView.frame = CGRectMake(SCREEN_WIDTH - self.arrowImageView.image.size.width - marginRight,
                                                0,
                                                self.arrowImageView.image.size.width,
-                                               self.height);
-        marginRight = SCREEN_WIDTH - self.arrowImageView.x + 8;
+                                               self.yp_height);
+        marginRight = SCREEN_WIDTH - self.arrowImageView.yp_x + 8;
         
     }
     if (self.rightImageView) {
         self.rightImageView.frame = CGRectMake(SCREEN_WIDTH - marginRight - self.rightImageView.image.size.width,
                                                0,
                                                self.rightImageView.image.size.width,
-                                               self.height);
-        marginRight = SCREEN_WIDTH - self.rightImageView.x + 8;
+                                               self.yp_height);
+        marginRight = SCREEN_WIDTH - self.rightImageView.yp_x + 8;
     }
-    self.textField.frame = CGRectMake(x, 0, SCREEN_WIDTH - (x + marginRight), self.height);
+    self.textField.frame = CGRectMake(x, 0, SCREEN_WIDTH - (x + marginRight), self.yp_height);
 }
 
 #pragma mark - Title and Text

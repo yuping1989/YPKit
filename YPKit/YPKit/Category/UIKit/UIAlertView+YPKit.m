@@ -36,18 +36,25 @@ static const int alert_block_key;
 }
 
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
-                      okButtonTitle:(NSString *)okButtonTitle
-                         completion:(void (^)(void))okButtonClicked {
+                    okButtonClicked:(void (^)(void))okButtonClicked {
     return [UIAlertView showAlertWithTitle:title
-                                   message:nil
-                             okButtonTitle:okButtonTitle
-                                completion:okButtonClicked];
+                             okButtonTitle:@"确定"
+                           okButtonClicked:okButtonClicked];
 }
 
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
-                   message:(NSString *)message
-             okButtonTitle:(NSString *)okButtonTitle
-                completion:(void (^)(void))okButtonClicked {
+                      okButtonTitle:(NSString *)okButtonTitle
+                    okButtonClicked:(void (^)(void))okButtonClicked {
+    return [UIAlertView showAlertWithTitle:title
+                                   message:nil
+                             okButtonTitle:okButtonTitle
+                           okButtonClicked:okButtonClicked];
+}
+
++ (UIAlertView *)showAlertWithTitle:(NSString *)title
+                            message:(NSString *)message
+                      okButtonTitle:(NSString *)okButtonTitle
+                    okButtonClicked:(void (^)(void))okButtonClicked {
     return [UIAlertView showAlertWithTitle:title
                                    message:message
                          cancelButtonTitle:@"取消"
@@ -60,19 +67,19 @@ static const int alert_block_key;
 }
 
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
-                   message:(NSString *)message
-         cancelButtonTitle:(NSString *)cancelButtonTitle
-         otherButtonTitles:(NSArray *)otherButtonArray
-                completion:(void (^)(NSInteger buttonIndex))completion {
+                            message:(NSString *)message
+                  cancelButtonTitle:(NSString *)cancelButtonTitle
+                  otherButtonTitles:(NSArray *)otherButtonTitles
+                         completion:(void (^)(NSInteger buttonIndex))completion {
     UIAlertView *alert = [[UIAlertView alloc] init];
     alert.title = title;
     alert.message = message;
     if (cancelButtonTitle) {
         [alert addButtonWithTitle:cancelButtonTitle];
     }
-    if (otherButtonArray.count > 0) {
-        for (int i = 0; i < otherButtonArray.count; i++) {
-            [alert addButtonWithTitle:otherButtonArray[i]];
+    if (otherButtonTitles.count > 0) {
+        for (int i = 0; i < otherButtonTitles.count; i++) {
+            [alert addButtonWithTitle:otherButtonTitles[i]];
         }
     }
     [alert setCancelButtonIndex:0];

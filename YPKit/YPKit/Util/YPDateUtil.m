@@ -50,8 +50,7 @@ static NSCalendar *_calendar;
     return [self stringWithDate:[NSDate dateWithTimeIntervalSince1970:timeInterval] format:format];
 }
 
-+ (NSString *)stringWithDate:(NSDate *)date
-{
++ (NSString *)stringWithDate:(NSDate *)date {
     return [self stringWithDate:date format:yyyyMMdd];
 }
 
@@ -63,7 +62,8 @@ static NSCalendar *_calendar;
 }
 
 + (NSDate *)dateWithString:(NSString *)dateString format:(NSString *)format {
-    [_dateFormatter setDateFormat:format];//设定时间格式,这里可以设置成自己需要的格式
+    // 设定时间格式,这里可以设置成自己需要的格式
+    [_dateFormatter setDateFormat:format];
     NSDate *date = [_dateFormatter dateFromString:dateString];
     return date;
 }

@@ -16,10 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addFont:(UIFont *)font range:(NSRange)range;
 - (void)addFont:(UIFont *)font string:(NSString *)string;
 
+- (void)addColor:(UIColor *)color;
 - (void)addColor:(UIColor *)color range:(NSRange)range;
 - (void)addColor:(UIColor *)color string:(NSString *)string;
+
 - (void)addLineSpace:(CGFloat)space;
 - (void)addLineSpace:(CGFloat)space range:(NSRange)range;
+- (void)addLineSpace:(CGFloat)space string:(NSString *)string;
+
 - (void)addDeleteLineWithRange:(NSRange)range;
 
 @end

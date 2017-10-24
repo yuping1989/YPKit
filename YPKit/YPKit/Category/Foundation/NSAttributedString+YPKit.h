@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface NSAttributedString (YPKit)
+
+/**
+ *  返回NSMakeRange(0, self.length)
+ */
+- (NSRange)rangeOfAll;
+
 /**
  *  根据文字的宽度来计算高度
  *  @param width 文字的宽度
@@ -19,4 +25,5 @@
  *  计算一行文字的宽度
  */
 - (CGFloat)width;
+
 @end

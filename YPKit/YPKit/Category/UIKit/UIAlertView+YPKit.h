@@ -10,28 +10,38 @@
 
 @interface UIAlertView (YPKit)
 
+// 显示title和一个“确定”按钮
 + (UIAlertView *)showAlertWithTitle:(NSString *)title;
 
+// 显示title、message和一个“确定”按钮
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
                             message:(NSString *)message;
 
+// 显示title、message，按钮名称自定义
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
                             message:(NSString *)message
                   cancelButtonTitle:(NSString *)cancelButtonTitle;
 
+// 显示title和一个“确定”按钮，点击后有回调
++ (UIAlertView *)showAlertWithTitle:(NSString *)title
+                    okButtonClicked:(void (^)(void))okButtonClicked;
+
+// 显示title和一个按钮，点击后有回调
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
                       okButtonTitle:(NSString *)okButtonTitle
-                         completion:(void (^)(void))okButtonClicked;
+                    okButtonClicked:(void (^)(void))okButtonClicked;
 
+// 显示title、message和一个“确定”按钮，点击后有回调
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
                             message:(NSString *)message
                       okButtonTitle:(NSString *)okButtonTitle
-                         completion:(void (^)(void))okButtonClicked;
+                    okButtonClicked:(void (^)(void))okButtonClicked;
 
+// 完全自定义
 + (UIAlertView *)showAlertWithTitle:(NSString *)title
                             message:(NSString *)message
                   cancelButtonTitle:(NSString *)cancelButtonTitle
-                  otherButtonTitles:(NSArray *)otherButtonArray
+                  otherButtonTitles:(NSArray *)otherButtonTitles
                          completion:(void (^)(NSInteger buttonIndex))completion;
 
 + (UIAlertView *)showPlainTextInputAlertWithTitle:(NSString *)title

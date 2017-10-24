@@ -100,7 +100,7 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(yp_pickerView:widthForComponent:)]) {
         return [self.delegate yp_pickerView:self widthForComponent:component];
     }
-    return self.width / self.dataSources.count;
+    return self.yp_width / self.dataSources.count;
 }
 
 @end

@@ -80,19 +80,19 @@
     switch (indexPath.row) {
         case 0:
             [[NSNotificationCenter defaultCenter] postNotificationName:@"asdfasdfasdf" object:nil];
-            [self.navigationController pushViewController:[YPTextViewController instance] animated:YES];
+            [self.navigationController pushViewController:[YPTextViewController viewControllerFromNib] animated:YES];
             break;
         case 1:
-            [self.navigationController pushViewController:[YPDateUtilController instance] animated:YES];
+            [self.navigationController pushViewController:[YPDateUtilController viewControllerFromNib] animated:YES];
             break;
         case 2:
-            [self.navigationController pushViewController:[AutoLayoutCellController instance] animated:YES];
+            [self.navigationController pushViewController:[AutoLayoutCellController viewControllerFromNib] animated:YES];
             break;
         case 3:
-            [self.navigationController pushViewController:[WebViewController instance] animated:YES];
+            [self.navigationController pushViewController:[WebViewController viewControllerFromNib] animated:YES];
             break;
         case 4:
-            [self.navigationController pushViewController:[CustomViewController instance] animated:YES];
+            [self.navigationController pushViewController:[CustomViewController viewControllerFromNib] animated:YES];
             break;
         default:
             break;

@@ -24,10 +24,15 @@
 
 #pragma mark - Frame
 
-@property (nonatomic) CGFloat x;
-@property (nonatomic) CGFloat y;
-@property (nonatomic) CGFloat width;
-@property (nonatomic) CGFloat height;
+//@property (nonatomic) CGFloat x;
+//@property (nonatomic) CGFloat y;
+//@property (nonatomic) CGFloat width;
+//@property (nonatomic) CGFloat height;
+
+@property (nonatomic) CGFloat yp_x;
+@property (nonatomic) CGFloat yp_y;
+@property (nonatomic) CGFloat yp_width;
+@property (nonatomic) CGFloat yp_height;
 
 @property (nonatomic) CGPoint origin;
 @property (nonatomic) CGSize size;
@@ -95,6 +100,11 @@
 
 #pragma mark - Others
 
+/**
+ *  返回它所在的ViewController
+ */
+- (UIViewController *)viewController;
+
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
 /**
@@ -129,12 +139,12 @@
 
 #pragma mark - Methods should be deprecated
 
-@property (nonatomic, copy) YPCompletionBlock clickedHandler;
+@property (nonatomic, copy) void (^clickedHandler)(void);
 
 /**
  *  设置点击事件的handler
  */
-- (void)setOnClickedHandler:(YPCompletionBlock)clickedHandler;
+- (void)setOnClickedHandler:(void (^)(void))clickedHandler;
 
 /**
  *  设置点击事件的target和action

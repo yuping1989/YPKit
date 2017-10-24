@@ -7,6 +7,9 @@
 //
 
 #import "UILabel+YPKit.h"
+#import "NSAttributedString+YPKit.h"
+#import "NSString+YPKit.h"
+#import "UIView+YPKit.h"
 
 @implementation UILabel (YPKit)
 - (void)setText:(NSString *)text attributeString:(void(^)(NSMutableAttributedString *attrString))block {
@@ -22,17 +25,17 @@
 - (void)resizeToFitHeight:(BOOL)isAttributedText {
     self.numberOfLines = 0;
     if (isAttributedText) {
-        self.height = [self.attributedText heightWithWidth:self.width];
+        self.yp_height = [self.attributedText heightWithWidth:self.yp_width];
     } else {
-        self.height = [self.text heightWithFont:self.font width:self.width];
+        self.yp_height = [self.text heightWithFont:self.font width:self.yp_width];
     }
 }
 - (void)resizeToFitWidth:(BOOL)isAttributedText {
     self.numberOfLines = 0;
     if (isAttributedText) {
-        self.width = self.attributedText.width;
+        self.yp_width = self.attributedText.width;
     } else {
-        self.width = [self.text widthWithFont:self.font];
+        self.yp_width = [self.text widthWithFont:self.font];
     }
 }
 @end

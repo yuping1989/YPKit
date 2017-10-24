@@ -10,6 +10,10 @@
 
 @implementation NSAttributedString (YPKit)
 
+- (NSRange)rangeOfAll {
+    return NSMakeRange(0, self.length);
+}
+
 - (CGFloat)heightWithWidth:(CGFloat)width {
     return ceilf([self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading

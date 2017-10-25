@@ -11,6 +11,12 @@
 #import <objc/runtime.h>
 #import "NSString+YPKit.h"
 #import "UIApplication+YPKit.h"
+#import "UIScreen+YPKit.h"
+
+static int leftBarButtonBlockKey;
+static int rightBarButtonBlockKey;
+
+typedef void (^YPBarButtonBlock)(UIBarButtonItem *item);
 
 @implementation UIViewController (YPKit)
 
@@ -18,122 +24,59 @@
     return [[self alloc] initWithNibName:NSStringFromClass([self class]) bundle:nil];
 }
 
-#pragma mark - ProgressHUD
-
-- (MBProgressHUD *)progressHUD {
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setProgressHUD:(MBProgressHUD *)progressHUD {
-    objc_setAssociatedObject(self, @selector(progressHUD), progressHUD, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void)showProgressWithText:(NSString *)text {
-    [self showProgressOnView:self.view text:text userInteractionEnabled:YES];
-}
-
-- (void)showProgressOnWindowWithText:(NSString *)text {
-    UIWindow *window = [[UIApplication sharedApplication].windows lastObject];
-    [self showProgressOnView:window text:text userInteractionEnabled:YES];
-}
-
-- (void)showProgressOnView:(UIView *)view text:(NSString *)text userInteractionEnabled:(BOOL)enabled {
-    if (!self.progressHUD) {
-        self.progressHUD = [[MBProgressHUD alloc] initWithView:view];
-        [view addSubview:self.progressHUD];
-        self.progressHUD.delegate = self;
-        [self.progressHUD show:YES];
-    }
-    self.progressHUD.labelText = text;
-    self.progressHUD.userInteractionEnabled = enabled;
-    
-    NSLog(@"show progress");
-}
-
-- (void)hudWasHidden:(MBProgressHUD *)hud {
-    if (!self.progressHUD) {
-        return;
-    }
-    [self.progressHUD removeFromSuperview];
-    self.progressHUD = nil;
-    NSLog(@"hide progress");
-}
-
-- (void)hideProgress {
-    if (!self.progressHUD) {
-        return;
-    }
-    [self.progressHUD hide:YES];
-}
-
 #pragma mark - BarButtonItem
 
-- (void)initLeftBarButtonItemWithTitle:(NSString *)title {
-    [self initLeftBarButtonItemWithTitle:title target:self];
-}
-
-- (void)initLeftBarButtonItemWithTitle:(NSString *)title target:(id)target {
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:target action:@selector(leftBarButtonClicked:)];
+- (void)setLeftBarButtonItemTitle:(NSString *)title block:(void (^)(UIBarButtonItem *))block {
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:title
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(leftBarButtonClicked:)];
     self.navigationItem.leftBarButtonItem = item;
+    objc_setAssociatedObject(self, &leftBarButtonBlockKey, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (void)initLeftBarButtonItemWithImage:(UIImage *)image {
-    [self initLeftBarButtonItemWithImage:image target:self];
-}
-
-- (void)initLeftBarButtonItemWithImage:(UIImage *)image target:(id)target {
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStyleBordered target:target action:@selector(leftBarButtonClicked:)];
+- (void)setLeftBarButtonItemImage:(UIImage *)image block:(void (^)(UIBarButtonItem *))block {
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:image
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(leftBarButtonClicked:)];
     self.navigationItem.leftBarButtonItem = item;
+    objc_setAssociatedObject(self, &leftBarButtonBlockKey, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (void)leftBarButtonClicked:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    YPBarButtonBlock block = objc_getAssociatedObject(self, &leftBarButtonBlockKey);
+    if (block) {
+        block(sender);
+    }
 }
 
-- (void)initRightBarButtonItemWithTitle:(NSString *)title {
-    [self initRightBarButtonItemWithTitle:title target:self];
-}
-
-- (void)initRightBarButtonItemWithTitle:(NSString *)title target:(id)target {
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:target action:@selector(rightBarButtonClicked:)];
+- (void)setRightBarButtonItemTitle:(NSString *)title block:(void (^)(UIBarButtonItem *))block {
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:title
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(rightBarButtonClicked:)];
     self.navigationItem.rightBarButtonItem = item;
+    objc_setAssociatedObject(self, &rightBarButtonBlockKey, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (void)initRightBarButtonItemWithImage:(UIImage *)image {
-    [self initRightBarButtonItemWithImage:image target:self];
-}
-
-- (void)initRightBarButtonItemWithImage:(UIImage *)image target:(id)target {
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStyleBordered target:target action:@selector(rightBarButtonClicked:)];
+- (void)setRightBarButtonItemImage:(UIImage *)image block:(void (^)(UIBarButtonItem *))block {
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:image
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(rightBarButtonClicked:)];
     self.navigationItem.rightBarButtonItem = item;
+    objc_setAssociatedObject(self, &rightBarButtonBlockKey, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (void)initRightBarButtonItemWithTitle:(NSString *)title
-                        backgroundImage:(UIImage *)bgImage
-                                 target:(id)target {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitle:title forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont systemFontOfSize:15];
-    [button addTouchUpInsideTarget:target action:@selector(rightBarButtonClicked:)];
-    [button setBackgroundImage:bgImage forState:UIControlStateNormal];
-    button.frame = CGRectMake(0, 0, MAX(50, [title widthWithFont:button.titleLabel.font] + 10), 28);
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.rightBarButtonItem = item;
+- (void)rightBarButtonClicked:(id)sender {
+    YPBarButtonBlock block = objc_getAssociatedObject(self, &rightBarButtonBlockKey);
+    if (block) {
+        block(sender);
+    }
 }
-
-- (void)rightBarButtonClicked:(id)sender {}
 
 #pragma mark - Keyboard Observer
-
-- (void)registerKeyboardNotification {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)removeKeyboardNotification {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
 
 - (void)addKeyboardObserver {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];

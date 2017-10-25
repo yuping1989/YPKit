@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString *)base64EncodedString;
 + (nullable NSData *)dataWithBase64EncodedString:(NSString *)base64EncodedString;
 - (nullable id)jsonObject;
+
 @end
 
 NS_ASSUME_NONNULL_END

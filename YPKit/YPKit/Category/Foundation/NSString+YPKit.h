@@ -1,12 +1,13 @@
 //
 //  NSString+YPKit.h
-//  HuoQiuJiZhang-buyer
+//  YPKit
 //
 //  Created by 喻平 on 14-4-1.
-//  Copyright (c) 2014年 com.huoqiu. All rights reserved.
+//  Copyright (c) 2014年 com.yp. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #define REGEX_POSITIVE_NUMBER @"^(0|([1-9]\\d*))(\\.\\d+)?$"
 #define REGEX_POSITIVE_INT @"^\\d+$"
@@ -127,74 +128,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)pinyinFirstLetter;
 
 /**
- 将参数列表格式的字符串转换成NSDictionary
-
- @param paramsString 参数列表格式的字符串，例如 @"key1=value1&key2=value2"
+ 将参数列表格式的字符串转换成NSDictionary，格式：@"key1=value1&key2=value2"
  */
 - (NSDictionary *)parameterStringToDictionary;
-
-#pragma mark - Methods should be deprecated
-
-/**
- *  去掉前后的空格后，判断是否为空
- */
-+ (BOOL)isEmpty:(NSString *)string __deprecated;
-
-/**
- *  判断是否是正数
- */
-+ (BOOL)isPositiveNumber:(NSString *)string __deprecated;
-
-/**
- *  判断是否是正整数
- */
-+ (BOOL)isPositiveIntNumber:(NSString *)string __deprecated;
-
-/**
- *  判断是否是手机号
- */
-+ (BOOL)isMobile:(NSString *)string __deprecated;
-
-/**
- *  匹配正则表达式
- */
-+ (BOOL)isMatchRegex:(NSString *)regex string:(NSString *)string __deprecated;
-
-/**
- *  匹配正则表达式
- */
-- (BOOL)isMatchRegex:(NSString *)regex __deprecated;
-
-
-- (NSString *)stringByAppendSpaceToLength:(NSUInteger)length;
-- (NSString *)stringByInsertSpaceToLength:(NSUInteger)length;
-
-- (NSString *)MD5 __deprecated;
-/**
- *  根据字符串数组的元素和分隔符，返回字符串
- *  该方法可用NSArray的componentsJoinedByString方法替代，故废弃
- *
- *  @param array     字符串数组
- *  @param separator 分隔符
- */
-+ (NSString *)stringWithArray:(NSArray<NSString *> *)array separator:(NSString *)separator __deprecated;
-
-/**
- *  URL编码
- */
-- (NSString *)URLEncodedString __deprecated;
-
-/**
- *  搜索字符串中，某个字符串的位置
- */
-- (NSInteger)rangesOfString:(NSString *)string
-                 rangeBlock:(void (^)(NSRange range, NSInteger index))block __deprecated;
-
-
-/**
- * 16进制字符串对应的整数值
- */
-- (NSUInteger)hexValue __deprecated;
 
 @end
 

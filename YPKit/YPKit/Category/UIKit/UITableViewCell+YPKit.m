@@ -1,9 +1,9 @@
 //
 //  UITableViewCell+YPKit.m
-//  NBD2
+//  YPKit
 //
 //  Created by 喻平 on 16/7/1.
-//  Copyright © 2016年 NBD2. All rights reserved.
+//  Copyright © 2016年 YPKit. All rights reserved.
 //
 
 #import "UITableViewCell+YPKit.h"

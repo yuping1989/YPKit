@@ -1,9 +1,9 @@
 //
 //  UIImage+YPKit.m
-//  HuoQiuJiZhang-buyer
+//  YPKit
 //
 //  Created by 喻平 on 14-3-24.
-//  Copyright (c) 2014年 com.huoqiu. All rights reserved.
+//  Copyright (c) 2014年 com.yp. All rights reserved.
 //
 
 #import "UIImage+YPKit.h"

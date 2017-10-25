@@ -10,8 +10,4 @@
 
 @implementation YPPageViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
 @end

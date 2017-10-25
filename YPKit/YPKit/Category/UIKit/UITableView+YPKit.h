@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableView (YPKit)
 
-- (void)registerNibWithName:(NSString *)name __deprecated;
 - (void)registerCellNibWithName:(NSString *)name;
 - (void)registerHeaderFooterNibWithName:(NSString *)name;
 

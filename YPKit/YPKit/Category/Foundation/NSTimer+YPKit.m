@@ -7,6 +7,7 @@
 //
 
 #import "NSTimer+YPKit.h"
+#import "UIDevice+YPKit.h"
 
 @implementation NSTimer (YPKit)
 

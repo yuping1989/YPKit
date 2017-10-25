@@ -10,7 +10,7 @@
 
 @implementation NSUserDefaults (YPKit)
 
-+ (void)save:(void (^)(NSUserDefaults *userDefaults))block {
++ (void)saveInBlock:(void (^)(NSUserDefaults *ud))block {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if (block) {
         block(userDefaults);

@@ -10,6 +10,6 @@
 
 @interface NSUserDefaults (YPKit)
 
-+ (void)save:(void (^)(NSUserDefaults *userDefaults))block;
++ (void)saveInBlock:(void (^)(NSUserDefaults *ud))block;
 
 @end

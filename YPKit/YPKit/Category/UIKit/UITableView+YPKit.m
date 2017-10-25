@@ -11,10 +11,6 @@
 
 @implementation UITableView (YPKit)
 
-- (void)registerNibWithName:(NSString *)name {
-    [self registerNib:[UINib nibWithNibName:name bundle:nil] forCellReuseIdentifier:name];
-}
-
 - (void)registerCellNibWithName:(NSString *)name {
     [self registerNib:[UINib nibWithNibName:name bundle:nil] forCellReuseIdentifier:name];
 }

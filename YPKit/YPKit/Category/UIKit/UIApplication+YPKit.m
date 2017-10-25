@@ -1,14 +1,13 @@
 //
 //  UIApplication+YPKit.m
-//  NBD2
+//  YPKit
 //
 //  Created by 喻平 on 16/6/23.
-//  Copyright © 2016年 NBD2. All rights reserved.
+//  Copyright © 2016年 YPKit. All rights reserved.
 //
 
 #import "UIApplication+YPKit.h"
 #import "UIDevice+YPKit.h"
-#import "MBProgressHUD.h"
 #import <sys/sysctl.h>
 
 @implementation UIApplication (YPKit)
@@ -119,39 +118,20 @@
 }
 
 + (void)call:(NSString *)phone {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", phone]]];
+    [self openURLString:[NSString stringWithFormat:@"tel://%@", phone]];
 }
 
 + (void)openURLString:(NSString *)URLString {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URLString]];
-}
-
-+ (void)showToast:(NSString *)text {
-    [UIApplication showToast:text hideAfterDelay:1.5f];
-}
-
-+ (void)showToastInAppWindow:(NSString *)text {
-    [UIApplication showToast:text inView:[UIApplication appDelegate].window hideAfterDelay:1.5f];
-}
-
-+ (void)showToast:(NSString *)text hideAfterDelay:(NSTimeInterval)delay {
-    UIWindow *window = [[UIApplication sharedApplication].windows lastObject];
-    [UIApplication showToast:text inView:window hideAfterDelay:delay];
-}
-
-+ (void)showToast:(NSString *)text
-           inView:(UIView *)view
-   hideAfterDelay:(NSTimeInterval)delay {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    
-    // Configure for text only and offset down
-    hud.mode = MBProgressHUDModeText;
-    hud.labelText = text;
-    hud.margin = 10.f;
-    hud.center = [UIApplication appDelegate].window.center;
-    hud.removeFromSuperViewOnHide = YES;
-    hud.userInteractionEnabled = NO;
-    [hud hide:YES afterDelay:delay];
+    NSURL *url = [NSURL URLWithString:URLString];
+    UIApplication *application = [UIApplication sharedApplication];
+    if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+        [application openURL:url options:@{} completionHandler:nil];
+    } else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        [application openURL:url];
+#pragma clang diagnostic pop
+    }
 }
 
 @end

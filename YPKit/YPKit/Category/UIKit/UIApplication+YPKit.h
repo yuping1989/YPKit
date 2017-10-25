@@ -1,9 +1,9 @@
 //
 //  UIApplication+YPKit.h
-//  NBD2
+//  YPKit
 //
 //  Created by 喻平 on 16/6/23.
-//  Copyright © 2016年 NBD2. All rights reserved.
+//  Copyright © 2016年 YPKit. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -83,18 +83,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)call:(NSString *)phone;
 
 + (void)openURLString:(NSString *)URLString;
-
-// 在最上层的UIWindow上显示一个简短的提示，不会被键盘遮挡
-+ (void)showToast:(NSString *)text;
-+ (void)showToast:(NSString *)text
-   hideAfterDelay:(NSTimeInterval)delay;
-
-// 在最底层UIWindow上显示一个简短的提示，有键盘存在时，可能会被遮挡
-+ (void)showToastInAppWindow:(NSString *)text;
-
-+ (void)showToast:(NSString *)text
-           inView:(UIView *)view
-   hideAfterDelay:(NSTimeInterval)delay;
 
 @end
 

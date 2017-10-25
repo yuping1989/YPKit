@@ -338,7 +338,7 @@ static const int kvo_block_key;
     return [[self yp_numberForKey:key] boolValue];
 }
 
-- (CGFloat)yp_floatForKey:(id)key {
+- (float)yp_floatForKey:(id)key {
     return [[self yp_numberForKey:key] floatValue];
 }
 

@@ -11,10 +11,6 @@
 #import "UIScreen+YPKit.h"
 #import <objc/runtime.h>
 
-#define TIPS_IMAGE_VIEW_TAG 10000
-#define TIPS_LABEL_TAG 10001
-
-
 @implementation UIView (YPKit)
 
 #pragma mark - Init
@@ -28,45 +24,6 @@
 }
 
 #pragma mark - Frame
-
-//- (CGFloat)x {
-//    return self.frame.origin.x;
-//}
-//- (void)setX:(CGFloat)x {
-//    CGRect rect = self.frame;
-//    rect.origin.x = x;
-//    self.frame = rect;
-//}
-//
-//- (CGFloat)y {
-//    return self.frame.origin.y;
-//}
-//
-//- (void)setY:(CGFloat)y {
-//    CGRect rect = self.frame;
-//    rect.origin.y = y;
-//    self.frame = rect;
-//}
-//
-//- (CGFloat)width {
-//    return self.frame.size.width;
-//}
-//
-//- (void)setWidth:(CGFloat)width {
-//    CGRect rect = self.frame;
-//    rect.size.width = width;
-//    self.frame = rect;
-//}
-//
-//- (CGFloat)height {
-//    return self.frame.size.height;
-//}
-//
-//- (void)setHeight:(CGFloat)height {
-//    CGRect rect = self.frame;
-//    rect.size.height = height;
-//    self.frame = rect;
-//}
 
 - (CGFloat)yp_x {
     return self.frame.origin.x;
@@ -191,101 +148,6 @@
     return recognizer;
 }
 
-#pragma mark - Top and bottom line
-
-- (CALayer *)topLineLayer {
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setTopLineLayer:(CALayer *)topLineLayer {
-    objc_setAssociatedObject(self, @selector(topLineLayer), topLineLayer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (CALayer *)bottomLineLayer {
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setBottomLineLayer:(CALayer *)bottomLineLayer {
-    objc_setAssociatedObject(self, @selector(bottomLineLayer), bottomLineLayer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(UIColor *)color {
-    CALayer *layer = [CALayer layer];
-    layer.frame = frame;
-    layer.backgroundColor = color.CGColor;
-    [self.layer addSublayer:layer];
-    return layer;
-}
-
-- (void)setTopFillLineWithColor:(UIColor *)color {
-    [self setTopLineWithColor:color paddingLeft:0];
-}
-
-- (void)setTopLineWithColor:(UIColor *)color paddingLeft:(CGFloat)paddingLeft {
-    CGRect frame = CGRectMake(paddingLeft,
-                              0,
-                              SCREEN_WIDTH - paddingLeft,
-                              ONE_PIXEL);
-    if (!self.topLineLayer) {
-        self.topLineLayer = [self addSubLayerWithFrame:frame color:color];
-    } else {
-        self.topLineLayer.frame = frame;
-        self.topLineLayer.backgroundColor = color.CGColor;
-    }
-}
-
-- (void)setBottomFillLineWithColor:(UIColor *)color {
-    [self setBottomLineWithColor:color paddingLeft:0];
-}
-
-- (void)setBottomLineWithColor:(UIColor *)color paddingLeft:(CGFloat)paddingLeft {
-    CGRect frame = CGRectMake(paddingLeft,
-                              self.yp_height - ONE_PIXEL,
-                              SCREEN_WIDTH - paddingLeft,
-                              ONE_PIXEL);
-    if (!self.bottomLineLayer) {
-        self.bottomLineLayer = [self addSubLayerWithFrame:frame color:color];
-    } else {
-        self.bottomLineLayer.frame = frame;
-        self.bottomLineLayer.backgroundColor = color.CGColor;
-    }
-    
-}
-
-- (void)setTopAndBottomLineWithColor:(UIColor *)color {
-    [self setTopFillLineWithColor:color];
-    [self setBottomFillLineWithColor:color];
-}
-
-- (UIView *)setTopLineViewWithColor:(UIColor *)color paddingLeft:(CGFloat)left {
-    __weak UIView *weakSelf = self;
-    return [self addSubviewWithColor:color constraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@(left));
-        make.right.equalTo(weakSelf);
-        make.height.equalTo(@(ONE_PIXEL));
-        make.top.equalTo(weakSelf);
-    }];
-}
-
-- (UIView *)setBottomLineViewWithColor:(UIColor *)color paddingLeft:(CGFloat)left {
-    __weak UIView *weakSelf = self;
-    return [self addSubviewWithColor:color constraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@(left));
-        make.right.equalTo(weakSelf);
-        make.height.equalTo(@(ONE_PIXEL));
-        make.bottom.equalTo(weakSelf);
-    }];
-}
-
-- (UIView *)addSubviewWithColor:(UIColor *)color
-                    constraints:(void(^)(MASConstraintMaker *make))block  {
-    UIView *line = [[UIView alloc] init];
-    line.backgroundColor = color;
-    [self addSubview:line];
-    [line mas_makeConstraints:block];
-    return line;
-}
-
 #pragma mark - Others
 
 - (UIViewController *)viewController {
@@ -320,35 +182,6 @@
     return self.layer.cornerRadius;
 }
 
-- (void)setTipsViewWithImageName:(NSString *)imageName
-                            text:(NSString *)text
-                       textColor:(UIColor *)textColor {
-    UIImageView *imageView = [self viewWithTag:TIPS_IMAGE_VIEW_TAG];
-    if (!imageView) {
-        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
-    }
-    imageView.center = CGPointMake(self.yp_width / 2, self.yp_height / 2 - 40);
-    imageView.contentMode = UIViewContentModeCenter;
-    imageView.tag = TIPS_IMAGE_VIEW_TAG;
-    [self addSubview:imageView];
-    
-    UILabel *label = [self viewWithTag:TIPS_LABEL_TAG];
-    if (!label) {
-        label = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.maxY + 10, SCREEN_WIDTH, 20)];
-    }
-    label.font = [UIFont systemFontOfSize:16];
-    label.textColor = textColor;
-    label.text = text;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.tag = TIPS_LABEL_TAG;
-    [self addSubview:label];
-}
-
-- (void)removeTipsView {
-    [[self viewWithTag:TIPS_IMAGE_VIEW_TAG] removeFromSuperview];
-    [[self viewWithTag:TIPS_LABEL_TAG] removeFromSuperview];
-}
-
 - (UIImage *)snapshotImage {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0);
     [self.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -372,37 +205,6 @@
     CGPDFContextClose(context);
     CGContextRelease(context);
     return data;
-}
-
-#pragma mark - Methods should be deprecated
-
-- (void)setClickedHandler:(void (^)(void))clickedHandler {
-    objc_setAssociatedObject(self, @selector(clickedHandler), clickedHandler, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void (^)(void))clickedHandler{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setOnClickedHandler:(void (^)(void))clickedHandler {
-    self.clickedHandler = clickedHandler;
-    [self setTapGestureTarget:self action:@selector(handleSingleTap)];
-}
-
-- (void)setTapGestureTarget:(id)target action:(SEL)action
-{
-    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:target action:action];
-    recognizer.numberOfTapsRequired = 1;
-    [self addGestureRecognizer:recognizer];
-}
-
-
-
-
-- (void)handleSingleTap {
-    if (self.clickedHandler) {
-        self.clickedHandler();
-    }
 }
 
 @end

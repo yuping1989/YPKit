@@ -10,9 +10,11 @@
 
 @interface YPBaseUpwardsView : UIView
 
-@property (nonatomic, strong) UIView *backgroundView;
+@property (nonatomic, strong) UIControl *backgroundView;
 
-- (void)show;
-- (IBAction)cancelButtonClicked:(id)sender;
+- (void)showInWindow;
+- (void)showInView:(UIView *)view;
+
+- (void)hideWithCompletion:(void (^)(void))completion;
 
 @end

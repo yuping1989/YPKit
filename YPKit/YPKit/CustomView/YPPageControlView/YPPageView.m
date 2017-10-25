@@ -40,8 +40,7 @@
     self.collectionView.dataSource = self;
     self.collectionView.scrollsToTop = NO;
     self.backgroundColor = [UIColor whiteColor];
-    [self.collectionView registerNib:[UINib nibWithNibName:@"YPPageViewCell" bundle:nil]
-          forCellWithReuseIdentifier:@"YPPageViewCell"];
+    [self.collectionView registerClass:[YPPageViewCell class] forCellWithReuseIdentifier:@"YPPageViewCell"];
     [self insertSubview:self.collectionView atIndex:0];
     
     [self.collectionView reloadData];
@@ -74,7 +73,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return self.size;
+    return self.frame.size;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
@@ -87,7 +86,6 @@
     if (page == self.displayingIndex) {
         return;
     }
-    NSLog(@"page--->%zd", page);
     self.displayingIndex = page;
 }
 

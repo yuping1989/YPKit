@@ -63,7 +63,7 @@ extern NSString * const YPNightModelSwitchedNotification;
 - (nullable NSNumber *)yp_numberForKey:(id)key;
 - (NSInteger)yp_integerForKey:(id)key;
 - (BOOL)yp_boolForKey:(id)key;
-- (CGFloat)yp_floatForKey:(id)key;
+- (float)yp_floatForKey:(id)key;
 
 - (nullable id)yp_objectAtIndex:(NSUInteger)index;
 

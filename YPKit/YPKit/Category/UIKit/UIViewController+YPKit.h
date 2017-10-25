@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MBProgressHUD.h"
 
-@interface UIViewController (YPKit)  <MBProgressHUDDelegate>
+@interface UIViewController (YPKit)
 
 /**
  *  将UIViewController的类名作为NibName，使用initWithNibName方法，返回UIViewController对象
@@ -17,45 +16,13 @@
 + (instancetype)viewControllerFromNib;
 
 /**
- *  显示等待提示框
- */
-- (void)showProgressWithText:(NSString *)text;
-- (void)showProgressOnWindowWithText:(NSString *)text;
-- (void)showProgressOnView:(UIView *)view text:(NSString *)text userInteractionEnabled:(BOOL)enabled;
-- (void)hideProgress;
-
-- (void)setProgressHUD:(MBProgressHUD *)progressHUD;
-- (MBProgressHUD *)progressHUD;
-
-/**
  *  创建左右导航栏按钮
  */
-- (void)initLeftBarButtonItemWithTitle:(NSString *)title;
-- (void)initLeftBarButtonItemWithTitle:(NSString *)title target:(id)target;
-- (void)initLeftBarButtonItemWithImage:(UIImage *)image;
-- (void)initLeftBarButtonItemWithImage:(UIImage *)image target:(id)target;
-- (void)leftBarButtonClicked:(id)sender;
+- (void)setLeftBarButtonItemTitle:(NSString *)title block:(void (^)(UIBarButtonItem *item))block;
+- (void)setLeftBarButtonItemImage:(UIImage *)image block:(void (^)(UIBarButtonItem *item))block;
 
-- (void)initRightBarButtonItemWithTitle:(NSString *)title;
-- (void)initRightBarButtonItemWithTitle:(NSString *)title target:(id)target;
-- (void)initRightBarButtonItemWithImage:(UIImage *)image;
-- (void)initRightBarButtonItemWithImage:(UIImage *)image target:(id)target;
-
-- (void)initRightBarButtonItemWithTitle:(NSString *)title
-                        backgroundImage:(UIImage *)bgImage
-                                 target:(id)target;
-
-- (void)rightBarButtonClicked:(id)sender;
-
-/**
- *  命名原因，弃用
- */
-- (void)registerKeyboardNotification;
-
-/**
- *  命名原因，弃用
- */
-- (void)removeKeyboardNotification;
+- (void)setRightBarButtonItemTitle:(NSString *)title block:(void (^)(UIBarButtonItem *item))block;
+- (void)setRightBarButtonItemImage:(UIImage *)image block:(void (^)(UIBarButtonItem *item))block;
 
 /**
  *  键盘通知

@@ -1,9 +1,9 @@
 //
 //  NSArray+YPKit.h
-//  HuoQiuJiZhang-buyer
+//  YPKit
 //
 //  Created by 喻平 on 14-4-17.
-//  Copyright (c) 2014年 com.huoqiu. All rights reserved.
+//  Copyright (c) 2014年 com.yp. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -16,14 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  对NSArray进行排序
  */
 - (nullable NSArray *)sortedArrayWithKey:(NSString *)key ascending:(BOOL)ascending;
-
-/**
- *  当有多个排序条件时，采用此方法
- *
- *  @param sortTerm 字典的格式为 @{@"key":@(YES)}
- *
- */
-- (nullable NSArray *)sortedArrayWithTerms:(NSDictionary *)sortTerm __deprecated;
 
 /**
  *  当有多个排序条件时，采用此方法

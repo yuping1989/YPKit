@@ -211,7 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				7ECB6C441FA02CBC009F8AAF /* Foundation */,
-				7ECB6C611FA02CBC009F8AAF /* Others */,
+				7ECB6C611FA02CBC009F8AAF /* Other */,
 				7ECB6C641FA02CBC009F8AAF /* UIKit */,
 			);
 			path = Category;
@@ -252,13 +252,13 @@
 			path = Foundation;
 			sourceTree = "<group>";
 		};
-		7ECB6C611FA02CBC009F8AAF /* Others */ = {
+		7ECB6C611FA02CBC009F8AAF /* Other */ = {
 			isa = PBXGroup;
 			children = (
 				7ECB6C621FA02CBC009F8AAF /* CALayer+YPKit.h */,
 				7ECB6C631FA02CBC009F8AAF /* CALayer+YPKit.m */,
 			);
-			path = Others;
+			path = Other;
 			sourceTree = "<group>";
 		};
 		7ECB6C641FA02CBC009F8AAF /* UIKit */ = {

@@ -63,5 +63,4 @@
     self.tableFooterView = label;
 }
 
-
 @end

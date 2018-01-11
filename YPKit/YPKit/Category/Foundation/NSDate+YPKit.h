@@ -22,4 +22,18 @@ extern NSString *const YPDateFormat_MMdd;
 
 @property (nonatomic, readonly) NSInteger weekday;
 
++ (NSString *)stringWithTimeInterval:(NSTimeInterval)time format:(NSString *)format;
+
++ (NSString *)stringWithNumber:(NSNumber *)number format:(NSString *)format;
+
+- (NSString *)stringWithFormat:(NSString *)format;
+- (NSString *)stringWithFormat:(NSString *)format
+                      timeZone:(NSTimeZone *)timeZone
+                        locale:(NSLocale *)locale;
+
++ (NSDate *)dateWithString:(NSString *)dateString format:(NSString *)format;
+
++ (NSString *)formatDateNumber:(NSNumber *)numbe;
++ (NSString *)formatDateTimeInterval:(NSTimeInterval)timeInterval;
+
 @end

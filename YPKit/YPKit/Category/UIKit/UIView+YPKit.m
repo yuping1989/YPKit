@@ -148,6 +148,75 @@
     return recognizer;
 }
 
+#pragma mark - Line
+
+- (UIView *)addLine:(YPViewLine)type color:(UIColor *)color {
+    return [self addLine:type paddingLead:0 paddingTrail:0 thickness:ONE_PIXEL color:color];
+}
+
+- (UIView *)addLine:(YPViewLine)type
+        paddingLead:(CGFloat)paddingLead
+       paddingTrail:(CGFloat)paddingTrail
+          thickness:(CGFloat)thickness
+              color:(UIColor *)color {
+    
+    UIView *line = [self lineForType:type];
+    if (!line) {
+        line = [[UIView alloc] init];
+        line.tag = NSIntegerMax - type;
+        [self addSubview:line];
+    }
+    
+    switch (type) {
+        case YPViewLineTypeTop:
+            line.frame = CGRectMake(paddingLead,
+                                    0,
+                                    self.bounds.size.width - paddingLead - paddingTrail,
+                                    thickness);
+            line.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+            break;
+        case YPViewLineTypeLeft:
+            line.frame = CGRectMake(0,
+                                    paddingLead,
+                                    thickness,
+                                    self.bounds.size.height - paddingLead - paddingTrail);
+            line.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+            break;
+        case YPViewLineTypeBottom:
+            line.frame = CGRectMake(paddingLead,
+                                    self.bounds.size.height - thickness,
+                                    self.bounds.size.width - paddingLead - paddingTrail,
+                                    thickness);
+            line.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            break;
+        case YPViewLineTypeRight:
+            line.frame = CGRectMake(self.bounds.size.width - thickness,
+                                    paddingLead,
+                                    thickness,
+                                    self.bounds.size.height - paddingLead - paddingTrail);
+            line.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+            break;
+            
+        default:
+            break;
+    }
+    line.backgroundColor = color;
+    
+    return line;
+}
+
+- (UIView *)lineForType:(YPViewLine)type {
+    return [self viewWithTag:NSIntegerMax - type];
+}
+
+- (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(UIColor *)color {
+    CALayer *layer = [CALayer layer];
+    layer.frame = frame;
+    layer.backgroundColor = color.CGColor;
+    [self.layer addSublayer:layer];
+    return layer;
+}
+
 #pragma mark - Others
 
 - (UIViewController *)viewController {

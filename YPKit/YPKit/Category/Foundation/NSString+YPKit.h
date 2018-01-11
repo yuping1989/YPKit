@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#define REGEX_POSITIVE_NUMBER @"^(0|([1-9]\\d*))(\\.\\d+)?$"
-#define REGEX_POSITIVE_INT @"^\\d+$"
 #define REGEX_MOBILE @"^1[3|4|5|7|8][0-9]\\d{8}$"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -49,16 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  判断是否是QQ号
  */
 - (BOOL)isQQ;
-
-/**
- *  判断是否是正数
- */
-- (BOOL)isPositiveNumber;
-
-/**
- *  判断是否是正整数
- */
-- (BOOL)isPositiveIntNumber;
 
 /**
  *  判断正则表达式

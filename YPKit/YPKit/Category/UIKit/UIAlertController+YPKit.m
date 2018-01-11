@@ -28,10 +28,12 @@ static const int alert_action_key;
 + (UIAlertController *)showAlertWithTitle:(NSString *)title
                                   message:(NSString *)message
                         cancelButtonTitle:(NSString *)cancelButtonTitle {
+    if (!cancelButtonTitle) {
+        return nil;
+    }
     return [UIAlertController showAlertWithTitle:title
                                          message:message
-                               cancelButtonTitle:cancelButtonTitle
-                               otherButtonTitles:nil
+                                    buttonTitles:@[cancelButtonTitle]
                                       completion:nil];
 }
 
@@ -57,8 +59,7 @@ static const int alert_action_key;
                           okButtonClicked:(void (^)(void))okButtonClicked {
     return [UIAlertController showAlertWithTitle:title
                                          message:message
-                               cancelButtonTitle:@"取消"
-                               otherButtonTitles:@[okButtonTitle]
+                                    buttonTitles:@[@"取消", okButtonTitle]
                                       completion:^(NSInteger buttonIndex) {
                                           if (buttonIndex == 1 && okButtonClicked) {
                                               okButtonClicked();
@@ -68,58 +69,79 @@ static const int alert_action_key;
 
 + (UIAlertController *)showAlertWithTitle:(NSString *)title
                                   message:(NSString *)message
-                        cancelButtonTitle:(NSString *)cancelButtonTitle
-                        otherButtonTitles:(NSArray *)otherButtonTitles
-                               completion:(void (^)(NSInteger buttonIndex))completion {
-    return [self showAlertWithTitle:title
-                            message:message
-                     preferredStyle:UIAlertControllerStyleActionSheet
-                  cancelButtonTitle:cancelButtonTitle
-                  otherButtonTitles:otherButtonTitles
-                         completion:completion];
+                             buttonTitles:(NSArray *)buttonTitles
+                               completion:(void (^)(NSInteger))completion {
+    
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        UIAlertController *alert = [self alertControllerWithTitle:title message:message buttonTitles:buttonTitles completion:completion];
+        
+        UIViewController *rootController = [UIApplication sharedApplication].delegate.window.rootViewController;
+        [rootController presentViewController:alert animated:YES completion:nil];
+        return alert;
+    } else {
+        return nil;
+    }
 }
 
 + (UIAlertController *)showAlertWithTitle:(NSString *)title
                                   message:(NSString *)message
-                           preferredStyle:(UIAlertControllerStyle)preferredStyle
-                        cancelButtonTitle:(NSString *)cancelButtonTitle
-                        otherButtonTitles:(NSArray *)otherButtonTitles
-                               completion:(void (^)(NSInteger buttonIndex))completion {
+                                textField:(void (^)(UITextField *textField))textField
+                             buttonTitles:(NSArray *)buttonTitles
+                               completion:(void (^)(NSInteger buttonIndex, UITextField *textField))completion {
     
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:preferredStyle];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        [alert addTextFieldWithConfigurationHandler:textField];
         
-        if (cancelButtonTitle) {
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle
-                                                                   style:UIAlertActionStyleCancel
-                                                                 handler:^(UIAlertAction * _Nonnull action) {
-                                                                     if (completion) {
-                                                                         completion(0);
-                                                                     }
-                                                                 }];
-            [alertController addAction:cancelAction];
-        }
-        
-        if (otherButtonTitles.count > 0) {
-            for (int i = 0; i < otherButtonTitles.count; i++) {
-                UIAlertAction *action = [UIAlertAction actionWithTitle:otherButtonTitles[i]
-                                                                 style:UIAlertActionStyleDefault
-                                                               handler:^(UIAlertAction * _Nonnull action) {
-                                                                   if (completion) {
-                                                                       NSNumber *index = objc_getAssociatedObject(action, &alert_action_key);
-                                                                       completion([index integerValue]);
-                                                                   }
-                                                               }];
-                objc_setAssociatedObject(action, &alert_action_key, @(i + 1), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                [alertController addAction:action];
+        if (buttonTitles.count > 0) {
+            for (int i = 0; i < buttonTitles.count; i++) {
+                @weakify(alert)
+                UIAlertAction *action = [UIAlertAction actionWithTitle:buttonTitles[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    @strongify(alert)
+                    if (completion) {
+                        NSNumber *index = objc_getAssociatedObject(action, &alert_action_key);
+                        completion([index integerValue], [alert.textFields firstObject]);
+                    }
+                }];
+                objc_setAssociatedObject(action, &alert_action_key, @(i), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                [alert addAction:action];
             }
         }
-        UIViewController *rootController = [UIApplication sharedApplication].delegate.window.rootViewController;
-        [rootController presentViewController:alertController animated:YES completion:nil];
-        return alertController;
+        UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
+        [rootVC presentViewController:alert animated:YES completion:nil];
+        return alert;
     } else {
         return nil;
     }
+}
+
++ (UIAlertController *)alertControllerWithTitle:(NSString *)title
+                                        message:(NSString *)message
+                                   buttonTitles:(NSArray *)buttonTitles
+                                     completion:(void (^)(NSInteger))completion {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    if (buttonTitles.count > 0) {
+        for (int i = 0; i < buttonTitles.count; i++) {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:buttonTitles[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                if (completion) {
+                    NSNumber *index = objc_getAssociatedObject(action, &alert_action_key);
+                    completion([index integerValue]);
+                }
+            }];
+            objc_setAssociatedObject(action, &alert_action_key, @(i), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            [alert addAction:action];
+        }
+    }
+    return alert;
+}
+
+- (void)addActionWithTitle:(NSString *)title
+                     style:(UIAlertActionStyle)style
+                   handler:(void (^)(UIAlertAction *action))handler {
+    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title
+                                                          style:style
+                                                        handler:handler];
+    [self addAction:alertAction];
 }
 
 @end

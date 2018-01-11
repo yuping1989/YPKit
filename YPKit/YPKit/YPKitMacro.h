@@ -58,5 +58,25 @@
     #endif
 #endif
 
+#ifndef YP_DYNAMIC_RETAIN
+#define YP_DYNAMIC_RETAIN(_getter_, _setter_, _type_) \
+- (void)_setter_:(_type_)object { \
+objc_setAssociatedObject(self, _cmd, object, OBJC_ASSOCIATION_RETAIN_NONATOMIC); \
+} \
+- (_type_)_getter_ { \
+return objc_getAssociatedObject(self, @selector(_setter_:)); \
+}
+#endif
+
+#ifndef YP_DYNAMIC_COPY
+#define YP_DYNAMIC_COPY(_getter_, _setter_, _type_) \
+- (void)_setter_:(_type_)object { \
+objc_setAssociatedObject(self, _cmd, object, OBJC_ASSOCIATION_COPY_NONATOMIC); \
+} \
+- (_type_)_getter_ { \
+return objc_getAssociatedObject(self, @selector(_setter_:)); \
+}
+#endif
+
 
 #endif /* YPKitMacro_h */

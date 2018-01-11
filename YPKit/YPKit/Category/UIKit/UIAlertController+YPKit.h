@@ -40,16 +40,22 @@
 
 + (UIAlertController *)showAlertWithTitle:(NSString *)title
                                   message:(NSString *)message
-                        cancelButtonTitle:(NSString *)cancelButtonTitle
-                        otherButtonTitles:(NSArray *)otherButtonTitles
+                             buttonTitles:(NSArray *)buttonTitles
                                completion:(void (^)(NSInteger buttonIndex))completion;
 
-// Alert和ActionSheet
 + (UIAlertController *)showAlertWithTitle:(NSString *)title
                                   message:(NSString *)message
-                           preferredStyle:(UIAlertControllerStyle)preferredStyle
-                        cancelButtonTitle:(NSString *)cancelButtonTitle
-                        otherButtonTitles:(NSArray *)otherButtonTitles
-                               completion:(void (^)(NSInteger buttonIndex))completion;
+                                textField:(void (^)(UITextField *textField))textField
+                             buttonTitles:(NSArray *)buttonTitles
+                               completion:(void (^)(NSInteger buttonIndex, UITextField *textField))completion;
+
++ (UIAlertController *)alertControllerWithTitle:(NSString *)title
+                                        message:(NSString *)message
+                                   buttonTitles:(NSArray *)buttonTitles
+                                     completion:(void (^)(NSInteger))completion;
+
+- (void)addActionWithTitle:(NSString *)title
+                     style:(UIAlertActionStyle)style
+                   handler:(void (^)(UIAlertAction *action))handler;
 
 @end

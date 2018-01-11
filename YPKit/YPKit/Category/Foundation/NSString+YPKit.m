@@ -162,14 +162,6 @@ NSString * const kYPRegexQQ = @"[1-9][0-9]{4,14}";
     return [self matchesRegex:kYPRegexQQ];
 }
 
-- (BOOL)isPositiveNumber {
-    return [self matchesRegex:kYPRegexPositiveNumber];
-}
-
-- (BOOL)isPositiveIntNumber {
-    return [self matchesRegex:kYPRegexPositiveIntNumber];
-}
-
 - (BOOL)matchesRegex:(NSString *)regex {
     return [self matchesRegex:regex options:NSRegularExpressionCaseInsensitive];
 }

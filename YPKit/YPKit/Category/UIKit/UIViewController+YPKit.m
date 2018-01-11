@@ -13,8 +13,10 @@
 #import "UIApplication+YPKit.h"
 #import "UIScreen+YPKit.h"
 
-static int leftBarButtonBlockKey;
-static int rightBarButtonBlockKey;
+static const int alert_action_key;
+
+static const int leftBarButtonBlockKey;
+static const int rightBarButtonBlockKey;
 
 typedef void (^YPBarButtonBlock)(UIBarButtonItem *item);
 
@@ -166,4 +168,5 @@ typedef void (^YPBarButtonBlock)(UIBarButtonItem *item);
     }
     [(UIScrollView *)self.view setContentSize:CGSizeMake(SCREEN_WIDTH, height)];
 }
+
 @end

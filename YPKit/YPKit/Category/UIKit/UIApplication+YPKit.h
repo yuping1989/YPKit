@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AppDelegate.h"
 
 typedef NS_ENUM(NSInteger, YPNetworkStatus) {
     YPNetworkStatusUnknown          = -1,
@@ -76,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  返回AppDelegate对象
  */
-+ (AppDelegate *)appDelegate;
++ (id)appDelegate;
 
 + (void)hideKeyboard;
 

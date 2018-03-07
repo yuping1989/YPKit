@@ -1,9 +1,9 @@
 //
 //  NSAttributedString+YPKit.m
-//  ChangQingQuan
+//  YPKit
 //
 //  Created by 喻平 on 15/3/31.
-//  Copyright (c) 2015年 com.ucqq.ChangQingQuan. All rights reserved.
+//  Copyright (c) 2015年 com.yp All rights reserved.
 //
 
 #import "NSAttributedString+YPKit.h"

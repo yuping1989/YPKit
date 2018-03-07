@@ -1,9 +1,9 @@
 //
 //  UIButton+YPKit.h
-//  PiFuKeYiSheng
+//  YPKit
 //
 //  Created by yuping on 14-6-4.
-//  Copyright (c) 2014年 com.pifukeyisheng. All rights reserved.
+//  Copyright (c) 2014年 com.yp All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

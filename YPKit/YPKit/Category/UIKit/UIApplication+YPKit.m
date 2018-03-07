@@ -109,8 +109,8 @@
     return (info.kp_proc.p_flag & P_TRACED) ? YES : NO;
 }
 
-+ (AppDelegate *)appDelegate {
-    return (AppDelegate *)[UIApplication sharedApplication].delegate;
++ (id)appDelegate {
+    return [UIApplication sharedApplication].delegate;
 }
 
 + (void)hideKeyboard {
@@ -124,7 +124,7 @@
 + (void)openURLString:(NSString *)URLString {
     NSURL *url = [NSURL URLWithString:URLString];
     UIApplication *application = [UIApplication sharedApplication];
-    if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+    if (@available(iOS 10.0, *)) {
         [application openURL:url options:@{} completionHandler:nil];
     } else {
 #pragma clang diagnostic push

@@ -1,9 +1,9 @@
 //
 //  UITextField+YPKit.m
-//  PiFuKeYiSheng
+//  YPKit
 //
 //  Created by 喻平 on 14-6-6.
-//  Copyright (c) 2014年 com.pifukeyisheng. All rights reserved.
+//  Copyright (c) 2014年 com.yp All rights reserved.
 //
 
 #import "UITextField+YPKit.h"
@@ -30,7 +30,7 @@
 }
 
 - (void)hideInputAssistantItem {
-    if ([self respondsToSelector:@selector(inputAssistantItem)]) {
+    if (@available(iOS 9.0, *)) {
         UITextInputAssistantItem *inputAssistantItem = [self inputAssistantItem];
         inputAssistantItem.leadingBarButtonGroups = @[];
         inputAssistantItem.trailingBarButtonGroups = @[];
@@ -38,8 +38,9 @@
 }
 
 - (void)setPlaceholder:(NSString *)placeholder withColor:(UIColor *)color {
-    assert(placeholder);
-    assert(color);
+    if (!placeholder || !color) {
+        return;
+    }
     self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder
                                                                  attributes:@{NSForegroundColorAttributeName : color}];
 }

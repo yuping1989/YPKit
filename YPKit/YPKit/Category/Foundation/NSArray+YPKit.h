@@ -3,7 +3,7 @@
 //  YPKit
 //
 //  Created by 喻平 on 14-4-17.
-//  Copyright (c) 2014年 com.yp. All rights reserved.
+//  Copyright (c) 2014年 com.yp All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

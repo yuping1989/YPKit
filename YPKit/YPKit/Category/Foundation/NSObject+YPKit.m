@@ -1,9 +1,9 @@
 //
 //  NSObject+YPKit.m
-//  ChangQingQuan
+//  YPKit
 //
 //  Created by 喻平 on 15/4/3.
-//  Copyright (c) 2015年 com.ucqq.ChangQingQuan. All rights reserved.
+//  Copyright (c) 2015年 com.yp All rights reserved.
 //
 
 #import "NSObject+YPKit.h"

@@ -1,9 +1,9 @@
 //
 //  UIViewController+YPKit.m
-//  PiFuKeYiSheng
+//  YPKit
 //
 //  Created by 喻平 on 14-5-12.
-//  Copyright (c) 2014年 com.pifukeyisheng. All rights reserved.
+//  Copyright (c) 2014年 com.yp All rights reserved.
 //
 
 #import "UIViewController+YPKit.h"
@@ -12,8 +12,6 @@
 #import "NSString+YPKit.h"
 #import "UIApplication+YPKit.h"
 #import "UIScreen+YPKit.h"
-
-static const int alert_action_key;
 
 static const int leftBarButtonBlockKey;
 static const int rightBarButtonBlockKey;

@@ -1,9 +1,9 @@
 //
 //  CALayer+YPKit.h
-//  PiFuKeYiSheng
+//  YPKit
 //
 //  Created by 喻平 on 14-7-21.
-//  Copyright (c) 2014年 com.pifukeyisheng. All rights reserved.
+//  Copyright (c) 2014年 com.yp All rights reserved.
 //
 
 #import <QuartzCore/QuartzCore.h>

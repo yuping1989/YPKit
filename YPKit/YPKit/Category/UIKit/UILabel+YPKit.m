@@ -1,9 +1,9 @@
 //
 //  UILabel+YPKit.m
-//  PiFuKeYiSheng
+//  YPKit
 //
 //  Created by 喻平 on 14-6-12.
-//  Copyright (c) 2014年 com.pifukeyisheng. All rights reserved.
+//  Copyright (c) 2014年 com.yp All rights reserved.
 //
 
 #import "UILabel+YPKit.h"

@@ -3,7 +3,7 @@
 //  YPKit
 //
 //  Created by 喻平 on 14-4-2.
-//  Copyright (c) 2014年 com.yp. All rights reserved.
+//  Copyright (c) 2014年 com.yp All rights reserved.
 //
 
 #import "UIAlertController+YPKit.h"
@@ -95,12 +95,12 @@ static const int alert_action_key;
         
         if (buttonTitles.count > 0) {
             for (int i = 0; i < buttonTitles.count; i++) {
-                @weakify(alert)
+                __weak UIAlertController *weakAlert = alert;
                 UIAlertAction *action = [UIAlertAction actionWithTitle:buttonTitles[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    @strongify(alert)
+                    __strong UIAlertController *strongAlert = weakAlert;
                     if (completion) {
                         NSNumber *index = objc_getAssociatedObject(action, &alert_action_key);
-                        completion([index integerValue], [alert.textFields firstObject]);
+                        completion([index integerValue], [strongAlert.textFields firstObject]);
                     }
                 }];
                 objc_setAssociatedObject(action, &alert_action_key, @(i), OBJC_ASSOCIATION_RETAIN_NONATOMIC);

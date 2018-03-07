@@ -1,4 +1,4 @@
-#YPTabBarController.podspec
+#YPKit.podspec
 Pod::Spec.new do |s|
 s.name         = "YPKit"
 s.version      = "1.0.2"

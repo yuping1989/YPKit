@@ -41,6 +41,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 
 /**
+ *  生产带圆角的UIImage
+ *
+ *  @param radius  圆角值
+ */
+- (nullable UIImage *)imageWithCornerRadius:(CGFloat)radius;
+
+/**
  *  保持比例，放大或者缩小UIImage
  *
  *  @param width 放大或者缩小后的宽度

@@ -39,9 +39,20 @@
     CGContextSetFillColorWithColor(context, [color CGColor]);
     CGContextFillRect(context, rect);
     
-    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    return theImage;
+    return image;
+}
+
+- (UIImage *)imageWithCornerRadius:(CGFloat)radius {
+    CGRect rect = (CGRect){0.0f, 0.0f, self.size};
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, [UIScreen mainScreen].scale);
+    [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:radius] addClip];
+    [self drawInRect:rect];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 - (UIImage *)scaledImageByWidth:(CGFloat)width; {

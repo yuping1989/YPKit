@@ -72,11 +72,12 @@ NSString *const YPDateFormat_MMdd = @"MM-dd";
 + (NSString *)formatDateTimeInterval:(NSTimeInterval)timeInterval {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     NSDate *currentDate = [NSDate date];
-    NSString *currentDateString = [currentDate stringWithFormat:YPDateFormat_yyyyMMddHHmmss];
+    
     int current = [currentDate timeIntervalSince1970];
     if (timeInterval > current) { //传入时间大于当前时间，返回
         return @"";
     }
+    NSString *currentDateString = [currentDate stringWithFormat:YPDateFormat_yyyyMMdd];
     int todayZero = [[self dateWithString:currentDateString format:YPDateFormat_yyyyMMdd] timeIntervalSince1970];
     
     int dayDiff = (todayZero - timeInterval) / (24 * 3600);

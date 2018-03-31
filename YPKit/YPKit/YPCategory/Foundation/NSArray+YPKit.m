@@ -12,6 +12,8 @@
 
 @implementation NSArray (YPKit)
 
+#ifdef DEBUG
+
 + (void)load {
     method_exchangeImplementations(class_getInstanceMethod([self class], @selector(description)), class_getInstanceMethod([self class], @selector(replaceDescription)));
     method_exchangeImplementations(class_getInstanceMethod([self class], @selector(descriptionWithLocale:)), class_getInstanceMethod([self class], @selector(replaceDescriptionWithLocale:)));
@@ -29,6 +31,8 @@
 - (NSString *)replaceDescriptionWithLocale:(nullable id)locale indent:(NSUInteger)level {
     return [NSObject stringByReplaceUnicode:[self replaceDescriptionWithLocale:locale indent:level]];
 }
+
+#endif
 
 - (NSArray *)sortedArrayWithKey:(NSString *)key ascending:(BOOL)ascending {
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:ascending];

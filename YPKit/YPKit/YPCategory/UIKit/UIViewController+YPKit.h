@@ -59,14 +59,4 @@
  */
 - (UIViewController *)yp_topViewController;
 
-/**
- *  present带导航栏的UIViewController
- */
-- (void)presentNavControllerWithRootController:(UIViewController *)controller;
-
-/**
- *  当self.view为UIScrollView时，设置它的Content Height，主要用在设置界面
- */
-- (void)setScrollViewContentHeight:(CGFloat)height;
-
 @end

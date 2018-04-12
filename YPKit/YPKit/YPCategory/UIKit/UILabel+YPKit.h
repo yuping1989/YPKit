@@ -17,20 +17,4 @@
  */
 - (void)setText:(NSString *)text attributeString:(void(^)(NSMutableAttributedString *attrString))block;
 
-#pragma mark - Methods should be deprecated
-
-/**
- *  重置UILabel的高度，来显示所有的文字
- *
- *  @param isAttributedText 是否为AttributedText
- */
-- (void)resizeToFitHeight:(BOOL)isAttributedText;
-
-/**
- *  重置UILabel的宽度，来显示所有的文字
- *
- *  @param isAttributedText 是否为AttributedText
- */
-- (void)resizeToFitWidth:(BOOL)isAttributedText;
-
 @end

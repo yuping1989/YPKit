@@ -18,4 +18,9 @@
 
 - (void)setScalableHeaderCustomView:(UIView *)customView;
 
+/**
+ *  生成所有内容视图的快照图像
+ */
+- (UIImage *)contentSnapshotImage;
+
 @end

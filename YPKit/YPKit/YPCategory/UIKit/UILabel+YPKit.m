@@ -12,6 +12,7 @@
 #import "UIView+YPKit.h"
 
 @implementation UILabel (YPKit)
+
 - (void)setText:(NSString *)text attributeString:(void(^)(NSMutableAttributedString *attrString))block {
     NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] initWithString:text];
     if (block) {
@@ -20,22 +21,4 @@
     self.attributedText = aString;
 }
 
-#pragma mark - Methods should be deprecated
-
-- (void)resizeToFitHeight:(BOOL)isAttributedText {
-    self.numberOfLines = 0;
-    if (isAttributedText) {
-        self.yp_height = [self.attributedText heightWithWidth:self.yp_width];
-    } else {
-        self.yp_height = [self.text heightWithFont:self.font width:self.yp_width];
-    }
-}
-- (void)resizeToFitWidth:(BOOL)isAttributedText {
-    self.numberOfLines = 0;
-    if (isAttributedText) {
-        self.yp_width = self.attributedText.width;
-    } else {
-        self.yp_width = [self.text widthWithFont:self.font];
-    }
-}
 @end

@@ -91,8 +91,8 @@
 
 - (void)setDisplayingIndex:(NSInteger)displayingIndex {
     _displayingIndex = displayingIndex;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(yp_pageView:didEndDisplayingPageCellAtIndex:)]) {
-        [self.delegate yp_pageView:self didEndDisplayingPageCellAtIndex:self.displayingIndex];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(yp_pageView:didDisplayPageCellAtIndex:)]) {
+        [self.delegate yp_pageView:self didDisplayPageCellAtIndex:self.displayingIndex];
     }
 }
 

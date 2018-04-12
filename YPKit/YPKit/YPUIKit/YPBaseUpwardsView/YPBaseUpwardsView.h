@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) UIControl *backgroundView;
 
-- (void)showInWindow;
+- (void)show;
 - (void)showInView:(UIView *)view;
 
 - (void)hideWithCompletion:(void (^)(void))completion;

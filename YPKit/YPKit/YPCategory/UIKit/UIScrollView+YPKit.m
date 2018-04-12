@@ -7,6 +7,7 @@
 //
 
 #import "UIScrollView+YPKit.h"
+#import "UIView+YPKit.h"
 #import <objc/runtime.h>
 
 static NSString * const kContentOffset = @"contentOffset";
@@ -148,6 +149,27 @@ static NSString * const kContentOffset = @"contentOffset";
 
 - (void)setScalableHeaderCustomView:(UIView *)customView {
     self.headerView.customView = customView;
+}
+
+- (UIImage *)contentSnapshotImage {
+    if (![self isKindOfClass:[UIScrollView class]]) {
+        return [self snapshotImage];
+    }
+    UIScrollView *scrollView = (UIScrollView *)self;
+    
+    UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, self.opaque, 0);
+    CGPoint savedContentOffset = scrollView.contentOffset;
+    CGRect savedFrame = scrollView.frame;
+    scrollView.contentOffset = CGPointZero;
+    scrollView.frame = CGRectMake(0, 0, scrollView.contentSize.width, scrollView.contentSize.height);
+    
+    [scrollView.layer renderInContext: UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    scrollView.contentOffset = savedContentOffset;
+    scrollView.frame = savedFrame;
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 @end

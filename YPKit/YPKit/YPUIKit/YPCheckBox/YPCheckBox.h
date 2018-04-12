@@ -31,7 +31,8 @@
 
 + (id)checkBoxWithFrame:(CGRect)frame;
 
-- (void)setStateChangedBlock:(void (^)(BOOL checked))stateChangedBlock;
+@property (nonatomic, copy) void (^stateChangedBlock)(BOOL checked);
+
 - (void)setNormalImage:(UIImage *)normalImage checkedImage:(UIImage *)checkedImage;
 
 @end

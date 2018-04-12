@@ -7,11 +7,7 @@
 //
 
 #import "UIViewController+YPKit.h"
-#import "UIControl+YPKit.h"
 #import <objc/runtime.h>
-#import "NSString+YPKit.h"
-#import "UIApplication+YPKit.h"
-#import "UIScreen+YPKit.h"
 
 static const int leftBarButtonBlockKey;
 static const int rightBarButtonBlockKey;
@@ -131,7 +127,7 @@ typedef void (^YPBarButtonBlock)(UIBarButtonItem *item);
 }
 
 - (void)viewTapped:(UITapGestureRecognizer *)recognizer {
-    [UIApplication hideKeyboard];
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
 }
 
 - (BOOL)isViewInBackground {
@@ -154,17 +150,6 @@ typedef void (^YPBarButtonBlock)(UIBarButtonItem *item);
     } else {
         return topController;
     }
-}
-
-- (void)presentNavControllerWithRootController:(UIViewController *)controller {
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:controller] animated:YES completion:nil];
-}
-
-- (void)setScrollViewContentHeight:(CGFloat)height {
-    if (![self.view isKindOfClass:[UIScrollView class]]) {
-        return;
-    }
-    [(UIScrollView *)self.view setContentSize:CGSizeMake(SCREEN_WIDTH, height)];
 }
 
 @end

@@ -11,15 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UITextField (YPKit)
-/**
- *  设置文字左边留出的空白宽度
- */
-- (void)setContentPaddingLeft:(CGFloat)width;
 
-/**
- *  设置文字右边留出的空白宽度
- */
-- (void)setContentPaddingRight:(CGFloat)width;
+@property (nonatomic) CGFloat textPaddingLeft;
+@property (nonatomic) CGFloat textPaddingRight;
 
 /**
  *  设置attributeText

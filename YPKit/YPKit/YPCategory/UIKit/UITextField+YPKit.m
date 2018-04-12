@@ -7,18 +7,31 @@
 //
 
 #import "UITextField+YPKit.h"
-#import "UIView+YPKit.h"
 
 @implementation UITextField (YPKit)
 
-- (void)setContentPaddingLeft:(CGFloat)width {
-    self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, self.yp_height)];
+- (void)setTextPaddingLeft:(CGFloat)textPaddingLeft {
+    if (!self.leftView) {
+        self.leftView = [[UIView alloc] init];
+    }
+    self.leftView.frame = CGRectMake(0, 0, textPaddingLeft, self.bounds.size.height);
     self.leftViewMode = UITextFieldViewModeAlways;
 }
 
-- (void)setContentPaddingRight:(CGFloat)width {
-    self.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, self.yp_height)];
+- (CGFloat)textPaddingLeft {
+    return self.leftView.frame.size.width;
+}
+
+- (void)setTextPaddingRight:(CGFloat)textPaddingRight {
+    if (!self.rightView) {
+        self.rightView = [[UIView alloc] init];
+    }
+    self.rightView.frame = CGRectMake(0, 0, textPaddingRight, self.bounds.size.height);
     self.rightViewMode = UITextFieldViewModeAlways;
+}
+
+- (CGFloat)textPaddingRight {
+    return self.rightView.frame.size.width;
 }
 
 - (void)setText:(NSString *)text attributeString:(void(^)(NSMutableAttributedString *attrString))block {

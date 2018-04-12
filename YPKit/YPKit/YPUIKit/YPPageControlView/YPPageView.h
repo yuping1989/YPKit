@@ -17,7 +17,6 @@
 
 @optional
 
-
 /**
  *  配置page cell，cell为自己创建
  */
@@ -29,12 +28,12 @@
 - (void)yp_pageView:(YPPageView *)pageView configurePageCell:(YPPageViewCell *)cell forIndex:(NSInteger)index;
 
 /**
- *  滑动到某个index，或者调用setDisplayingIndex方法时，调用此方法
+ *  page被展示时回调
  */
-- (void)yp_pageView:(YPPageView *)pageView didEndDisplayingPageCellAtIndex:(NSInteger)index;
+- (void)yp_pageView:(YPPageView *)pageView didDisplayPageCellAtIndex:(NSInteger)index;
 
 /**
- *  cell被点击时，调用此方法
+ *  cell被点击时回调
  */
 - (void)yp_pageView:(YPPageView *)pageView didClickPageCellAtIndex:(NSInteger)index;
 

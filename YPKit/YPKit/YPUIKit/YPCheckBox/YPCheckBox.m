@@ -7,13 +7,6 @@
 //
 
 #import "YPCheckBox.h"
-#define Q_CHECK_ICON_WH                    (20.0)
-#define Q_ICON_TITLE_MARGIN                (10.0)
-
-
-@interface YPCheckBox ()
-@property (nonatomic, copy) void (^stateChangedBlock)(BOOL checked);
-@end
 
 @implementation YPCheckBox
 

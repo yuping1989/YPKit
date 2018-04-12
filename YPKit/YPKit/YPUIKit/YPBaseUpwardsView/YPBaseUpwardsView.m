@@ -10,7 +10,7 @@
 
 @implementation YPBaseUpwardsView
 
-- (void)showInWindow {
+- (void)show {
     UIView *window = [UIApplication sharedApplication].delegate.window;
     [self showInView:window];
 }

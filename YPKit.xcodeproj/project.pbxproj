@@ -44,14 +44,6 @@
 		7EE89BF32050129200802F27 /* UITextField+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BB82050129200802F27 /* UITextField+YPKit.m */; };
 		7EE89BF42050129200802F27 /* UIView+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BBA2050129200802F27 /* UIView+YPKit.m */; };
 		7EE89BF52050129200802F27 /* UIViewController+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BBC2050129200802F27 /* UIViewController+YPKit.m */; };
-		7EE89BF62050129200802F27 /* YPBaseUpwardsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BC12050129200802F27 /* YPBaseUpwardsView.m */; };
-		7EE89BF72050129200802F27 /* YPCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BC42050129200802F27 /* YPCheckBox.m */; };
-		7EE89BF82050129200802F27 /* YPControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BC72050129200802F27 /* YPControl.m */; };
-		7EE89BF92050129200802F27 /* YPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BCA2050129200802F27 /* YPPageView.m */; };
-		7EE89BFA2050129200802F27 /* YPPageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BCC2050129200802F27 /* YPPageViewCell.m */; };
-		7EE89BFB2050129200802F27 /* YPTagCloudView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BCF2050129200802F27 /* YPTagCloudView.m */; };
-		7EE89BFC2050129200802F27 /* YPPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BD22050129200802F27 /* YPPlaceHolderTextView.m */; };
-		7EE89BFD2050129200802F27 /* YPTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BD42050129200802F27 /* YPTextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,22 +119,6 @@
 		7EE89BBA2050129200802F27 /* UIView+YPKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+YPKit.m"; sourceTree = "<group>"; };
 		7EE89BBB2050129200802F27 /* UIViewController+YPKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+YPKit.h"; sourceTree = "<group>"; };
 		7EE89BBC2050129200802F27 /* UIViewController+YPKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+YPKit.m"; sourceTree = "<group>"; };
-		7EE89BC02050129200802F27 /* YPBaseUpwardsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPBaseUpwardsView.h; sourceTree = "<group>"; };
-		7EE89BC12050129200802F27 /* YPBaseUpwardsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPBaseUpwardsView.m; sourceTree = "<group>"; };
-		7EE89BC32050129200802F27 /* YPCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPCheckBox.h; sourceTree = "<group>"; };
-		7EE89BC42050129200802F27 /* YPCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPCheckBox.m; sourceTree = "<group>"; };
-		7EE89BC62050129200802F27 /* YPControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPControl.h; sourceTree = "<group>"; };
-		7EE89BC72050129200802F27 /* YPControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPControl.m; sourceTree = "<group>"; };
-		7EE89BC92050129200802F27 /* YPPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPPageView.h; sourceTree = "<group>"; };
-		7EE89BCA2050129200802F27 /* YPPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPPageView.m; sourceTree = "<group>"; };
-		7EE89BCB2050129200802F27 /* YPPageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPPageViewCell.h; sourceTree = "<group>"; };
-		7EE89BCC2050129200802F27 /* YPPageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPPageViewCell.m; sourceTree = "<group>"; };
-		7EE89BCE2050129200802F27 /* YPTagCloudView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPTagCloudView.h; sourceTree = "<group>"; };
-		7EE89BCF2050129200802F27 /* YPTagCloudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPTagCloudView.m; sourceTree = "<group>"; };
-		7EE89BD12050129200802F27 /* YPPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPPlaceHolderTextView.h; sourceTree = "<group>"; };
-		7EE89BD22050129200802F27 /* YPPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPPlaceHolderTextView.m; sourceTree = "<group>"; };
-		7EE89BD32050129200802F27 /* YPTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPTextView.h; sourceTree = "<group>"; };
-		7EE89BD42050129200802F27 /* YPTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPTextView.m; sourceTree = "<group>"; };
 		7EE89BD52050129200802F27 /* YPKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPKit.h; sourceTree = "<group>"; };
 		7EE89BD62050129200802F27 /* YPKitMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPKitMacro.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -203,7 +179,6 @@
 			isa = PBXGroup;
 			children = (
 				7EE89B7B2050129200802F27 /* YPCategory */,
-				7EE89BBE2050129200802F27 /* YPUIKit */,
 				7EE89BD52050129200802F27 /* YPKit.h */,
 				7EE89BD62050129200802F27 /* YPKitMacro.h */,
 			);
@@ -303,77 +278,6 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
-		7EE89BBE2050129200802F27 /* YPUIKit */ = {
-			isa = PBXGroup;
-			children = (
-				7EE89BBF2050129200802F27 /* YPBaseUpwardsView */,
-				7EE89BC22050129200802F27 /* YPCheckBox */,
-				7EE89BC52050129200802F27 /* YPControl */,
-				7EE89BC82050129200802F27 /* YPPageControlView */,
-				7EE89BCD2050129200802F27 /* YPTagCloudView */,
-				7EE89BD02050129200802F27 /* YPTextView */,
-			);
-			path = YPUIKit;
-			sourceTree = "<group>";
-		};
-		7EE89BBF2050129200802F27 /* YPBaseUpwardsView */ = {
-			isa = PBXGroup;
-			children = (
-				7EE89BC02050129200802F27 /* YPBaseUpwardsView.h */,
-				7EE89BC12050129200802F27 /* YPBaseUpwardsView.m */,
-			);
-			path = YPBaseUpwardsView;
-			sourceTree = "<group>";
-		};
-		7EE89BC22050129200802F27 /* YPCheckBox */ = {
-			isa = PBXGroup;
-			children = (
-				7EE89BC32050129200802F27 /* YPCheckBox.h */,
-				7EE89BC42050129200802F27 /* YPCheckBox.m */,
-			);
-			path = YPCheckBox;
-			sourceTree = "<group>";
-		};
-		7EE89BC52050129200802F27 /* YPControl */ = {
-			isa = PBXGroup;
-			children = (
-				7EE89BC62050129200802F27 /* YPControl.h */,
-				7EE89BC72050129200802F27 /* YPControl.m */,
-			);
-			path = YPControl;
-			sourceTree = "<group>";
-		};
-		7EE89BC82050129200802F27 /* YPPageControlView */ = {
-			isa = PBXGroup;
-			children = (
-				7EE89BC92050129200802F27 /* YPPageView.h */,
-				7EE89BCA2050129200802F27 /* YPPageView.m */,
-				7EE89BCB2050129200802F27 /* YPPageViewCell.h */,
-				7EE89BCC2050129200802F27 /* YPPageViewCell.m */,
-			);
-			path = YPPageControlView;
-			sourceTree = "<group>";
-		};
-		7EE89BCD2050129200802F27 /* YPTagCloudView */ = {
-			isa = PBXGroup;
-			children = (
-				7EE89BCE2050129200802F27 /* YPTagCloudView.h */,
-				7EE89BCF2050129200802F27 /* YPTagCloudView.m */,
-			);
-			path = YPTagCloudView;
-			sourceTree = "<group>";
-		};
-		7EE89BD02050129200802F27 /* YPTextView */ = {
-			isa = PBXGroup;
-			children = (
-				7EE89BD12050129200802F27 /* YPPlaceHolderTextView.h */,
-				7EE89BD22050129200802F27 /* YPPlaceHolderTextView.m */,
-				7EE89BD32050129200802F27 /* YPTextView.h */,
-				7EE89BD42050129200802F27 /* YPTextView.m */,
-			);
-			path = YPTextView;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -451,37 +355,29 @@
 				7EE89BE72050129200802F27 /* UIApplication+YPKit.m in Sources */,
 				7EE89BEE2050129200802F27 /* UILabel+YPKit.m in Sources */,
 				7EE89BEF2050129200802F27 /* UIScreen+YPKit.m in Sources */,
-				7EE89BFD2050129200802F27 /* YPTextView.m in Sources */,
 				7EE89BE02050129200802F27 /* NSObject+YPKit.m in Sources */,
 				7EE89BF12050129200802F27 /* UITableView+YPKit.m in Sources */,
 				7EE89BD82050129200802F27 /* NSAttributedString+YPKit.m in Sources */,
 				7EE89BE62050129200802F27 /* UIAlertController+YPKit.m in Sources */,
 				7EE89BE32050129200802F27 /* NSTimer+YPKit.m in Sources */,
-				7EE89BF72050129200802F27 /* YPCheckBox.m in Sources */,
 				7ECB6C3F1F9F19BF009F8AAF /* ViewController.m in Sources */,
 				7EE89BD72050129200802F27 /* NSArray+YPKit.m in Sources */,
 				7EE89BF32050129200802F27 /* UITextField+YPKit.m in Sources */,
-				7EE89BFC2050129200802F27 /* YPPlaceHolderTextView.m in Sources */,
 				7EE89BE82050129200802F27 /* UIButton+YPKit.m in Sources */,
-				7EE89BFA2050129200802F27 /* YPPageViewCell.m in Sources */,
 				7ECB6C391F9F19BF009F8AAF /* AppDelegate.m in Sources */,
 				7EE89BE12050129200802F27 /* NSSet+YPKit.m in Sources */,
 				7EE89BDD2050129200802F27 /* NSMutableArray+YPKit.m in Sources */,
 				7EE89BF02050129200802F27 /* UIScrollView+YPKit.m in Sources */,
 				7EE89BF22050129200802F27 /* UITableViewCell+YPKit.m in Sources */,
 				7EE89BEC2050129200802F27 /* UIGestureRecognizer+YPKit.m in Sources */,
-				7EE89BF82050129200802F27 /* YPControl.m in Sources */,
 				7EE89BED2050129200802F27 /* UIImage+YPKit.m in Sources */,
-				7EE89BF92050129200802F27 /* YPPageView.m in Sources */,
 				7EE89BEA2050129200802F27 /* UIControl+YPKit.m in Sources */,
 				7ECB6C3D1F9F19BF009F8AAF /* main.m in Sources */,
 				7EE89BDC2050129200802F27 /* NSFileManager+YPKit.m in Sources */,
 				7EE89BE92050129200802F27 /* UIColor+YPKit.m in Sources */,
 				7EE89BDE2050129200802F27 /* NSMutableAttributedString+YPKit.m in Sources */,
 				7EE89BDB2050129200802F27 /* NSDictionary+YPKit.m in Sources */,
-				7EE89BF62050129200802F27 /* YPBaseUpwardsView.m in Sources */,
 				7EE89BE22050129200802F27 /* NSString+YPKit.m in Sources */,
-				7EE89BFB2050129200802F27 /* YPTagCloudView.m in Sources */,
 				7EE89BDA2050129200802F27 /* NSDate+YPKit.m in Sources */,
 				7EE89BD92050129200802F27 /* NSData+YPKit.m in Sources */,
 				7EE89BF52050129200802F27 /* UIViewController+YPKit.m in Sources */,

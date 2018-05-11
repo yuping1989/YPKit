@@ -13,7 +13,17 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIImage (YPKit)
 
 /**
- *  从中间拉升图像
+ *  以imageWithContentsOfFile的方式获取图片，jpg格式
+ */
++ (UIImage *)jpgImageWithContentsOfName:(NSString *)name;
+
+/**
+ *  以imageWithContentsOfFile的方式获取图片
+ */
++ (UIImage *)imageWithContentsOfName:(NSString *)name type:(NSString *)type;
+
+/**
+ *  从中间拉伸图像
  */
 + (nullable UIImage *)stretchableImageNamed:(NSString *)name;
 

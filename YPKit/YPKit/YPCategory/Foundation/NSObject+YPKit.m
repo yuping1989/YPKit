@@ -85,6 +85,23 @@ static const int kvo_block_key;
     return YES;
 }
 
+#pragma mark - Properties
+
++ (NSArray *)yp_propertyNames {
+    NSMutableArray *names = [[NSMutableArray alloc] init];
+    unsigned int count, i;
+    objc_property_t *properties = class_copyPropertyList([self class], &count);
+    if (count) {
+        for (i = 0; i < count; i++) {
+            objc_property_t property = properties[i];
+            NSString *key = [[NSString alloc] initWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+            [names addObject:key];
+        }
+    }
+    free(properties);
+    return names;
+}
+
 #pragma mark - Associate value
 
 - (void)setAssociateValue:(id)value withKey:(void *)key {

@@ -15,6 +15,14 @@
 
 @implementation UIImage (YPKit)
 
++ (UIImage *)jpgImageWithContentsOfName:(NSString *)name {
+    return [self imageWithContentsOfName:name type:@"jpg"];
+}
+
++ (UIImage *)imageWithContentsOfName:(NSString *)name type:(NSString *)type {
+    return [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:type]];
+}
+
 + (UIImage *)stretchableImageNamed:(NSString *)name {
     UIImage *image = [UIImage imageNamed:name];
     return [image stretchableImageWithLeftCapWidth:(int)(image.size.width / 2)

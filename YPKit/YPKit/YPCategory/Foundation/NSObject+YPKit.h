@@ -21,6 +21,10 @@ extern NSString * const YPNightModelSwitchedNotification;
  */
 + (BOOL)swizzleClassMethod:(SEL)originalSel with:(SEL)newSel;
 
+#pragma mark - Properties
+
++ (NSArray *)yp_propertyNames;
+
 #pragma mark - Associate value
 
 - (void)setAssociateValue:(nullable id)value withKey:(void *)key;

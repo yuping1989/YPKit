@@ -13,22 +13,23 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIImage (YPKit)
 
 /**
- *  以imageWithContentsOfFile的方式获取图片，jpg格式
+ *  以imageWithContentsOfFile的方式获取图片。
+ *  此方法无法获取*.xcassets文件夹里面的图片
+ *
+ *  @param name 文件名或相对路径，注意：
+ *              如果是png图片，扩展名非必需，示例：image或者image.png均可；
+ *              如果是jpg图片，扩展名必需，示例：image.jpg；
+ *              如果图片在bundle里面，传入相对路径即可，示例：xxx.bunlde/image.jpg。
  */
-+ (UIImage *)jpgImageWithContentsOfName:(NSString *)name;
++ (nullable UIImage *)imageWithContentsOfFileName:(NSString *)name;
 
 /**
- *  以imageWithContentsOfFile的方式获取图片
- */
-+ (UIImage *)imageWithContentsOfName:(NSString *)name type:(NSString *)type;
-
-/**
- *  从中间拉伸图像
+ *  从中间拉伸图像。
  */
 + (nullable UIImage *)stretchableImageNamed:(NSString *)name;
 
 /**
- *  拉升图像
+ *  拉升图像。
  *
  *  @param leftCapWidth 横向拉升，复制的像素位置
  *  @param topCapHeight 竖向拉升，复制的像素位置
@@ -39,39 +40,76 @@ NS_ASSUME_NONNULL_BEGIN
                                topCapHeight:(NSInteger)topCapHeight;
 
 /**
- *  根据颜色值生成UIImage
+ *  根据颜色值生成UIImage。
  */
 + (nullable UIImage *)imageWithColor:(UIColor *)color;
 
 /**
- *  根据颜色值生成UIImage
+ *  根据颜色值生成UIImage。
  *
  *  @param size  生成UIImage的size
  */
 + (nullable UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 
 /**
- *  生产带圆角的UIImage
+ *  根据字符串生成二维码。
+ *
+ *  @param string  二维码字符串
+ */
++ (nullable UIImage *)imageWithQRCodeString:(NSString *)string size:(CGFloat)size;
+
+/**
+ *  生产带圆角的UIImage。
  *
  *  @param radius  圆角值
  */
 - (nullable UIImage *)imageWithCornerRadius:(CGFloat)radius;
 
 /**
- *  保持比例，放大或者缩小UIImage
+ *  生产带圆角和边框的UIImage对象。
  *
- *  @param width 放大或者缩小后的宽度
- *
+ *  @param radius       圆角值
+ *  @param borderWidth  边框宽度
+ *  @param borderColor  边框颜色
  */
-- (nullable UIImage *)scaledImageByWidth:(CGFloat)width;
+- (nullable UIImage *)imageWithCornerRadius:(CGFloat)radius
+                                borderWidth:(CGFloat)borderWidth
+                                borderColor:(UIColor *)borderColor;
+/**
+ *  生产带圆角和边框的UIImage对象。
+ *
+ *  @param radius           圆角值
+ *  @param corners          圆角位置
+ *  @param borderWidth      边框宽度
+ *  @param borderColor      边框颜色
+ *  @param borderLineJoin   边框连接类型
+ */
+- (nullable UIImage *)imageWithCornerRadius:(CGFloat)radius
+                                    corners:(UIRectCorner)corners
+                                borderWidth:(CGFloat)borderWidth
+                                borderColor:(UIColor *)borderColor
+                             borderLineJoin:(CGLineJoin)borderLineJoin;
 
 /**
- *  保持比例，放大或者缩小UIImage
+ *  保持比例，根据width调整Image的大小
  *
- *  @param height 放大或者缩小后的高度
- *
+ *  @param width 调整后的宽度
  */
-- (nullable UIImage *)scaledImageByHeight:(CGFloat)height;
+- (nullable UIImage *)imageByResizeToWidth:(CGFloat)width;
+
+/**
+ *  保持比例，根据height调整Image的大小
+ *
+ *  @param height 调整后的高度
+ */
+- (nullable UIImage *)imageByResizeToHeight:(CGFloat)height;
+
+/**
+ *  裁剪Image
+ *
+ *  @param rect 裁剪位置和大小
+ */
+- (nullable UIImage *)imageByCropToRect:(CGRect)rect;
 
 /**
  *  修正UIImage的方向

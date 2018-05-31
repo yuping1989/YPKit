@@ -40,6 +40,8 @@ YP_USER_DEFAULTS_PROPERTY(udArray, setUdArray, @"udArray")
 
 @interface ViewController ()
 
+
+
 @end
 
 @implementation ViewController
@@ -60,6 +62,8 @@ YP_USER_DEFAULTS_PROPERTY(udArray, setUdArray, @"udArray")
     NSLog(@"color--->%@", self.udDict);
     NSLog(@"count--->%@", self.udArray);
     NSLog(@"size--->%@", NSStringFromCGSize(self.size));
+    
+    self.imageView.image = [UIImage imageWithContentsOfFileName:@"icon_pause"];
 }
 
 

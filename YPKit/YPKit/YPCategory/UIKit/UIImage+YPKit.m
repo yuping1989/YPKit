@@ -15,12 +15,9 @@
 
 @implementation UIImage (YPKit)
 
-+ (UIImage *)jpgImageWithContentsOfName:(NSString *)name {
-    return [self imageWithContentsOfName:name type:@"jpg"];
-}
-
-+ (UIImage *)imageWithContentsOfName:(NSString *)name type:(NSString *)type {
-    return [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:type]];
++ (UIImage *)imageWithContentsOfFileName:(NSString *)name {
+    NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
+    return [UIImage imageWithContentsOfFile:[resourcePath stringByAppendingPathComponent:name]];
 }
 
 + (UIImage *)stretchableImageNamed:(NSString *)name {
@@ -41,7 +38,7 @@
 }
 
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size {
-    CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(context, [color CGColor]);
@@ -52,9 +49,48 @@
     return image;
 }
 
++ (UIImage *)imageWithQRCodeString:(NSString *)string size:(CGFloat)size {
+    // 1. 实例化二维码滤镜
+    CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    // 2. 恢复滤镜的默认属性
+    [filter setDefaults];
+    
+    // 3. 将字符串转换成NSData
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    // 4. 通过KVO设置滤镜inputMessage数据
+    [filter setValue:data forKey:@"inputMessage"];
+    // 二维码容错率
+    [filter setValue:@"L" forKey:@"inputCorrectionLevel"];
+    // 5. 获得滤镜输出的图像
+    CIImage *outputImage = [filter outputImage];
+    
+    UIImage *image = [self createNonInterpolatedUIImageFormCIImage:outputImage withSize:size];//重绘二维码,使其显示清晰
+    return image;
+}
+
++ (UIImage *)createNonInterpolatedUIImageFormCIImage:(CIImage *)image withSize:(CGFloat) size {
+    CGRect extent = CGRectIntegral(image.extent);
+    CGFloat scale = MIN(size/CGRectGetWidth(extent), size/CGRectGetHeight(extent));
+    // 1.创建bitmap;
+    size_t width = CGRectGetWidth(extent) * scale;
+    size_t height = CGRectGetHeight(extent) * scale;
+    CGColorSpaceRef cs = CGColorSpaceCreateDeviceGray();
+    CGContextRef bitmapRef = CGBitmapContextCreate(nil, width, height, 8, 0, cs, (CGBitmapInfo)kCGImageAlphaNone);
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef bitmapImage = [context createCGImage:image fromRect:extent];
+    CGContextSetInterpolationQuality(bitmapRef, kCGInterpolationNone);
+    CGContextScaleCTM(bitmapRef, scale, scale);
+    CGContextDrawImage(bitmapRef, extent, bitmapImage);
+    // 2.保存bitmap到图片
+    CGImageRef scaledImage = CGBitmapContextCreateImage(bitmapRef);
+    CGContextRelease(bitmapRef);
+    CGImageRelease(bitmapImage);
+    return [UIImage imageWithCGImage:scaledImage];
+}
+
 - (UIImage *)imageWithCornerRadius:(CGFloat)radius {
-    CGRect rect = (CGRect){0.0f, 0.0f, self.size};
-    UIGraphicsBeginImageContextWithOptions(self.size, NO, [UIScreen mainScreen].scale);
+    CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
     [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:radius] addClip];
     [self drawInRect:rect];
     
@@ -63,20 +99,95 @@
     return image;
 }
 
-- (UIImage *)scaledImageByWidth:(CGFloat)width; {
-    UIGraphicsBeginImageContext(CGSizeMake(width, self.size.height * width / self.size.width));
+- (UIImage *)imageWithCornerRadius:(CGFloat)radius
+                       borderWidth:(CGFloat)borderWidth
+                       borderColor:(UIColor *)borderColor {
+    return [self imageWithCornerRadius:radius
+                               corners:UIRectCornerAllCorners
+                           borderWidth:borderWidth
+                           borderColor:borderColor
+                        borderLineJoin:kCGLineJoinMiter];
+}
+
+- (UIImage *)imageWithCornerRadius:(CGFloat)radius
+                           corners:(UIRectCorner)corners
+                       borderWidth:(CGFloat)borderWidth
+                       borderColor:(UIColor *)borderColor
+                    borderLineJoin:(CGLineJoin)borderLineJoin {
+    
+    if (corners != UIRectCornerAllCorners) {
+        UIRectCorner tmp = 0;
+        if (corners & UIRectCornerTopLeft) tmp |= UIRectCornerBottomLeft;
+        if (corners & UIRectCornerTopRight) tmp |= UIRectCornerBottomRight;
+        if (corners & UIRectCornerBottomLeft) tmp |= UIRectCornerTopLeft;
+        if (corners & UIRectCornerBottomRight) tmp |= UIRectCornerTopRight;
+        corners = tmp;
+    }
+    
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
+    CGContextScaleCTM(context, 1, -1);
+    CGContextTranslateCTM(context, 0, -rect.size.height);
+    
+    CGFloat minSize = MIN(self.size.width, self.size.height);
+    if (borderWidth < minSize / 2) {
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(rect, borderWidth, borderWidth) byRoundingCorners:corners cornerRadii:CGSizeMake(radius, borderWidth)];
+        [path closePath];
+        
+        CGContextSaveGState(context);
+        [path addClip];
+        CGContextDrawImage(context, rect, self.CGImage);
+        CGContextRestoreGState(context);
+    }
+    
+    if (borderColor && borderWidth < minSize / 2 && borderWidth > 0) {
+        CGFloat strokeInset = (floor(borderWidth * self.scale) + 0.5) / self.scale;
+        CGRect strokeRect = CGRectInset(rect, strokeInset, strokeInset);
+        CGFloat strokeRadius = radius > self.scale / 2 ? radius - self.scale / 2 : 0;
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:strokeRect byRoundingCorners:corners cornerRadii:CGSizeMake(strokeRadius, borderWidth)];
+        [path closePath];
+        
+        path.lineWidth = borderWidth;
+        path.lineJoinStyle = borderLineJoin;
+        [borderColor setStroke];
+        [path stroke];
+    }
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+
+- (UIImage *)imageByResizeToWidth:(CGFloat)width {
+    CGSize size = CGSizeMake(width, self.size.height * width / self.size.width);
+    UIGraphicsBeginImageContextWithOptions(size, NO, self.scale);
     [self drawInRect:CGRectMake(0, 0, width, self.size.height * width / self.size.width)];
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return scaledImage;
 }
 
-- (UIImage *)scaledImageByHeight:(CGFloat)height {
-    UIGraphicsBeginImageContext(CGSizeMake(self.size.width * height / self.size.height, height));
+- (UIImage *)imageByResizeToHeight:(CGFloat)height {
+    CGSize size = CGSizeMake(self.size.width * height / self.size.height, height);
+    UIGraphicsBeginImageContextWithOptions(size, NO, self.scale);
     [self drawInRect:CGRectMake(0, 0, self.size.width * height / self.size.height, height)];
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return scaledImage;
+}
+
+- (UIImage *)imageByCropToRect:(CGRect)rect {
+    rect.origin.x *= self.scale;
+    rect.origin.y *= self.scale;
+    rect.size.width *= self.scale;
+    rect.size.height *= self.scale;
+    if (rect.size.width <= 0 || rect.size.height <= 0) return nil;
+    CGImageRef imageRef = CGImageCreateWithImageInRect(self.CGImage, rect);
+    UIImage *image = [UIImage imageWithCGImage:imageRef scale:self.scale orientation:self.imageOrientation];
+    CGImageRelease(imageRef);
+    return image;
 }
 
 - (UIImage *)imageByFixOrientation {

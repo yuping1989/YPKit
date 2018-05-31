@@ -17,6 +17,24 @@ NSString *const YPDateFormat_MMdd = @"MM-dd";
 
 @implementation NSDate (YPKit)
 
++ (NSDateFormatter *)yp_fixedFormatter {
+    static NSDateFormatter *formatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [[NSDateFormatter alloc] init];
+    });
+    return formatter;
+}
+
++ (NSDateFormatter *)yp_dynamicFormatter {
+    static NSDateFormatter *formatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [[NSDateFormatter alloc] init];
+    });
+    return formatter;
+}
+
 - (NSInteger)weekday {
     return [[[NSCalendar currentCalendar] components:NSCalendarUnitWeekday fromDate:self] weekday];
 }
@@ -32,7 +50,7 @@ NSString *const YPDateFormat_MMdd = @"MM-dd";
 }
 
 - (NSString *)stringWithFormat:(NSString *)format {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [NSDate yp_fixedFormatter];
     [formatter setDateFormat:format];
     return [formatter stringFromDate:self];
 }
@@ -40,7 +58,7 @@ NSString *const YPDateFormat_MMdd = @"MM-dd";
 - (NSString *)stringWithFormat:(NSString *)format
                       timeZone:(NSTimeZone *)timeZone
                         locale:(NSLocale *)locale {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [NSDate yp_dynamicFormatter];
     [formatter setDateFormat:format];
     if (timeZone) [formatter setTimeZone:timeZone];
     if (locale) [formatter setLocale:locale];
@@ -48,7 +66,7 @@ NSString *const YPDateFormat_MMdd = @"MM-dd";
 }
 
 + (NSDate *)dateWithString:(NSString *)dateString format:(NSString *)format {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [NSDate yp_fixedFormatter];
     [formatter setDateFormat:format];
     return [formatter dateFromString:dateString];
 }
@@ -57,7 +75,7 @@ NSString *const YPDateFormat_MMdd = @"MM-dd";
                     format:(NSString *)format
                   timeZone:(NSTimeZone *)timeZone
                     locale:(NSLocale *)locale {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [NSDate yp_dynamicFormatter];
     [formatter setDateFormat:format];
     if (timeZone) [formatter setTimeZone:timeZone];
     if (locale) [formatter setLocale:locale];

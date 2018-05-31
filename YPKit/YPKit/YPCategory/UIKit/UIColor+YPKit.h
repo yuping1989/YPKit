@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 
 /**
- *  返回UIColor对象，示例：UIColorRGB(255, 255, 255)
+ 返回UIColor对象，示例：UIColorRGB(255, 255, 255)。
  */
 #define UIColorRGB(_red_, _green_, _blue_) UIColorRGBA(_red_, _green_, _blue_, 1.0f)
 
 /**
- *  返回UIColor对象，示例：UIColorRGBA(255, 255, 255, 0.8f)
+ 返回UIColor对象，示例：UIColorRGBA(255, 255, 255, 0.8f)。
  */
 #define UIColorRGBA(_red_, _green_, _blue_, _alpha_) \
         [UIColor colorWithRed:_red_/255.0f green:_green_/255.0f blue:_blue_/255.0f alpha:_alpha_]
@@ -22,43 +22,49 @@
 @interface UIColor (YPKit)
 
 /**
- Creates and returns a color object using the hex RGB color values.
+ 使用hex值生成UIColor对象，无alpha。
  
- @param rgbValue  The rgb value such as 0x66ccff.
- 
- @return          The color object. The color information represented by this
- object is in the device RGB colorspace.
+ @param rgbValue hex值，示例：0x88ffaa
  */
 + (UIColor *)colorWithRGB:(uint32_t)rgbValue;
 
 /**
- Creates and returns a color object using the hex RGBA color values.
+ 使用hex值生成UIColor对象，有alpha。
  
- @param rgbaValue  The rgb value such as 0x66ccffff.
- 
- @return           The color object. The color information represented by this
- object is in the device RGB colorspace.
+ @param rgbaValue hex值，示例：0x88ffaaff
  */
 + (UIColor *)colorWithRGBA:(uint32_t)rgbaValue;
 
 /**
- Creates and returns a color object using the specified opacity and RGB hex value.
+ 使用hex值生成UIColor对象，有alpha。
  
- @param rgbValue  The rgb value such as 0x66CCFF.
- 
- @param alpha     The opacity value of the color object,
- specified as a value from 0.0 to 1.0.
- 
- @return          The color object. The color information represented by this
- object is in the device RGB colorspace.
+ @param rgbValue hex值，示例：0x88ffaa
+ @param alpha alpha值，范围：0.0 ~ 1.0
  */
 + (UIColor *)colorWithRGB:(uint32_t)rgbValue alpha:(CGFloat)alpha;
 
 /**
- Returns the rgb value in hex.
- @return hex value of RGB,such as 0x66ccff.
+ 返回UIColor的hex值，示例：0x66ccff。
  */
 - (uint32_t)rgbValue;
+
+/**
+ 使用hex字符串生成UIColor对象。
+ 格式：#RGB #RGBA #RRGGBB #RRGGBBAA 0xRGB RGB，
+      `#` or "0x"不是必需，忽略大小写。
+ @param hexStr hex字符串，示例: @"0xF0F", @"88ffaa", @"#88ffaaee"
+ */
++ (nullable UIColor *)colorWithHexString:(NSString *)hexStr;
+
+/**
+ 生成hex字符串，无alpha，示例：@"88ffaa"。
+ */
+- (nullable NSString *)hexString;
+
+/**
+ 生成hex字符串，有alpha，示例：@"88ffaaff"。
+ */
+- (nullable NSString *)hexStringWithAlpha;
 
 /**
  Returns the rgba value in hex.

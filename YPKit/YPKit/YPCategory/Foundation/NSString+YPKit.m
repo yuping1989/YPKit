@@ -193,6 +193,16 @@ NSString * const kYPRegexQQ = @"[1-9][0-9]{4,14}";
 
 #pragma mark - Others
 
++ (BOOL)isEmpty:(NSString *)string {
+    if (!string) {
+        return YES;
+    }
+    if (string.length == 0) {
+        return YES;
+    }
+    return [string stringByTrim].length == 0 ? YES : NO;
+}
+
 - (NSUInteger)charLength {
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     return [self lengthOfBytesUsingEncoding:enc];

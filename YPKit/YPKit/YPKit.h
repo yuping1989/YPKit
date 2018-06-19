@@ -25,6 +25,7 @@
 
 #import "UIAlertController+YPKit.h"
 #import "UIApplication+YPKit.h"
+#import "UIBarButtonItem+YPKit.h"
 #import "UIButton+YPKit.h"
 #import "UIColor+YPKit.h"
 #import "UIControl+YPKit.h"

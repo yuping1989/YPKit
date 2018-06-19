@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <pthread.h>
 
 #ifndef YPKitMacro_h
 #define YPKitMacro_h

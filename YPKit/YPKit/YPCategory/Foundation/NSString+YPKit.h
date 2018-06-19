@@ -61,6 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
                           withString:(NSString *)replacement;
 
 #pragma mark - Others
++ (BOOL)isEmpty:(NSString *)string;
 
 /**
  *  返回字符串的字符长度

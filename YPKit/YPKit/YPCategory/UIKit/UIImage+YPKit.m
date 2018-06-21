@@ -160,7 +160,7 @@
 }
 
 
-- (UIImage *)imageByResizeToWidth:(CGFloat)width {
+- (UIImage *)imageByZoomToWidth:(CGFloat)width {
     CGSize size = CGSizeMake(width, self.size.height * width / self.size.width);
     UIGraphicsBeginImageContextWithOptions(size, NO, self.scale);
     [self drawInRect:CGRectMake(0, 0, width, self.size.height * width / self.size.width)];
@@ -169,10 +169,18 @@
     return scaledImage;
 }
 
-- (UIImage *)imageByResizeToHeight:(CGFloat)height {
+- (UIImage *)imageByZoomToHeight:(CGFloat)height {
     CGSize size = CGSizeMake(self.size.width * height / self.size.height, height);
     UIGraphicsBeginImageContextWithOptions(size, NO, self.scale);
     [self drawInRect:CGRectMake(0, 0, self.size.width * height / self.size.height, height)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
+
+- (UIImage *)imageByResizeToSize:(CGSize)size {
+    UIGraphicsBeginImageContextWithOptions(size, NO, self.scale);
+    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return scaledImage;

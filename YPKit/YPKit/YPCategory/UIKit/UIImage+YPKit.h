@@ -95,14 +95,21 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param width 调整后的宽度
  */
-- (nullable UIImage *)imageByResizeToWidth:(CGFloat)width;
+- (nullable UIImage *)imageByZoomToWidth:(CGFloat)width;
 
 /**
  *  保持比例，根据height调整Image的大小
  *
  *  @param height 调整后的高度
  */
-- (nullable UIImage *)imageByResizeToHeight:(CGFloat)height;
+- (nullable UIImage *)imageByZoomToHeight:(CGFloat)height;
+
+/**
+ *  调整图片的size
+ *
+ *  @param size 调整后的size
+ */
+- (nullable UIImage *)imageByResizeToSize:(CGSize)size;
 
 /**
  *  裁剪Image

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E68EE6A20DB9628007A176A /* UIBarButtonItem+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E68EE6920DB9628007A176A /* UIBarButtonItem+YPKit.m */; };
 		7EA8386920BFC80C00DA122F /* img_interact_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7EA8386820BFC80C00DA122F /* img_interact_bg.jpg */; };
 		7EA8386C20BFC97800DA122F /* icon_pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EA8386A20BFC97700DA122F /* icon_pause@2x.png */; };
 		7EA8386D20BFC97800DA122F /* icon_pause@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EA8386B20BFC97700DA122F /* icon_pause@3x.png */; };
@@ -53,6 +54,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7E68EE6820DB9627007A176A /* UIBarButtonItem+YPKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+YPKit.h"; sourceTree = "<group>"; };
+		7E68EE6920DB9628007A176A /* UIBarButtonItem+YPKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+YPKit.m"; sourceTree = "<group>"; };
 		7EA8386820BFC80C00DA122F /* img_interact_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img_interact_bg.jpg; sourceTree = "<group>"; };
 		7EA8386A20BFC97700DA122F /* icon_pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_pause@2x.png"; sourceTree = "<group>"; };
 		7EA8386B20BFC97700DA122F /* icon_pause@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_pause@3x.png"; sourceTree = "<group>"; };
@@ -264,6 +267,8 @@
 				7EE89B9E2050129200802F27 /* UIAlertController+YPKit.m */,
 				7EE89B9F2050129200802F27 /* UIApplication+YPKit.h */,
 				7EE89BA02050129200802F27 /* UIApplication+YPKit.m */,
+				7E68EE6820DB9627007A176A /* UIBarButtonItem+YPKit.h */,
+				7E68EE6920DB9628007A176A /* UIBarButtonItem+YPKit.m */,
 				7EE89BA12050129200802F27 /* UIButton+YPKit.h */,
 				7EE89BA22050129200802F27 /* UIButton+YPKit.m */,
 				7EE89BA32050129200802F27 /* UIColor+YPKit.h */,
@@ -393,6 +398,7 @@
 				7EE89BDD2050129200802F27 /* NSMutableArray+YPKit.m in Sources */,
 				7EE89BF02050129200802F27 /* UIScrollView+YPKit.m in Sources */,
 				7EE89BF22050129200802F27 /* UITableViewCell+YPKit.m in Sources */,
+				7E68EE6A20DB9628007A176A /* UIBarButtonItem+YPKit.m in Sources */,
 				7EE89BEC2050129200802F27 /* UIGestureRecognizer+YPKit.m in Sources */,
 				7EE89BED2050129200802F27 /* UIImage+YPKit.m in Sources */,
 				7EE89BEA2050129200802F27 /* UIControl+YPKit.m in Sources */,

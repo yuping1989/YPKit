@@ -64,31 +64,51 @@
     self.frame = rect;
 }
 
-- (CGPoint)origin {
+- (void)setYp_centerX:(CGFloat)yp_centerX{
+    CGPoint center = self.center;
+    center.x = yp_centerX;
+    self.center = center;
+}
+
+- (CGFloat)yp_centerX{
+    return self.center.x;
+}
+
+- (void)setYp_centerY:(CGFloat)yp_centerY{
+    CGPoint center = self.center;
+    center.y = yp_centerY;
+    self.center = center;
+}
+
+- (CGFloat)yp_centerY{
+    return self.center.y;
+}
+
+- (CGPoint)yp_origin {
     return self.frame.origin;
 }
 
-- (void)setOrigin:(CGPoint)origin {
+- (void)setYp_origin:(CGPoint)origin {
     CGRect rect = self.frame;
     rect.origin = origin;
     self.frame = rect;
 }
 
-- (CGSize)size {
+- (CGSize)yp_size {
     return self.frame.size;
 }
 
-- (void)setSize:(CGSize)size {
+- (void)setYp_size:(CGSize)size {
     CGRect rect = self.frame;
     rect.size = size;
     self.frame = rect;
 }
 
-- (CGFloat)maxY {
+- (CGFloat)yp_maxY {
     return CGRectGetMaxY(self.frame);
 }
 
-- (CGFloat)maxX {
+- (CGFloat)yp_maxX {
     return CGRectGetMaxX(self.frame);
 }
 

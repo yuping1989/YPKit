@@ -104,12 +104,12 @@
     self.frame = rect;
 }
 
-- (CGFloat)yp_maxY {
-    return CGRectGetMaxY(self.frame);
+- (CGFloat)maxX {
+    return CGRectGetMaxX(self.frame);
 }
 
-- (CGFloat)yp_maxX {
-    return CGRectGetMaxX(self.frame);
+- (CGFloat)maxY {
+    return CGRectGetMaxY(self.frame);
 }
 
 - (void)horizontalCenterWithWidth:(CGFloat)width {

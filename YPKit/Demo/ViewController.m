@@ -72,6 +72,14 @@ YP_USER_DEFAULTS_PROPERTY(udArray, setUdArray, @"udArray")
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)buttonClicked:(id)sender {
+    [UIAlertController showAlertWithTitle:@"adsf" message:nil cancelButtonTitle:@"取消" otherButtonTitles:@[@"asdf", @"adsf"] completion:^(NSInteger buttonIndex) {
+        NSLog(@"index-->%d", buttonIndex);
+    }];
+//    [UIAlertController showActionSheetWithTitle:@"adsf" message:nil cancelButtonTitle:@"取消" otherButtonTitles:@[@"daf", @"asd"] inViewController:[UIApplication sharedApplication].delegate.window.rootViewController completion:^(NSInteger buttonIndex) {
+//        NSLog(@"index-->%d", buttonIndex);
+//    }];
+}
 
 @end
 

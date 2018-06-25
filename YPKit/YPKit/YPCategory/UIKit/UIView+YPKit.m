@@ -84,21 +84,21 @@
     return self.center.y;
 }
 
-- (CGPoint)yp_origin {
+- (CGPoint)origin {
     return self.frame.origin;
 }
 
-- (void)setYp_origin:(CGPoint)origin {
+- (void)setOrigin:(CGPoint)origin{
     CGRect rect = self.frame;
     rect.origin = origin;
     self.frame = rect;
 }
 
-- (CGSize)yp_size {
+- (CGSize)size {
     return self.frame.size;
 }
 
-- (void)setYp_size:(CGSize)size {
+- (void)setSize:(CGSize)size {
     CGRect rect = self.frame;
     rect.size = size;
     self.frame = rect;

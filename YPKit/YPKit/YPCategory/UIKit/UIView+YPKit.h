@@ -38,11 +38,11 @@ typedef NS_ENUM(NSInteger, YPViewLine) {
 @property (nonatomic) CGFloat yp_centerX;
 @property (nonatomic) CGFloat yp_centerY;
 
-@property (nonatomic) CGPoint yp_origin;
-@property (nonatomic) CGSize yp_size;
+@property (nonatomic) CGPoint origin;
+@property (nonatomic) CGSize size;
 
-- (CGFloat)yp_maxY;
-- (CGFloat)yp_maxX;
+- (CGFloat)maxY;
+- (CGFloat)maxX;
 
 /**
  *  根据传入的width来水平居中

@@ -77,27 +77,28 @@
         return nil;
     }
     
-    //RGB,RGBA,RRGGBB,RRGGBBAA
     if (length < 5) {
-        r = [[hexStr substringWithRange:NSMakeRange(0, 1)] yp_hexValue] / 255.0f;
-        g = [[hexStr substringWithRange:NSMakeRange(1, 1)] yp_hexValue] / 255.0f;
-        b = [[hexStr substringWithRange:NSMakeRange(2, 1)] yp_hexValue] / 255.0f;
+        NSString *r = [hexStr substringWithRange:NSMakeRange(0, 1)];
+        NSString *g = [hexStr substringWithRange:NSMakeRange(1, 1)];
+        NSString *b = [hexStr substringWithRange:NSMakeRange(2, 1)];
+        NSString *a;
         if (length == 4) {
-            a = [[hexStr substringWithRange:NSMakeRange(3, 1)] yp_hexValue] / 255.0f;
+            a = [hexStr substringWithRange:NSMakeRange(3, 1)];
         } else {
-            a = 1;
+            a = @"f";
         }
-    } else {
-        r = [[hexStr substringWithRange:NSMakeRange(0, 2)] yp_hexValue] / 255.0f;
-        g = [[hexStr substringWithRange:NSMakeRange(2, 2)] yp_hexValue] / 255.0f;
-        b = [[hexStr substringWithRange:NSMakeRange(4, 2)] yp_hexValue] / 255.0f;
-        if (length == 8) {
-            a = [[hexStr substringWithRange:NSMakeRange(6, 2)] yp_hexValue] / 255.0f;
-        } else {
-            a = 1;
-        }
+        hexStr = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",
+               r, r, g, g, b, b, a, a];
+    } else if (length == 6) {
+        hexStr = [hexStr stringByAppendingString:@"ff"];
     }
-    return [UIColor colorWithRed:r green:g blue:b alpha:a];
+    
+    CGFloat red = [[hexStr substringWithRange:NSMakeRange(0, 2)] yp_hexValue] / 255.0f;
+    CGFloat green = [[hexStr substringWithRange:NSMakeRange(2, 2)] yp_hexValue] / 255.0f;
+    CGFloat blue = [[hexStr substringWithRange:NSMakeRange(4, 2)] yp_hexValue] / 255.0f;
+    CGFloat alpha = [[hexStr substringWithRange:NSMakeRange(6, 2)] yp_hexValue] / 255.0f;
+    
+    return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
 
 - (NSString *)hexString {

@@ -64,6 +64,11 @@ YP_USER_DEFAULTS_PROPERTY(udArray, setUdArray, @"udArray")
     NSLog(@"size--->%@", NSStringFromCGSize(self.size));
     
     self.imageView.image = [UIImage imageWithContentsOfFileName:@"icon_pause"];
+    UIColor *color1 = [UIColor colorWithHexString:@"abc"];
+    UIColor *color2 = [UIColor colorWithHexString:@"aabbcc"];
+    UIColor *color3 = [UIColor colorWithHexString:@"abcf"];
+    UIColor *color4 = [UIColor colorWithHexString:@"aabbccff"];
+    NSLog(@"\n%@\n%@\n%@\n%@", color1, color2, color3, color4);
 }
 
 

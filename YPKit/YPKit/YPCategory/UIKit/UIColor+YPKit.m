@@ -63,7 +63,6 @@
 }
 
 + (instancetype)colorWithHexString:(NSString *)hexStr {
-    CGFloat r, g, b, a;
     hexStr = [[hexStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     if ([hexStr hasPrefix:@"#"]) {
         hexStr = [hexStr substringFromIndex:1];
@@ -85,12 +84,12 @@
         if (length == 4) {
             a = [hexStr substringWithRange:NSMakeRange(3, 1)];
         } else {
-            a = @"f";
+            a = @"F";
         }
         hexStr = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",
                r, r, g, g, b, b, a, a];
     } else if (length == 6) {
-        hexStr = [hexStr stringByAppendingString:@"ff"];
+        hexStr = [hexStr stringByAppendingString:@"FF"];
     }
     
     CGFloat red = [[hexStr substringWithRange:NSMakeRange(0, 2)] yp_hexValue] / 255.0f;

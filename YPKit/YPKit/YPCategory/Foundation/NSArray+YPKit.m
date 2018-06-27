@@ -40,6 +40,7 @@
 }
 
 - (NSArray *)sortedArrayWithFormat:(NSString *)formatString {
+    formatString = [formatString stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSMutableArray *descriptors = [NSMutableArray array];
     NSArray *descriptorStrings = [formatString componentsSeparatedByString:@","];
     

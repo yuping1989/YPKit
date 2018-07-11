@@ -14,7 +14,7 @@ static NSString * const kContentOffset = @"contentOffset";
 
 @interface _YPScalableHeaderView : UIView
 
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *scalableImageView;
 @property (nonatomic, strong) UIView *customView;
 @property (nonatomic, strong) UIView *maskView;

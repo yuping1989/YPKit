@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, YPDateStyle) {
+    YPDateStyleDefault,
+    YPDateStyleValue1
+};
+
 /**
  *  日期格式
  */
@@ -22,18 +27,29 @@ extern NSString *const YPDateFormat_MMdd;
 
 @property (nonatomic, readonly) NSInteger weekday;
 
-+ (NSString *)stringWithTimeInterval:(NSTimeInterval)time format:(NSString *)format;
++ (NSDate *)dateWithString:(NSString *)dateString format:(NSString *)format;
++ (NSDate *)dateWithString:(NSString *)dateString
+                    format:(NSString *)format
+                  timeZone:(NSTimeZone *)timeZone
+                    locale:(NSLocale *)locale;
 
++ (NSString *)stringWithTimeInterval:(NSTimeInterval)time format:(NSString *)format;
 + (NSString *)stringWithNumber:(NSNumber *)number format:(NSString *)format;
++ (NSString *)stringWithDate:(NSDate *)date format:(NSString *)format;
++ (NSString *)stringWithDate:(NSDate *)date
+                      format:(NSString *)format
+                    timeZone:(NSTimeZone *)timeZone
+                      locale:(NSLocale *)locale;
+
++ (NSString *)convertDateString:(NSString *)fromString
+                     fromFormat:(NSString *)fromFormat
+                       toFormat:(NSString *)toFormat;
+
++ (NSString *)formatDate:(NSDate *)date style:(YPDateStyle)style;
 
 - (NSString *)stringWithFormat:(NSString *)format;
 - (NSString *)stringWithFormat:(NSString *)format
                       timeZone:(NSTimeZone *)timeZone
                         locale:(NSLocale *)locale;
-
-+ (NSDate *)dateWithString:(NSString *)dateString format:(NSString *)format;
-
-+ (NSString *)formatDateNumber:(NSNumber *)numbe;
-+ (NSString *)formatDateTimeInterval:(NSTimeInterval)timeInterval;
 
 @end

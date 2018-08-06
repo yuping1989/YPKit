@@ -51,6 +51,7 @@
 		7EE89BF32050129200802F27 /* UITextField+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BB82050129200802F27 /* UITextField+YPKit.m */; };
 		7EE89BF42050129200802F27 /* UIView+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BBA2050129200802F27 /* UIView+YPKit.m */; };
 		7EE89BF52050129200802F27 /* UIViewController+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE89BBC2050129200802F27 /* UIViewController+YPKit.m */; };
+		7EFC995721188D8800A9C1AB /* YPScaleHeaderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EFC995621188D8800A9C1AB /* YPScaleHeaderVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,6 +137,8 @@
 		7EE89BBC2050129200802F27 /* UIViewController+YPKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+YPKit.m"; sourceTree = "<group>"; };
 		7EE89BD52050129200802F27 /* YPKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPKit.h; sourceTree = "<group>"; };
 		7EE89BD62050129200802F27 /* YPKitMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPKitMacro.h; sourceTree = "<group>"; };
+		7EFC995521188D8800A9C1AB /* YPScaleHeaderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YPScaleHeaderVC.h; sourceTree = "<group>"; };
+		7EFC995621188D8800A9C1AB /* YPScaleHeaderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YPScaleHeaderVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +195,8 @@
 				7ECB6C371F9F19BF009F8AAF /* ViewController.h */,
 				7ECB6C381F9F19BF009F8AAF /* ViewController.m */,
 				7EA8387420BFD35300DA122F /* image.bundle */,
+				7EFC995521188D8800A9C1AB /* YPScaleHeaderVC.h */,
+				7EFC995621188D8800A9C1AB /* YPScaleHeaderVC.m */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 				7EE89BF52050129200802F27 /* UIViewController+YPKit.m in Sources */,
 				7EE89BE52050129200802F27 /* CALayer+YPKit.m in Sources */,
 				7EE89BE42050129200802F27 /* NSUserDefaults+YPKit.m in Sources */,
+				7EFC995721188D8800A9C1AB /* YPScaleHeaderVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

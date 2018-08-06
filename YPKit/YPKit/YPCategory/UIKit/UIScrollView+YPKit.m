@@ -14,7 +14,6 @@ static NSString * const kContentOffset = @"contentOffset";
 
 @interface _YPScalableHeaderView : UIView
 
-@property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *scalableImageView;
 @property (nonatomic, strong) UIView *customView;
 @property (nonatomic, strong) UIView *maskView;
@@ -38,16 +37,6 @@ static NSString * const kContentOffset = @"contentOffset";
     }
     
     return self;
-}
-
-- (void)dealloc {
-    [self.scrollView removeObserver:self forKeyPath:kContentOffset];
-}
-
-- (void)setScrollView:(UIScrollView *)scrollView {
-    [_scrollView removeObserver:scrollView forKeyPath:kContentOffset];
-    _scrollView = scrollView;
-    [_scrollView addObserver:self forKeyPath:kContentOffset options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)setCustomView:(UIView *)customView {
@@ -75,9 +64,9 @@ static NSString * const kContentOffset = @"contentOffset";
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
-    CGFloat insetTop = self.scrollView.contentInset.top;
-    CGFloat offsetY = self.scrollView.contentOffset.y + insetTop;
+    UIScrollView *scrollView = (UIScrollView *)self.superview;
+    CGFloat insetTop = scrollView.contentInset.top;
+    CGFloat offsetY = scrollView.contentOffset.y + insetTop;
     if (offsetY < 0) {
         CGFloat height = self.defaultHeight - offsetY;
         self.frame = CGRectMake(0, offsetY - insetTop, self.frame.size.width, height);
@@ -103,6 +92,33 @@ static NSString * const kContentOffset = @"contentOffset";
 
 @implementation UIScrollView (YPKit)
 
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class class = [self class];
+        
+        SEL originalSelector = NSSelectorFromString(@"dealloc");
+        SEL swizzledSelector = @selector(ypKit_dealloc);
+        
+        Method originalMethod = class_getInstanceMethod(class, originalSelector);
+        Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+        
+        BOOL success = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
+        if (success) {
+            class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+        } else {
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
+    });
+}
+
+- (void)ypKit_dealloc {
+    if (self.headerView) {
+        [self removeObserver:self.headerView forKeyPath:kContentOffset];
+    }
+    [self ypKit_dealloc];
+}
+
 - (void)setScalableHeaderWithImage:(UIImage *)image
                      defaultHeight:(CGFloat)height
                          maskColor:(UIColor *)maskColor {
@@ -116,7 +132,6 @@ static NSString * const kContentOffset = @"contentOffset";
         UIViewAutoresizingFlexibleRightMargin |
         UIViewAutoresizingFlexibleWidth |
         UIViewAutoresizingFlexibleHeight;
-        self.headerView.scrollView = self;
         
         if ([self isKindOfClass:[UITableView class]]) {
             [(UITableView *)self setTableHeaderView:self.headerView];
@@ -129,6 +144,10 @@ static NSString * const kContentOffset = @"contentOffset";
                 self.contentOffset = CGPointMake(0, -height);
             }
         }
+        [self addObserver:self.headerView
+               forKeyPath:kContentOffset
+                  options:NSKeyValueObservingOptionNew
+                  context:NULL];
     }
     self.headerView.scalableImageView.image = image;
     self.headerView.defaultHeight = height;

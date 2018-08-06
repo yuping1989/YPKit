@@ -154,6 +154,17 @@ static NSString * const kContentOffset = @"contentOffset";
     self.headerView.maskColor = maskColor;
 }
 
+- (void)removeScalableHeader {
+    if (self.headerView) {
+        [self removeObserver:self.headerView forKeyPath:kContentOffset];
+        [self.headerView removeFromSuperview];
+        self.headerView = nil;
+        
+        self.contentInset = UIEdgeInsetsZero;
+        self.contentOffset = CGPointZero;
+    }
+}
+
 - (UIImageView *)scalableHeaderImageView {
     return self.headerView.scalableImageView;
 }

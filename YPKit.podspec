@@ -1,7 +1,7 @@
 #YPKit.podspec
 Pod::Spec.new do |s|
 s.name         = "YPKit"
-s.version      = "1.1.4"
+s.version      = "1.1.5"
 s.summary      = "常用代码封装."
 
 s.homepage     = "https://github.com/yuping1989/YPKit"

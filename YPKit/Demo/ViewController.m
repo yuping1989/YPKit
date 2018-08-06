@@ -72,7 +72,6 @@ YP_USER_DEFAULTS_PROPERTY(udArray, setUdArray, @"udArray")
     
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

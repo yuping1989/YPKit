@@ -18,6 +18,8 @@
 
 - (void)setScalableHeaderCustomView:(UIView *)customView;
 
+- (void)removeScalableHeader;
+
 /**
  *  生成所有内容视图的快照图像
  */

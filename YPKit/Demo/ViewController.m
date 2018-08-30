@@ -69,7 +69,6 @@ YP_USER_DEFAULTS_PROPERTY(udArray, setUdArray, @"udArray")
     UIColor *color3 = [UIColor colorWithHexString:@"abcf"];
     UIColor *color4 = [UIColor colorWithHexString:@"aabbccff"];
     NSLog(@"\n%@\n%@\n%@\n%@", color1, color2, color3, color4);
-    
 }
 
 - (void)didReceiveMemoryWarning {

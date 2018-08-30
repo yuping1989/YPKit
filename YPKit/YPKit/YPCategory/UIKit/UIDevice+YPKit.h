@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-#define IOS7_AND_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f ? YES : NO)
+#define YP_SYSTEM_VERSION [[UIDevice currentDevice].systemVersion floatValue]
+
+#define YP_IOS13 (YP_SYSTEM_VERSION >= 13.0 ? YES : NO)
+#define YP_IOS12 (YP_SYSTEM_VERSION >= 12.0 ? YES : NO)
+#define YP_IOS11 (YP_SYSTEM_VERSION >= 11.0 ? YES : NO)
+#define YP_IOS10 (YP_SYSTEM_VERSION >= 10.0 ? YES : NO)
+#define YP_IOS9 (YP_SYSTEM_VERSION >= 9.0 ? YES : NO)
+#define YP_IOS8 (YP_SYSTEM_VERSION >= 8.0 ? YES : NO)
 
 NS_ASSUME_NONNULL_BEGIN
 

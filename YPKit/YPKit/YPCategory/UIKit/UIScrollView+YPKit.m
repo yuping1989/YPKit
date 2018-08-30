@@ -64,7 +64,11 @@ static NSString * const kContentOffset = @"contentOffset";
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
     UIScrollView *scrollView = (UIScrollView *)self.superview;
+    if (![scrollView isKindOfClass:[UIScrollView class]]) {
+        return;
+    }
     CGFloat insetTop = scrollView.contentInset.top;
     CGFloat offsetY = scrollView.contentOffset.y + insetTop;
     if (offsetY < 0) {

@@ -16,7 +16,7 @@
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #endif
 
-#ifndef SCREEN_HEIGHT
+#ifndef IPHONE_X
 #define IPHONE_X ((SCREEN_WIDTH == 375.f && SCREEN_HEIGHT == 812.f) || (SCREEN_WIDTH == 812.f && SCREEN_HEIGHT == 375.f))
 #endif
 

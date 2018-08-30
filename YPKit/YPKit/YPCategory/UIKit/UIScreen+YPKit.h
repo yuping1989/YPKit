@@ -16,24 +16,34 @@
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #endif
 
-// iPhone X
-#define YP_IPHONE_X ((YP_SCREEN_WIDTH == 375.f && YP_SCREEN_HEIGHT == 812.f) || (YP_SCREEN_WIDTH == 812.f && YP_SCREEN_HEIGHT == 375.f))
+#ifndef SCREEN_HEIGHT
+#define IPHONE_X ((SCREEN_WIDTH == 375.f && SCREEN_HEIGHT == 812.f) || (SCREEN_WIDTH == 812.f && SCREEN_HEIGHT == 375.f))
+#endif
 
 // Status bar height.
-#define YP_STATUSBAR_HEIGHT (YP_IPHONE_X ? 44.f : 20.f)
+#ifndef STATUSBAR_HEIGHT
+#define STATUSBAR_HEIGHT (IPHONE_X ? 44.f : 20.f)
+#endif
 
 // Navigation bar height.
-#define YP_NAVIGATIONBAR_HEIGHT 44.f
+#ifndef NAVIGATIONBAR_HEIGHT
+#define NAVIGATIONBAR_HEIGHT 44.f
+#endif
 
 // Status bar & navigation bar height.
-#define YP_STATUSBAR_AND_NAVIGATIONBAR_HEIGHT (IPHONE_X ? 88.f : 64.f)
+#ifndef STATUSBAR_AND_NAVIGATIONBAR_HEIGHT
+#define STATUSBAR_AND_NAVIGATIONBAR_HEIGHT (IPHONE_X ? 88.f : 64.f)
+#endif
 
 // Tabbar safe bottom margin.
-#define YP_SAFE_BOTTOM_MARGIN (IPHONE_X ? 34.f : 0.0f)
+#ifndef SAFE_BOTTOM_MARGIN
+#define SAFE_BOTTOM_MARGIN (IPHONE_X ? 34.f : 0.0f)
+#endif
 
 // 一个像素的宽度
-#define YP_ONE_PIXEL [UIScreen onePixel]
-
+#ifndef ONE_PIXEL
+#define ONE_PIXEL [UIScreen onePixel]
+#endif
 @interface UIScreen (YPKit)
 
 // 返回一个像素的宽度

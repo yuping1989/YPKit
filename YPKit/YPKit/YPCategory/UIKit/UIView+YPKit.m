@@ -171,7 +171,7 @@
 #pragma mark - Line
 
 - (UIView *)addLine:(YPViewLine)type color:(UIColor *)color {
-    return [self addLine:type paddingLead:0 paddingTrail:0 thickness:YP_ONE_PIXEL color:color];
+    return [self addLine:type paddingLead:0 paddingTrail:0 thickness:ONE_PIXEL color:color];
 }
 
 - (UIView *)addLine:(YPViewLine)type

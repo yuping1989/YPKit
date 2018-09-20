@@ -127,7 +127,7 @@ NSString *const YPDateFormat_MMdd = @"MM-dd";
     
     NSInteger timeInterval = [date timeIntervalSince1970];
     NSInteger current = [currentDate timeIntervalSince1970];
-    if (timeInterval >= current) { //传入时间大于等于当前时间，返回
+    if (timeInterval >= current && style == YPDateStyleDefault) { //传入时间大于等于当前时间，返回
         return nil;
     }
     NSString *currentDateString = [currentDate stringWithFormat:YPDateFormat_yyyyMMdd];

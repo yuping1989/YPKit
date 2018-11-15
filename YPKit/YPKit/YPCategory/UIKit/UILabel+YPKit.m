@@ -7,18 +7,15 @@
 //
 
 #import "UILabel+YPKit.h"
-#import "NSAttributedString+YPKit.h"
-#import "NSString+YPKit.h"
-#import "UIView+YPKit.h"
 
 @implementation UILabel (YPKit)
 
-- (void)setText:(NSString *)text attributeString:(void(^)(NSMutableAttributedString *attrString))block {
-    NSMutableAttributedString *aString = [[NSMutableAttributedString alloc] initWithString:text];
+- (void)setText:(NSString *)text makeAttribute:(void(^)(NSMutableAttributedString *attrStr))block {
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text];
     if (block) {
-        block(aString);
+        block(string);
     }
-    self.attributedText = aString;
+    self.attributedText = string;
 }
 
 @end

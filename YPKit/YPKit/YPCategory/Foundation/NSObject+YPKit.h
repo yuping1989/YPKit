@@ -3,6 +3,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,6 +40,23 @@ extern NSString * const YPNightModelSwitchedNotification;
 - (void)removeObserverBlocksForKeyPath:(NSString*)keyPath;
 - (void)removeObserverBlocks;
 
+#pragma mark - Keyboard Observer
+
+/**
+ *  键盘通知
+ */
+- (void)addKeyboardObserver;
+- (void)removeKeyboardObserver;
+
+/**
+ *  键盘通知回调事件，主要用于子类重写
+ *
+ *  @param keyboardRect 键盘rect
+ *  @param duration     键盘弹出动画的时间
+ */
+- (void)keyboardWillShowWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration;
+- (void)keyboardWillHideWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration;
+
 #pragma mark - Others
 
 + (NSString *)className;
@@ -46,13 +64,6 @@ extern NSString * const YPNightModelSwitchedNotification;
 
 - (nullable id)deepCopy;
 - (nullable id)deepCopyWithArchiver:(Class)archiver unarchiver:(Class)unarchiver;
-
-/**
- *  添加夜间模式切换的监听
- */
-- (void)addNightModelSwitchedObserver;
-- (void)removeNightModelSwitchedObserver;
-- (void)nightModelSwitched:(nullable NSNotification *)notification;
 
 + (NSString *)stringByReplaceUnicode:(NSString *)string;
 

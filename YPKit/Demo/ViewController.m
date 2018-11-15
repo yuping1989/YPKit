@@ -21,6 +21,12 @@
 @property (nonatomic, strong) NSDictionary *udDict;
 @property (nonatomic, strong) NSArray *udArray;
 
+@property (nonatomic, assign) NSInteger weight;
+@property (nonatomic, assign) BOOL on;
+@property (nonatomic, assign) float amount;
+@property (nonatomic, assign) double price;
+
+
 @end
 
 @implementation UIViewController (Add)
@@ -31,9 +37,14 @@ YP_DYNAMIC_PROPERTY_CTYPE(count, setCount, NSInteger)
 YP_DYNAMIC_PROPERTY_CTYPE(size, setSize, CGSize)
 
 
-YP_USER_DEFAULTS_PROPERTY(udString, setUdString, @"udString")
-YP_USER_DEFAULTS_PROPERTY(udDict, setUdDict, @"udDict")
-YP_USER_DEFAULTS_PROPERTY(udArray, setUdArray, @"udArray")
+YP_USER_DEFAULTS_PROPERTY_OBJECT(udString, setUdString, @"udString")
+YP_USER_DEFAULTS_PROPERTY_OBJECT(udDict, setUdDict, @"udDict")
+YP_USER_DEFAULTS_PROPERTY_OBJECT(udArray, setUdArray, @"udArray")
+
+YP_USER_DEFAULTS_PROPERTY_INTEGER(weight, setWeight, @"udWeight")
+YP_USER_DEFAULTS_PROPERTY_BOOL(on, setOn, @"udOn")
+YP_USER_DEFAULTS_PROPERTY_FLOAT(amount, setAmount, @"udAmount")
+YP_USER_DEFAULTS_PROPERTY_DOUBLE(price, setPrice, @"udPrice")
 
 @end
 
@@ -69,6 +80,17 @@ YP_USER_DEFAULTS_PROPERTY(udArray, setUdArray, @"udArray")
     UIColor *color3 = [UIColor colorWithHexString:@"abcf"];
     UIColor *color4 = [UIColor colorWithHexString:@"aabbccff"];
     NSLog(@"\n%@\n%@\n%@\n%@", color1, color2, color3, color4);
+    
+    self.weight = 10;
+    self.on = YES;
+    self.amount = 15.5f;
+    self.price = 8.6f;
+    
+    NSLog(@"ud-->%zd %d %f %f", self.weight, self.on, self.amount, self.price);
+    
+    
+    NSLog(@"first letter-->%@", [@"曾" pinyinFirstLetter]);
+    NSLog(@"first letter-->%@", [@"仇钱" pinyinFirstLetterForName]);
 }
 
 - (void)didReceiveMemoryWarning {

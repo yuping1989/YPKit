@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <pthread.h>
 
 #ifndef YPKitMacro_h
 #define YPKitMacro_h
@@ -135,7 +136,7 @@
 #endif
 
 /**
- 快捷实现NSUserDefaults存取属性的方法
+ 快捷实现NSUserDefaults存取属性的方法，Object
  
  示例:
  @interface NSObject (YPKit)
@@ -144,11 +145,11 @@
  
  #import <objc/runtime.h>
  @implementation NSObject (YPKit)
- YP_USER_DEFAULTS_PROPERTY(names, setNames, @"kNames")
+ YP_USER_DEFAULTS_PROPERTY_OBJECT(names, setNames, @"kNames")
  @end
  */
-#ifndef YP_USER_DEFAULTS_PROPERTY
-#define YP_USER_DEFAULTS_PROPERTY(_getter_, _setter_, _key_) \
+#ifndef YP_USER_DEFAULTS_PROPERTY_OBJECT
+#define YP_USER_DEFAULTS_PROPERTY_OBJECT(_getter_, _setter_, _key_) \
 - (void)_setter_ : (id)object { \
     [[NSUserDefaults standardUserDefaults] setObject:object forKey:_key_]; \
     [[NSUserDefaults standardUserDefaults] synchronize]; \
@@ -158,4 +159,117 @@
 }
 #endif
 
+
+/**
+ 快捷实现NSUserDefaults存取属性的方法，NSInteger
+ 
+ 示例:
+ @interface NSObject (YPKit)
+ @property (nonatomic, assign) NSInteger count;
+ @end
+ 
+ #import <objc/runtime.h>
+ @implementation NSObject (YPKit)
+ YP_USER_DEFAULTS_PROPERTY_INTEGER(count, setCount, @"kCount")
+ @end
+ */
+#ifndef YP_USER_DEFAULTS_PROPERTY_INTEGER
+#define YP_USER_DEFAULTS_PROPERTY_INTEGER(_getter_, _setter_, _key_) \
+- (void)_setter_ : (NSInteger)value { \
+    [[NSUserDefaults standardUserDefaults] setInteger:value forKey:_key_]; \
+    [[NSUserDefaults standardUserDefaults] synchronize]; \
+} \
+- (NSInteger)_getter_ { \
+    return [[NSUserDefaults standardUserDefaults] integerForKey:_key_]; \
+}
+#endif
+
+/**
+ 快捷实现NSUserDefaults存取属性的方法，BOOL
+ 
+ 示例:
+ @interface NSObject (YPKit)
+ @property (nonatomic, assign) BOOL on;
+ @end
+ 
+ #import <objc/runtime.h>
+ @implementation NSObject (YPKit)
+ YP_USER_DEFAULTS_PROPERTY_BOOL(on, setOn, @"kOn")
+ @end
+ */
+#ifndef YP_USER_DEFAULTS_PROPERTY_BOOL
+#define YP_USER_DEFAULTS_PROPERTY_BOOL(_getter_, _setter_, _key_) \
+- (void)_setter_ : (BOOL)value { \
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:_key_]; \
+    [[NSUserDefaults standardUserDefaults] synchronize]; \
+} \
+- (BOOL)_getter_ { \
+    return [[NSUserDefaults standardUserDefaults] boolForKey:_key_]; \
+}
+#endif
+
+/**
+ 快捷实现NSUserDefaults存取属性的方法，float
+ 
+ 示例:
+ @interface NSObject (YPKit)
+ @property (nonatomic, assign) float amount;
+ @end
+ 
+ #import <objc/runtime.h>
+ @implementation NSObject (YPKit)
+ YP_USER_DEFAULTS_PROPERTY_FLOAT(amount, setAmount, @"kAmount")
+ @end
+ */
+#ifndef YP_USER_DEFAULTS_PROPERTY_FLOAT
+#define YP_USER_DEFAULTS_PROPERTY_FLOAT(_getter_, _setter_, _key_) \
+- (void)_setter_ : (float)value { \
+    [[NSUserDefaults standardUserDefaults] setFloat:value forKey:_key_]; \
+    [[NSUserDefaults standardUserDefaults] synchronize]; \
+} \
+- (float)_getter_ { \
+    return [[NSUserDefaults standardUserDefaults] floatForKey:_key_]; \
+}
+#endif
+
+/**
+ 快捷实现NSUserDefaults存取属性的方法，double
+ 
+ 示例:
+ @interface NSObject (YPKit)
+ @property (nonatomic, assign) double amount;
+ @end
+ 
+ #import <objc/runtime.h>
+ @implementation NSObject (YPKit)
+ YP_USER_DEFAULTS_PROPERTY_DOUBLE(amount, setAmount, @"kAmount")
+ @end
+ */
+#ifndef YP_USER_DEFAULTS_PROPERTY_DOUBLE
+#define YP_USER_DEFAULTS_PROPERTY_DOUBLE(_getter_, _setter_, _key_) \
+- (void)_setter_ : (double)value { \
+    [[NSUserDefaults standardUserDefaults] setDouble:value forKey:_key_]; \
+    [[NSUserDefaults standardUserDefaults] synchronize]; \
+} \
+- (double)_getter_ { \
+    return [[NSUserDefaults standardUserDefaults] doubleForKey:_key_]; \
+}
+#endif
+
 #endif /* YPKitMacro_h */
+
+
+static inline void yp_gcd_after(NSTimeInterval second, dispatch_block_t block) {
+    if (!block) return;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(second * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
+}
+
+static inline void yp_gcd_main_async(dispatch_block_t block) {
+    if (!block) return;
+    dispatch_async(dispatch_get_main_queue(), block);
+}
+
+static inline void yp_gcd_bg_async(dispatch_block_t block) {
+    if (!block) return;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block);
+}

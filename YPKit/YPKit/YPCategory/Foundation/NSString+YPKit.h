@@ -116,6 +116,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)pinyinFirstLetter;
 
+- (NSString *)pinyinFirstLetterForName;
+
 /**
  将参数列表格式的字符串转换成NSDictionary，格式：@"key1=value1&key2=value2"
  */

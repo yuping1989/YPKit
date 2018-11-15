@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface UILabel (YPKit)
+
 /**
  *  设置attributeText
  *
  *  @param text  没有格式的text
  *  @param block 设置格式的block
  */
-- (void)setText:(NSString *)text attributeString:(void(^)(NSMutableAttributedString *attrString))block;
+- (void)setText:(NSString *)text makeAttribute:(void(^)(NSMutableAttributedString *attrStr))block;
 
 @end

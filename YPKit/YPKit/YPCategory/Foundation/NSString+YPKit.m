@@ -264,7 +264,7 @@ NSString * const kYPRegexQQ = @"[1-9][0-9]{4,14}";
     return index;
 }
 
-static char firstLetterArray[HANZI_COUNT] =
+static char YPFirstLetterArray[HANZI_COUNT] =
 "ydkqsxnwzssxjbymgcczqpssqbycdscdqldylybssjgyqzjjfgcclzznwdwzjljpfyynnjjtmynzwzhflzppqhgccyynmjqyxxgd"
 "nnsnsjnjnsnnmlnrxyfsngnnnnqzggllyjlnyzssecykyyhqwjssggyxyqyjtwktjhychmnxjtlhjyqbyxdldwrrjnwysrldzjpc"
 "bzjjbrcfslnczstzfxxchtrqggddlyccssymmrjcyqzpwwjjyfcrwfdfzqpyddwyxkyjawjffxjbcftzyhhycyswccyxsclcxxwz"
@@ -476,21 +476,71 @@ static char firstLetterArray[HANZI_COUNT] =
 "whxgzxwznnqzjzjjqjccchykxbzszcnjtllcqxynjnckycynccqnxyewyczdcjycchyjlbtzyycqwlpgpyllgktltlgkgqbgychj"
 "xy";
 
-char firstLetter(unsigned short hanzi) {
-    int index = hanzi - HANZI_START;
-    if (index >= 0 && index <= HANZI_COUNT) {
-        return firstLetterArray[index];
-    } else {
-        return hanzi;
-    }
-}
-
 - (NSString *)pinyinFirstLetter {
     NSString *str = [self stringByTrim];
     if (str.length == 0) {
         return nil;
     }
-    return [[NSString stringWithFormat:@"%c", firstLetter([str characterAtIndex:0])] uppercaseString];
+    NSString *result;
+    unichar firstLetter = [str characterAtIndex:0];
+    
+    int index = firstLetter - HANZI_START;
+    if (index >= 0 && index <= HANZI_COUNT) {
+        result = [NSString stringWithFormat:@"%c", YPFirstLetterArray[index]];
+    } else {
+        result = [NSString stringWithFormat:@"%c", firstLetter];
+    }
+    return [result uppercaseString];
+}
+
+- (NSString *)pinyinFirstLetterForName {
+    NSString *str = [self stringByTrim];
+    if (str.length == 0) {
+        return nil;
+    }
+    // 处理多音字
+    NSString *result = [[NSString polyphoneFistNameDic] objectForKey:[str substringToIndex:1]];
+    if (result) {
+        return result;
+    }
+    
+    unichar firstLetter = [str characterAtIndex:0];
+    int index = firstLetter - HANZI_START;
+    if (index >= 0 && index <= HANZI_COUNT) {
+        result = [NSString stringWithFormat:@"%c", YPFirstLetterArray[index]];
+    } else if ((firstLetter >= 'a' && firstLetter <= 'z')
+               || (firstLetter >= 'A' && firstLetter <= 'Z')) {
+        result = [NSString stringWithFormat:@"%c", firstLetter];
+    } else {
+        result = @"#";
+    }
+    return [result uppercaseString];
+}
+
++ (NSDictionary *)polyphoneFistNameDic {
+    static NSDictionary *dic;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dic = @{@"繁" : @"P",
+                @"区" : @"O",
+                @"仇" : @"Q",
+                @"种" : @"C",
+                @"单" : @"S",
+                @"解" : @"X",
+                @"查" : @"Z",
+                @"曾" : @"Z",
+                @"秘" : @"B",
+                @"乐" : @"Y",
+                @"重" : @"C",
+                @"冼" : @"X",
+                @"翟" : @"Z",
+                @"折" : @"Z",
+                @"沈" : @"S",
+                @"尉" : @"Y", // @"尉迟" : @"yc",
+                @"万" : @"M"  // @"万俟" : @"mq"
+                };
+    });
+    return dic;
 }
 
 - (NSDictionary *)parameterStringToDictionary {

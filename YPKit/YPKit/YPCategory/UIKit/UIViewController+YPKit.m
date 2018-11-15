@@ -72,53 +72,6 @@ typedef void (^YPBarButtonBlock)(UIBarButtonItem *item);
     }
 }
 
-#pragma mark - Keyboard Observer
-
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)keyboardWillShow:(NSNotification *)notification {
-    if ([self isViewInBackground]) {
-        return;
-    }
-    NSDictionary *userInfo = [notification userInfo];
-    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    
-    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSTimeInterval animationDuration;
-    [animationDurationValue getValue:&animationDuration];
-    NSLog(@"show-->%@  duration-->%f", NSStringFromCGRect([aValue CGRectValue]), animationDuration);
-    [self keyboardWillShowWithRect:keyboardRect animationDuration:animationDuration];
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification {
-    if ([self isViewInBackground]) {
-        return;
-    }
-    NSDictionary *userInfo = [notification userInfo];
-    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    
-    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSTimeInterval animationDuration;
-    [animationDurationValue getValue:&animationDuration];
-    
-    NSLog(@"hide-->%@  duration-->%f", NSStringFromCGRect([aValue CGRectValue]), animationDuration);
-    [self keyboardWillHideWithRect:keyboardRect animationDuration:animationDuration];
-}
-
-- (void)keyboardWillShowWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration {}
-
-- (void)keyboardWillHideWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration {}
-
 #pragma mark - Others
 
 - (void)hideKeyboardWhenTapBackground {
@@ -131,7 +84,7 @@ typedef void (^YPBarButtonBlock)(UIBarButtonItem *item);
 }
 
 - (BOOL)isViewInBackground {
-    return [self isViewLoaded] && self.view.window == nil;
+    return [self isViewLoaded] && !self.view.window;
 }
 
 - (UIViewController *)yp_topPresentedViewController {

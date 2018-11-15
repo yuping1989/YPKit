@@ -25,21 +25,6 @@
 - (void)setRightBarButtonItemImage:(UIImage *)image block:(void (^)(UIBarButtonItem *item))block;
 
 /**
- *  键盘通知
- */
-- (void)addKeyboardObserver;
-- (void)removeKeyboardObserver;
-
-/**
- *  键盘通知回调事件，主要用于子类重写
- *
- *  @param keyboardRect 键盘rect
- *  @param duration     键盘弹出动画的时间
- */
-- (void)keyboardWillShowWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration;
-- (void)keyboardWillHideWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration;
-
-/**
  *  点击背景self.view的时候，关闭键盘
  */
 - (void)hideKeyboardWhenTapBackground;

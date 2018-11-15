@@ -148,7 +148,7 @@ NSString *const YPDateFormat_MMdd = @"MM-dd";
                 return [self stringWithDate:date format:YPDateFormat_yyyyMMddHHmm];
             }
             if (weekOfMonth > 0) {
-                return [NSString stringWithFormat:@"%ld%@", weekOfMonth, @"周前"];
+                return [NSString stringWithFormat:@"%zd%@", weekOfMonth, @"周前"];
             }
             if (timeInterval < todayZero) {
                 if (day == 0) {
@@ -156,15 +156,15 @@ NSString *const YPDateFormat_MMdd = @"MM-dd";
                 } else if (day == 1) {
                     return @"前天";
                 } else {
-                    return [NSString stringWithFormat:@"%ld%@", day + 1, @"天前"];
+                    return [NSString stringWithFormat:@"%zd%@", day + 1, @"天前"];
                 }
             }
             if (hour > 0) {
-                return [NSString stringWithFormat:@"%ld%@", hour, @"小时前"];
+                return [NSString stringWithFormat:@"%zd%@", hour, @"小时前"];
             } else if (minute > 0) {
-                return [NSString stringWithFormat:@"%ld%@", minute, @"分钟前"];
+                return [NSString stringWithFormat:@"%zd%@", minute, @"分钟前"];
             } else {
-                return [NSString stringWithFormat:@"%ld%@", second, @"秒前"];
+                return [NSString stringWithFormat:@"%zd%@", second, @"秒前"];
             }
             break;
         }
@@ -178,25 +178,13 @@ NSString *const YPDateFormat_MMdd = @"MM-dd";
                 } else if (day == 1) {
                     return [NSString stringWithFormat:@"前天 %@", hour];
                 } else {
-                    return [NSString stringWithFormat:@"%ld天前", day + 1];
+                    return [NSString stringWithFormat:@"%zd天前", day + 1];
                 }
             }
             break;
         }
     }
     return nil;
-            
-    
-        /*
-         else {
-         NSString *year = [self stringWithDate:date format:@"yyyy"];
-         if ([year isEqualToString:[currentDateString substringToIndex:4]]) {
-         return [self stringWithDate:date format:@"M月d日"];
-         } else {
-         return [self stringWithDate:date format:@"yyyy年M月d日"];
-         }
-         }*/
-        
 }
 
 - (NSString *)stringWithFormat:(NSString *)format {

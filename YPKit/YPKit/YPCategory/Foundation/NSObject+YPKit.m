@@ -171,6 +171,66 @@ static const int kvo_block_key;
 }
 
 
+#pragma mark - Keyboard Observer
+
+- (void)addKeyboardObserver {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)removeKeyboardObserver {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    if ([self isKindOfClass:[UIViewController class]]) {
+        UIViewController *vc = (UIViewController *)self;
+        if (!vc.isViewLoaded || (vc.isViewLoaded && !vc.view.window)) {
+            return;
+        }
+    }
+    if ([self isKindOfClass:[UIView class]] && ![(UIView *)self window]) {
+        return;
+    }
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    
+    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration;
+    [animationDurationValue getValue:&animationDuration];
+    NSLog(@"keyboard show-->%@  duration-->%f", NSStringFromCGRect([aValue CGRectValue]), animationDuration);
+    [self keyboardWillShowWithRect:keyboardRect animationDuration:animationDuration];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    if ([self isKindOfClass:[UIViewController class]]) {
+        UIViewController *vc = (UIViewController *)self;
+        if (!vc.isViewLoaded || (vc.isViewLoaded && !vc.view.window)) {
+            return;
+        }
+    }
+    if ([self isKindOfClass:[UIView class]] && ![(UIView *)self window]) {
+        return;
+    }
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    
+    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration;
+    [animationDurationValue getValue:&animationDuration];
+    
+    NSLog(@"keyboard hide-->%@  duration-->%f", NSStringFromCGRect([aValue CGRectValue]), animationDuration);
+    [self keyboardWillHideWithRect:keyboardRect animationDuration:animationDuration];
+}
+
+- (void)keyboardWillShowWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration {}
+
+- (void)keyboardWillHideWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration {}
+
+
 #pragma mark - Others
 
 + (NSString *)className {
@@ -201,17 +261,6 @@ static const int kvo_block_key;
         NSLog(@"%@", exception);
     }
     return obj;
-}
-
-- (void)addNightModelSwitchedObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nightModelSwitched:) name:YPNightModelSwitchedNotification object:nil];
-}
-
-- (void)removeNightModelSwitchedObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:YPNightModelSwitchedNotification object:nil];
-}
-
-- (void)nightModelSwitched:(NSNotification *)notification {
 }
 
 + (NSString *)stringByReplaceUnicode:(NSString *)string {
@@ -364,10 +413,11 @@ static const int kvo_block_key;
         return nil;
     }
     NSArray *array = (NSArray *)self;
-    if (index < array.count) {
-        return [array objectAtIndex:index];
+    if (index < 0 || index >= array.count) {
+        return nil;
     }
-    return nil;
+    return [array objectAtIndex:index];
+    
 }
 
 @end

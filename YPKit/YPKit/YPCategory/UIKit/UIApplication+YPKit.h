@@ -38,12 +38,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSString *)appBundleID;
 
 /**
- *  版本名称，例如：1.2.0
+ *  版本号，例如：1
  */
-+ (nullable NSString *)appVersionName;
++ (nullable NSString *)appVersion;
 
 /**
- *  版本号，例如：123
+ *  版本名称，例如：1.2.0
  */
 + (nullable NSString *)appShortVersionString;
 

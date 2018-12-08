@@ -32,11 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 设备型号，例如："iPhone6,1" "iPad4,6"
 // @see http://theiphonewiki.com/wiki/Models
-@property (nonatomic, readonly) NSString *machineModel;
+@property (nonatomic, readonly) NSString *yp_machineModel;
 
 // 设备型号名称，例如："iPhone 5s" "iPad mini 2"
 // @see http://theiphonewiki.com/wiki/Models
-@property (nonatomic, readonly) NSString *machineModelName;
+@property (nonatomic, readonly) NSString *yp_machineModelName;
 
 #pragma mark - Disk Space
 

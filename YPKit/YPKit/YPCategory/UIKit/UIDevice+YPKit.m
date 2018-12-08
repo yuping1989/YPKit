@@ -46,7 +46,7 @@
 }
 #endif
 
-- (NSString *)machineModel {
+- (NSString *)yp_machineModel {
     static dispatch_once_t once;
     static NSString *model;
     dispatch_once(&once, ^{
@@ -57,11 +57,11 @@
     return model;
 }
 
-- (NSString *)machineModelName {
+- (NSString *)yp_machineModelName {
     static dispatch_once_t once;
     static NSString *name;
     dispatch_once(&once, ^{
-        NSString *model = [self machineModel];
+        NSString *model = [self yp_machineModel];
         if (!model) return;
         NSDictionary *dic = @{
                               @"Watch1,1" : @"Apple Watch",
@@ -108,15 +108,15 @@
                               @"iPhone9,3" : @"iPhone 7",
                               @"iPhone9,2" : @"iPhone 7 Plus",
                               @"iPhone9,4" : @"iPhone 7 Plus",
-                              @"iPhone10,1": @"iPhone 8",
-                              @"iPhone10,4": @"iPhone 8",
-                              @"iPhone10,2": @"iPhone 8 Plus",
-                              @"iPhone10,5": @"iPhone 8 Plus",
-                              @"iPhone10,3": @"iPhone X",
-                              @"iPhone10,6": @"iPhone X",
-                              @"iPhone11,2": @"iPhone XS",
-                              @"iPhone11,6": @"iPhone XS Max",
-                              @"iPhone11,8": @"iPhone XR",
+                              @"iPhone10,1" : @"iPhone 8",
+                              @"iPhone10,4" : @"iPhone 8",
+                              @"iPhone10,2" : @"iPhone 8 Plus",
+                              @"iPhone10,5" : @"iPhone 8 Plus",
+                              @"iPhone10,3" : @"iPhone X",
+                              @"iPhone10,6" : @"iPhone X",
+                              @"iPhone11,2" : @"iPhone XS",
+                              @"iPhone11,6" : @"iPhone XS Max",
+                              @"iPhone11,8" : @"iPhone XR",
                               
                               
                               @"iPad1,1" : @"iPad 1",

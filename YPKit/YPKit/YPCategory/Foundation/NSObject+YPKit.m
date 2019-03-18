@@ -13,27 +13,19 @@
 NSString * const YPNightModelSwitchedNotification = @"YPNightModelSwitchedNotification";
 
 static const int kvo_block_key;
+static const int notification_block_key;
 
-@interface YPNSObjectKVOBlockTarget : NSObject
+@interface YPBlockCallbackTarget : NSObject
 
-@property (nonatomic, copy) void (^block)(__weak id obj, id oldVal, id newVal);
-
-- (id)initWithBlock:(void (^)(__weak id obj, id oldVal, id newVal))block;
+@property (nonatomic, copy) void (^kvoBlock)(__weak id obj, id oldVal, id newVal);
+@property (nonatomic, copy) void (^notificationBlock)(NSNotification *notification);
 
 @end
 
-@implementation YPNSObjectKVOBlockTarget
-
-- (id)initWithBlock:(void (^)(__weak id obj, id oldVal, id newVal))block {
-    self = [super init];
-    if (self) {
-        self.block = block;
-    }
-    return self;
-}
+@implementation YPBlockCallbackTarget
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (!self.block) return;
+    if (!self.kvoBlock) return;
     
     BOOL isPrior = [[change objectForKey:NSKeyValueChangeNotificationIsPriorKey] boolValue];
     if (isPrior) return;
@@ -47,7 +39,13 @@ static const int kvo_block_key;
     id newVal = [change objectForKey:NSKeyValueChangeNewKey];
     if (newVal == [NSNull null]) newVal = nil;
     
-    self.block(object, oldVal, newVal);
+    self.kvoBlock(object, oldVal, newVal);
+}
+
+- (void)notificationCallback:(NSNotification *)notification {
+    if (self.notificationBlock) {
+        self.notificationBlock(notification);
+    }
 }
 
 @end
@@ -126,9 +124,16 @@ static const int kvo_block_key;
 
 #pragma mark - KVO
 
+- (void)setObserverBlockForKeyPath:(NSString *)keyPath block:(void (^)(__weak id obj, id oldVal, id newVal))block {
+    if (!keyPath || !block) return;
+    [self removeObserverBlocksForKeyPath:keyPath];
+    [self addObserverBlockForKeyPath:keyPath block:block];
+}
+
 - (void)addObserverBlockForKeyPath:(NSString *)keyPath block:(void (^)(__weak id obj, id oldVal, id newVal))block {
     if (!keyPath || !block) return;
-    YPNSObjectKVOBlockTarget *target = [[YPNSObjectKVOBlockTarget alloc] initWithBlock:block];
+    YPBlockCallbackTarget *target = [[YPBlockCallbackTarget alloc] init];
+    target.kvoBlock = block;
     NSMutableDictionary *dic = [self allNSObjectObserverBlocks];
     NSMutableArray *arr = dic[keyPath];
     if (!arr) {
@@ -170,6 +175,59 @@ static const int kvo_block_key;
     return targets;
 }
 
+#pragma mark - Notification
+
+- (void)setNotificationBlockForName:(NSString *)name block:(void (^)(NSNotification * _Nonnull))block {
+    if (!name || !block) return;
+    [self removeNotificationBlocksForName:name];
+    [self addNotificationBlockForName:name block:block];
+}
+
+- (void)addNotificationBlockForName:(NSString *)name block:(void (^)(NSNotification *notification))block {
+    if (!name || !block) return;
+    
+    YPBlockCallbackTarget *target = [[YPBlockCallbackTarget alloc] init];
+    target.notificationBlock = block;
+    NSMutableDictionary *dic = [self allNotificationBlocks];
+    NSMutableArray *arr = dic[name];
+    if (!arr) {
+        arr = [NSMutableArray new];
+        dic[name] = arr;
+    }
+    [arr addObject:target];
+    [[NSNotificationCenter defaultCenter] addObserver:target selector:@selector(notificationCallback:) name:name object:nil];
+}
+
+- (void)removeNotificationBlocksForName:(NSString *)name {
+    if (!name) return;
+    NSMutableDictionary *dic = [self allNotificationBlocks];
+    NSMutableArray *arr = dic[name];
+    [arr enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
+        [[NSNotificationCenter defaultCenter] removeObserver:obj name:name object:nil];
+    }];
+    
+    [dic removeObjectForKey:name];
+}
+
+- (void)removeNotificationBlocks {
+    NSMutableDictionary *dic = [self allNotificationBlocks];
+    [dic enumerateKeysAndObjectsUsingBlock: ^(NSString *name, NSArray *arr, BOOL *stop) {
+        [arr enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
+            [[NSNotificationCenter defaultCenter] removeObserver:obj name:name object:nil];
+        }];
+    }];
+    
+    [dic removeAllObjects];
+}
+
+- (NSMutableDictionary *)allNotificationBlocks {
+    NSMutableDictionary *targets = objc_getAssociatedObject(self, &notification_block_key);
+    if (!targets) {
+        targets = [NSMutableDictionary new];
+        objc_setAssociatedObject(self, &notification_block_key, targets, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return targets;
+}
 
 #pragma mark - Keyboard Observer
 

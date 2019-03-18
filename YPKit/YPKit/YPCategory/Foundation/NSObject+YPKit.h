@@ -36,9 +36,17 @@ extern NSString * const YPNightModelSwitchedNotification;
 
 #pragma mark - KVO
 
+- (void)setObserverBlockForKeyPath:(NSString *)keyPath block:(void (^)(__weak id obj, id oldVal, id newVal))block;
 - (void)addObserverBlockForKeyPath:(NSString *)keyPath block:(void (^)(id _Nonnull obj, _Nullable id oldVal, _Nullable id newVal))block;
-- (void)removeObserverBlocksForKeyPath:(NSString*)keyPath;
+- (void)removeObserverBlocksForKeyPath:(NSString *)keyPath;
 - (void)removeObserverBlocks;
+
+#pragma mark - Notification
+
+- (void)setNotificationBlockForName:(NSString *)name block:(void (^)(NSNotification *notification))block;
+- (void)addNotificationBlockForName:(NSString *)name block:(void (^)(NSNotification *notification))block;
+- (void)removeNotificationBlocksForName:(NSString *)name;
+- (void)removeNotificationBlocks;
 
 #pragma mark - Keyboard Observer
 

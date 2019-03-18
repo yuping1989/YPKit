@@ -8,6 +8,7 @@
 
 #import "YPScaleHeaderVC.h"
 #import "UIScrollView+YPKit.h"
+#import "NSObject+YPKit.h"
 @interface YPScaleHeaderVC ()
 
 
@@ -19,11 +20,24 @@
     [super viewDidLoad];
     [self.tableView setScalableHeaderWithImage:nil defaultHeight:250 maskColor:nil];
     self.tableView.scalableHeaderImageView.backgroundColor = [UIColor lightGrayColor];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarning) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    [self addNotificationBlockForName:UIApplicationDidBecomeActiveNotification block:^(NSNotification * _Nonnull notification) {
+        NSLog(@"hahaha");
+    }];
+    [self addNotificationBlockForName:UIApplicationDidBecomeActiveNotification block:^(NSNotification * _Nonnull notification) {
+        NSLog(@"yyy");
+    }];
+}
+
+- (void)dealloc {
+    NSLog(@"sdf");
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    NSLog(@"become");
 }
 
 /*

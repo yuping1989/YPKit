@@ -75,18 +75,6 @@ typedef NS_ENUM(NSInteger, YPViewLine) {
  */
 - (UITapGestureRecognizer *)addDoubleTapGestureWithBlock:(void (^)(UITapGestureRecognizer *recognizer))block;
 
-#pragma mark - Line
-
-- (UIView *)addLine:(YPViewLine)type color:(UIColor *)color;
-- (UIView *)addLine:(YPViewLine)type
-        paddingLead:(CGFloat)paddingLead
-       paddingTrail:(CGFloat)paddingTrail
-          thickness:(CGFloat)thickness
-              color:(UIColor *)color;
-- (UIView *)lineForType:(YPViewLine)type;
-
-- (CALayer *)addSubLayerWithFrame:(CGRect)frame color:(UIColor *)color;
-
 #pragma mark - Others
 
 /**

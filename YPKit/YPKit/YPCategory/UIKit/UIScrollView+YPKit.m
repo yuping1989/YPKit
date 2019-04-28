@@ -12,25 +12,27 @@
 
 static NSString * const kContentOffset = @"contentOffset";
 
-@interface _YPScalableHeaderView : UIView
+@interface YPScalableHeaderView ()
 
-@property (nonatomic, strong) UIImageView *scalableImageView;
+@property (nonatomic, strong, readwrite) UIImageView *scalableImageView;
 @property (nonatomic, strong) UIView *customView;
 @property (nonatomic, strong) UIView *maskView;
 
 @property (nonatomic, assign) CGFloat defaultHeight;
+@property (nonatomic, assign) UIEdgeInsets imageViewInsets;
 @property (nonatomic, strong) UIColor *maskColor;
 
 @end
 
-@implementation _YPScalableHeaderView
+@implementation YPScalableHeaderView
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame imageViewInsets:(UIEdgeInsets)insets {
     self = [super initWithFrame:frame];
     if (self) {
         self.clipsToBounds = YES;
+        _imageViewInsets = insets;
         
-        _scalableImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        _scalableImageView = [[UIImageView alloc] initWithFrame:[self frameForImageView]];
         _scalableImageView.contentMode = UIViewContentModeScaleAspectFill;
         _scalableImageView.clipsToBounds = YES;
         [self addSubview:_scalableImageView];
@@ -62,6 +64,10 @@ static NSString * const kContentOffset = @"contentOffset";
     self.maskView.backgroundColor = maskColor;
 }
 
+- (CGRect)frameForImageView {
+    return CGRectMake(self.imageViewInsets.left, self.imageViewInsets.top, self.frame.size.width - self.imageViewInsets.left - self.imageViewInsets.right, self.frame.size.height - self.imageViewInsets.top - self.imageViewInsets.bottom);
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     
@@ -74,10 +80,10 @@ static NSString * const kContentOffset = @"contentOffset";
     if (offsetY < 0) {
         CGFloat height = self.defaultHeight - offsetY;
         self.frame = CGRectMake(0, offsetY - insetTop, self.frame.size.width, height);
-        self.scalableImageView.frame = CGRectMake(offsetY, 0, self.frame.size.width - offsetY * 2, height);
+        self.scalableImageView.frame = CGRectMake(offsetY + self.imageViewInsets.left, self.imageViewInsets.top, self.frame.size.width - self.imageViewInsets.left - self.imageViewInsets.right - offsetY * 2, height - self.imageViewInsets.top - self.imageViewInsets.bottom);
     } else {
         self.frame = CGRectMake(0, -insetTop, self.frame.size.width, self.defaultHeight);
-        self.scalableImageView.frame = CGRectMake(0, 0, self.frame.size.width, self.defaultHeight);
+        self.scalableImageView.frame = [self frameForImageView];
     }
 }
 
@@ -90,7 +96,7 @@ static NSString * const kContentOffset = @"contentOffset";
 
 @interface UIScrollView ()
 
-@property (nonatomic, strong) _YPScalableHeaderView *headerView;
+@property (nonatomic, strong, readwrite) YPScalableHeaderView *headerView;
 
 @end
 
@@ -126,8 +132,18 @@ static NSString * const kContentOffset = @"contentOffset";
 - (void)setScalableHeaderWithImage:(UIImage *)image
                      defaultHeight:(CGFloat)height
                          maskColor:(UIColor *)maskColor {
+    [self setScalableHeaderWithImage:image
+                       defaultHeight:height
+                     imageViewInsets:UIEdgeInsetsZero
+                           maskColor:maskColor];
+}
+
+- (void)setScalableHeaderWithImage:(UIImage *)image
+                     defaultHeight:(CGFloat)height
+                   imageViewInsets:(UIEdgeInsets)insets
+                         maskColor:(UIColor *)maskColor {
     if (!self.headerView) {
-        self.headerView = [[_YPScalableHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, height)];
+        self.headerView = [[YPScalableHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, height) imageViewInsets:insets];
         self.headerView.backgroundColor = [UIColor clearColor];
         self.headerView.autoresizingMask =
         UIViewAutoresizingFlexibleTopMargin |
@@ -173,11 +189,11 @@ static NSString * const kContentOffset = @"contentOffset";
     return self.headerView.scalableImageView;
 }
 
-- (void)setHeaderView:(_YPScalableHeaderView *)headerView {
+- (void)setHeaderView:(YPScalableHeaderView *)headerView {
     objc_setAssociatedObject(self, @selector(headerView), headerView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (_YPScalableHeaderView *)headerView {
+- (YPScalableHeaderView *)headerView {
     return objc_getAssociatedObject(self, _cmd);
 }
 

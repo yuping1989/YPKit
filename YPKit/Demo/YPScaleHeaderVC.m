@@ -9,6 +9,7 @@
 #import "YPScaleHeaderVC.h"
 #import "UIScrollView+YPKit.h"
 #import "NSObject+YPKit.h"
+#import "UIImage+YPKit.h"
 @interface YPScaleHeaderVC ()
 
 
@@ -18,15 +19,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView setScalableHeaderWithImage:nil defaultHeight:250 maskColor:nil];
-    self.tableView.scalableHeaderImageView.backgroundColor = [UIColor lightGrayColor];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarning) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    UIImage *image = [UIImage imageWithContentsOfFileName:@"header.jpg"];
+    [self.tableView setScalableHeaderWithImage:image defaultHeight:250 imageViewInsets:UIEdgeInsetsMake(50, 10, 50, 10) maskColor:nil];
+    
+    self.tableView.headerView.scalableImageView.backgroundColor = [UIColor lightGrayColor];
+    self.tableView.headerView.backgroundColor = [UIColor lightGrayColor];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarning) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     [self addNotificationBlockForName:UIApplicationDidBecomeActiveNotification block:^(NSNotification * _Nonnull notification) {
         NSLog(@"hahaha");
     }];
     [self addNotificationBlockForName:UIApplicationDidBecomeActiveNotification block:^(NSNotification * _Nonnull notification) {
         NSLog(@"yyy");
+    }];
+    
+    [[UIDevice currentDevice] addObserverBlockForKeyPath:@"name" block:^(id  _Nonnull obj, id  _Nullable oldVal, id  _Nullable newVal) {
+        
     }];
 }
 

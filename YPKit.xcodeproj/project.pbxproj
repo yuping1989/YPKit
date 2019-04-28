@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E64356722754F0500A40F8A /* header.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7E64356622754F0500A40F8A /* header.jpg */; };
 		7E68EE6A20DB9628007A176A /* UIBarButtonItem+YPKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E68EE6920DB9628007A176A /* UIBarButtonItem+YPKit.m */; };
 		7EA8386920BFC80C00DA122F /* img_interact_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7EA8386820BFC80C00DA122F /* img_interact_bg.jpg */; };
 		7EA8386C20BFC97800DA122F /* icon_pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EA8386A20BFC97700DA122F /* icon_pause@2x.png */; };
@@ -55,6 +56,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7E64356622754F0500A40F8A /* header.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = header.jpg; sourceTree = "<group>"; };
 		7E68EE6820DB9627007A176A /* UIBarButtonItem+YPKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+YPKit.h"; sourceTree = "<group>"; };
 		7E68EE6920DB9628007A176A /* UIBarButtonItem+YPKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+YPKit.m"; sourceTree = "<group>"; };
 		7EA8386820BFC80C00DA122F /* img_interact_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = img_interact_bg.jpg; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				7EA8386A20BFC97700DA122F /* icon_pause@2x.png */,
 				7EA8386B20BFC97700DA122F /* icon_pause@3x.png */,
 				7EA8386820BFC80C00DA122F /* img_interact_bg.jpg */,
+				7E64356622754F0500A40F8A /* header.jpg */,
 				7ECB6C301F9F19BF009F8AAF /* AppDelegate.h */,
 				7ECB6C311F9F19BF009F8AAF /* AppDelegate.m */,
 				7ECB6C321F9F19BF009F8AAF /* Assets.xcassets */,
@@ -373,6 +376,7 @@
 				7ECB6C3E1F9F19BF009F8AAF /* Main.storyboard in Resources */,
 				7EA8387120BFCE0B00DA122F /* icon_pause_jpg@3x.jpg in Resources */,
 				7EA8386C20BFC97800DA122F /* icon_pause@2x.png in Resources */,
+				7E64356722754F0500A40F8A /* header.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

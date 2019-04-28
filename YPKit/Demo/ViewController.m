@@ -91,6 +91,9 @@ YP_USER_DEFAULTS_PROPERTY_DOUBLE(price, setPrice, @"udPrice")
     
     NSLog(@"first letter-->%@", [@"曾" pinyinFirstLetter]);
     NSLog(@"first letter-->%@", [@"仇钱" pinyinFirstLetterForName]);
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

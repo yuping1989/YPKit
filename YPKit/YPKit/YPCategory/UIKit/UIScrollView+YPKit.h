@@ -8,12 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+@interface YPScalableHeaderView : UIView
+
+@property (nonatomic, strong, readonly) UIImageView *scalableImageView;
+
+@end
+
 @interface UIScrollView (YPKit)
 
-@property (nonatomic, strong, readonly) UIImageView *scalableHeaderImageView;
+@property (nonatomic, strong, readonly) YPScalableHeaderView *headerView;
 
 - (void)setScalableHeaderWithImage:(UIImage *)image
                      defaultHeight:(CGFloat)height
+                         maskColor:(UIColor *)maskColor;
+- (void)setScalableHeaderWithImage:(UIImage *)image
+                     defaultHeight:(CGFloat)height
+                   imageViewInsets:(UIEdgeInsets)insets
                          maskColor:(UIColor *)maskColor;
 
 - (void)setScalableHeaderCustomView:(UIView *)customView;

@@ -37,13 +37,13 @@
         NSLog(@"yyy");
     }];
     
-    [[UIDevice currentDevice] addObserverBlockForKeyPath:@"name" block:^(id  _Nonnull obj, id  _Nullable oldVal, id  _Nullable newVal) {
-        
+    [self.tableView addBlockObserver:self forKeyPath:@"contentOffset" block:^(__weak id  _Nonnull obj, id  _Nonnull oldVal, id  _Nonnull newVal) {
+        NSLog(@"new-->%@", newVal);
     }];
 }
 
 - (void)dealloc {
-    NSLog(@"sdf");
+//    [self.tableView removeBlockObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -124,17 +124,21 @@ static const int notification_block_key;
 
 #pragma mark - KVO
 
-- (void)setObserverBlockForKeyPath:(NSString *)keyPath block:(void (^)(__weak id obj, id oldVal, id newVal))block {
-    if (!keyPath || !block) return;
-    [self removeObserverBlocksForKeyPath:keyPath];
-    [self addObserverBlockForKeyPath:keyPath block:block];
+- (void)setBlockObserver:(NSObject *)object
+              forKeyPath:(NSString *)keyPath
+                   block:(void (^)(__weak id obj, id oldVal, id newVal))block {
+    if (!object || !keyPath || !block) return;
+    [self removeBlockObserver:object forKeyPath:keyPath];
+    [self addBlockObserver:object forKeyPath:keyPath block:block];
 }
 
-- (void)addObserverBlockForKeyPath:(NSString *)keyPath block:(void (^)(__weak id obj, id oldVal, id newVal))block {
-    if (!keyPath || !block) return;
+- (void)addBlockObserver:(NSObject *)object
+              forKeyPath:(NSString *)keyPath
+                   block:(void (^)(__weak id obj, id oldVal, id newVal))block {
+    if (!object || !keyPath || !block) return;
     YPBlockCallbackTarget *target = [[YPBlockCallbackTarget alloc] init];
     target.kvoBlock = block;
-    NSMutableDictionary *dic = [self allNSObjectObserverBlocks];
+    NSMutableDictionary *dic = [object allNSObjectObserverBlocks];
     NSMutableArray *arr = dic[keyPath];
     if (!arr) {
         arr = [NSMutableArray new];
@@ -144,9 +148,10 @@ static const int notification_block_key;
     [self addObserver:target forKeyPath:keyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
 }
 
-- (void)removeObserverBlocksForKeyPath:(NSString *)keyPath {
-    if (!keyPath) return;
-    NSMutableDictionary *dic = [self allNSObjectObserverBlocks];
+- (void)removeBlockObserver:(NSObject *)object
+                 forKeyPath:(NSString *)keyPath {
+    if (!object || !keyPath) return;
+    NSMutableDictionary *dic = [object allNSObjectObserverBlocks];
     NSMutableArray *arr = dic[keyPath];
     [arr enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
         [self removeObserver:obj forKeyPath:keyPath];
@@ -155,14 +160,14 @@ static const int notification_block_key;
     [dic removeObjectForKey:keyPath];
 }
 
-- (void)removeObserverBlocks {
-    NSMutableDictionary *dic = [self allNSObjectObserverBlocks];
+- (void)removeBlockObserver:(NSObject *)object {
+    if (!object) return;
+    NSMutableDictionary *dic = [object allNSObjectObserverBlocks];
     [dic enumerateKeysAndObjectsUsingBlock: ^(NSString *key, NSArray *arr, BOOL *stop) {
         [arr enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
             [self removeObserver:obj forKeyPath:key];
         }];
     }];
-    
     [dic removeAllObjects];
 }
 

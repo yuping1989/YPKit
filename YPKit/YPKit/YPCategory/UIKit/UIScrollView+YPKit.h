@@ -16,7 +16,7 @@
 
 @interface UIScrollView (YPKit)
 
-@property (nonatomic, strong, readonly) YPScalableHeaderView *headerView;
+@property (nonatomic, strong, readonly) YPScalableHeaderView *yp_headerView;
 
 - (void)setScalableHeaderWithImage:(UIImage *)image
                      defaultHeight:(CGFloat)height

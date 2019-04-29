@@ -59,7 +59,7 @@ static NSString * const kContentOffset = @"contentOffset";
     if (!self.maskView) {
         self.maskView = [[UIView alloc] initWithFrame:self.bounds];
         self.maskView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [self insertSubview:self.maskView aboveSubview:self.scalableImageView];
+        [self.scalableImageView addSubview:self.maskView];
     }
     self.maskView.backgroundColor = maskColor;
 }
@@ -96,7 +96,7 @@ static NSString * const kContentOffset = @"contentOffset";
 
 @interface UIScrollView ()
 
-@property (nonatomic, strong, readwrite) YPScalableHeaderView *headerView;
+@property (nonatomic, strong, readwrite) YPScalableHeaderView *yp_headerView;
 
 @end
 
@@ -123,8 +123,8 @@ static NSString * const kContentOffset = @"contentOffset";
 }
 
 - (void)ypKit_dealloc {
-    if (self.headerView) {
-        [self removeObserver:self.headerView forKeyPath:kContentOffset];
+    if (self.yp_headerView) {
+        [self removeObserver:self.yp_headerView forKeyPath:kContentOffset];
     }
     [self ypKit_dealloc];
 }
@@ -142,10 +142,10 @@ static NSString * const kContentOffset = @"contentOffset";
                      defaultHeight:(CGFloat)height
                    imageViewInsets:(UIEdgeInsets)insets
                          maskColor:(UIColor *)maskColor {
-    if (!self.headerView) {
-        self.headerView = [[YPScalableHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, height) imageViewInsets:insets];
-        self.headerView.backgroundColor = [UIColor clearColor];
-        self.headerView.autoresizingMask =
+    if (!self.yp_headerView) {
+        self.yp_headerView = [[YPScalableHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, height) imageViewInsets:insets];
+        self.yp_headerView.backgroundColor = [UIColor clearColor];
+        self.yp_headerView.autoresizingMask =
         UIViewAutoresizingFlexibleTopMargin |
         UIViewAutoresizingFlexibleLeftMargin |
         UIViewAutoresizingFlexibleBottomMargin |
@@ -154,31 +154,31 @@ static NSString * const kContentOffset = @"contentOffset";
         UIViewAutoresizingFlexibleHeight;
         
         if ([self isKindOfClass:[UITableView class]]) {
-            [(UITableView *)self setTableHeaderView:self.headerView];
+            [(UITableView *)self setTableHeaderView:self.yp_headerView];
         } else {
-            [self addSubview:self.headerView];
-            [self sendSubviewToBack:self.headerView];
+            [self addSubview:self.yp_headerView];
+            [self sendSubviewToBack:self.yp_headerView];
             self.contentInset = UIEdgeInsetsMake(height, 0, 0, 0);
             if ([self isMemberOfClass:[UIScrollView class]] &&
                 CGPointEqualToPoint(self.contentOffset, CGPointMake(0, 0))) {
                 self.contentOffset = CGPointMake(0, -height);
             }
         }
-        [self addObserver:self.headerView
+        [self addObserver:self.yp_headerView
                forKeyPath:kContentOffset
                   options:NSKeyValueObservingOptionNew
                   context:NULL];
     }
-    self.headerView.scalableImageView.image = image;
-    self.headerView.defaultHeight = height;
-    self.headerView.maskColor = maskColor;
+    self.yp_headerView.scalableImageView.image = image;
+    self.yp_headerView.defaultHeight = height;
+    self.yp_headerView.maskColor = maskColor;
 }
 
 - (void)removeScalableHeader {
-    if (self.headerView) {
-        [self removeObserver:self.headerView forKeyPath:kContentOffset];
-        [self.headerView removeFromSuperview];
-        self.headerView = nil;
+    if (self.yp_headerView) {
+        [self removeObserver:self.yp_headerView forKeyPath:kContentOffset];
+        [self.yp_headerView removeFromSuperview];
+        self.yp_headerView = nil;
         
         self.contentInset = UIEdgeInsetsZero;
         self.contentOffset = CGPointZero;
@@ -186,19 +186,19 @@ static NSString * const kContentOffset = @"contentOffset";
 }
 
 - (UIImageView *)scalableHeaderImageView {
-    return self.headerView.scalableImageView;
+    return self.yp_headerView.scalableImageView;
 }
 
-- (void)setHeaderView:(YPScalableHeaderView *)headerView {
-    objc_setAssociatedObject(self, @selector(headerView), headerView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setYp_headerView:(YPScalableHeaderView *)headerView {
+    objc_setAssociatedObject(self, @selector(yp_headerView), headerView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (YPScalableHeaderView *)headerView {
+- (YPScalableHeaderView *)yp_headerView {
     return objc_getAssociatedObject(self, _cmd);
 }
 
 - (void)setScalableHeaderCustomView:(UIView *)customView {
-    self.headerView.customView = customView;
+    self.yp_headerView.customView = customView;
 }
 
 - (UIImage *)contentSnapshotImage {

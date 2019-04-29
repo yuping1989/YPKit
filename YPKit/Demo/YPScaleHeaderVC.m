@@ -24,10 +24,10 @@
     
     self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     UIImage *image = [UIImage imageWithContentsOfFileName:@"header.jpg"];
-    [self.tableView setScalableHeaderWithImage:image defaultHeight:250 imageViewInsets:UIEdgeInsetsMake(50, 10, 50, 10) maskColor:nil];
+    [self.tableView setScalableHeaderWithImage:image defaultHeight:250 imageViewInsets:UIEdgeInsetsMake(50, 10, 50, 10) maskColor:[UIColor colorWithWhite:0 alpha:0.5f]];
     
-    self.tableView.headerView.scalableImageView.backgroundColor = [UIColor lightGrayColor];
-    self.tableView.headerView.backgroundColor = [UIColor lightGrayColor];
+    self.tableView.yp_headerView.scalableImageView.backgroundColor = [UIColor lightGrayColor];
+//    self.tableView.headerView.backgroundColor = [UIColor lightGrayColor];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarning) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     [self addNotificationBlockForName:UIApplicationDidBecomeActiveNotification block:^(NSNotification * _Nonnull notification) {

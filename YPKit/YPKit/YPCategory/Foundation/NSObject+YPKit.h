@@ -9,6 +9,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const YPNightModelSwitchedNotification;
 
+typedef void (^YPKVOBlock)(__weak id obj, id oldVal, id newVal);
+typedef void (^YPKeyboardBlock)(NSNotification *noti, CGRect rect, CGFloat duration);
+
 @interface NSObject (YPKit)
 
 #pragma mark - Swap method (Swizzling)
@@ -36,14 +39,23 @@ extern NSString * const YPNightModelSwitchedNotification;
 
 #pragma mark - KVO
 
+- (void)setObserverBlockForKeyPath:(NSString *)keyPath
+                             block:(YPKVOBlock)block;
 - (void)setBlockObserver:(NSObject *)object
               forKeyPath:(NSString *)keyPath
-                   block:(void (^)(__weak id obj, id oldVal, id newVal))block;
+                   block:(YPKVOBlock)block;
+
+- (void)addObserverBlockForKeyPath:(NSString *)keyPath
+                             block:(YPKVOBlock)block;
 - (void)addBlockObserver:(NSObject *)object
               forKeyPath:(NSString *)keyPath
-                   block:(void (^)(__weak id obj, id oldVal, id newVal))block;
+                   block:(YPKVOBlock)block;
+
+- (void)removeObserverBlocksForKeyPath:(NSString *)keyPath;
 - (void)removeBlockObserver:(NSObject *)object
                  forKeyPath:(NSString *)keyPath;
+
+- (void)removeObserverBlocks;
 - (void)removeBlockObserver:(NSObject *)object;
 
 #pragma mark - Notification
@@ -54,6 +66,10 @@ extern NSString * const YPNightModelSwitchedNotification;
 - (void)removeNotificationBlocks;
 
 #pragma mark - Keyboard Observer
+
+- (void)setKeyboardShowBlock:(YPKeyboardBlock)showBlock
+                   hideBlock:(YPKeyboardBlock)hideBlock;
+- (void)removeKeyboardBlocks;
 
 /**
  *  键盘通知

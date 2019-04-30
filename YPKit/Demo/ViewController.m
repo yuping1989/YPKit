@@ -93,7 +93,11 @@ YP_USER_DEFAULTS_PROPERTY_DOUBLE(price, setPrice, @"udPrice")
     NSLog(@"first letter-->%@", [@"仇钱" pinyinFirstLetterForName]);
     
     
-    
+    [self setKeyboardShowBlock:^(NSNotification * _Nonnull noti, CGRect rect, CGFloat duration) {
+        NSLog(@"show-->%@", NSStringFromCGRect(rect));
+    } hideBlock:^(NSNotification * _Nonnull noti, CGRect rect, CGFloat duration) {
+        NSLog(@"hide-->%@", NSStringFromCGRect(rect));
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

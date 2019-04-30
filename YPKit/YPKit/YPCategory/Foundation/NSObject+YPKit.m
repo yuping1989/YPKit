@@ -8,6 +8,7 @@
 
 #import "NSObject+YPKit.h"
 #import "NSString+YPKit.h"
+#import "YPKitMacro.h"
 #import <objc/runtime.h>
 
 NSString * const YPNightModelSwitchedNotification = @"YPNightModelSwitchedNotification";
@@ -50,8 +51,16 @@ static const int notification_block_key;
 
 @end
 
+@interface NSObject ()
+
+@property (nonatomic, copy) YPKeyboardBlock yp_keyboardShowBlock;
+@property (nonatomic, copy) YPKeyboardBlock yp_keyboardHideBlock;
+
+@end
 
 @implementation NSObject (YPKit)
+YP_DYNAMIC_PROPERTY_COPY(yp_keyboardShowBlock, setYp_keyboardShowBlock, YPKeyboardBlock)
+YP_DYNAMIC_PROPERTY_COPY(yp_keyboardHideBlock, setYp_keyboardHideBlock, YPKeyboardBlock)
 
 #pragma mark - Swap method (Swizzling)
 
@@ -124,17 +133,31 @@ static const int notification_block_key;
 
 #pragma mark - KVO
 
+- (void)setObserverBlockForKeyPath:(NSString *)keyPath
+                             block:(YPKVOBlock)block {
+    [self setBlockObserver:self
+                forKeyPath:keyPath
+                     block:block];
+}
+
 - (void)setBlockObserver:(NSObject *)object
               forKeyPath:(NSString *)keyPath
-                   block:(void (^)(__weak id obj, id oldVal, id newVal))block {
+                   block:(YPKVOBlock)block {
     if (!object || !keyPath || !block) return;
     [self removeBlockObserver:object forKeyPath:keyPath];
     [self addBlockObserver:object forKeyPath:keyPath block:block];
 }
 
+- (void)addObserverBlockForKeyPath:(NSString *)keyPath
+                             block:(YPKVOBlock)block {
+    [self addBlockObserver:self
+                forKeyPath:keyPath
+                     block:block];
+}
+
 - (void)addBlockObserver:(NSObject *)object
               forKeyPath:(NSString *)keyPath
-                   block:(void (^)(__weak id obj, id oldVal, id newVal))block {
+                   block:(YPKVOBlock)block {
     if (!object || !keyPath || !block) return;
     YPBlockCallbackTarget *target = [[YPBlockCallbackTarget alloc] init];
     target.kvoBlock = block;
@@ -148,6 +171,10 @@ static const int notification_block_key;
     [self addObserver:target forKeyPath:keyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
 }
 
+- (void)removeObserverBlocksForKeyPath:(NSString *)keyPath {
+    [self removeBlockObserver:self forKeyPath:keyPath];
+}
+
 - (void)removeBlockObserver:(NSObject *)object
                  forKeyPath:(NSString *)keyPath {
     if (!object || !keyPath) return;
@@ -158,6 +185,10 @@ static const int notification_block_key;
     }];
     
     [dic removeObjectForKey:keyPath];
+}
+
+- (void)removeObserverBlocks {
+    [self removeBlockObserver:self];
 }
 
 - (void)removeBlockObserver:(NSObject *)object {
@@ -236,6 +267,19 @@ static const int notification_block_key;
 
 #pragma mark - Keyboard Observer
 
+- (void)setKeyboardShowBlock:(YPKeyboardBlock)showBlock
+                   hideBlock:(YPKeyboardBlock)hideBlock {
+    [self addKeyboardObserver];
+    self.yp_keyboardShowBlock = showBlock;
+    self.yp_keyboardHideBlock = hideBlock;
+}
+
+- (void)removeKeyboardBlocks {
+    [self removeKeyboardObserver];
+    self.yp_keyboardShowBlock = nil;
+    self.yp_keyboardHideBlock = nil;
+}
+
 - (void)addKeyboardObserver {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -257,14 +301,17 @@ static const int notification_block_key;
         return;
     }
     NSDictionary *userInfo = [notification userInfo];
-    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardRect = [aValue CGRectValue];
     
-    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSTimeInterval animationDuration;
-    [animationDurationValue getValue:&animationDuration];
-    NSLog(@"keyboard show-->%@  duration-->%f", NSStringFromCGRect([aValue CGRectValue]), animationDuration);
-    [self keyboardWillShowWithRect:keyboardRect animationDuration:animationDuration];
+    NSValue *durationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval duration;
+    [durationValue getValue:&duration];
+    NSLog(@"keyboard show-->%@  duration-->%f", NSStringFromCGRect([aValue CGRectValue]), duration);
+    [self keyboardWillShowWithRect:keyboardRect animationDuration:duration];
+    if (self.yp_keyboardShowBlock) {
+        self.yp_keyboardShowBlock(notification, keyboardRect, duration);
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -278,7 +325,7 @@ static const int notification_block_key;
         return;
     }
     NSDictionary *userInfo = [notification userInfo];
-    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardRect = [aValue CGRectValue];
     
     NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
@@ -287,6 +334,9 @@ static const int notification_block_key;
     
     NSLog(@"keyboard hide-->%@  duration-->%f", NSStringFromCGRect([aValue CGRectValue]), animationDuration);
     [self keyboardWillHideWithRect:keyboardRect animationDuration:animationDuration];
+    if (self.yp_keyboardHideBlock) {
+        self.yp_keyboardHideBlock(notification, keyboardRect, animationDuration);
+    }
 }
 
 - (void)keyboardWillShowWithRect:(CGRect)keyboardRect animationDuration:(CGFloat)duration {}

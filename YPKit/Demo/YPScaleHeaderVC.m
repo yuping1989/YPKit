@@ -13,6 +13,7 @@
 @interface YPScaleHeaderVC ()
 
 
+
 @end
 
 @implementation YPScaleHeaderVC
@@ -43,6 +44,7 @@
 }
 
 - (void)dealloc {
+    NSLog(@"sadf");
 //    [self.tableView removeBlockObserver:self];
 }
 

@@ -10,6 +10,7 @@
 
 #define YP_SYSTEM_VERSION [[UIDevice currentDevice].systemVersion floatValue]
 
+#define YP_IOS14 (YP_SYSTEM_VERSION >= 14.0 ? YES : NO)
 #define YP_IOS13 (YP_SYSTEM_VERSION >= 13.0 ? YES : NO)
 #define YP_IOS12 (YP_SYSTEM_VERSION >= 12.0 ? YES : NO)
 #define YP_IOS11 (YP_SYSTEM_VERSION >= 11.0 ? YES : NO)

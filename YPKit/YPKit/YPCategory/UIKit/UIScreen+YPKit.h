@@ -38,7 +38,7 @@
 
 // Status bar height.
 #ifndef STATUSBAR_HEIGHT
-#define STATUSBAR_HEIGHT (IPHONE_X ? 44.0f : 20.0f)
+#define STATUSBAR_HEIGHT (IPHONE_X_SERIES ? 44.0f : 20.0f)
 #endif
 
 // Navigation bar height.
@@ -48,12 +48,12 @@
 
 // Status bar & navigation bar height.
 #ifndef STATUSBAR_AND_NAVIGATIONBAR_HEIGHT
-#define STATUSBAR_AND_NAVIGATIONBAR_HEIGHT (IPHONE_X ? 88.0f : 64.0f)
+#define STATUSBAR_AND_NAVIGATIONBAR_HEIGHT (IPHONE_X_SERIES ? 88.0f : 64.0f)
 #endif
 
 // Tabbar safe bottom margin.
 #ifndef SAFE_BOTTOM_MARGIN
-#define SAFE_BOTTOM_MARGIN (IPHONE_X ? 34.0f : 0.0f)
+#define SAFE_BOTTOM_MARGIN (IPHONE_X_SERIES ? 34.0f : 0.0f)
 #endif
 
 // 一个像素的宽度

@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "YPKit.h"
 #import <objc/runtime.h>
+#import "AppDelegate.h"
 
 @interface UIViewController (Add)
 
@@ -98,6 +99,8 @@ YP_USER_DEFAULTS_PROPERTY_DOUBLE(price, setPrice, @"udPrice")
     } hideBlock:^(NSNotification * _Nonnull noti, CGRect rect, CGFloat duration) {
         NSLog(@"hide-->%@", NSStringFromCGRect(rect));
     }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -106,12 +109,13 @@ YP_USER_DEFAULTS_PROPERTY_DOUBLE(price, setPrice, @"udPrice")
 }
 
 - (IBAction)buttonClicked:(id)sender {
-    [UIAlertController showAlertWithTitle:@"adsf" message:nil cancelButtonTitle:@"取消" otherButtonTitles:@[@"asdf", @"adsf"] completion:^(NSInteger buttonIndex) {
-        NSLog(@"index-->%d", buttonIndex);
-    }];
+//    [UIAlertController showAlertWithTitle:@"adsf" message:nil cancelButtonTitle:@"取消" otherButtonTitles:@[@"asdf", @"adsf"] completion:^(NSInteger buttonIndex) {
+//        NSLog(@"index-->%d", buttonIndex);
+//    }];
 //    [UIAlertController showActionSheetWithTitle:@"adsf" message:nil cancelButtonTitle:@"取消" otherButtonTitles:@[@"daf", @"asd"] inViewController:[UIApplication sharedApplication].delegate.window.rootViewController completion:^(NSInteger buttonIndex) {
 //        NSLog(@"index-->%d", buttonIndex);
 //    }];
+    [[UIApplication appDelegate] setIndex:1];
 }
 
 @end

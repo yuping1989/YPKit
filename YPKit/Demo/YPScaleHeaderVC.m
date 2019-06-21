@@ -10,6 +10,8 @@
 #import "UIScrollView+YPKit.h"
 #import "NSObject+YPKit.h"
 #import "UIImage+YPKit.h"
+#import "AppDelegate.h"
+#import "UIApplication+YPKit.h"
 @interface YPScaleHeaderVC ()
 
 
@@ -31,12 +33,22 @@
 //    self.tableView.headerView.backgroundColor = [UIColor lightGrayColor];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarning) name:UIApplicationDidBecomeActiveNotification object:nil];
     
-    [self addNotificationBlockForName:UIApplicationDidBecomeActiveNotification block:^(NSNotification * _Nonnull notification) {
-        NSLog(@"hahaha");
-    }];
-    [self addNotificationBlockForName:UIApplicationDidBecomeActiveNotification block:^(NSNotification * _Nonnull notification) {
-        NSLog(@"yyy");
-    }];
+//    [self addNotificationBlockForName:UIApplicationDidBecomeActiveNotification block:^(NSNotification * _Nonnull notification) {
+//        NSLog(@"hahaha");
+//    }];
+//    [self addNotificationBlockForName:UIApplicationDidBecomeActiveNotification block:^(NSNotification * _Nonnull notification) {
+//        NSLog(@"yyy");
+//    }];
+    
+    
+    
+//    [[UIApplication appDelegate] addObserverBlockForKeyPath:@"index" block:^(__weak id  _Nonnull obj, id  _Nonnull oldVal, id  _Nonnull newVal) {
+//        NSLog(@"index-->%@", newVal);
+//    }];
+    
+//    [[UIApplication appDelegate] addBlockObserver:self forKeyPath:@"index" block:^(__weak id  _Nonnull obj, id  _Nonnull oldVal, id  _Nonnull newVal) {
+//        NSLog(@"block index-->%@", newVal);
+//    }];
     
     [self.tableView addBlockObserver:self forKeyPath:@"contentOffset" block:^(__weak id  _Nonnull obj, id  _Nonnull oldVal, id  _Nonnull newVal) {
         NSLog(@"new-->%@", newVal);
@@ -46,6 +58,9 @@
 - (void)dealloc {
     NSLog(@"sadf");
 //    [self.tableView removeBlockObserver:self];
+//    [[UIApplication appDelegate] removeBlockObserver:self];
+//    [self removeObserverBlocksForKeyPath:@"index"];
+//    [self.tableView removeObserverBlocksForKeyPath:@"contentOffset"];
 }
 
 - (void)didReceiveMemoryWarning {

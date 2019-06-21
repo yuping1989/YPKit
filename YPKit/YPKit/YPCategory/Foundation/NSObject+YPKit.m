@@ -18,6 +18,8 @@ static const int notification_block_key;
 
 @interface YPBlockCallbackTarget : NSObject
 
+@property (nonatomic, weak) id sender;
+
 @property (nonatomic, copy) void (^kvoBlock)(__weak id obj, id oldVal, id newVal);
 @property (nonatomic, copy) void (^notificationBlock)(NSNotification *notification);
 
@@ -140,6 +142,21 @@ YP_DYNAMIC_PROPERTY_COPY(yp_keyboardHideBlock, setYp_keyboardHideBlock, YPKeyboa
                      block:block];
 }
 
+- (void)addObserverBlockForKeyPath:(NSString *)keyPath
+                             block:(YPKVOBlock)block {
+    [self addBlockObserver:self
+                forKeyPath:keyPath
+                     block:block];
+}
+
+- (void)removeObserverBlocksForKeyPath:(NSString *)keyPath {
+    [self removeBlockObserver:self forKeyPath:keyPath];
+}
+
+- (void)removeObserverBlocks {
+    [self removeBlockObserver:self];
+}
+
 - (void)setBlockObserver:(NSObject *)object
               forKeyPath:(NSString *)keyPath
                    block:(YPKVOBlock)block {
@@ -148,18 +165,12 @@ YP_DYNAMIC_PROPERTY_COPY(yp_keyboardHideBlock, setYp_keyboardHideBlock, YPKeyboa
     [self addBlockObserver:object forKeyPath:keyPath block:block];
 }
 
-- (void)addObserverBlockForKeyPath:(NSString *)keyPath
-                             block:(YPKVOBlock)block {
-    [self addBlockObserver:self
-                forKeyPath:keyPath
-                     block:block];
-}
-
 - (void)addBlockObserver:(NSObject *)object
               forKeyPath:(NSString *)keyPath
                    block:(YPKVOBlock)block {
     if (!object || !keyPath || !block) return;
     YPBlockCallbackTarget *target = [[YPBlockCallbackTarget alloc] init];
+    target.sender = self;
     target.kvoBlock = block;
     NSMutableDictionary *dic = [object allNSObjectObserverBlocks];
     NSMutableArray *arr = dic[keyPath];
@@ -171,8 +182,12 @@ YP_DYNAMIC_PROPERTY_COPY(yp_keyboardHideBlock, setYp_keyboardHideBlock, YPKeyboa
     [self addObserver:target forKeyPath:keyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
 }
 
-- (void)removeObserverBlocksForKeyPath:(NSString *)keyPath {
-    [self removeBlockObserver:self forKeyPath:keyPath];
+- (void)removeBlockObserver:(NSObject *)object {
+    if (!object) return;
+    NSMutableDictionary *dic = [object allNSObjectObserverBlocks];
+    for (NSString *key in dic.allKeys) {
+        [self removeBlockObserver:object forKeyPath:key];
+    }
 }
 
 - (void)removeBlockObserver:(NSObject *)object
@@ -180,23 +195,23 @@ YP_DYNAMIC_PROPERTY_COPY(yp_keyboardHideBlock, setYp_keyboardHideBlock, YPKeyboa
     if (!object || !keyPath) return;
     NSMutableDictionary *dic = [object allNSObjectObserverBlocks];
     NSMutableArray *arr = dic[keyPath];
-    [arr enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
-        [self removeObserver:obj forKeyPath:keyPath];
-    }];
-    
-    [dic removeObjectForKey:keyPath];
+    for (NSInteger i = arr.count - 1; i >= 0; i--) {
+        YPBlockCallbackTarget *target = arr[i];
+        if (target.sender == self) {
+            [self removeObserver:target forKeyPath:keyPath];
+            [arr removeObject:target];
+        }
+    }
+    if (arr.count == 0) {
+        [dic removeObjectForKey:keyPath];
+    }
 }
 
-- (void)removeObserverBlocks {
-    [self removeBlockObserver:self];
-}
-
-- (void)removeBlockObserver:(NSObject *)object {
-    if (!object) return;
-    NSMutableDictionary *dic = [object allNSObjectObserverBlocks];
+- (void)removeAllObserverBlocks {
+    NSMutableDictionary *dic = [self allNSObjectObserverBlocks];
     [dic enumerateKeysAndObjectsUsingBlock: ^(NSString *key, NSArray *arr, BOOL *stop) {
-        [arr enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
-            [self removeObserver:obj forKeyPath:key];
+        [arr enumerateObjectsUsingBlock: ^(YPBlockCallbackTarget *target, NSUInteger idx, BOOL *stop) {
+            [target.sender removeObserver:target forKeyPath:key];
         }];
     }];
     [dic removeAllObjects];

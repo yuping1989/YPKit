@@ -41,22 +41,22 @@ typedef void (^YPKeyboardBlock)(NSNotification *noti, CGRect rect, CGFloat durat
 
 - (void)setObserverBlockForKeyPath:(NSString *)keyPath
                              block:(YPKVOBlock)block;
+- (void)addObserverBlockForKeyPath:(NSString *)keyPath
+                             block:(YPKVOBlock)block;
+- (void)removeObserverBlocksForKeyPath:(NSString *)keyPath;
+- (void)removeObserverBlocks;
+
 - (void)setBlockObserver:(NSObject *)object
               forKeyPath:(NSString *)keyPath
                    block:(YPKVOBlock)block;
-
-- (void)addObserverBlockForKeyPath:(NSString *)keyPath
-                             block:(YPKVOBlock)block;
 - (void)addBlockObserver:(NSObject *)object
               forKeyPath:(NSString *)keyPath
                    block:(YPKVOBlock)block;
-
-- (void)removeObserverBlocksForKeyPath:(NSString *)keyPath;
+- (void)removeBlockObserver:(NSObject *)object;
 - (void)removeBlockObserver:(NSObject *)object
                  forKeyPath:(NSString *)keyPath;
 
-- (void)removeObserverBlocks;
-- (void)removeBlockObserver:(NSObject *)object;
+- (void)removeAllObserverBlocks;
 
 #pragma mark - Notification
 

@@ -256,6 +256,40 @@
 }
 #endif
 
+// A == 0
+#ifndef F_EQUAL_ZERO
+#define F_EQUAL_ZERO(A) ((fabs(A)) <= FLT_EPSILON)
+#endif
+
+// A == B
+#ifndef F_EQUAL
+#define F_EQUAL(A, B) ((fabs((A) - (B))) < FLT_EPSILON)
+#endif
+
+// A > B
+#ifndef F_GREATER_THAN
+#define F_GREATER_THAN(A, B) ((A) - (B) > FLT_EPSILON && (!(F_EQUAL(A, B))))
+#endif
+
+// A >= B
+#ifndef F_GREATER_THAN_OR_EQUAL
+#define F_GREATER_THAN_OR_EQUAL(A, B) (F_GREATER_THAN(A, B) || F_EQUAL(A,B))
+#endif
+
+// A < B
+#ifndef F_LESS_THAN
+#define F_LESS_THAN(A, B) ((A) - (B) < FLT_EPSILON && (!(F_EQUAL(A, B))))
+#endif
+
+// A <= B
+#ifndef F_LESS_THAN_OR_EQUAL
+#define F_LESS_THAN_OR_EQUAL(A, B) (F_LESS_THAN(A, B) || F_EQUAL(A, B))
+#endif
+
+#define YP_ADD_NOTI(_name_, _selector_) [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_selector_) name:_name_ object:nil]
+
+#define YP_POST_NOTI(_name_, _obj_) [[NSNotificationCenter defaultCenter] postNotificationName:_name_ object:_obj_];
+
 #endif /* YPKitMacro_h */
 
 

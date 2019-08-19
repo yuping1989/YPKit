@@ -31,9 +31,14 @@
 #define IPHONE_XS_MAX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size) || CGSizeEqualToSize(CGSizeMake(2688, 1242), [[UIScreen mainScreen] currentMode].size)) : NO)
 #endif
 
+// iPhone XR 放大模式
+#ifndef IPHONE_XR_BIG_MODE
+#define IPHONE_XR_BIG_MODE ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(750, 1624), [[UIScreen mainScreen] currentMode].size) || CGSizeEqualToSize(CGSizeMake(1624, 750), [[UIScreen mainScreen] currentMode].size)) : NO)
+#endif
+
 // iPhone X系列
 #ifndef IPHONE_X_SERIES
-#define IPHONE_X_SERIES (IPHONE_X || IPHONE_XR || IPHONE_XS_MAX)
+#define IPHONE_X_SERIES (IPHONE_X || IPHONE_XR || IPHONE_XS_MAX || IPHONE_XR_BIG_MODE)
 #endif
 
 // Status bar height.

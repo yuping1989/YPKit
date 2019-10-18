@@ -123,31 +123,21 @@ NSString * const kYPRegexQQ = @"[1-9][0-9]{4,14}";
 }
 
 - (CGSize)sizeWithFont:(UIFont *)font size:(CGSize)size mode:(NSLineBreakMode)lineBreakMode {
-    @synchronized (self) {
-        if (!font) {
-            return CGSizeZero;
-        }
-        CGSize result;
-        if ([self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
-            NSMutableDictionary *attr = [[NSMutableDictionary alloc] init];
-            attr[NSFontAttributeName] = font;
-            if (lineBreakMode != NSLineBreakByWordWrapping) {
-                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-                paragraphStyle.lineBreakMode = lineBreakMode;
-                attr[NSParagraphStyleAttributeName] = paragraphStyle;
-            }
-            CGRect rect = [self boundingRectWithSize:size
-                                             options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                          attributes:attr context:nil];
-            result = rect.size;
-        } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            result = [self sizeWithFont:font constrainedToSize:size lineBreakMode:lineBreakMode];
-#pragma clang diagnostic pop
-        }
-        return CGSizeMake(ceilf(result.width), ceilf(result.height));
+    if (!font) {
+        return CGSizeZero;
     }
+    NSMutableDictionary *attr = [[NSMutableDictionary alloc] init];
+    attr[NSFontAttributeName] = font;
+    if (lineBreakMode != NSLineBreakByWordWrapping) {
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineBreakMode = lineBreakMode;
+        attr[NSParagraphStyleAttributeName] = paragraphStyle;
+    }
+    CGRect rect = [self boundingRectWithSize:size
+                                     options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                  attributes:attr context:nil];
+    CGSize result = rect.size;
+    return CGSizeMake(ceilf(result.width), ceilf(result.height));
 }
 
 #pragma mark - Regular Expression

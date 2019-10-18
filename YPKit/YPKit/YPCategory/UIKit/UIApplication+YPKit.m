@@ -54,19 +54,6 @@
     return [UIApplication sharedApplication].delegate.window;
 }
 
-+ (YPNetworkStatus)networkStatusFromStateBar {
-    // 状态栏是由当前app控制的，首先获取当前app
-    UIApplication *app = [UIApplication sharedApplication];
-    NSArray *children = [[[app valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
-    
-    for (id child in children) {
-        if ([child isKindOfClass:[NSClassFromString(@"UIStatusBarDataNetworkItemView") class]]) {
-            return [[child valueForKeyPath:@"dataNetworkType"] integerValue];
-        }
-    }
-    return YPNetworkStatusUnknown;
-}
-
 + (BOOL)isPirated {
     if ([[UIDevice currentDevice] isSimulator]) return YES; // Simulator is not from appstore
     

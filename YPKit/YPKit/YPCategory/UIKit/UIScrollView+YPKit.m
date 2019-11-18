@@ -202,23 +202,18 @@ static NSString * const kContentOffset = @"contentOffset";
 }
 
 - (UIImage *)contentSnapshotImage {
-    if (![self isKindOfClass:[UIScrollView class]]) {
-        return [self snapshotImage];
-    }
-    UIScrollView *scrollView = (UIScrollView *)self;
+    CGPoint savedContentOffset = self.contentOffset;
+    CGRect savedFrame = self.frame;
+    self.frame = CGRectMake(0, 0, self.contentSize.width, self.contentSize.height);
     
-    UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, self.opaque, 0);
-    CGPoint savedContentOffset = scrollView.contentOffset;
-    CGRect savedFrame = scrollView.frame;
-    scrollView.contentOffset = CGPointZero;
-    scrollView.frame = CGRectMake(0, 0, scrollView.contentSize.width, scrollView.contentSize.height);
-    
-    [scrollView.layer renderInContext: UIGraphicsGetCurrentContext()];
+    UIGraphicsBeginImageContextWithOptions(self.contentSize, self.opaque, 0);
+    [self.layer renderInContext: UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    
-    scrollView.contentOffset = savedContentOffset;
-    scrollView.frame = savedFrame;
     UIGraphicsEndImageContext();
+    
+    self.contentOffset = savedContentOffset;
+    self.frame = savedFrame;
+    
     return image;
 }
 

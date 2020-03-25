@@ -183,6 +183,27 @@ NSString *const YPDateFormat_MMdd = @"MM-dd";
             }
             break;
         }
+        case YPDateStyleValue2: {
+            NSDateFormatter *formatter = [NSDate yp_fixedFormatter];
+            [formatter setDateFormat:@"aaah:mm"];
+            formatter.AMSymbol = @"上午";
+            formatter.PMSymbol = @"下午";
+            NSString *hour = [formatter stringFromDate:date];
+            
+            if (timeInterval >= todayZero) {
+                return [NSString stringWithFormat:@"今天 %@", hour];
+            } else {
+                if (day == 0) {
+                    return [NSString stringWithFormat:@"昨天 %@", hour];
+                } else if (day == 1) {
+                    return [NSString stringWithFormat:@"前天 %@", hour];
+                } else {
+                    [formatter setDateFormat:@"yyyy-MM-dd aaah:mm"];
+                    return [formatter stringFromDate:date];
+                }
+            }
+            break;
+        }
     }
     return nil;
 }

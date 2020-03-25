@@ -12,6 +12,7 @@
 #ifndef YPKitMacro_h
 #define YPKitMacro_h
 
+#define YP_UD [NSUserDefaults standardUserDefaults]
 #define USER_DEFAULTS [NSUserDefaults standardUserDefaults]
 
 /**

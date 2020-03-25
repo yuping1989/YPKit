@@ -153,6 +153,13 @@
                                             cancelButtonTitle:cancelButtonTitle
                                             otherButtonTitles:otherButtonTitles
                                                    completion:completion];
+    UIPopoverPresentationController *popover = alert.popoverPresentationController;
+    if (popover) {
+        popover.sourceView = [UIApplication sharedApplication].keyWindow;
+        CGSize windowSize = [UIApplication sharedApplication].keyWindow.bounds.size;
+        popover.sourceRect = CGRectMake(0, windowSize.height - 1, windowSize.width, 1);
+        popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    }
     [viewController presentViewController:alert animated:YES completion:nil];
     return alert;
 }

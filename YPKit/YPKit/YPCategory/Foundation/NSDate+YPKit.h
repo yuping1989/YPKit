@@ -10,7 +10,8 @@
 
 typedef NS_ENUM(NSInteger, YPDateStyle) {
     YPDateStyleDefault,
-    YPDateStyleValue1
+    YPDateStyleValue1,
+    YPDateStyleValue2
 };
 
 /**

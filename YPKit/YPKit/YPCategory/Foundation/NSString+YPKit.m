@@ -28,7 +28,7 @@ NSString * const kYPRegexQQ = @"[1-9][0-9]{4,14}";
 }
 
 + (NSString *)stringWithBase64EncodedString:(NSString *)base64EncodedString {
-    NSData *data = [NSData dataWithBase64EncodedString:base64EncodedString];
+    NSData *data = [NSData yp_dataWithBase64EncodedString:base64EncodedString];
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 

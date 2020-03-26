@@ -83,7 +83,7 @@ static const short base64DecodingTable[256] = {
     return base64;
 }
 
-+ (NSData *)dataWithBase64EncodedString:(NSString *)base64EncodedString {
++ (NSData *)yp_dataWithBase64EncodedString:(NSString *)base64EncodedString {
     NSInteger length = base64EncodedString.length;
     const char *string = [base64EncodedString cStringUsingEncoding:NSASCIIStringEncoding];
     if (string  == NULL)

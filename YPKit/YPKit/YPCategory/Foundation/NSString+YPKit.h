@@ -17,10 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Encode and decode
 
-- (nullable NSString *)base64EncodedString;
-+ (nullable NSString *)stringWithBase64EncodedString:(NSString *)base64EncodedString;
-- (NSString *)stringByURLEncode;
-- (NSString *)stringByURLDecode;
+- (nullable NSString *)yp_base64EncodedString;
++ (nullable NSString *)yp_stringWithBase64EncodedString:(NSString *)base64EncodedString;
+- (NSString *)yp_stringByURLEncode;
+- (NSString *)yp_stringByURLDecode;
 
 #pragma mark - Size
 /**
@@ -114,9 +114,11 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  返回首字母，如果是中文，则返回其第一个字的拼音首字母
  */
-- (NSString *)pinyinFirstLetter;
+- (NSString *)pinyinFirstLetter  __deprecated_msg("废弃，用pinYinFirstLetter:替换");
+- (NSString *)pinyinFirstLetterForName  __deprecated_msg("废弃，用pinYinFirstLetter:替换");
 
-- (NSString *)pinyinFirstLetterForName;
+- (NSString *)pinYinFirstLetter:(BOOL)isName;
+- (NSString *)toPinYin:(BOOL)isName;
 
 /**
  将参数列表格式的字符串转换成NSDictionary，格式：@"key1=value1&key2=value2"

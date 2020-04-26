@@ -89,9 +89,8 @@ YP_USER_DEFAULTS_PROPERTY_DOUBLE(price, setPrice, @"udPrice")
     
     NSLog(@"ud-->%zd %d %f %f", self.weight, self.on, self.amount, self.price);
     
-    
-    NSLog(@"first letter-->%@", [@"曾" pinyinFirstLetter]);
-    NSLog(@"first letter-->%@", [@"仇钱" pinyinFirstLetterForName]);
+    NSLog(@"first letter-->%@", [@"曾哥哥" toPinYin:NO]);
+    NSLog(@"first letter-->%@", [@"曾哥哥" pinYinFirstLetter:NO]);
     
     
     [self setKeyboardShowBlock:^(NSNotification * _Nonnull noti, CGRect rect, CGFloat duration) {

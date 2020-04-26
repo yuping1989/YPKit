@@ -23,16 +23,16 @@ NSString * const kYPRegexQQ = @"[1-9][0-9]{4,14}";
 
 #pragma mark - Encode and decode
 
-- (NSString *)base64EncodedString {
-    return [[self dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString];
+- (NSString *)yp_base64EncodedString {
+    return [[self dataUsingEncoding:NSUTF8StringEncoding] yp_base64EncodedString];
 }
 
-+ (NSString *)stringWithBase64EncodedString:(NSString *)base64EncodedString {
++ (NSString *)yp_stringWithBase64EncodedString:(NSString *)base64EncodedString {
     NSData *data = [NSData yp_dataWithBase64EncodedString:base64EncodedString];
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
-- (NSString *)stringByURLEncode {
+- (NSString *)yp_stringByURLEncode {
     if ([self respondsToSelector:@selector(stringByAddingPercentEncodingWithAllowedCharacters:)]) {
         /**
          AFNetworking/AFURLRequestSerialization.m
@@ -85,7 +85,7 @@ NSString * const kYPRegexQQ = @"[1-9][0-9]{4,14}";
     }
 }
 
-- (NSString *)stringByURLDecode {
+- (NSString *)yp_stringByURLDecode {
     if ([self respondsToSelector:@selector(stringByRemovingPercentEncoding)]) {
         return [self stringByRemovingPercentEncoding];
     } else {
@@ -226,11 +226,11 @@ NSString * const kYPRegexQQ = @"[1-9][0-9]{4,14}";
 }
 
 - (NSString *)md5String {
-    return [[self dataValue] md5String];
+    return [[self dataValue] yp_md5String];
 }
 
 - (id)yp_jsonObject {
-    return [[self dataValue] jsonObject];
+    return [[self dataValue] yp_jsonObject];
 }
 
 - (NSRange)rangeOfAll {
@@ -491,7 +491,7 @@ static char YPFirstLetterArray[HANZI_COUNT] =
         return nil;
     }
     // 处理多音字
-    NSString *result = [[NSString polyphoneFistNameDic] objectForKey:[str substringToIndex:1]];
+    NSString *result = [[NSString polyphoneFirstNameDic] objectForKey:[str substringToIndex:1]];
     if (result) {
         return result;
     }
@@ -509,7 +509,7 @@ static char YPFirstLetterArray[HANZI_COUNT] =
     return [result uppercaseString];
 }
 
-+ (NSDictionary *)polyphoneFistNameDic {
++ (NSDictionary *)polyphoneFirstNameDic {
     static NSDictionary *dic;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -526,13 +526,66 @@ static char YPFirstLetterArray[HANZI_COUNT] =
                 @"重" : @"C",
                 @"冼" : @"X",
                 @"翟" : @"Z",
-                @"折" : @"Z",
-                @"沈" : @"S",
+                @"折" : @"S",
                 @"尉" : @"Y", // @"尉迟" : @"yc",
-                @"万" : @"M"  // @"万俟" : @"mq"
+//                @"万" : @"M"  // @"万俟" : @"mq"
                 };
     });
     return dic;
+}
+
++ (NSDictionary *)polyphoneFirstNameDic1 {
+    static NSDictionary *dic;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dic = @{@"繁" : @"婆",
+                @"区" : @"欧",
+                @"仇" : @"求",
+                @"种" : @"充",
+                @"单" : @"删",
+                @"解" : @"写",
+                @"查" : @"扎",
+                @"曾" : @"増",
+                @"秘" : @"笔",
+                @"乐" : @"月",
+                @"重" : @"充",
+                @"冼" : @"先",
+                @"翟" : @"窄",
+                @"折" : @"设",
+                @"尉" : @"与",
+                };
+    });
+    return dic;
+}
+
+- (NSString *)pinYinFirstLetter:(BOOL)isName {
+    NSString *str = [self stringByTrim];
+    if (str.length == 0) {
+        return nil;
+    }
+    str = [[str substringToIndex:1] toPinYin:isName];
+    if (str.length == 0) {
+        return nil;
+    }
+    return [str substringToIndex:1];
+}
+
+- (NSString *)toPinYin:(BOOL)isName {
+    if (self.length == 0) {
+        return nil;
+    }
+    NSMutableString *str = [NSMutableString stringWithString:self];
+    if (isName) {
+        NSString *first = [str substringToIndex:1];
+        NSString *result = [NSString polyphoneFirstNameDic1][first];
+        if (result) {
+            [str replaceCharactersInRange:NSMakeRange(0, 1) withString:result];
+        }
+    }
+    
+    CFStringTransform((CFMutableStringRef) str, NULL, kCFStringTransformMandarinLatin, NO);
+    CFStringTransform((CFMutableStringRef)str, NULL, kCFStringTransformStripDiacritics, NO);
+    return [str capitalizedString];
 }
 
 - (NSDictionary *)parameterStringToDictionary {

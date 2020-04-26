@@ -12,7 +12,7 @@
 
 @implementation NSData (YPKit)
 
-- (NSString *)md5String {
+- (NSString *)yp_md5String {
     unsigned char result[CC_MD5_DIGEST_LENGTH];
     CC_MD5(self.bytes, (CC_LONG)self.length, result);
     return [NSString stringWithFormat:
@@ -45,7 +45,7 @@ static const short base64DecodingTable[256] = {
     -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,  -2,  -2, -2, -2
 };
 
-- (NSString *)base64EncodedString {
+- (NSString *)yp_base64EncodedString {
     NSUInteger length = self.length;
     if (length == 0)
         return @"";
@@ -123,9 +123,9 @@ static const short base64DecodingTable[256] = {
     return data;
 }
 
-- (id)jsonObject {
+- (id)yp_jsonObject {
     NSError *error = nil;
-    id value = [NSJSONSerialization JSONObjectWithData:self options:kNilOptions error:&error];
+    id value = [NSJSONSerialization JSONObjectWithData:self options:NSJSONReadingMutableContainers error:&error];
     if (error) {
         NSLog(@"jsonObject error:%@", error);
     }

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  返回UIColor对象，示例：UIColorRGB(255, 255, 255)。
  */
@@ -54,7 +56,7 @@
       `#` or "0x"不是必需，忽略大小写。
  @param hexStr hex字符串，示例: @"0xF0F", @"88ffaa", @"#88ffaaee"
  */
-+ (nullable UIColor *)colorWithHexString:(NSString *)hexStr;
++ (nullable UIColor *)yp_colorWithHexString:(NSString *)hexStr;
 
 /**
  生成hex字符串，无alpha，示例：@"88ffaa"。
@@ -74,3 +76,5 @@
 - (uint32_t)rgbaValue;
 
 @end
+
+NS_ASSUME_NONNULL_END

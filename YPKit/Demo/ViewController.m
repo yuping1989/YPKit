@@ -76,10 +76,10 @@ YP_USER_DEFAULTS_PROPERTY_DOUBLE(price, setPrice, @"udPrice")
     NSLog(@"size--->%@", NSStringFromCGSize(self.size));
     
     self.imageView.image = [UIImage imageWithContentsOfFileName:@"icon_pause"];
-    UIColor *color1 = [UIColor colorWithHexString:@"abc"];
-    UIColor *color2 = [UIColor colorWithHexString:@"aabbcc"];
-    UIColor *color3 = [UIColor colorWithHexString:@"abcf"];
-    UIColor *color4 = [UIColor colorWithHexString:@"aabbccff"];
+    UIColor *color1 = [UIColor yp_colorWithHexString:@"abc"];
+    UIColor *color2 = [UIColor yp_colorWithHexString:@"aabbcc"];
+    UIColor *color3 = [UIColor yp_colorWithHexString:@"abcf"];
+    UIColor *color4 = [UIColor yp_colorWithHexString:@"aabbccff"];
     NSLog(@"\n%@\n%@\n%@\n%@", color1, color2, color3, color4);
     
     self.weight = 10;

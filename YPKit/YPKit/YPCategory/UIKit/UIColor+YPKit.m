@@ -62,7 +62,7 @@
     return (red << 24) + (green << 16) + (blue << 8) + alpha;
 }
 
-+ (instancetype)colorWithHexString:(NSString *)hexStr {
++ (instancetype)yp_colorWithHexString:(NSString *)hexStr {
     hexStr = [[hexStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     if ([hexStr hasPrefix:@"#"]) {
         hexStr = [hexStr substringFromIndex:1];

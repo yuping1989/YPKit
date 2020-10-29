@@ -18,27 +18,42 @@
 
 // iPhone X
 #ifndef IPHONE_X
-#define IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) || CGSizeEqualToSize(CGSizeMake(2436, 1125), [[UIScreen mainScreen] currentMode].size)) : NO)
+#define IPHONE_X (CGSizeEqualToSize(CGSizeMake(1125, 2436), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(2436, 1125), [UIScreen mainScreen].currentMode.size))
 #endif
 
 // iPhone XR
 #ifndef IPHONE_XR
-#define IPHONE_XR ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(828, 1792), [[UIScreen mainScreen] currentMode].size) || CGSizeEqualToSize(CGSizeMake(1792, 828), [[UIScreen mainScreen] currentMode].size)) : NO)
+#define IPHONE_XR (CGSizeEqualToSize(CGSizeMake(828, 1792), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(1792, 828), [UIScreen mainScreen].currentMode.size))
 #endif
 
 // iPhone Xs Max
 #ifndef IPHONE_XS_MAX
-#define IPHONE_XS_MAX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size) || CGSizeEqualToSize(CGSizeMake(2688, 1242), [[UIScreen mainScreen] currentMode].size)) : NO)
+#define IPHONE_XS_MAX (CGSizeEqualToSize(CGSizeMake(1242, 2688), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(2688, 1242), [UIScreen mainScreen].currentMode.size))
+#endif
+
+// iPhone 12 Mini
+#ifndef IPHONE_12_MINI
+#define IPHONE_12_MINI (CGSizeEqualToSize(CGSizeMake(1080, 2340), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(2340, 1080), [UIScreen mainScreen].currentMode.size))
+#endif
+
+// iPhone 12和12Pro
+#ifndef IPHONE_12
+#define IPHONE_12 (CGSizeEqualToSize(CGSizeMake(1170, 2532), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(2532, 1170), [UIScreen mainScreen].currentMode.size))
+#endif
+
+// iPhone 12 Pro Max
+#ifndef IPHONE_12_PRO_MAX
+#define IPHONE_12_PRO_MAX (CGSizeEqualToSize(CGSizeMake(1284, 2778), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(2778, 1284), [UIScreen mainScreen].currentMode.size))
 #endif
 
 // iPhone XR 放大模式
 #ifndef IPHONE_XR_BIG_MODE
-#define IPHONE_XR_BIG_MODE ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(750, 1624), [[UIScreen mainScreen] currentMode].size) || CGSizeEqualToSize(CGSizeMake(1624, 750), [[UIScreen mainScreen] currentMode].size)) : NO)
+#define IPHONE_XR_BIG_MODE (CGSizeEqualToSize(CGSizeMake(750, 1624), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(1624, 750), [UIScreen mainScreen].currentMode.size))
 #endif
 
 // iPhone X系列
 #ifndef IPHONE_X_SERIES
-#define IPHONE_X_SERIES (IPHONE_X || IPHONE_XR || IPHONE_XS_MAX || IPHONE_XR_BIG_MODE)
+#define IPHONE_X_SERIES (IPHONE_X || IPHONE_XR || IPHONE_XS_MAX || IPHONE_XR_BIG_MODE ||  IPHONE_12_MINI || IPHONE_12 || IPHONE_12_PRO_MAX)
 #endif
 
 // Status bar height.

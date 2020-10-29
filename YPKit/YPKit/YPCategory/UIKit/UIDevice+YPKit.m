@@ -121,7 +121,10 @@
                               @"iPhone12,1" : @"iPhone 11",
                               @"iPhone12,3" : @"iPhone 11 Pro",
                               @"iPhone12,5" : @"iPhone 11 Pro Max",
-                              
+                              @"iPhone13,1" : @"iPhone 12 Mini",
+                              @"iPhone13,2" : @"iPhone 12",
+                              @"iPhone13,3" : @"iPhone 12 Pro",
+                              @"iPhone13,4" : @"iPhone 12 Pro Max",
                               
                               @"iPad1,1" : @"iPad 1",
                               @"iPad2,1" : @"iPad 2 (WiFi)",
@@ -143,6 +146,8 @@
                               @"iPad7,6" : @"iPad (6th generation)",
                               @"iPad7,11" : @"iPad (7th generation)",
                               @"iPad7,12" : @"iPad (7th generation)",
+                              @"iPad11,6" : @"iPad (8th generation)",
+                              @"iPad11,7" : @"iPad (8th generation)",
                               
                               @"iPad4,1" : @"iPad Air",
                               @"iPad4,2" : @"iPad Air",
@@ -151,6 +156,8 @@
                               @"iPad5,4" : @"iPad Air 2",
                               @"iPad11,3" : @"iPad Air (3rd generation)",
                               @"iPad11,4" : @"iPad Air (3rd generation)",
+                              @"iPad13,2" : @"iPad Air (4th generation)",
+                              @"iPad13,2" : @"iPad Air (4th generation)",
                               
                               @"iPad6,3" : @"iPad Pro (9.7 inch)",
                               @"iPad6,4" : @"iPad Pro (9.7 inch)",
@@ -168,6 +175,10 @@
                               @"iPad8,6" : @"iPad Pro (12.9-inch, 3rd generation)",
                               @"iPad8,7" : @"iPad Pro (12.9-inch, 3rd generation)",
                               @"iPad8,8" : @"iPad Pro (12.9-inch, 3rd generation)",
+                              @"iPad8,9" : @"iPad Pro (11-inch) (2nd generation)",
+                              @"iPad8,10" : @"iPad Pro (11-inch) (2nd generation)",
+                              @"iPad8,11" : @"iPad Pro (12.9-inch) (4th generation)",
+                              @"iPad8,12" : @"iPad Pro (12.9-inch) (4th generation)",
                               
                               @"iPad4,4" : @"iPad mini 2",
                               @"iPad4,5" : @"iPad mini 2",

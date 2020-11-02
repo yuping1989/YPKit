@@ -7,6 +7,7 @@
 //
 
 #import "UIAlertController+YPKit.h"
+#import "UIViewController+YPKit.h"
 #import <objc/runtime.h>
 
 @implementation UIAlertController (YPKit)
@@ -73,11 +74,12 @@
                  otherButtonTitles:(NSArray *)otherButtonTitles
                         completion:(void (^)(NSInteger))completion {
     UIViewController *rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
+    UIViewController *topPresentedVC = [rootVC yp_topPresentedViewController];
     return [self showAlertWithTitle:title
                             message:message
                   cancelButtonTitle:cancelButtonTitle
                   otherButtonTitles:otherButtonTitles
-                   inViewController:rootVC
+                   inViewController:topPresentedVC
                          completion:completion];
 }
 

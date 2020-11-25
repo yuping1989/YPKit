@@ -92,6 +92,10 @@ YP_USER_DEFAULTS_PROPERTY_DOUBLE(price, setPrice, @"udPrice")
     NSLog(@"first letter-->%@", [@"曾哥哥" toPinYin:NO]);
     NSLog(@"first letter-->%@", [@"曾哥哥" pinYinFirstLetter:NO]);
     
+//    [UIApplication sharedApplication].statusBarHidden = YES;
+    
+    NSLog(@"STATUSBAR_HEIGHT--->%f", STATUSBAR_HEIGHT);
+    
     
     [self setKeyboardShowBlock:^(NSNotification * _Nonnull noti, CGRect rect, CGFloat duration) {
         NSLog(@"show-->%@", NSStringFromCGRect(rect));

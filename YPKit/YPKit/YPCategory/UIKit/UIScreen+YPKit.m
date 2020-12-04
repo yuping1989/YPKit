@@ -20,11 +20,13 @@
 }
 
 + (CGFloat)statusBarHeight {
-   if (@available(iOS 11.0, *)) {
-       return [UIApplication sharedApplication].keyWindow.safeAreaInsets.top;;
-   } else {
-       return [UIApplication sharedApplication].statusBarFrame.size.height;
-   }
+    CGFloat height = [UIApplication sharedApplication].statusBarFrame.size.height;
+    if (@available(iOS 11.0, *)) {
+        if (IPHONE_X_SERIES) {
+            height = [UIApplication sharedApplication].keyWindow.safeAreaInsets.top;
+        }
+    }
+    return height;
 }
 
 @end

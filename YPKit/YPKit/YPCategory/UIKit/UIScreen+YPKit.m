@@ -21,10 +21,9 @@
 
 + (CGFloat)statusBarHeight {
     CGFloat height = [UIApplication sharedApplication].statusBarFrame.size.height;
-    if (@available(iOS 11.0, *)) {
-        if (IPHONE_X_SERIES) {
-            height = [UIApplication sharedApplication].keyWindow.safeAreaInsets.top;
-        }
+    if (@available(iOS 13.0, *)) {
+        UIStatusBarManager *statusBarManager = [UIApplication sharedApplication].windows.firstObject.windowScene.statusBarManager;
+        height = statusBarManager.statusBarFrame.size.height;
     }
     return height;
 }

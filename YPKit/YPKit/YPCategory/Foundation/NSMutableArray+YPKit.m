@@ -1,9 +1,9 @@
 //
 //  NSMutableArray+YPKit.m
-//  MGMobileMusic
+//  YPKit
 //
 //  Created by 喻平 on 2017/2/7.
-//  Copyright © 2017年 migu. All rights reserved.
+//  Copyright © 2017年 yuping. All rights reserved.
 //
 
 #import "NSMutableArray+YPKit.h"

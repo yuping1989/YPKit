@@ -1,9 +1,9 @@
 //
 //  UIScrollView+YPKit.m
-//  MGMobileMusic
+//  YPKit
 //
 //  Created by 喻平 on 2016/12/29.
-//  Copyright © 2016年 migu. All rights reserved.
+//  Copyright © 2016年 yuping. All rights reserved.
 //
 
 #import "UIScrollView+YPKit.h"

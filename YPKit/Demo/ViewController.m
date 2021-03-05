@@ -75,7 +75,9 @@ YP_USER_DEFAULTS_PROPERTY_DOUBLE(price, setPrice, @"udPrice")
     NSLog(@"count--->%@", self.udArray);
     NSLog(@"size--->%@", NSStringFromCGSize(self.size));
     
-    self.imageView.image = [UIImage imageWithContentsOfFileName:@"icon_pause"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"image" ofType:@"bundle"];
+    self.imageView.image = [UIImage imageNamed:@"image.bundle/jpg/icon_pause_bundle_jpg.jpg"];
+    
     UIColor *color1 = [UIColor yp_colorWithHexString:@"abc"];
     UIColor *color2 = [UIColor yp_colorWithHexString:@"aabbcc"];
     UIColor *color3 = [UIColor yp_colorWithHexString:@"abcf"];

@@ -7,48 +7,54 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YPKitMacro.h"
 
 #ifndef SCREEN_WIDTH
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #endif
 
 #ifndef SCREEN_HEIGHT
-#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define SCREEN_HEIGHT \
+({ CGFloat screen_height = [UIScreen mainScreen].bounds.size.height; \
+if (F_EQUAL([UIApplication sharedApplication].statusBarFrame.size.height, 40)){ \
+screen_height -= 20; \
+} \
+(screen_height);})
 #endif
 
 // iPhone X
 #ifndef IPHONE_X
-#define IPHONE_X (CGSizeEqualToSize(CGSizeMake(1125, 2436), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(2436, 1125), [UIScreen mainScreen].currentMode.size))
+#define IPHONE_X SCREEN_EQUAL(1125, 2436)
 #endif
 
 // iPhone XR
 #ifndef IPHONE_XR
-#define IPHONE_XR (CGSizeEqualToSize(CGSizeMake(828, 1792), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(1792, 828), [UIScreen mainScreen].currentMode.size))
+#define IPHONE_XR SCREEN_EQUAL(828, 1792)
 #endif
 
 // iPhone Xs Max
 #ifndef IPHONE_XS_MAX
-#define IPHONE_XS_MAX (CGSizeEqualToSize(CGSizeMake(1242, 2688), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(2688, 1242), [UIScreen mainScreen].currentMode.size))
+#define IPHONE_XS_MAX SCREEN_EQUAL(1242, 2688)
 #endif
 
 // iPhone 12 Mini
 #ifndef IPHONE_12_MINI
-#define IPHONE_12_MINI (CGSizeEqualToSize(CGSizeMake(1080, 2340), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(2340, 1080), [UIScreen mainScreen].currentMode.size))
+#define IPHONE_12_MINI SCREEN_EQUAL(1080, 2340)
 #endif
 
 // iPhone 12和12Pro
 #ifndef IPHONE_12
-#define IPHONE_12 (CGSizeEqualToSize(CGSizeMake(1170, 2532), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(2532, 1170), [UIScreen mainScreen].currentMode.size))
+#define IPHONE_12 SCREEN_EQUAL(1170, 2532)
 #endif
 
 // iPhone 12 Pro Max
 #ifndef IPHONE_12_PRO_MAX
-#define IPHONE_12_PRO_MAX (CGSizeEqualToSize(CGSizeMake(1284, 2778), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(2778, 1284), [UIScreen mainScreen].currentMode.size))
+#define IPHONE_12_PRO_MAX SCREEN_EQUAL(1284, 2778)
 #endif
 
 // iPhone XR 放大模式
 #ifndef IPHONE_XR_BIG_MODE
-#define IPHONE_XR_BIG_MODE (CGSizeEqualToSize(CGSizeMake(750, 1624), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(1624, 750), [UIScreen mainScreen].currentMode.size))
+#define IPHONE_XR_BIG_MODE SCREEN_EQUAL(750, 1624)
 #endif
 
 // iPhone X系列
@@ -79,6 +85,11 @@
 // 一个像素的宽度
 #ifndef ONE_PIXEL
 #define ONE_PIXEL [UIScreen onePixel]
+#endif
+
+// 传入宽高进行比较
+#ifndef SCREEN_EQUAL
+#define SCREEN_EQUAL(_width_, _height_) (CGSizeEqualToSize(CGSizeMake(_width_, _height_), [UIScreen mainScreen].currentMode.size) || CGSizeEqualToSize(CGSizeMake(_height_, _width_), [UIScreen mainScreen].currentMode.size))
 #endif
 
 @interface UIScreen (YPKit)

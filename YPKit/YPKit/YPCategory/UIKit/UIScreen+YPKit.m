@@ -11,8 +11,8 @@
 @implementation UIScreen (YPKit)
 
 + (CGFloat)onePixel {
-    UIScreen* mainScreen = [UIScreen mainScreen];
-    if ([mainScreen respondsToSelector:@selector(nativeScale)]) {
+    UIScreen *mainScreen = [UIScreen mainScreen];
+    if (@available(iOS 8.0, *)) {
         return 1.0f / mainScreen.nativeScale;
     } else {
         return 1.0f / mainScreen.scale;

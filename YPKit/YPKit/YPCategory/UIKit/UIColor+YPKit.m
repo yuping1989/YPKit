@@ -8,11 +8,11 @@
 
 #import "UIColor+YPKit.h"
 
-@interface NSString (SAMPrivateAdditions)
+@interface NSString (YPKitPrivateAdditions)
 - (NSUInteger)yp_hexValue;
 @end
 
-@implementation NSString (SAMPrivateAdditions)
+@implementation NSString (YPKitPrivateAdditions)
 - (NSUInteger)yp_hexValue {
     NSUInteger result = 0;
     sscanf([self UTF8String], "%lx", (unsigned long *)&result);

@@ -59,7 +59,7 @@ screen_height -= 20; \
 
 // iPhone X系列
 #ifndef IPHONE_X_SERIES
-#define IPHONE_X_SERIES (IPHONE_X || IPHONE_XR || IPHONE_XS_MAX || IPHONE_XR_BIG_MODE ||  IPHONE_12_MINI || IPHONE_12 || IPHONE_12_PRO_MAX)
+#define IPHONE_X_SERIES F_GREATER_THAN(SAFE_BOTTOM_MARGIN, 0)
 #endif
 
 // Status bar height.
@@ -79,7 +79,7 @@ screen_height -= 20; \
 
 // Tabbar safe bottom margin.
 #ifndef SAFE_BOTTOM_MARGIN
-#define SAFE_BOTTOM_MARGIN (IPHONE_X_SERIES ? 34.0f : 0.0f)
+#define SAFE_BOTTOM_MARGIN [UIScreen safeAreaInsets].bottom
 #endif
 
 // 一个像素的宽度
@@ -97,7 +97,9 @@ screen_height -= 20; \
 // 返回一个像素的宽度
 + (CGFloat)onePixel;
 
-// 返回状态栏高度
+// 状态栏高度
 + (CGFloat)statusBarHeight;
+
++ (UIEdgeInsets)safeAreaInsets;
 
 @end

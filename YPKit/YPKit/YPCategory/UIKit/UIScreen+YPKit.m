@@ -28,4 +28,18 @@
     return height;
 }
 
++ (UIEdgeInsets)safeAreaInsets {
+    static UIEdgeInsets insets;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (@available(iOS 11.0, *)) {
+            UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            insets = window.safeAreaInsets;
+        } else {
+            insets = UIEdgeInsetsZero;
+        }
+    });
+    return insets;
+}
+
 @end

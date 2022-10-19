@@ -96,8 +96,12 @@ YP_USER_DEFAULTS_PROPERTY_DOUBLE(price, setPrice, @"udPrice")
     
 //    [UIApplication sharedApplication].statusBarHidden = YES;
     
-    NSLog(@"STATUSBAR_HEIGHT--->%f", STATUSBAR_HEIGHT);
     
+    NSLog(@"STATUSBAR_HEIGHT--->%f", STATUSBAR_HEIGHT);
+    NSLog(@"SAFE_BOTTOM_MARGIN--->%f", SAFE_BOTTOM_MARGIN);
+    NSLog(@"safeAreaInsets--->%@", NSStringFromUIEdgeInsets([UIScreen safeAreaInsets]));
+    
+    NSLog(@"screen size--->%@", NSStringFromCGSize([UIScreen mainScreen].bounds.size));
     
     [self setKeyboardShowBlock:^(NSNotification * _Nonnull noti, CGRect rect, CGFloat duration) {
         NSLog(@"show-->%@", NSStringFromCGRect(rect));

@@ -48,6 +48,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIWindow *)mainWindow;
 
 /**
+ *  最上面的window
+ */
++ (UIWindow *)lastWindow;
+
+/**
  *  判断程序是否为从AppStore安装
  */
 + (BOOL)isPirated;

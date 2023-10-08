@@ -110,6 +110,7 @@
                                 @"Watch6,16" : @"Apple Watch Series 8",
                                 @"Watch6,17" : @"Apple Watch Series 8",
                                 @"Watch6,18" : @"Apple Watch Ultra",
+                                @"Watch7,5" : @"Apple Watch Ultra 2",
                                 
                                 @"iPad1,1" : @"iPad 1",
                                 @"iPad2,1" : @"iPad 2 (WiFi)",
@@ -176,6 +177,10 @@
                                 @"iPad13,9" : @"iPad Pro (12.9-inch) (5th generation)",
                                 @"iPad13,10" : @"iPad Pro (12.9-inch) (5th generation)",
                                 @"iPad13,11" : @"iPad Pro (12.9-inch) (5th generation)",
+                                @"iPad14,3" : @"iPad Pro (11-inch) (6th generation)",
+                                @"iPad14,4" : @"iPad Pro (11-inch) (6th generation)",
+                                @"iPad14,5" : @"iPad Pro (12.9-inch) (6th generation)",
+                                @"iPad14,6" : @"iPad Pro (12.9-inch) (6th generation)",
                                 
                                 @"iPad4,4" : @"iPad mini 2",
                                 @"iPad4,5" : @"iPad mini 2",
@@ -237,6 +242,9 @@
                                 @"iPhone14,8" : @"iPhone 14 Plus",
                                 @"iPhone15,2" : @"iPhone 14 Pro",
                                 @"iPhone15,3" : @"iPhone 14 Pro Max",
+                                @"iPhone15,5" : @"iPhone 15 Plus",
+                                @"iPhone16,1" : @"iPhone 15 Pro",
+                                @"iPhone16,2" : @"iPhone 15 Pro Max",
                                 
                                 @"iPod1,1" : @"iPod touch 1",
                                 @"iPod2,1" : @"iPod touch 2",

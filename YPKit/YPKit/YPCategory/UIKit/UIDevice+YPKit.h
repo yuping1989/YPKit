@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSString *yp_machineModel;
 
 // 设备型号名称，例如："iPhone 5s" "iPad mini 2"
-// @see http://theiphonewiki.com/wiki/Models
+// @see https://theapplewiki.com/wiki/Models
 @property (nonatomic, readonly) NSString *yp_machineModelName;
 
 #pragma mark - Disk Space

@@ -7,6 +7,7 @@
 //
 
 #import "UIScreen+YPKit.h"
+#import "UIApplication+YPKit.h"
 
 @implementation UIScreen (YPKit)
 
@@ -33,8 +34,10 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (@available(iOS 11.0, *)) {
-            UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-            insets = window.safeAreaInsets;
+            // 修复启动时，安全区域不对问题
+//            UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//            insets = window.safeAreaInsets;
+            insets = [UIApplication mainWindow].safeAreaInsets;
         } else {
             insets = UIEdgeInsetsZero;
         }
